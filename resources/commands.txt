@@ -1,0 +1,33 @@
+
+
+
+adb devices
+
+adb shell
+
+run-as site.thomasberghuis.noteboat
+
+cd /data/user/0/site.thomasberghuis.noteboat/databases
+
+sqlite3 noteboatv2.db
+
+select * from note order by modified_epoch desc;
+select * from option;
+.exit
+rm noteboatv2.db
+
+.schema note
+
+adb shell "run-as site.thomasberghuis.noteboat cat /data/user/0/site.thomasberghuis.noteboat/app_flutter/notes.db" > flutter_notes.db
+
+
+##############
+migration
+##########
+
+mkdir app_flutter ...
+
+update option set option_value = 'true' where option_key = 'run_legacy_migration';
+
+
+adb shell "run-as site.thomasberghuis.noteboat cat /data/user/0/site.thomasberghuis.noteboat/databases/noteboatv2.db" > app/src/main/assets/noteboatv2.db

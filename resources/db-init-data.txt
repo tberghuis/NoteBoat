@@ -1,0 +1,4 @@
+INSERT INTO option (option_key, option_value) VALUES( 'new_note_draft',	'');
+
+INSERT INTO option (option_key, option_value) VALUES( 'run_legacy_migration',	'true');
+

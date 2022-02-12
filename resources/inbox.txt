@@ -1,0 +1,29 @@
+
+remove internal builds play console
+
+features
+  new note app action shortcut
+  audio attachments
+  date-time heading
+  test record and transcribe same time
+  new note voice command as a separate app
+
+cull trello notes
+cull any github or issues?
+read and copy from all code in flutter app
+make accessible, label all fields, etc
+complete philip course add testing, just read his source code
+add animations
+
+print and cross off from https://github.com/jetpack-compose/jetpack-compose-awesome
+
+https://developer.android.com/codelabs/jetpack-compose-accessibility?hl=en#0
+
+future tasks
+  voice recording demo
+
+https://stackoverflow.com/questions/22463062/how-to-parse-format-dates-with-localdatetime-java-8
+
+github release
+f-droid release
+play store release, update screenshots, github repo url
