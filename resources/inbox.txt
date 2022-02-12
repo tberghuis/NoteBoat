@@ -27,3 +27,5 @@ https://stackoverflow.com/questions/22463062/how-to-parse-format-dates-with-loca
 github release
 f-droid release
 play store release, update screenshots, github repo url
+
+update dependency versions in build.gradle
