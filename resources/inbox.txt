@@ -35,3 +35,7 @@ gboard version - 13 feb
   adb shell dumpsys package com.google.android.inputmethod.latin
     versionCode=71990022 minSdk=23 targetSdk=31
     versionName=11.3.02.410497392-release-arm64-v8a
+
+
+bug with either compose or gboard
+gboard text editing copy paste not working properly
