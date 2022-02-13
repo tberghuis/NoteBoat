@@ -1,5 +1,6 @@
 package xyz.tberghuis.noteboat
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
@@ -8,8 +9,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.ui.Modifier
 import androidx.core.view.WindowCompat
+import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -106,7 +109,12 @@ class MainActivity : ComponentActivity() {
   }
 }
 
-//val LocalNavController = compositionLocalOf { NavHostController(this) }
+//val LocalNavController = compositionLocalOf { NavHostController(Context()) }
+//val LocalNavController = compositionLocalOf { Any() }
+//@Composable
+//fun getNavController(): NavHostController {
+//  return LocalNavController.current as NavHostController
+//}
 
 @Composable
 fun MainApp() {
