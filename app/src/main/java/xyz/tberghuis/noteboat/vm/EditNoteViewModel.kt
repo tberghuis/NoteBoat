@@ -19,7 +19,7 @@ class EditNoteViewModel @Inject constructor(
 ) : ViewModel() {
   val noteId: Int = savedStateHandle.get<Int>("noteId")!!
 
-  val noteText: Flow<String>
+  val noteText: Flow<String?>
     get() = noteDao.getNote(noteId)
       .mapNotNull {
         it?.noteText

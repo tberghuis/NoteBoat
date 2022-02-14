@@ -13,6 +13,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.google.accompanist.insets.navigationBarsWithImePadding
 import com.google.accompanist.insets.statusBarsPadding
+import kotlinx.coroutines.flow.map
 import xyz.tberghuis.noteboat.vm.EditNoteViewModel
 
 @Composable
@@ -94,15 +95,17 @@ fun EditNoteTopBar(
 fun EditNoteContent(
   viewModel: EditNoteViewModel = hiltViewModel(),
 ) {
-  //  val initialNoteText: String? = null
-  val noteTextState = viewModel.noteText.collectAsState(initial = "")
+  val noteTextState = viewModel.noteText.collectAsState(initial = null)
   Column {
-    TextField(
-      value = noteTextState.value,
-      onValueChange = { viewModel.updateNote(it) },
-      modifier = Modifier
-        .navigationBarsWithImePadding()
-        .fillMaxSize()
-    )
+    // only display textfield when data is loaded from db
+    if (noteTextState.value != null) {
+      TextField(
+        value = noteTextState.value!!,
+        onValueChange = { viewModel.updateNote(it) },
+        modifier = Modifier
+          .navigationBarsWithImePadding()
+          .fillMaxSize()
+      )
+    }
   }
 }
