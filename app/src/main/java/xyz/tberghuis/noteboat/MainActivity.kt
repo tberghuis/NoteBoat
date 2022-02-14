@@ -109,7 +109,6 @@ class MainActivity : ComponentActivity() {
   }
 }
 
-//val LocalNavController = compositionLocalOf { NavHostController(Context()) }
 //val LocalNavController = compositionLocalOf { Any() }
 //@Composable
 //fun getNavController(): NavHostController {
