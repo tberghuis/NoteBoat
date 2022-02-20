@@ -2,11 +2,20 @@ implement new note
 
 FAB
 
-add bottom padding text field
+add bottom padding text field, so text scroll clear FAB
 
 implement edit note
 
 FAB icons
+
+fix UI/UX request recording permissions
+
+no permission still allow to use app with feature removed
+add toggle recording permission to settings page
+
+hide disable IME when transcribing
+
+viewmodel implement ITranscribeViewModel, use in SpeechController
 
 ###################
 testing doc...

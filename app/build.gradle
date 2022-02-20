@@ -89,5 +89,6 @@ dependencies {
 
     implementation "com.google.accompanist:accompanist-insets:0.23.0"
     implementation "com.google.accompanist:accompanist-insets-ui:0.23.0"
+    implementation "com.google.accompanist:accompanist-permissions:0.23.0"
 
 }
