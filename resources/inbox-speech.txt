@@ -2,6 +2,8 @@ implement new note
 
 FAB
 
+add bottom padding text field
+
 implement edit note
 
 FAB icons
