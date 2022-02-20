@@ -18,11 +18,14 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.text.TextRange
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.core.content.ContextCompat
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.google.accompanist.insets.navigationBarsWithImePadding
 import com.google.accompanist.insets.statusBarsPadding
+import kotlinx.coroutines.launch
 import xyz.tberghuis.noteboat.controller.SpeechController
 import xyz.tberghuis.noteboat.vm.NewNoteViewModel
 import xyz.tberghuis.noteboat.vm.TranscribingState
@@ -55,6 +58,10 @@ fun NewNoteScreen(
   }
 
   val onCancel: () -> Unit = {
+    scope.launch {
+      viewModel.transcribingStateFlow.emit(TranscribingState.NOT_TRANSCRIBING)
+    }
+    viewModel.noteTextFieldValue = TextFieldValue()
     viewModel.updateNewNoteDraft("")
     navController.navigateUp()
   }
@@ -152,15 +159,26 @@ fun NewNoteContent(
 ) {
   val focusRequester = remember { FocusRequester() }
 
+  val transcribing = viewModel.transcribingStateFlow.collectAsState()
+
+  val onValueChange by derivedStateOf<(TextFieldValue) -> Unit> {
+    // replace with when when i learn more kotlin
+    if (transcribing.value == TranscribingState.NOT_TRANSCRIBING) {
+      return@derivedStateOf {
+        viewModel.updateNewNoteDraft(it.text)
+        viewModel.noteTextFieldValue = it
+      }
+    }
+    { }
+  }
+
+
+
   Column {
     TextField(
       value = viewModel.noteTextFieldValue,
-      onValueChange = {
-        // todo call ITextFieldViewModel.onValueChange
-        // do nothing when TRANSCRIBING
-        viewModel.updateNewNoteDraft(it.text)
-        viewModel.noteTextFieldValue = it
-      },
+      // todo call ITextFieldViewModel.onValueChange
+      onValueChange = onValueChange,
       modifier = Modifier
         .focusRequester(focusRequester)
         .navigationBarsWithImePadding()
@@ -172,3 +190,53 @@ fun NewNoteContent(
     focusRequester.requestFocus()
   }
 }
+
+fun appendAtCursor(tfv: TextFieldValue, result: String): TextFieldValue {
+  if (result.isNotEmpty()) {
+    val selectionStart = tfv.selection.start
+    val text = "${
+      tfv.text.substring(
+        0,
+        selectionStart
+      )
+    } $result ${tfv.text.substring(selectionStart)}"
+    val newCursorPos = selectionStart + result.length + 2
+    val textRange = TextRange(newCursorPos, newCursorPos)
+//        vm.textFieldValue = vm.textFieldValue.copy(text, textRange)
+    return TextFieldValue(text, textRange)
+  }
+  return tfv
+}
+
+
+//@Composable
+//fun NewNoteContent(
+//  // todo pass in ITextFieldViewModel
+//  viewModel: NewNoteViewModel = hiltViewModel(),
+//) {
+//  val focusRequester = remember { FocusRequester() }
+//
+//  Column {
+//    TextField(
+//      value = viewModel.noteTextFieldValue,
+//      onValueChange = {
+//        // todo call ITextFieldViewModel.onValueChange
+//        // do nothing when TRANSCRIBING
+//        viewModel.updateNewNoteDraft(it.text)
+//        viewModel.noteTextFieldValue = it
+//      },
+//      modifier = Modifier
+//        .focusRequester(focusRequester)
+//        .navigationBarsWithImePadding()
+//        .fillMaxSize()
+//    )
+//  }
+//
+//  LaunchedEffect(Unit) {
+//    focusRequester.requestFocus()
+//  }
+//}
+
+
+
+

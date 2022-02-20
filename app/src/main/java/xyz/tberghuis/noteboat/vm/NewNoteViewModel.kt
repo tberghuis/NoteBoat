@@ -26,6 +26,9 @@ class NewNoteViewModel @Inject constructor(
 ) : ViewModel() {
 
   // if i was pedantic i could use null for initial
+
+//  var partialResult by mutableStateOf("")
+//  var baseTextFieldValue = TextFieldValue()
   var noteTextFieldValue by mutableStateOf(TextFieldValue())
 
   val transcribingStateFlow = MutableStateFlow(TranscribingState.NOT_TRANSCRIBING)
@@ -35,11 +38,14 @@ class NewNoteViewModel @Inject constructor(
       val newNoteDraft = withContext(Dispatchers.IO) {
         optionDao.getOption("new_note_draft")
       }
+//      baseTextFieldValue = TextFieldValue(newNoteDraft)
       noteTextFieldValue = TextFieldValue(newNoteDraft)
     }
   }
 
   fun updateNewNoteDraft(newNoteDraft: String) {
+    // update tfv from here instead of from screen
+
     viewModelScope.launch {
       optionDao.updateOption("new_note_draft", newNoteDraft)
     }

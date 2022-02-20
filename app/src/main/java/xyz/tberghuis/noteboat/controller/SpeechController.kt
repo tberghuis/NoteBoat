@@ -21,7 +21,7 @@ import xyz.tberghuis.noteboat.vm.NewNoteViewModel
 import xyz.tberghuis.noteboat.vm.TranscribingState
 import java.util.*
 import kotlinx.coroutines.flow.collect
-
+import xyz.tberghuis.noteboat.screen.appendAtCursor
 
 
 // TODO, VM creates this with appContext and passes in callbacks
@@ -94,35 +94,39 @@ class SpeechController(
   // do it basic to start
   private fun collectResults() {
 
-    fun appendAtCursor(result: String): TextFieldValue {
-      if (result.isNotEmpty()) {
-        val selectionStart = baseTextFieldValue.selection.start
-        val text = "${
-          baseTextFieldValue.text.substring(
-            0,
-            selectionStart
-          )
-        } $result ${baseTextFieldValue.text.substring(selectionStart)}"
-        val newCursorPos = selectionStart + result.length + 2
-        val textRange = TextRange(newCursorPos, newCursorPos)
-//        vm.textFieldValue = vm.textFieldValue.copy(text, textRange)
-        return TextFieldValue(text, textRange)
-      }
-      return baseTextFieldValue
-    }
+//    fun appendAtCursor(result: String): TextFieldValue {
+//      if (result.isNotEmpty()) {
+//        val selectionStart = baseTextFieldValue.selection.start
+//        val text = "${
+//          baseTextFieldValue.text.substring(
+//            0,
+//            selectionStart
+//          )
+//        } $result ${baseTextFieldValue.text.substring(selectionStart)}"
+//        val newCursorPos = selectionStart + result.length + 2
+//        val textRange = TextRange(newCursorPos, newCursorPos)
+////        vm.textFieldValue = vm.textFieldValue.copy(text, textRange)
+//        return TextFieldValue(text, textRange)
+//      }
+//      return baseTextFieldValue
+//    }
 
     scope.launch {
       partialResultsFlow.collect {
         // call ITextFieldViewModel.receiveSpeechPartialResult
-        vm.noteTextFieldValue = appendAtCursor(it)
+        // vm.noteTextFieldValue = appendAtCursor(it)
+        vm.noteTextFieldValue = appendAtCursor(baseTextFieldValue, it)
       }
     }
     scope.launch {
       resultsFlow.collect {
-        // the order of assignment is pedantic
-        baseTextFieldValue = appendAtCursor(it)
-        // call ITextFieldViewModel.receiveSpeechResult
-        vm.updateNewNoteDraft(baseTextFieldValue.text)
+//        // the order of assignment is pedantic
+//        baseTextFieldValue = appendAtCursor(it)
+//        // call ITextFieldViewModel.receiveSpeechResult
+//        vm.updateNewNoteDraft(baseTextFieldValue.text)
+//        vm.noteTextFieldValue = baseTextFieldValue
+//        vm.partialResult = ""
+        baseTextFieldValue = appendAtCursor(baseTextFieldValue, it)
         vm.noteTextFieldValue = baseTextFieldValue
       }
     }
