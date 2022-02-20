@@ -108,6 +108,7 @@ class SpeechController(
 
     scope.launch {
       partialResultsFlow.collect {
+        // call ITextFieldViewModel.receiveSpeechPartialResult
         vm.noteTextFieldValue = appendAtCursor(it)
       }
     }
@@ -115,6 +116,8 @@ class SpeechController(
       resultsFlow.collect {
         // the order of assignment is pedantic
         baseTextFieldValue = appendAtCursor(it)
+        // call ITextFieldViewModel.receiveSpeechResult
+        vm.updateNewNoteDraft(baseTextFieldValue.text)
         vm.noteTextFieldValue = baseTextFieldValue
       }
     }

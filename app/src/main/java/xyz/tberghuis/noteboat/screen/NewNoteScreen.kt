@@ -146,6 +146,7 @@ fun NewNoteTopBar(
 
 @Composable
 fun NewNoteContent(
+  // todo pass in ITextFieldViewModel
   viewModel: NewNoteViewModel = hiltViewModel(),
 ) {
   val focusRequester = remember { FocusRequester() }
@@ -154,6 +155,8 @@ fun NewNoteContent(
     TextField(
       value = viewModel.noteTextFieldValue,
       onValueChange = {
+        // todo call ITextFieldViewModel.onValueChange
+        // do nothing when TRANSCRIBING
         viewModel.updateNewNoteDraft(it.text)
         viewModel.noteTextFieldValue = it
       },

@@ -16,6 +16,7 @@ add toggle recording permission to settings page
 hide disable IME when transcribing
 
 viewmodel implement ITranscribeViewModel, use in SpeechController
+ITranscribeViewModel will need updateDb method
 
 ###################
 testing doc...
