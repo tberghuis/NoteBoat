@@ -86,9 +86,7 @@ dependencies {
     // https://github.com/Kotlin/kotlinx-datetime
     implementation "org.jetbrains.kotlinx:kotlinx-datetime:0.3.2"
 
-
     implementation "com.google.accompanist:accompanist-insets:0.23.0"
     implementation "com.google.accompanist:accompanist-insets-ui:0.23.0"
-    implementation "com.google.accompanist:accompanist-permissions:0.23.0"
 
 }
