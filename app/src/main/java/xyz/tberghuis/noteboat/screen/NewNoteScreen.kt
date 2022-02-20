@@ -11,6 +11,7 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
@@ -19,6 +20,7 @@ import com.google.accompanist.insets.navigationBarsPadding
 import com.google.accompanist.insets.navigationBarsWithImePadding
 import com.google.accompanist.insets.statusBarsPadding
 import kotlinx.coroutines.flow.collect
+import xyz.tberghuis.noteboat.controller.SpeechController
 import xyz.tberghuis.noteboat.vm.NewNoteViewModel
 import xyz.tberghuis.noteboat.vm.TranscribingState
 
@@ -29,6 +31,13 @@ fun NewNoteScreen(
   viewModel: NewNoteViewModel = hiltViewModel(),
 ) {
   val scaffoldState = rememberScaffoldState()
+  val context = LocalContext.current
+  val scope = rememberCoroutineScope()
+
+  val speechController = remember {
+    SpeechController(context, viewModel, scope)
+  }
+
 
   val onComplete: () -> Unit = {
     if (viewModel.noteTextFieldValue.text.trim().isEmpty()) {
