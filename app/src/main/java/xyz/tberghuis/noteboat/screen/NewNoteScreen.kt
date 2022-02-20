@@ -1,6 +1,11 @@
 package xyz.tberghuis.noteboat.screen
 
+import android.Manifest
+import android.content.pm.PackageManager
+import android.util.Log
 import androidx.activity.compose.BackHandler
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.*
@@ -13,18 +18,24 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.core.content.ContextCompat
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.google.accompanist.insets.imePadding
 import com.google.accompanist.insets.navigationBarsPadding
 import com.google.accompanist.insets.navigationBarsWithImePadding
 import com.google.accompanist.insets.statusBarsPadding
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
+import com.google.accompanist.permissions.PermissionRequired
+import com.google.accompanist.permissions.rememberPermissionState
 import kotlinx.coroutines.flow.collect
 import xyz.tberghuis.noteboat.controller.SpeechController
 import xyz.tberghuis.noteboat.vm.NewNoteViewModel
 import xyz.tberghuis.noteboat.vm.TranscribingState
 
-@OptIn(ExperimentalComposeUiApi::class)
+@OptIn(
+  ExperimentalComposeUiApi::class,
+)
 @Composable
 fun NewNoteScreen(
   navController: NavHostController,
@@ -37,7 +48,6 @@ fun NewNoteScreen(
   val speechController = remember {
     SpeechController(context, viewModel, scope)
   }
-
 
   val onComplete: () -> Unit = {
     if (viewModel.noteTextFieldValue.text.trim().isEmpty()) {
@@ -58,36 +68,62 @@ fun NewNoteScreen(
     onComplete()
   }
 
-  val keyboardController = LocalSoftwareKeyboardController.current
-  val transcribingState = viewModel.transcribingStateFlow.collectAsState()
-
-  var fabOnClick = {
-    keyboardController?.hide()
-    viewModel.transcribingStateFlow.value = TranscribingState.TRANSCRIBING
-  }
-  var fabIcon = @Composable { Icon(Icons.Filled.Mic, "speech input") }
-  if (transcribingState.value == TranscribingState.TRANSCRIBING) {
-    fabOnClick = {
-      viewModel.transcribingStateFlow.value = TranscribingState.NOT_TRANSCRIBING
-    }
-    fabIcon = @Composable { Icon(Icons.Filled.MicOff, "stop speech input") }
-  }
-
   Scaffold(
     scaffoldState = scaffoldState,
     topBar = { NewNoteTopBar(onComplete = onComplete, onCancel = onCancel) },
     content = { NewNoteContent() },
     floatingActionButtonPosition = FabPosition.End,
     floatingActionButton = {
-      FloatingActionButton(
-        modifier = Modifier.navigationBarsWithImePadding(),
-        onClick = fabOnClick
-      ) {
-        fabIcon()
-      }
+      TranscribeFloatingActionButton()
     },
   )
 }
+
+@OptIn(ExperimentalPermissionsApi::class, ExperimentalComposeUiApi::class)
+@Composable
+fun TranscribeFloatingActionButton() {
+  val viewModel: NewNoteViewModel = hiltViewModel()
+  val keyboardController = LocalSoftwareKeyboardController.current
+  val transcribingState = viewModel.transcribingStateFlow.collectAsState()
+  val context = LocalContext.current
+
+  val launcher = rememberLauncherForActivityResult(
+    ActivityResultContracts.RequestPermission()
+  ) {}
+
+  var fabOnClick: () -> Unit = {
+    Log.d("xxx", "fabOnClick NOT_TRANSCRIBING")
+    when (PackageManager.PERMISSION_GRANTED) {
+      ContextCompat.checkSelfPermission(
+        context,
+        Manifest.permission.RECORD_AUDIO
+      ) -> {
+        keyboardController?.hide()
+        viewModel.transcribingStateFlow.value = TranscribingState.TRANSCRIBING
+      }
+      else -> {
+        launcher.launch(Manifest.permission.RECORD_AUDIO)
+      }
+    }
+  }
+
+  var fabIcon = @Composable { Icon(Icons.Filled.Mic, "speech input") }
+  if (transcribingState.value == TranscribingState.TRANSCRIBING) {
+
+    fabOnClick = {
+      viewModel.transcribingStateFlow.value = TranscribingState.NOT_TRANSCRIBING
+    }
+    fabIcon = @Composable { Icon(Icons.Filled.MicOff, "stop speech input") }
+  }
+
+  FloatingActionButton(
+    modifier = Modifier.navigationBarsWithImePadding(),
+    onClick = fabOnClick
+  ) {
+    fabIcon()
+  }
+}
+
 
 @Composable
 fun NewNoteTopBar(
