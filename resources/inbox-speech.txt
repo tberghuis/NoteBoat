@@ -18,6 +18,8 @@ hide disable IME when transcribing
 viewmodel implement ITranscribeViewModel, use in SpeechController
 ITranscribeViewModel will need updateDb method
 
+https://kotlinlang.org/docs/interfaces.html#0
+
 ###################
 testing doc...
 
