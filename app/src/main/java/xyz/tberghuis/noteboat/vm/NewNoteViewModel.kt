@@ -1,11 +1,17 @@
 package xyz.tberghuis.noteboat.vm
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import kotlinx.datetime.Clock
 import xyz.tberghuis.noteboat.data.Note
 import xyz.tberghuis.noteboat.data.NoteDao
@@ -18,10 +24,16 @@ class NewNoteViewModel @Inject constructor(
   private val optionDao: OptionDao,
 ) : ViewModel() {
 
-  val newNoteDraft: Flow<String>
-    get() = optionDao.getOptionFlow("new_note_draft").map {
-      it.optionValue
+  var noteTextFieldValue by mutableStateOf(TextFieldValue())
+
+  init {
+    viewModelScope.launch {
+      val newNoteDraft = withContext(Dispatchers.IO) {
+        optionDao.getOption("new_note_draft")
+      }
+      noteTextFieldValue = TextFieldValue(newNoteDraft)
     }
+  }
 
   fun updateNewNoteDraft(newNoteDraft: String) {
     viewModelScope.launch {
@@ -29,10 +41,7 @@ class NewNoteViewModel @Inject constructor(
     }
   }
 
-
   fun saveNewNote(newNote: String) {
-
-
     // todo check trim newNoteText is not empty
     viewModelScope.launch {
       // todo epoch is that the right term???
@@ -41,6 +50,4 @@ class NewNoteViewModel @Inject constructor(
       optionDao.updateOption("new_note_draft", "")
     }
   }
-
-
 }

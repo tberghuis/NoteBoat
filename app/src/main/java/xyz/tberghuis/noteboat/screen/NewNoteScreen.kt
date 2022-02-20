@@ -17,6 +17,7 @@ import androidx.navigation.NavHostController
 import com.google.accompanist.insets.imePadding
 import com.google.accompanist.insets.navigationBarsWithImePadding
 import com.google.accompanist.insets.statusBarsPadding
+import kotlinx.coroutines.flow.collect
 import xyz.tberghuis.noteboat.vm.NewNoteViewModel
 
 @Composable
@@ -26,19 +27,12 @@ fun NewNoteScreen(
 ) {
   val scaffoldState = rememberScaffoldState()
 
-  // is there a simple way to be loading until draft is loaded from db? meh
-  val newNoteDraftState = viewModel.newNoteDraft.collectAsState(initial = "")
-
-//  if (newNoteDraftState.value == null) {
-//    return
-//  }
-
   val onComplete: () -> Unit = {
-    if (newNoteDraftState.value.trim().isEmpty()) {
+    if (viewModel.noteTextFieldValue.text.trim().isEmpty()) {
       viewModel.updateNewNoteDraft("")
     } else {
       // theoretically possible to overwrite db if press back before data loads
-      viewModel.saveNewNote(newNoteDraftState.value)
+      viewModel.saveNewNote(viewModel.noteTextFieldValue.text)
     }
     navController.navigateUp()
   }
@@ -55,10 +49,9 @@ fun NewNoteScreen(
   Scaffold(
     scaffoldState = scaffoldState,
     topBar = { NewNoteTopBar(onComplete = onComplete, onCancel = onCancel) },
-    content = { NewNoteContent(newNoteDraft = newNoteDraftState.value) },
+    content = { NewNoteContent() },
   )
 }
-
 
 @Composable
 fun NewNoteTopBar(
@@ -88,15 +81,16 @@ fun NewNoteTopBar(
 @Composable
 fun NewNoteContent(
   viewModel: NewNoteViewModel = hiltViewModel(),
-  newNoteDraft: String
 ) {
   val focusRequester = remember { FocusRequester() }
 
   Column {
     TextField(
-      value = newNoteDraft,
-      onValueChange = { viewModel.updateNewNoteDraft(it) },
-//      label = { Text("new note...") },
+      value = viewModel.noteTextFieldValue,
+      onValueChange = {
+        viewModel.updateNewNoteDraft(it.text)
+        viewModel.noteTextFieldValue = it
+      },
       modifier = Modifier
         .focusRequester(focusRequester)
         .navigationBarsWithImePadding()
