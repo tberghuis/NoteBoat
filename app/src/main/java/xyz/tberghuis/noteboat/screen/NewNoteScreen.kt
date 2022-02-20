@@ -7,9 +7,11 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.google.accompanist.insets.imePadding
@@ -18,7 +20,9 @@ import com.google.accompanist.insets.navigationBarsWithImePadding
 import com.google.accompanist.insets.statusBarsPadding
 import kotlinx.coroutines.flow.collect
 import xyz.tberghuis.noteboat.vm.NewNoteViewModel
+import xyz.tberghuis.noteboat.vm.TranscribingState
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun NewNoteScreen(
   navController: NavHostController,
@@ -45,6 +49,21 @@ fun NewNoteScreen(
     onComplete()
   }
 
+  val keyboardController = LocalSoftwareKeyboardController.current
+  val transcribingState = viewModel.transcribingStateFlow.collectAsState()
+
+  var fabOnClick = {
+    keyboardController?.hide()
+    viewModel.transcribingStateFlow.value = TranscribingState.TRANSCRIBING
+  }
+  var fabIcon = @Composable { Icon(Icons.Filled.Mic, "speech input") }
+  if (transcribingState.value == TranscribingState.TRANSCRIBING) {
+    fabOnClick = {
+      viewModel.transcribingStateFlow.value = TranscribingState.NOT_TRANSCRIBING
+    }
+    fabIcon = @Composable { Icon(Icons.Filled.MicOff, "stop speech input") }
+  }
+
   Scaffold(
     scaffoldState = scaffoldState,
     topBar = { NewNoteTopBar(onComplete = onComplete, onCancel = onCancel) },
@@ -53,10 +72,9 @@ fun NewNoteScreen(
     floatingActionButton = {
       FloatingActionButton(
         modifier = Modifier.navigationBarsWithImePadding(),
-        onClick = {
-
-        }) {
-        Icon(Icons.Filled.Mic, "speech input")
+        onClick = fabOnClick
+      ) {
+        fabIcon()
       }
     },
   )

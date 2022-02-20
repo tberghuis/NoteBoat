@@ -9,6 +9,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -24,7 +25,10 @@ class NewNoteViewModel @Inject constructor(
   private val optionDao: OptionDao,
 ) : ViewModel() {
 
+  // if i was pedantic i could use null for initial
   var noteTextFieldValue by mutableStateOf(TextFieldValue())
+
+  val transcribingStateFlow = MutableStateFlow(TranscribingState.NOT_TRANSCRIBING)
 
   init {
     viewModelScope.launch {
@@ -50,4 +54,9 @@ class NewNoteViewModel @Inject constructor(
       optionDao.updateOption("new_note_draft", "")
     }
   }
+}
+
+
+enum class TranscribingState {
+  TRANSCRIBING, NOT_TRANSCRIBING
 }
