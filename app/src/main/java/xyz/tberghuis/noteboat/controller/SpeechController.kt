@@ -22,6 +22,11 @@ import xyz.tberghuis.noteboat.vm.TranscribingState
 import java.util.*
 import kotlinx.coroutines.flow.collect
 
+
+
+// TODO, VM creates this with appContext and passes in callbacks
+// receiveResults receivePartialResults
+// also pass in transcribingStateFlow
 class SpeechController(
   context: Context,
   val vm: NewNoteViewModel,
