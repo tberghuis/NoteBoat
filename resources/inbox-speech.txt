@@ -2,3 +2,8 @@
 testing doc...
 
 rewrite with TextFieldValue and launchedeffect collect
+
+...
+update version
+push to master branch
+release play store
