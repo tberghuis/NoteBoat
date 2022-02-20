@@ -39,6 +39,7 @@ fun NewNoteScreen(
   val context = LocalContext.current
   val scope = rememberCoroutineScope()
 
+  // todo move this into effect
   val speechController = remember {
     SpeechController(context, viewModel, scope)
   }
