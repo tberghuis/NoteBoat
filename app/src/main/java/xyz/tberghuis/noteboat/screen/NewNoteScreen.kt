@@ -32,6 +32,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.NavHostController
 import com.google.accompanist.insets.navigationBarsWithImePadding
 import com.google.accompanist.insets.statusBarsPadding
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import xyz.tberghuis.noteboat.controller.SpeechController
 import xyz.tberghuis.noteboat.vm.NewNoteViewModel
@@ -88,7 +89,11 @@ fun NewNoteScreen(
   Scaffold(
     scaffoldState = scaffoldState,
     topBar = { NewNoteTopBar(onComplete = onComplete, onCancel = onCancel) },
-    content = { NewNoteContent() },
+    content = { NoteContent(
+      viewModel.transcribingStateFlow,
+      viewModel.noteTextFieldValueState,
+      viewModel::updateNewNoteDraft
+    ) },
     floatingActionButtonPosition = FabPosition.End,
     floatingActionButton = {
       TranscribeFloatingActionButton()
@@ -165,18 +170,21 @@ fun NewNoteTopBar(
 }
 
 @Composable
-fun NewNoteContent(
+fun NoteContent(
   // todo pass in ITextFieldViewModel
-  viewModel: NewNoteViewModel = hiltViewModel(),
+//  viewModel: NewNoteViewModel = hiltViewModel(),
+  transcribingStateFlow: StateFlow<TranscribingState>,
+  noteTextFieldValueState: MutableState<TextFieldValue>,
+  updateDb: (String) -> Unit
 ) {
   val focusRequester = remember { FocusRequester() }
-  val transcribing = viewModel.transcribingStateFlow.collectAsState()
+  val transcribing = transcribingStateFlow.collectAsState()
   val onValueChange by derivedStateOf<(TextFieldValue) -> Unit> {
     // replace with when when i learn more kotlin
     if (transcribing.value == TranscribingState.NOT_TRANSCRIBING) {
       return@derivedStateOf {
-        viewModel.updateNewNoteDraft(it.text)
-        viewModel.noteTextFieldValueState.value = it
+        updateDb(it.text)
+        noteTextFieldValueState.value = it
       }
     }
     { }
@@ -185,7 +193,7 @@ fun NewNoteContent(
   Column {
     Box {
       TextField(
-        value = viewModel.noteTextFieldValueState.value,
+        value = noteTextFieldValueState.value,
         // todo call ITextFieldViewModel.onValueChange
         onValueChange = onValueChange,
         modifier = Modifier
