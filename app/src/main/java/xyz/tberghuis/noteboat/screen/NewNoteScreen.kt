@@ -20,11 +20,15 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.core.content.ContextCompat
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.NavHostController
 import com.google.accompanist.insets.navigationBarsWithImePadding
 import com.google.accompanist.insets.statusBarsPadding
@@ -66,6 +70,20 @@ fun NewNoteScreen(
   BackHandler {
     onComplete()
   }
+
+  OnLifecycleEvent { owner, event ->
+    // do stuff on event
+    when (event) {
+      Lifecycle.Event.ON_PAUSE -> {
+        scope.launch {
+          viewModel.transcribingStateFlow.emit(TranscribingState.NOT_TRANSCRIBING)
+        }
+      }
+      else -> { /* other stuff */
+      }
+    }
+  }
+
 
   Scaffold(
     scaffoldState = scaffoldState,
@@ -192,3 +210,23 @@ fun NewNoteContent(
     focusRequester.requestFocus()
   }
 }
+
+
+@Composable
+fun OnLifecycleEvent(onEvent: (owner: LifecycleOwner, event: Lifecycle.Event) -> Unit) {
+  val eventHandler = rememberUpdatedState(onEvent)
+  val lifecycleOwner = rememberUpdatedState(LocalLifecycleOwner.current)
+
+  DisposableEffect(lifecycleOwner.value) {
+    val lifecycle = lifecycleOwner.value.lifecycle
+    val observer = LifecycleEventObserver { owner, event ->
+      eventHandler.value(owner, event)
+    }
+
+    lifecycle.addObserver(observer)
+    onDispose {
+      lifecycle.removeObserver(observer)
+    }
+  }
+}
+
