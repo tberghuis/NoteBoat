@@ -2,7 +2,6 @@ package xyz.tberghuis.noteboat.composable
 
 import android.Manifest
 import android.content.pm.PackageManager
-import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.material.FloatingActionButton
@@ -36,7 +35,6 @@ fun TranscribeFloatingActionButton(
   ) {}
 
   var fabOnClick: () -> Unit = {
-    Log.d("xxx", "fabOnClick NOT_TRANSCRIBING")
     when (PackageManager.PERMISSION_GRANTED) {
       ContextCompat.checkSelfPermission(
         context,

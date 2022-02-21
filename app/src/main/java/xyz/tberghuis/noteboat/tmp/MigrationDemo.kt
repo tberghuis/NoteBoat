@@ -3,7 +3,6 @@ package xyz.tberghuis.noteboat.tmp
 import android.app.Application
 import android.content.Context
 import android.os.Environment
-import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.Button
 import androidx.compose.material.Text

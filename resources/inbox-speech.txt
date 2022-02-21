@@ -1,6 +1,4 @@
 next task,
-  update gradle versions
-  remove log statements
   testing api 23 emulator
   check competitors
   release build

@@ -11,7 +11,6 @@ import android.provider.Settings
 import android.speech.RecognitionListener
 import android.speech.RecognizerIntent
 import android.speech.SpeechRecognizer
-import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.TextFieldValue
@@ -19,11 +18,11 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.launch
 import xyz.tberghuis.noteboat.vm.TranscribingState
 import java.util.*
 import kotlinx.coroutines.flow.collect
+import xyz.tberghuis.noteboat.utils.Log
 
 class SpeechController(
   private val context: Context,
@@ -165,7 +164,7 @@ fun setRecognitionListener(
       
       Log.d("xxx", "systemIsMuted $systemIsMuted")
       Log.d("xxx", "zenMode $zenMode")
-      
+
       // i could do something fancy with combining flows, meh
       try {
         if (!speechController.setMute && !systemIsMuted && zenMode == 0) {
