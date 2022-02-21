@@ -1,5 +1,6 @@
 package xyz.tberghuis.noteboat.vm
 
+import android.content.Context
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -7,6 +8,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,6 +16,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlinx.datetime.Clock
+import xyz.tberghuis.noteboat.controller.SpeechController
 import xyz.tberghuis.noteboat.data.Note
 import xyz.tberghuis.noteboat.data.NoteDao
 import xyz.tberghuis.noteboat.data.OptionDao
@@ -21,25 +24,23 @@ import javax.inject.Inject
 
 @HiltViewModel
 class NewNoteViewModel @Inject constructor(
+  @ApplicationContext appContext: Context,
   private val noteDao: NoteDao,
   private val optionDao: OptionDao,
 ) : ViewModel() {
 
   // if i was pedantic i could use null for initial
-
-//  var partialResult by mutableStateOf("")
-//  var baseTextFieldValue = TextFieldValue()
   var noteTextFieldValue by mutableStateOf(TextFieldValue())
-
   val transcribingStateFlow = MutableStateFlow(TranscribingState.NOT_TRANSCRIBING)
+  val speechController = SpeechController(appContext, this)
 
   init {
     viewModelScope.launch {
       val newNoteDraft = withContext(Dispatchers.IO) {
         optionDao.getOption("new_note_draft")
       }
-//      baseTextFieldValue = TextFieldValue(newNoteDraft)
       noteTextFieldValue = TextFieldValue(newNoteDraft)
+      speechController.run()
     }
   }
 
@@ -61,7 +62,6 @@ class NewNoteViewModel @Inject constructor(
     }
   }
 }
-
 
 enum class TranscribingState {
   TRANSCRIBING, NOT_TRANSCRIBING

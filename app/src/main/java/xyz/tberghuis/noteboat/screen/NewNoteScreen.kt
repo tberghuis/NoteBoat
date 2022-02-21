@@ -43,9 +43,9 @@ fun NewNoteScreen(
   val scope = rememberCoroutineScope()
 
   // todo move this into effect
-  val speechController = remember {
-    SpeechController(context, viewModel, scope)
-  }
+//  val speechController = remember {
+//    SpeechController(context, viewModel, scope)
+//  }
 
   val onComplete: () -> Unit = {
     if (viewModel.noteTextFieldValue.text.trim().isEmpty()) {
@@ -158,9 +158,7 @@ fun NewNoteContent(
   viewModel: NewNoteViewModel = hiltViewModel(),
 ) {
   val focusRequester = remember { FocusRequester() }
-
   val transcribing = viewModel.transcribingStateFlow.collectAsState()
-
   val onValueChange by derivedStateOf<(TextFieldValue) -> Unit> {
     // replace with when when i learn more kotlin
     if (transcribing.value == TranscribingState.NOT_TRANSCRIBING) {
@@ -171,8 +169,6 @@ fun NewNoteContent(
     }
     { }
   }
-
-
 
   Column {
     TextField(
@@ -190,53 +186,3 @@ fun NewNoteContent(
     focusRequester.requestFocus()
   }
 }
-
-fun appendAtCursor(tfv: TextFieldValue, result: String): TextFieldValue {
-  if (result.isNotEmpty()) {
-    val selectionStart = tfv.selection.start
-    val text = "${
-      tfv.text.substring(
-        0,
-        selectionStart
-      )
-    } $result ${tfv.text.substring(selectionStart)}"
-    val newCursorPos = selectionStart + result.length + 2
-    val textRange = TextRange(newCursorPos, newCursorPos)
-//        vm.textFieldValue = vm.textFieldValue.copy(text, textRange)
-    return TextFieldValue(text, textRange)
-  }
-  return tfv
-}
-
-
-//@Composable
-//fun NewNoteContent(
-//  // todo pass in ITextFieldViewModel
-//  viewModel: NewNoteViewModel = hiltViewModel(),
-//) {
-//  val focusRequester = remember { FocusRequester() }
-//
-//  Column {
-//    TextField(
-//      value = viewModel.noteTextFieldValue,
-//      onValueChange = {
-//        // todo call ITextFieldViewModel.onValueChange
-//        // do nothing when TRANSCRIBING
-//        viewModel.updateNewNoteDraft(it.text)
-//        viewModel.noteTextFieldValue = it
-//      },
-//      modifier = Modifier
-//        .focusRequester(focusRequester)
-//        .navigationBarsWithImePadding()
-//        .fillMaxSize()
-//    )
-//  }
-//
-//  LaunchedEffect(Unit) {
-//    focusRequester.requestFocus()
-//  }
-//}
-
-
-
-

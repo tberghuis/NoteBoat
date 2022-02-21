@@ -14,6 +14,7 @@ import android.util.Log
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.TextFieldValue
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.launch
@@ -21,8 +22,6 @@ import xyz.tberghuis.noteboat.vm.NewNoteViewModel
 import xyz.tberghuis.noteboat.vm.TranscribingState
 import java.util.*
 import kotlinx.coroutines.flow.collect
-import xyz.tberghuis.noteboat.screen.appendAtCursor
-
 
 // TODO, VM creates this with appContext and passes in callbacks
 // receiveResults receivePartialResults
@@ -30,7 +29,6 @@ import xyz.tberghuis.noteboat.screen.appendAtCursor
 class SpeechController(
   context: Context,
   val vm: NewNoteViewModel,
-  val scope: CoroutineScope
 ) {
 
   private val speechRecognizerIntent: Intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
@@ -54,80 +52,65 @@ class SpeechController(
     )
     speechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault())
     speechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_PARTIAL_RESULTS, true)
-    setRecognitionListener(speechRecognizer, vm, this, scope)
 
-    scope.launch {
-      vm.transcribingStateFlow.collect {
-        when (it) {
-          TranscribingState.TRANSCRIBING -> {
-            Log.d("xxx", "transcribing")
 
-            baseTextFieldValue = vm.noteTextFieldValue
+  }
 
-            startListening()
-          }
-          TranscribingState.NOT_TRANSCRIBING -> {
-            Log.d("xxx", "not transcribing")
-            stopListening()
-          }
-        }
-      }
-    }
-    scope.launch {
-      recognitionListenerEventSharedFlow.debounce {
-        if (it == RecognitionListenerEvent.ON_ERROR) {
-          100L
-        } else {
-          0L
-        }
-      }.collect {
-        when (it) {
-          RecognitionListenerEvent.ON_ERROR, RecognitionListenerEvent.ON_RESULTS -> {
-            continueListening()
+  suspend fun run() {
+    coroutineScope {
+      setRecognitionListener(speechRecognizer, this@SpeechController, this)
+      launch {
+        vm.transcribingStateFlow.collect {
+          when (it) {
+            TranscribingState.TRANSCRIBING -> {
+              Log.d("xxx", "transcribing")
+
+              baseTextFieldValue = vm.noteTextFieldValue
+
+              startListening()
+            }
+            TranscribingState.NOT_TRANSCRIBING -> {
+              Log.d("xxx", "not transcribing")
+              stopListening()
+            }
           }
         }
       }
+      launch {
+        recognitionListenerEventSharedFlow.debounce {
+          if (it == RecognitionListenerEvent.ON_ERROR) {
+            100L
+          } else {
+            0L
+          }
+        }.collect {
+          when (it) {
+            RecognitionListenerEvent.ON_ERROR, RecognitionListenerEvent.ON_RESULTS -> {
+              continueListening()
+            }
+          }
+        }
+      }
+      collectResults()
     }
-    collectResults()
+
   }
 
   // do it basic to start
-  private fun collectResults() {
-
-//    fun appendAtCursor(result: String): TextFieldValue {
-//      if (result.isNotEmpty()) {
-//        val selectionStart = baseTextFieldValue.selection.start
-//        val text = "${
-//          baseTextFieldValue.text.substring(
-//            0,
-//            selectionStart
-//          )
-//        } $result ${baseTextFieldValue.text.substring(selectionStart)}"
-//        val newCursorPos = selectionStart + result.length + 2
-//        val textRange = TextRange(newCursorPos, newCursorPos)
-////        vm.textFieldValue = vm.textFieldValue.copy(text, textRange)
-//        return TextFieldValue(text, textRange)
-//      }
-//      return baseTextFieldValue
-//    }
-
-    scope.launch {
-      partialResultsFlow.collect {
-        // call ITextFieldViewModel.receiveSpeechPartialResult
-        // vm.noteTextFieldValue = appendAtCursor(it)
-        vm.noteTextFieldValue = appendAtCursor(baseTextFieldValue, it)
+  private suspend fun collectResults() {
+    coroutineScope {
+      launch {
+        partialResultsFlow.collect {
+          // call ITextFieldViewModel.receiveSpeechPartialResult
+          // run callback
+          vm.noteTextFieldValue = appendAtCursor(baseTextFieldValue, it)
+        }
       }
-    }
-    scope.launch {
-      resultsFlow.collect {
-//        // the order of assignment is pedantic
-//        baseTextFieldValue = appendAtCursor(it)
-//        // call ITextFieldViewModel.receiveSpeechResult
-//        vm.updateNewNoteDraft(baseTextFieldValue.text)
-//        vm.noteTextFieldValue = baseTextFieldValue
-//        vm.partialResult = ""
-        baseTextFieldValue = appendAtCursor(baseTextFieldValue, it)
-        vm.noteTextFieldValue = baseTextFieldValue
+      launch {
+        resultsFlow.collect {
+          baseTextFieldValue = appendAtCursor(baseTextFieldValue, it)
+          vm.noteTextFieldValue = baseTextFieldValue
+        }
       }
     }
   }
@@ -152,21 +135,21 @@ class SpeechController(
     }
   }
 
-  fun emitRecognitionListenerEvent(e: RecognitionListenerEvent) {
-    scope.launch {
-      recognitionListenerEventSharedFlow.emit(e)
-    }
-  }
 
 }
 
 
 fun setRecognitionListener(
   speechRecognizer: SpeechRecognizer,
-  vm: NewNoteViewModel,
   speechController: SpeechController,
   scope: CoroutineScope
 ) {
+
+  fun emitRecognitionListenerEvent(e: RecognitionListenerEvent) {
+    scope.launch {
+      speechController.recognitionListenerEventSharedFlow.emit(e)
+    }
+  }
 
   speechRecognizer.setRecognitionListener(object : RecognitionListener {
     override fun onReadyForSpeech(p0: Bundle?) {
@@ -201,7 +184,7 @@ fun setRecognitionListener(
 
     override fun onError(p0: Int) {
       Log.d("xxx", "onError $p0 ${System.currentTimeMillis()}")
-      speechController.emitRecognitionListenerEvent(RecognitionListenerEvent.ON_ERROR)
+      emitRecognitionListenerEvent(RecognitionListenerEvent.ON_ERROR)
     }
 
     override fun onResults(p0: Bundle?) {
@@ -217,7 +200,7 @@ fun setRecognitionListener(
           }
         }
       }
-      speechController.emitRecognitionListenerEvent(RecognitionListenerEvent.ON_RESULTS)
+      emitRecognitionListenerEvent(RecognitionListenerEvent.ON_RESULTS)
     }
 
     override fun onPartialResults(p0: Bundle?) {
@@ -239,6 +222,23 @@ fun setRecognitionListener(
       Log.d("xxx", "onEvent")
     }
   })
+}
+
+fun appendAtCursor(tfv: TextFieldValue, result: String): TextFieldValue {
+  if (result.isNotEmpty()) {
+    val selectionStart = tfv.selection.start
+    val text = "${
+      tfv.text.substring(
+        0,
+        selectionStart
+      )
+    } $result ${tfv.text.substring(selectionStart)}"
+    val newCursorPos = selectionStart + result.length + 2
+    val textRange = TextRange(newCursorPos, newCursorPos)
+//        vm.textFieldValue = vm.textFieldValue.copy(text, textRange)
+    return TextFieldValue(text, textRange)
+  }
+  return tfv
 }
 
 
