@@ -35,6 +35,7 @@ import com.google.accompanist.insets.statusBarsPadding
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import xyz.tberghuis.noteboat.composable.OnPauseLifecycleEvent
 import xyz.tberghuis.noteboat.controller.SpeechController
 import xyz.tberghuis.noteboat.vm.NewNoteViewModel
 import xyz.tberghuis.noteboat.vm.TranscribingState
@@ -221,21 +222,5 @@ fun NoteContent(
 }
 
 
-@Composable
-fun OnLifecycleEvent(onEvent: (owner: LifecycleOwner, event: Lifecycle.Event) -> Unit) {
-  val eventHandler = rememberUpdatedState(onEvent)
-  val lifecycleOwner = rememberUpdatedState(LocalLifecycleOwner.current)
 
-  DisposableEffect(lifecycleOwner.value) {
-    val lifecycle = lifecycleOwner.value.lifecycle
-    val observer = LifecycleEventObserver { owner, event ->
-      eventHandler.value(owner, event)
-    }
-
-    lifecycle.addObserver(observer)
-    onDispose {
-      lifecycle.removeObserver(observer)
-    }
-  }
-}
 

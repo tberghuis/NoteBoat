@@ -17,6 +17,7 @@ import com.google.accompanist.insets.statusBarsPadding
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
+import xyz.tberghuis.noteboat.composable.OnPauseLifecycleEvent
 import xyz.tberghuis.noteboat.vm.EditNoteViewModel
 import xyz.tberghuis.noteboat.vm.TranscribingState
 
@@ -83,24 +84,7 @@ fun EditNoteScreen(
 
 }
 
-@Composable
-fun OnPauseLifecycleEvent(
-  transcribingStateFlow: MutableStateFlow<TranscribingState>
-) {
-  val scope = rememberCoroutineScope()
-  OnLifecycleEvent { owner, event ->
-    // do stuff on event
-    when (event) {
-      Lifecycle.Event.ON_PAUSE -> {
-        scope.launch {
-          transcribingStateFlow.emit(TranscribingState.NOT_TRANSCRIBING)
-        }
-      }
-      else -> { /* other stuff */
-      }
-    }
-  }
-}
+
 
 
 @Composable
