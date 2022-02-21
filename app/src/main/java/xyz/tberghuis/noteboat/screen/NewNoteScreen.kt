@@ -39,13 +39,7 @@ fun NewNoteScreen(
   viewModel: NewNoteViewModel = hiltViewModel(),
 ) {
   val scaffoldState = rememberScaffoldState()
-  val context = LocalContext.current
   val scope = rememberCoroutineScope()
-
-  // todo move this into effect
-//  val speechController = remember {
-//    SpeechController(context, viewModel, scope)
-//  }
 
   val onComplete: () -> Unit = {
     if (viewModel.noteTextFieldValueState.value.text.trim().isEmpty()) {
@@ -126,7 +120,6 @@ fun TranscribeFloatingActionButton() {
   }
 }
 
-
 @Composable
 fun NewNoteTopBar(
   onComplete: () -> Unit,
@@ -141,14 +134,12 @@ fun NewNoteTopBar(
       }) {
         Icon(Icons.Filled.ArrowBack, "complete")
       }
-
     },
     actions = {
       IconButton(onClick = { onCancel() }) {
         Icon(Icons.Filled.Cancel, "cancel")
       }
     }
-
   )
 }
 
@@ -183,6 +174,7 @@ fun NewNoteContent(
   }
 
   LaunchedEffect(Unit) {
+    // todo place cursor at last position
     focusRequester.requestFocus()
   }
 }
