@@ -27,7 +27,8 @@ import kotlinx.coroutines.flow.collect
 class SpeechController(
   context: Context,
   private val transcribingStateFlow: StateFlow<TranscribingState>,
-  private val textFieldValueState: MutableState<TextFieldValue>
+  private val textFieldValueState: MutableState<TextFieldValue>,
+  private val updateDb: (String) -> Unit
 ) {
 
   private val speechRecognizerIntent: Intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
@@ -108,6 +109,7 @@ class SpeechController(
       launch {
         resultsFlow.collect {
           baseTextFieldValue = appendAtCursor(baseTextFieldValue, it)
+          updateDb(baseTextFieldValue.text)
           textFieldValueState.value = baseTextFieldValue
         }
       }

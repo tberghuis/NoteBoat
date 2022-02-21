@@ -25,6 +25,11 @@ testing doc...
 
 rewrite with TextFieldValue and launchedeffect collect
 
+underline partialresult (composition)
+
+when focus textfield, place cursor at end
+
+
 ...
 update version
 push to master branch

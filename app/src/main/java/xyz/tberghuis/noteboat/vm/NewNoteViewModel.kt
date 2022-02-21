@@ -33,7 +33,12 @@ class NewNoteViewModel @Inject constructor(
   val noteTextFieldValueState = mutableStateOf(TextFieldValue())
   val transcribingStateFlow = MutableStateFlow(TranscribingState.NOT_TRANSCRIBING)
   val speechController =
-    SpeechController(appContext, transcribingStateFlow, noteTextFieldValueState)
+    SpeechController(
+      appContext,
+      transcribingStateFlow,
+      noteTextFieldValueState,
+      ::updateNewNoteDraft
+    )
 
   init {
     viewModelScope.launch {
