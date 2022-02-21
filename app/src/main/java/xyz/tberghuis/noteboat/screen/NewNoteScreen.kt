@@ -32,6 +32,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.NavHostController
 import com.google.accompanist.insets.navigationBarsWithImePadding
 import com.google.accompanist.insets.statusBarsPadding
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import xyz.tberghuis.noteboat.controller.SpeechController
@@ -72,6 +73,22 @@ fun NewNoteScreen(
     onComplete()
   }
 
+  Scaffold(
+    scaffoldState = scaffoldState,
+    topBar = { NewNoteTopBar(onComplete = onComplete, onCancel = onCancel) },
+    content = {
+      NoteContent(
+        viewModel.transcribingStateFlow,
+        viewModel.noteTextFieldValueState,
+        viewModel::updateNewNoteDraft
+      )
+    },
+    floatingActionButtonPosition = FabPosition.End,
+    floatingActionButton = {
+      TranscribeFloatingActionButton(viewModel.transcribingStateFlow)
+    },
+  )
+
   OnLifecycleEvent { owner, event ->
     // do stuff on event
     when (event) {
@@ -84,29 +101,23 @@ fun NewNoteScreen(
       }
     }
   }
-
-
-  Scaffold(
-    scaffoldState = scaffoldState,
-    topBar = { NewNoteTopBar(onComplete = onComplete, onCancel = onCancel) },
-    content = { NoteContent(
-      viewModel.transcribingStateFlow,
-      viewModel.noteTextFieldValueState,
-      viewModel::updateNewNoteDraft
-    ) },
-    floatingActionButtonPosition = FabPosition.End,
-    floatingActionButton = {
-      TranscribeFloatingActionButton()
-    },
-  )
 }
+
+//@Composable
+//fun NoteScreen() {
+//  val scope = rememberCoroutineScope()
+//  val scaffoldState = rememberScaffoldState()
+//  // ...
+//}
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun TranscribeFloatingActionButton() {
-  val viewModel: NewNoteViewModel = hiltViewModel()
+fun TranscribeFloatingActionButton(
+  transcribingStateFlow: MutableStateFlow<TranscribingState>
+) {
+//  val viewModel: NewNoteViewModel = hiltViewModel()
   val keyboardController = LocalSoftwareKeyboardController.current
-  val transcribingState = viewModel.transcribingStateFlow.collectAsState()
+  val transcribingState = transcribingStateFlow.collectAsState()
   val context = LocalContext.current
 
   val launcher = rememberLauncherForActivityResult(
@@ -121,7 +132,7 @@ fun TranscribeFloatingActionButton() {
         Manifest.permission.RECORD_AUDIO
       ) -> {
         keyboardController?.hide()
-        viewModel.transcribingStateFlow.value = TranscribingState.TRANSCRIBING
+        transcribingStateFlow.value = TranscribingState.TRANSCRIBING
       }
       else -> {
         launcher.launch(Manifest.permission.RECORD_AUDIO)
@@ -133,7 +144,7 @@ fun TranscribeFloatingActionButton() {
   if (transcribingState.value == TranscribingState.TRANSCRIBING) {
 
     fabOnClick = {
-      viewModel.transcribingStateFlow.value = TranscribingState.NOT_TRANSCRIBING
+      transcribingStateFlow.value = TranscribingState.NOT_TRANSCRIBING
     }
     fabIcon = @Composable { Icon(Icons.Filled.MicOff, "stop speech input") }
   }

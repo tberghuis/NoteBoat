@@ -10,11 +10,14 @@ import androidx.compose.material.icons.filled.Delete
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.Lifecycle
 import androidx.navigation.NavHostController
 import com.google.accompanist.insets.navigationBarsWithImePadding
 import com.google.accompanist.insets.statusBarsPadding
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
 import xyz.tberghuis.noteboat.vm.EditNoteViewModel
+import xyz.tberghuis.noteboat.vm.TranscribingState
 
 @Composable
 fun EditNoteScreen(
@@ -22,6 +25,8 @@ fun EditNoteScreen(
   navController: NavHostController
 ) {
   val scaffoldState = rememberScaffoldState()
+  val scope = rememberCoroutineScope()
+
   val onComplete: () -> Unit = {
     navController.navigateUp()
   }
@@ -67,7 +72,24 @@ fun EditNoteScreen(
         viewModel::updateNote
       )
     },
+    floatingActionButtonPosition = FabPosition.End,
+    floatingActionButton = {
+      TranscribeFloatingActionButton(viewModel.transcribingStateFlow)
+    },
   )
+
+  OnLifecycleEvent { owner, event ->
+    // do stuff on event
+    when (event) {
+      Lifecycle.Event.ON_PAUSE -> {
+        scope.launch {
+          viewModel.transcribingStateFlow.emit(TranscribingState.NOT_TRANSCRIBING)
+        }
+      }
+      else -> { /* other stuff */
+      }
+    }
+  }
 }
 
 @Composable
