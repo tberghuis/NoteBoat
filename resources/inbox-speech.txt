@@ -1,4 +1,17 @@
+next task,
+  update gradle versions
+  remove log statements
+  testing api 23 emulator
+  check competitors
+  release build
+  test on mums phone
 
+
+
+
+
+
+######################
 add bottom padding text field, so text scroll clear FAB
 
 implement edit note
