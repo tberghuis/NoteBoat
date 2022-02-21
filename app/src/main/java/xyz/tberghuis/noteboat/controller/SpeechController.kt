@@ -11,11 +11,13 @@ import android.speech.RecognitionListener
 import android.speech.RecognizerIntent
 import android.speech.SpeechRecognizer
 import android.util.Log
+import androidx.compose.runtime.MutableState
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.TextFieldValue
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.launch
 import xyz.tberghuis.noteboat.vm.NewNoteViewModel
@@ -28,7 +30,10 @@ import kotlinx.coroutines.flow.collect
 // also pass in transcribingStateFlow
 class SpeechController(
   context: Context,
-  val vm: NewNoteViewModel,
+//  val vm: NewNoteViewModel,
+  val transcribingStateFlow: StateFlow<TranscribingState>,
+  // do it wrong
+  val textFieldValueState: MutableState<TextFieldValue>
 ) {
 
   private val speechRecognizerIntent: Intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
@@ -60,12 +65,12 @@ class SpeechController(
     coroutineScope {
       setRecognitionListener(speechRecognizer, this@SpeechController, this)
       launch {
-        vm.transcribingStateFlow.collect {
+        transcribingStateFlow.collect {
           when (it) {
             TranscribingState.TRANSCRIBING -> {
               Log.d("xxx", "transcribing")
 
-              baseTextFieldValue = vm.noteTextFieldValue
+              baseTextFieldValue = textFieldValueState.value
 
               startListening()
             }
@@ -103,13 +108,13 @@ class SpeechController(
         partialResultsFlow.collect {
           // call ITextFieldViewModel.receiveSpeechPartialResult
           // run callback
-          vm.noteTextFieldValue = appendAtCursor(baseTextFieldValue, it)
+          textFieldValueState.value = appendAtCursor(baseTextFieldValue, it)
         }
       }
       launch {
         resultsFlow.collect {
           baseTextFieldValue = appendAtCursor(baseTextFieldValue, it)
-          vm.noteTextFieldValue = baseTextFieldValue
+          textFieldValueState.value = baseTextFieldValue
         }
       }
     }
@@ -130,7 +135,7 @@ class SpeechController(
   }
 
   private fun continueListening() {
-    if (vm.transcribingStateFlow.value == TranscribingState.TRANSCRIBING) {
+    if (transcribingStateFlow.value == TranscribingState.TRANSCRIBING) {
       startListening()
     }
   }

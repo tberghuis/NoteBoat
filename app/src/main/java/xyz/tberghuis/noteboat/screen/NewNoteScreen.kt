@@ -48,11 +48,11 @@ fun NewNoteScreen(
 //  }
 
   val onComplete: () -> Unit = {
-    if (viewModel.noteTextFieldValue.text.trim().isEmpty()) {
+    if (viewModel.noteTextFieldValueState.value.text.trim().isEmpty()) {
       viewModel.updateNewNoteDraft("")
     } else {
       // theoretically possible to overwrite db if press back before data loads
-      viewModel.saveNewNote(viewModel.noteTextFieldValue.text)
+      viewModel.saveNewNote(viewModel.noteTextFieldValueState.value.text)
     }
     navController.navigateUp()
   }
@@ -61,7 +61,7 @@ fun NewNoteScreen(
     scope.launch {
       viewModel.transcribingStateFlow.emit(TranscribingState.NOT_TRANSCRIBING)
     }
-    viewModel.noteTextFieldValue = TextFieldValue()
+    viewModel.noteTextFieldValueState.value = TextFieldValue()
     viewModel.updateNewNoteDraft("")
     navController.navigateUp()
   }
@@ -164,7 +164,7 @@ fun NewNoteContent(
     if (transcribing.value == TranscribingState.NOT_TRANSCRIBING) {
       return@derivedStateOf {
         viewModel.updateNewNoteDraft(it.text)
-        viewModel.noteTextFieldValue = it
+        viewModel.noteTextFieldValueState.value = it
       }
     }
     { }
@@ -172,7 +172,7 @@ fun NewNoteContent(
 
   Column {
     TextField(
-      value = viewModel.noteTextFieldValue,
+      value = viewModel.noteTextFieldValueState.value,
       // todo call ITextFieldViewModel.onValueChange
       onValueChange = onValueChange,
       modifier = Modifier

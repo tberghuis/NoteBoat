@@ -30,16 +30,17 @@ class NewNoteViewModel @Inject constructor(
 ) : ViewModel() {
 
   // if i was pedantic i could use null for initial
-  var noteTextFieldValue by mutableStateOf(TextFieldValue())
+  val noteTextFieldValueState = mutableStateOf(TextFieldValue())
   val transcribingStateFlow = MutableStateFlow(TranscribingState.NOT_TRANSCRIBING)
-  val speechController = SpeechController(appContext, this)
+  val speechController =
+    SpeechController(appContext, transcribingStateFlow, noteTextFieldValueState)
 
   init {
     viewModelScope.launch {
       val newNoteDraft = withContext(Dispatchers.IO) {
         optionDao.getOption("new_note_draft")
       }
-      noteTextFieldValue = TextFieldValue(newNoteDraft)
+      noteTextFieldValueState.value = TextFieldValue(newNoteDraft)
       speechController.run()
     }
   }
