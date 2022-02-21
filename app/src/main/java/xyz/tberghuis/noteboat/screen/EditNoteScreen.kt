@@ -95,17 +95,18 @@ fun EditNoteTopBar(
 fun EditNoteContent(
   viewModel: EditNoteViewModel = hiltViewModel(),
 ) {
-  val noteTextState = viewModel.noteText.collectAsState(initial = null)
+  // todo in future i should wait till noteTextFieldValueState initialized
+
   Column {
-    // only display textfield when data is loaded from db
-    if (noteTextState.value != null) {
-      TextField(
-        value = noteTextState.value!!,
-        onValueChange = { viewModel.updateNote(it) },
-        modifier = Modifier
-          .navigationBarsWithImePadding()
-          .fillMaxSize()
-      )
-    }
+    TextField(
+      value = viewModel.noteTextFieldValueState.value,
+      onValueChange = {
+        viewModel.updateNote(it.text)
+        viewModel.noteTextFieldValueState.value = it
+      },
+      modifier = Modifier
+        .navigationBarsWithImePadding()
+        .fillMaxSize()
+    )
   }
 }
