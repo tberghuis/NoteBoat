@@ -73,12 +73,7 @@ fun EditNoteScreen(
       TranscribeFloatingActionButton(viewModel.transcribingStateFlow)
     },
   )
-
-
 }
-
-
-
 
 @Composable
 fun EditNoteTopBar(
