@@ -52,8 +52,6 @@ class SpeechController(
     )
     speechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault())
     speechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_PARTIAL_RESULTS, true)
-
-
   }
 
   suspend fun run() {
@@ -93,7 +91,6 @@ class SpeechController(
       }
       collectResults()
     }
-
   }
 
   // do it basic to start
@@ -135,10 +132,7 @@ class SpeechController(
       startListening()
     }
   }
-
-
 }
-
 
 fun setRecognitionListener(
   speechRecognizer: SpeechRecognizer,
@@ -216,7 +210,6 @@ fun setRecognitionListener(
         }
       }
 //      speechManagerFresh.emitRecognitionListenerEvent(RecognitionListenerEvent.ON_PARTIAL_RESULTS)
-
     }
 
     override fun onEvent(p0: Int, p1: Bundle?) {
@@ -241,7 +234,6 @@ fun appendAtCursor(tfv: TextFieldValue, result: String): TextFieldValue {
   }
   return tfv
 }
-
 
 enum class RecognitionListenerEvent {
   ON_READY_FOR_SPEECH,
