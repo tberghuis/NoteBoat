@@ -52,3 +52,5 @@ update play store https://github.com/tberghuis/NoteBoat
 git remote set-url origin git@github.com:tberghuis/NoteBoat.git
 
 make a github readme
+
+use VoiceNotes as a reference for app shortcuts
