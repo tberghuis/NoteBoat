@@ -25,6 +25,7 @@ import xyz.tberghuis.noteboat.data.AppDatabase
 import xyz.tberghuis.noteboat.data.LegacyDatabase
 import xyz.tberghuis.noteboat.data.Note
 import xyz.tberghuis.noteboat.data.NoteDao
+import xyz.tberghuis.noteboat.utils.Log
 import javax.inject.Inject
 
 @Composable
