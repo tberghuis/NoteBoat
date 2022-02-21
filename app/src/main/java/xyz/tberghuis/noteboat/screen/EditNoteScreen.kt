@@ -61,7 +61,11 @@ fun EditNoteScreen(
     scaffoldState = scaffoldState,
     topBar = { EditNoteTopBar(showDeleteDialog = showDeleteDialog, onComplete = onComplete) },
     content = {
-      EditNoteContent()
+      NoteContent(
+        viewModel.transcribingStateFlow,
+        viewModel.noteTextFieldValueState,
+        viewModel::updateNote
+      )
     },
   )
 }
