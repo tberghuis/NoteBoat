@@ -40,3 +40,5 @@ release play store
 move noteboat-flutter github repo (check for issues)
 move this repo from v2 to noteboat (check for issues)
 fresh checkout
+
+bug ime padding when showing dialog
