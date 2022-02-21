@@ -162,7 +162,7 @@ fun setRecognitionListener(
 
       val systemIsMuted = audioManager.isStreamMute(AudioManager.STREAM_NOTIFICATION)
       val zenMode = Settings.Global.getInt(context.contentResolver, "zen_mode")
-
+      
       Log.d("xxx", "systemIsMuted $systemIsMuted")
       Log.d("xxx", "zenMode $zenMode")
       
