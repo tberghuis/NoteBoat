@@ -7,6 +7,7 @@ import android.media.AudioManager
 import android.media.AudioManager.ADJUST_MUTE
 import android.media.AudioManager.ADJUST_UNMUTE
 import android.os.Bundle
+import android.provider.Settings
 import android.speech.RecognitionListener
 import android.speech.RecognizerIntent
 import android.speech.SpeechRecognizer
@@ -25,7 +26,7 @@ import java.util.*
 import kotlinx.coroutines.flow.collect
 
 class SpeechController(
-  context: Context,
+  private val context: Context,
   private val transcribingStateFlow: StateFlow<TranscribingState>,
   private val textFieldValueState: MutableState<TextFieldValue>,
   private val updateDb: (String) -> Unit
@@ -35,7 +36,8 @@ class SpeechController(
   private val speechRecognizer: SpeechRecognizer = SpeechRecognizer.createSpeechRecognizer(context)
 
   val audioManager = context.getSystemService(AUDIO_SERVICE) as AudioManager
-  var isMuted = false
+
+  var setMute = false
 
   val recognitionListenerEventSharedFlow: MutableSharedFlow<RecognitionListenerEvent> =
     MutableSharedFlow()
@@ -56,7 +58,7 @@ class SpeechController(
 
   suspend fun run() {
     coroutineScope {
-      setRecognitionListener(speechRecognizer, this@SpeechController, this)
+      setRecognitionListener(speechRecognizer, this@SpeechController, this, audioManager, context)
       launch {
         transcribingStateFlow.collect {
           when (it) {
@@ -75,15 +77,9 @@ class SpeechController(
         }
       }
       launch {
-        recognitionListenerEventSharedFlow.debounce {
-          if (it == RecognitionListenerEvent.ON_ERROR) {
-            100L
-          } else {
-            0L
-          }
-        }.collect {
+        recognitionListenerEventSharedFlow.collect {
           when (it) {
-            RecognitionListenerEvent.ON_ERROR, RecognitionListenerEvent.ON_RESULTS -> {
+            RecognitionListenerEvent.ON_RESULTS, RecognitionListenerEvent.ON_ERROR_NO_MATCH -> {
               continueListening()
             }
           }
@@ -118,16 +114,24 @@ class SpeechController(
   }
 
   private fun stopListening() {
-    audioManager.adjustStreamVolume(
-      AudioManager.STREAM_NOTIFICATION,
-      ADJUST_UNMUTE,
-      0
-    )
-    isMuted = false
+    try {
+      if (setMute) {
+        audioManager.adjustStreamVolume(
+          AudioManager.STREAM_NOTIFICATION,
+          ADJUST_UNMUTE,
+          0
+        )
+        setMute = false
+      }
+    } catch (e: Exception) {
+      // will get SecurityException when in Do Not Disturb state
+      // println(e)
+    }
     speechRecognizer.stopListening()
   }
 
   private fun continueListening() {
+    Log.d("xxx", "continueListening")
     if (transcribingStateFlow.value == TranscribingState.TRANSCRIBING) {
       startListening()
     }
@@ -137,7 +141,9 @@ class SpeechController(
 fun setRecognitionListener(
   speechRecognizer: SpeechRecognizer,
   speechController: SpeechController,
-  scope: CoroutineScope
+  scope: CoroutineScope,
+  audioManager: AudioManager,
+  context: Context
 ) {
 
   fun emitRecognitionListenerEvent(e: RecognitionListenerEvent) {
@@ -154,14 +160,20 @@ fun setRecognitionListener(
     override fun onBeginningOfSpeech() {
       Log.d("xxx", "onBeginningOfSpeech")
 
+      val systemIsMuted = audioManager.isStreamMute(AudioManager.STREAM_NOTIFICATION)
+      val zenMode = Settings.Global.getInt(context.contentResolver, "zen_mode")
       // i could do something fancy with combining flows, meh
-      if (!speechController.isMuted) {
-        speechController.audioManager.adjustStreamVolume(
-          AudioManager.STREAM_NOTIFICATION,
-          ADJUST_MUTE,
-          0
-        )
-        speechController.isMuted = true
+      try {
+        if (!speechController.setMute && !systemIsMuted && zenMode == 0) {
+          speechController.audioManager.adjustStreamVolume(
+            AudioManager.STREAM_NOTIFICATION,
+            ADJUST_MUTE,
+            0
+          )
+          speechController.setMute = true
+        }
+      } catch (e: Exception) {
+//          println(e)
       }
     }
 
@@ -179,7 +191,9 @@ fun setRecognitionListener(
 
     override fun onError(p0: Int) {
       Log.d("xxx", "onError $p0 ${System.currentTimeMillis()}")
-      emitRecognitionListenerEvent(RecognitionListenerEvent.ON_ERROR)
+      if (p0 == SpeechRecognizer.ERROR_NO_MATCH) {
+        emitRecognitionListenerEvent(RecognitionListenerEvent.ON_ERROR_NO_MATCH)
+      }
     }
 
     override fun onResults(p0: Bundle?) {
@@ -189,7 +203,6 @@ fun setRecognitionListener(
         Log.d("xxx", data.toString())
 
         data?.get(0)?.let {
-//          speechManagerFresh.results = it
           scope.launch {
             speechController.resultsFlow.emit(it)
           }
@@ -209,7 +222,6 @@ fun setRecognitionListener(
           }
         }
       }
-//      speechManagerFresh.emitRecognitionListenerEvent(RecognitionListenerEvent.ON_PARTIAL_RESULTS)
     }
 
     override fun onEvent(p0: Int, p1: Bundle?) {
@@ -229,7 +241,7 @@ fun appendAtCursor(tfv: TextFieldValue, result: String): TextFieldValue {
     } $result ${tfv.text.substring(selectionStart)}"
     val newCursorPos = selectionStart + result.length + 2
     val textRange = TextRange(newCursorPos, newCursorPos)
-//        vm.textFieldValue = vm.textFieldValue.copy(text, textRange)
+    // vm.textFieldValue = vm.textFieldValue.copy(text, textRange)
     return TextFieldValue(text, textRange)
   }
   return tfv
@@ -237,7 +249,8 @@ fun appendAtCursor(tfv: TextFieldValue, result: String): TextFieldValue {
 
 enum class RecognitionListenerEvent {
   ON_READY_FOR_SPEECH,
-  ON_ERROR,
+  //  ON_ERROR,
+  ON_ERROR_NO_MATCH,
   ON_RESULTS,
   ON_END_OF_SPEECH,
   ON_PARTIAL_RESULTS
