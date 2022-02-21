@@ -29,6 +29,8 @@ underline partialresult (composition)
 
 when focus textfield, place cursor at end
 
+when transcribing, on tap snackbar "stop speech input to edit"
+
 
 ...
 update version
