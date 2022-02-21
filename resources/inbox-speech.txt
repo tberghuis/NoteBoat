@@ -44,3 +44,5 @@ fresh checkout
 bug ime padding when showing dialog
 
 app shortcut, new voice note
+
+update gradle dependencies versions
