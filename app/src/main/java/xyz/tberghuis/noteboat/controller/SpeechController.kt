@@ -20,20 +20,14 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.launch
-import xyz.tberghuis.noteboat.vm.NewNoteViewModel
 import xyz.tberghuis.noteboat.vm.TranscribingState
 import java.util.*
 import kotlinx.coroutines.flow.collect
 
-// TODO, VM creates this with appContext and passes in callbacks
-// receiveResults receivePartialResults
-// also pass in transcribingStateFlow
 class SpeechController(
   context: Context,
-//  val vm: NewNoteViewModel,
-  val transcribingStateFlow: StateFlow<TranscribingState>,
-  // do it wrong
-  val textFieldValueState: MutableState<TextFieldValue>
+  private val transcribingStateFlow: StateFlow<TranscribingState>,
+  private val textFieldValueState: MutableState<TextFieldValue>
 ) {
 
   private val speechRecognizerIntent: Intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
