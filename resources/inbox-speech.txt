@@ -28,6 +28,10 @@ when transcribing, on tap snackbar "stop speech input to edit"
 
 fix non exhastive when statements and other warnings
 
+remove log.d
+
+cull inbox.txt from voicenotes project
+
 ...
 update version
 push to master branch
