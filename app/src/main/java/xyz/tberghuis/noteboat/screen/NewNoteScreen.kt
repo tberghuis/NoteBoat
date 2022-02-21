@@ -73,6 +73,8 @@ fun NewNoteScreen(
     onComplete()
   }
 
+  OnPauseLifecycleEvent(viewModel.transcribingStateFlow)
+
   Scaffold(
     scaffoldState = scaffoldState,
     topBar = { NewNoteTopBar(onComplete = onComplete, onCancel = onCancel) },
@@ -88,19 +90,6 @@ fun NewNoteScreen(
       TranscribeFloatingActionButton(viewModel.transcribingStateFlow)
     },
   )
-
-  OnLifecycleEvent { owner, event ->
-    // do stuff on event
-    when (event) {
-      Lifecycle.Event.ON_PAUSE -> {
-        scope.launch {
-          viewModel.transcribingStateFlow.emit(TranscribingState.NOT_TRANSCRIBING)
-        }
-      }
-      else -> { /* other stuff */
-      }
-    }
-  }
 }
 
 //@Composable
@@ -203,6 +192,7 @@ fun NoteContent(
 
   Column {
     Box {
+      // todo in future i should wait till noteTextFieldValueState initialized
       TextField(
         value = noteTextFieldValueState.value,
         // todo call ITextFieldViewModel.onValueChange

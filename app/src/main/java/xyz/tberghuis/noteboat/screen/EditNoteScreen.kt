@@ -14,6 +14,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.navigation.NavHostController
 import com.google.accompanist.insets.navigationBarsWithImePadding
 import com.google.accompanist.insets.statusBarsPadding
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import xyz.tberghuis.noteboat.vm.EditNoteViewModel
@@ -25,7 +26,6 @@ fun EditNoteScreen(
   navController: NavHostController
 ) {
   val scaffoldState = rememberScaffoldState()
-  val scope = rememberCoroutineScope()
 
   val onComplete: () -> Unit = {
     navController.navigateUp()
@@ -62,6 +62,8 @@ fun EditNoteScreen(
       })
   }
 
+  OnPauseLifecycleEvent(viewModel.transcribingStateFlow)
+
   Scaffold(
     scaffoldState = scaffoldState,
     topBar = { EditNoteTopBar(showDeleteDialog = showDeleteDialog, onComplete = onComplete) },
@@ -78,12 +80,20 @@ fun EditNoteScreen(
     },
   )
 
+
+}
+
+@Composable
+fun OnPauseLifecycleEvent(
+  transcribingStateFlow: MutableStateFlow<TranscribingState>
+) {
+  val scope = rememberCoroutineScope()
   OnLifecycleEvent { owner, event ->
     // do stuff on event
     when (event) {
       Lifecycle.Event.ON_PAUSE -> {
         scope.launch {
-          viewModel.transcribingStateFlow.emit(TranscribingState.NOT_TRANSCRIBING)
+          transcribingStateFlow.emit(TranscribingState.NOT_TRANSCRIBING)
         }
       }
       else -> { /* other stuff */
@@ -91,6 +101,7 @@ fun EditNoteScreen(
     }
   }
 }
+
 
 @Composable
 fun EditNoteTopBar(
@@ -115,24 +126,4 @@ fun EditNoteTopBar(
       }
     }
   )
-}
-
-@Composable
-fun EditNoteContent(
-  viewModel: EditNoteViewModel = hiltViewModel(),
-) {
-  // todo in future i should wait till noteTextFieldValueState initialized
-
-  Column {
-    TextField(
-      value = viewModel.noteTextFieldValueState.value,
-      onValueChange = {
-        viewModel.updateNote(it.text)
-        viewModel.noteTextFieldValueState.value = it
-      },
-      modifier = Modifier
-        .navigationBarsWithImePadding()
-        .fillMaxSize()
-    )
-  }
 }
