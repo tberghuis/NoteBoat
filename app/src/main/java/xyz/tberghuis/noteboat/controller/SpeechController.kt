@@ -162,6 +162,13 @@ fun setRecognitionListener(
 
       val systemIsMuted = audioManager.isStreamMute(AudioManager.STREAM_NOTIFICATION)
       val zenMode = Settings.Global.getInt(context.contentResolver, "zen_mode")
+      val streamVolume = audioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION)
+
+      Log.d("xxx", "systemIsMuted $systemIsMuted")
+      Log.d("xxx", "zenMode $zenMode")
+      Log.d("xxx", "streamVolume $streamVolume")
+
+
       // i could do something fancy with combining flows, meh
       try {
         if (!speechController.setMute && !systemIsMuted && zenMode == 0) {
