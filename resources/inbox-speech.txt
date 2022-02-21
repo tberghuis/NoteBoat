@@ -3,8 +3,6 @@ add bottom padding text field, so text scroll clear FAB
 
 implement edit note
 
-FAB icons
-
 fix UI/UX request recording permissions
 
 no permission still allow to use app with feature removed
