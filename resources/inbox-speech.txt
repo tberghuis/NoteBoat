@@ -42,3 +42,5 @@ move this repo from v2 to noteboat (check for issues)
 fresh checkout
 
 bug ime padding when showing dialog
+
+app shortcut, new voice note
