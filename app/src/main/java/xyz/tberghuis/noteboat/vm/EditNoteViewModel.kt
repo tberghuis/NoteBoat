@@ -9,9 +9,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.mapNotNull
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlinx.datetime.Clock
@@ -26,12 +24,6 @@ class EditNoteViewModel @Inject constructor(
   private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
   val noteId: Int = savedStateHandle.get<Int>("noteId")!!
-
-//  val noteText: Flow<String?>
-//    get() = noteDao.getNote(noteId)
-//      .mapNotNull {
-//        it?.noteText
-//      }
 
   val noteTextFieldValueState = mutableStateOf(TextFieldValue())
 
@@ -54,10 +46,8 @@ class EditNoteViewModel @Inject constructor(
     }
   }
 
-
   fun updateNote(noteText: String) {
     viewModelScope.launch {
-
       val epoch = Clock.System.now().toEpochMilliseconds()
       noteDao.updateNoteText(noteId, noteText, epoch)
     }
@@ -68,5 +58,4 @@ class EditNoteViewModel @Inject constructor(
       noteDao.delete(noteId)
     }
   }
-
 }
