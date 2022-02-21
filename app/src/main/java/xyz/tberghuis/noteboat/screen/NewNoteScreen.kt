@@ -35,6 +35,7 @@ import com.google.accompanist.insets.statusBarsPadding
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import xyz.tberghuis.noteboat.composable.NoteContent
 import xyz.tberghuis.noteboat.composable.OnPauseLifecycleEvent
 import xyz.tberghuis.noteboat.controller.SpeechController
 import xyz.tberghuis.noteboat.vm.NewNoteViewModel
@@ -170,56 +171,6 @@ fun NewNoteTopBar(
   )
 }
 
-@Composable
-fun NoteContent(
-  // todo pass in ITextFieldViewModel
-//  viewModel: NewNoteViewModel = hiltViewModel(),
-  transcribingStateFlow: StateFlow<TranscribingState>,
-  noteTextFieldValueState: MutableState<TextFieldValue>,
-  updateDb: (String) -> Unit
-) {
-  val focusRequester = remember { FocusRequester() }
-  val transcribing = transcribingStateFlow.collectAsState()
-  val onValueChange by derivedStateOf<(TextFieldValue) -> Unit> {
-    // replace with when when i learn more kotlin
-    if (transcribing.value == TranscribingState.NOT_TRANSCRIBING) {
-      return@derivedStateOf {
-        updateDb(it.text)
-        noteTextFieldValueState.value = it
-      }
-    }
-    { }
-  }
-
-  Column {
-    Box {
-      // todo in future i should wait till noteTextFieldValueState initialized
-      TextField(
-        value = noteTextFieldValueState.value,
-        // todo call ITextFieldViewModel.onValueChange
-        onValueChange = onValueChange,
-        modifier = Modifier
-          .focusRequester(focusRequester)
-          .navigationBarsWithImePadding()
-          .fillMaxSize()
-      )
-      // don't allow clicks on textfield
-      if (transcribing.value == TranscribingState.TRANSCRIBING) {
-        Box(
-          modifier = Modifier
-            .matchParentSize()
-            .alpha(0f)
-            .clickable(onClick = { }),
-        )
-      }
-    }
-  }
-
-  LaunchedEffect(Unit) {
-    // todo place cursor at last position
-    focusRequester.requestFocus()
-  }
-}
 
 
 
