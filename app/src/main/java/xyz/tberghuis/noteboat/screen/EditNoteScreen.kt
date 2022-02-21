@@ -12,6 +12,7 @@ import androidx.navigation.NavHostController
 import com.google.accompanist.insets.statusBarsPadding
 import xyz.tberghuis.noteboat.composable.NoteContent
 import xyz.tberghuis.noteboat.composable.OnPauseLifecycleEvent
+import xyz.tberghuis.noteboat.composable.TranscribeFloatingActionButton
 import xyz.tberghuis.noteboat.vm.EditNoteViewModel
 
 @Composable

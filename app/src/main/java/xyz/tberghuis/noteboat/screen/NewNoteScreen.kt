@@ -6,38 +6,25 @@ import android.util.Log
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
-import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.core.content.ContextCompat
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleEventObserver
-import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.NavHostController
 import com.google.accompanist.insets.navigationBarsWithImePadding
 import com.google.accompanist.insets.statusBarsPadding
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import xyz.tberghuis.noteboat.composable.NoteContent
 import xyz.tberghuis.noteboat.composable.OnPauseLifecycleEvent
-import xyz.tberghuis.noteboat.controller.SpeechController
+import xyz.tberghuis.noteboat.composable.TranscribeFloatingActionButton
 import xyz.tberghuis.noteboat.vm.NewNoteViewModel
 import xyz.tberghuis.noteboat.vm.TranscribingState
 
@@ -94,59 +81,6 @@ fun NewNoteScreen(
   )
 }
 
-//@Composable
-//fun NoteScreen() {
-//  val scope = rememberCoroutineScope()
-//  val scaffoldState = rememberScaffoldState()
-//  // ...
-//}
-
-@OptIn(ExperimentalComposeUiApi::class)
-@Composable
-fun TranscribeFloatingActionButton(
-  transcribingStateFlow: MutableStateFlow<TranscribingState>
-) {
-//  val viewModel: NewNoteViewModel = hiltViewModel()
-  val keyboardController = LocalSoftwareKeyboardController.current
-  val transcribingState = transcribingStateFlow.collectAsState()
-  val context = LocalContext.current
-
-  val launcher = rememberLauncherForActivityResult(
-    ActivityResultContracts.RequestPermission()
-  ) {}
-
-  var fabOnClick: () -> Unit = {
-    Log.d("xxx", "fabOnClick NOT_TRANSCRIBING")
-    when (PackageManager.PERMISSION_GRANTED) {
-      ContextCompat.checkSelfPermission(
-        context,
-        Manifest.permission.RECORD_AUDIO
-      ) -> {
-        keyboardController?.hide()
-        transcribingStateFlow.value = TranscribingState.TRANSCRIBING
-      }
-      else -> {
-        launcher.launch(Manifest.permission.RECORD_AUDIO)
-      }
-    }
-  }
-
-  var fabIcon = @Composable { Icon(Icons.Filled.Mic, "speech input") }
-  if (transcribingState.value == TranscribingState.TRANSCRIBING) {
-
-    fabOnClick = {
-      transcribingStateFlow.value = TranscribingState.NOT_TRANSCRIBING
-    }
-    fabIcon = @Composable { Icon(Icons.Filled.MicOff, "stop speech input") }
-  }
-
-  FloatingActionButton(
-    modifier = Modifier.navigationBarsWithImePadding(),
-    onClick = fabOnClick
-  ) {
-    fabIcon()
-  }
-}
 
 @Composable
 fun NewNoteTopBar(
