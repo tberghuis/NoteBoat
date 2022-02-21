@@ -26,6 +26,7 @@ when focus textfield, place cursor at end
 
 when transcribing, on tap snackbar "stop speech input to edit"
 
+fix non exhastive when statements and other warnings
 
 ...
 update version
