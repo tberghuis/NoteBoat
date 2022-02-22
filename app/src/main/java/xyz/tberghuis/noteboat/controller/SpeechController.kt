@@ -139,7 +139,7 @@ class SpeechController(
             0
           )
         }
-      } catch (e: Exception) {
+      } catch (e: SecurityException) {
         // will get SecurityException when in Do Not Disturb state
         // println(e)
       }
@@ -200,7 +200,8 @@ fun setRecognitionListener(
             ADJUST_MUTE,
             0
           )
-        } catch (e: Exception) {
+        } catch (e: SecurityException) {
+          // Do not Disturb
         }
         return true
       }
