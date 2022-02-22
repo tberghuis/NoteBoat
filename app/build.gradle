@@ -11,7 +11,7 @@ android {
     defaultConfig {
         // NOTE does not match package of source code
         applicationId "site.thomasberghuis.noteboat"
-        minSdk 24
+        minSdk 26
         targetSdk 32
         versionCode 4
         versionName "2.0.2"
@@ -36,6 +36,9 @@ android {
         }
     }
     compileOptions {
+        // was meant to fix kotlinx-datetime, no class found error java...Instant
+        // didn't work so switching min sdk to 26
+//        coreLibraryDesugaringEnabled true
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
