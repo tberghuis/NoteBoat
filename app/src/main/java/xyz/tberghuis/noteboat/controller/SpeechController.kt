@@ -36,7 +36,9 @@ class SpeechController(
 
   val audioManager = context.getSystemService(AUDIO_SERVICE) as AudioManager
 
-  var setMute = false
+  //  var setMute = false
+  var setMusicMute = false
+  var setNotificationMute = false
 
   val recognitionListenerEventSharedFlow: MutableSharedFlow<RecognitionListenerEvent> =
     MutableSharedFlow()
@@ -128,19 +130,26 @@ class SpeechController(
   }
 
   private fun stopListening() {
-    try {
-      if (setMute) {
-        audioManager.adjustStreamVolume(
-          AudioManager.STREAM_NOTIFICATION,
-          ADJUST_UNMUTE,
-          0
-        )
-        setMute = false
+    fun unmute(setMute: Boolean, stream: Int) {
+      try {
+        if (setMute) {
+          audioManager.adjustStreamVolume(
+            stream,
+            ADJUST_UNMUTE,
+            0
+          )
+        }
+      } catch (e: Exception) {
+        // will get SecurityException when in Do Not Disturb state
+        // println(e)
       }
-    } catch (e: Exception) {
-      // will get SecurityException when in Do Not Disturb state
-      // println(e)
     }
+
+    unmute(setNotificationMute, AudioManager.STREAM_NOTIFICATION)
+    unmute(setMusicMute, AudioManager.STREAM_MUSIC)
+    setNotificationMute = false
+    setMusicMute = false
+
     speechRecognizer.stopListening()
   }
 
@@ -173,29 +182,33 @@ fun setRecognitionListener(
 
     override fun onBeginningOfSpeech() {
       Log.d("xxx", "onBeginningOfSpeech")
+      // don't worry about zen mode cause i catch exception
+//      val zenMode: Int = try {
+//        Settings.Global.getInt(context.contentResolver, "zen_mode")
+//      } catch (e: Settings.SettingNotFoundException) {
+//        0
+//      }
 
-      val systemIsMuted = audioManager.isStreamMute(AudioManager.STREAM_NOTIFICATION)
-      val zenMode: Int = try {
-        Settings.Global.getInt(context.contentResolver, "zen_mode")
-      } catch (e: Settings.SettingNotFoundException) {
-        0
-      }
-
-      Log.d("xxx", "systemIsMuted $systemIsMuted")
-      Log.d("xxx", "zenMode $zenMode")
-
-      // i could do something fancy with combining flows, meh
-      try {
-        if (!speechController.setMute && !systemIsMuted && zenMode == 0) {
+      fun muteStream(stream: Int): Boolean {
+        val isMuted = audioManager.isStreamMute(stream)
+        if (isMuted) {
+          return false
+        }
+        try {
           speechController.audioManager.adjustStreamVolume(
             AudioManager.STREAM_NOTIFICATION,
             ADJUST_MUTE,
             0
           )
-          speechController.setMute = true
+        } catch (e: Exception) {
         }
-      } catch (e: Exception) {
-//          println(e)
+        return true
+      }
+      if (!speechController.setNotificationMute) {
+        speechController.setNotificationMute = muteStream(AudioManager.STREAM_NOTIFICATION)
+      }
+      if (!speechController.setMusicMute) {
+        speechController.setMusicMute = muteStream(AudioManager.STREAM_MUSIC)
       }
     }
 
