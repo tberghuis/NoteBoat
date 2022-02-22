@@ -3,9 +3,11 @@ next task,
   release build
   test on mums phone
 
+mic fab colors, red on blue, black on blue
 
+override fun xyz = .... (shorten code)
 
-
+do i even need record audio and internet permissions???
 
 
 ######################
