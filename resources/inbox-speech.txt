@@ -9,6 +9,9 @@ override fun xyz = .... (shorten code)
 
 do i even need record audio and internet permissions???
 
+future... 
+  SpeechRecognizer.isRecognitionAvailable = false
+
 
 ######################
 add bottom padding text field, so text scroll clear FAB
