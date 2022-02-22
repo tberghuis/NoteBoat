@@ -1,5 +1,5 @@
 next task,
-  check competitors
+  check competitors - f-droid, warnings about recording...
   release build
   test on mums phone
 
