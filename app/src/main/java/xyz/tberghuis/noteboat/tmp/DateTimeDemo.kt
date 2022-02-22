@@ -1,11 +1,11 @@
 package xyz.tberghuis.noteboat.screen
 
-import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import kotlinx.datetime.*
+import xyz.tberghuis.noteboat.utils.Log
 
 
 // should have put this file in tmp folder

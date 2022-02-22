@@ -11,10 +11,10 @@ android {
     defaultConfig {
         // NOTE does not match package of source code
         applicationId "site.thomasberghuis.noteboat"
-        minSdk 21
+        minSdk 24
         targetSdk 32
-        versionCode 4
-        versionName "2.0.2"
+        versionCode 5
+        versionName "2.1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -36,11 +36,15 @@ android {
         }
     }
     compileOptions {
+        // was meant to fix kotlinx-datetime, no class found error java...Instant
+        // didn't work so switching min sdk to 26
+        coreLibraryDesugaringEnabled true
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
     kotlinOptions {
         jvmTarget = '1.8'
+        freeCompilerArgs += '-opt-in=kotlin.RequiresOptIn'
     }
     buildFeatures {
         compose true
@@ -84,8 +88,8 @@ dependencies {
     implementation "androidx.compose.material:material-icons-extended:$compose_version"
 
     // https://github.com/Kotlin/kotlinx-datetime
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
     implementation "org.jetbrains.kotlinx:kotlinx-datetime:0.3.2"
-
 
     implementation "com.google.accompanist:accompanist-insets:0.23.0"
     implementation "com.google.accompanist:accompanist-insets-ui:0.23.0"

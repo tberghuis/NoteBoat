@@ -1,12 +1,18 @@
 package xyz.tberghuis.noteboat.vm
 
+import android.content.Context
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
+import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import kotlinx.datetime.Clock
+import xyz.tberghuis.noteboat.controller.SpeechController
 import xyz.tberghuis.noteboat.data.Note
 import xyz.tberghuis.noteboat.data.NoteDao
 import xyz.tberghuis.noteboat.data.OptionDao
@@ -14,25 +20,41 @@ import javax.inject.Inject
 
 @HiltViewModel
 class NewNoteViewModel @Inject constructor(
+  @ApplicationContext appContext: Context,
   private val noteDao: NoteDao,
   private val optionDao: OptionDao,
 ) : ViewModel() {
 
-  val newNoteDraft: Flow<String>
-    get() = optionDao.getOptionFlow("new_note_draft").map {
-      it.optionValue
+  // if i was pedantic i could use null for initial
+  val noteTextFieldValueState = mutableStateOf(TextFieldValue())
+  val transcribingStateFlow = MutableStateFlow(TranscribingState.NOT_TRANSCRIBING)
+  val speechController =
+    SpeechController(
+      appContext,
+      transcribingStateFlow,
+      noteTextFieldValueState,
+      ::updateNewNoteDraft
+    )
+
+  init {
+    viewModelScope.launch {
+      val newNoteDraft = withContext(Dispatchers.IO) {
+        optionDao.getOption("new_note_draft")
+      }
+      noteTextFieldValueState.value = TextFieldValue(newNoteDraft)
+      speechController.run()
     }
+  }
 
   fun updateNewNoteDraft(newNoteDraft: String) {
+    // update tfv from here instead of from screen
+
     viewModelScope.launch {
       optionDao.updateOption("new_note_draft", newNoteDraft)
     }
   }
 
-
   fun saveNewNote(newNote: String) {
-
-
     // todo check trim newNoteText is not empty
     viewModelScope.launch {
       // todo epoch is that the right term???
@@ -41,6 +63,8 @@ class NewNoteViewModel @Inject constructor(
       optionDao.updateOption("new_note_draft", "")
     }
   }
+}
 
-
+enum class TranscribingState {
+  TRANSCRIBING, NOT_TRANSCRIBING
 }

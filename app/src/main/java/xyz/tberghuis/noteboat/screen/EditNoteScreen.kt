@@ -1,8 +1,6 @@
 package xyz.tberghuis.noteboat.screen
 
 import androidx.activity.compose.BackHandler
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -11,9 +9,10 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import com.google.accompanist.insets.navigationBarsWithImePadding
 import com.google.accompanist.insets.statusBarsPadding
-import kotlinx.coroutines.flow.map
+import xyz.tberghuis.noteboat.composable.NoteContent
+import xyz.tberghuis.noteboat.composable.OnPauseLifecycleEvent
+import xyz.tberghuis.noteboat.composable.TranscribeFloatingActionButton
 import xyz.tberghuis.noteboat.vm.EditNoteViewModel
 
 @Composable
@@ -22,6 +21,7 @@ fun EditNoteScreen(
   navController: NavHostController
 ) {
   val scaffoldState = rememberScaffoldState()
+
   val onComplete: () -> Unit = {
     navController.navigateUp()
   }
@@ -57,11 +57,21 @@ fun EditNoteScreen(
       })
   }
 
+  OnPauseLifecycleEvent(viewModel.transcribingStateFlow)
+
   Scaffold(
     scaffoldState = scaffoldState,
     topBar = { EditNoteTopBar(showDeleteDialog = showDeleteDialog, onComplete = onComplete) },
     content = {
-      EditNoteContent()
+      NoteContent(
+        viewModel.transcribingStateFlow,
+        viewModel.noteTextFieldValueState,
+        viewModel::updateNote
+      )
+    },
+    floatingActionButtonPosition = FabPosition.End,
+    floatingActionButton = {
+      TranscribeFloatingActionButton(viewModel.transcribingStateFlow)
     },
   )
 }
@@ -89,23 +99,4 @@ fun EditNoteTopBar(
       }
     }
   )
-}
-
-@Composable
-fun EditNoteContent(
-  viewModel: EditNoteViewModel = hiltViewModel(),
-) {
-  val noteTextState = viewModel.noteText.collectAsState(initial = null)
-  Column {
-    // only display textfield when data is loaded from db
-    if (noteTextState.value != null) {
-      TextField(
-        value = noteTextState.value!!,
-        onValueChange = { viewModel.updateNote(it) },
-        modifier = Modifier
-          .navigationBarsWithImePadding()
-          .fillMaxSize()
-      )
-    }
-  }
 }

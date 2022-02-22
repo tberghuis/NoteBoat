@@ -14,7 +14,6 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.google.accompanist.insets.navigationBarsPadding
-import com.google.accompanist.insets.navigationBarsWithImePadding
 import com.google.accompanist.insets.statusBarsPadding
 import xyz.tberghuis.noteboat.vm.HomeViewModel
 import com.google.accompanist.insets.ui.Scaffold
@@ -46,7 +45,6 @@ fun HomeScreen(
       ) {
         HomeContent(navController = navController)
       }
-
     },
   )
 }
@@ -67,7 +65,6 @@ fun HomeContent(
 ) {
   val allNotes = viewModel.allNotes.collectAsState(listOf())
   LazyColumn(
-
     contentPadding = PaddingValues(10.dp)
   ) {
     items(items = allNotes.value) { note ->

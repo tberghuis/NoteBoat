@@ -2,7 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="xyz.tberghuis.noteboat">
 
-    <!--    <uses-permission android:name="android.permission.RECORD_AUDIO" />-->
+<!--    not sure if you need internet to get better speech recognition results-->
+<!--    <uses-permission android:name="android.permission.INTERNET" />-->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
     <application
         android:name=".MainApplication"
@@ -15,8 +17,8 @@
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:label="@string/app_name"
-            android:theme="@style/Theme.NoteBoat">
+            android:theme="@style/Theme.NoteBoat"
+            android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,5 +26,12 @@
             </intent-filter>
         </activity>
     </application>
+
+    <queries>
+        <intent>
+            <action android:name="android.speech.RecognitionService" />
+        </intent>
+        <package android:name="site.thomasberghuis.noteboat" />
+    </queries>
 
 </manifest>
