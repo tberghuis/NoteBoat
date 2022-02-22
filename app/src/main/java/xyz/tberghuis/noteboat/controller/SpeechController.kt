@@ -11,22 +11,22 @@ import android.provider.Settings
 import android.speech.RecognitionListener
 import android.speech.RecognizerIntent
 import android.speech.SpeechRecognizer
+import android.speech.SpeechRecognizer.*
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.TextFieldValue
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import xyz.tberghuis.noteboat.vm.TranscribingState
 import java.util.*
-import kotlinx.coroutines.flow.collect
 import xyz.tberghuis.noteboat.utils.Log
 
 class SpeechController(
   private val context: Context,
-  private val transcribingStateFlow: StateFlow<TranscribingState>,
+  private val transcribingStateFlow: MutableStateFlow<TranscribingState>,
   private val textFieldValueState: MutableState<TextFieldValue>,
   private val updateDb: (String) -> Unit
 ) {
@@ -53,6 +53,10 @@ class SpeechController(
     )
     speechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault())
     speechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_PARTIAL_RESULTS, true)
+
+//    speechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, "site.thomasberghuis.noteboat")
+//    speechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, "xyz.tberghuis.noteboat")
+
   }
 
   suspend fun run() {
@@ -78,9 +82,20 @@ class SpeechController(
       launch {
         recognitionListenerEventSharedFlow.collect {
           when (it) {
-            RecognitionListenerEvent.ON_RESULTS, RecognitionListenerEvent.ON_ERROR_NO_MATCH -> {
+            RecognitionListenerEvent.ON_RESULTS, RecognitionListenerEvent.ON_ERROR_CONTINUE
+            -> {
               continueListening()
             }
+//            RecognitionListenerEvent.ON_ERROR_CONTINUE,
+//            -> {
+////              speechRecognizer.cancel()
+//              speechRecognizer.stopListening()
+//              delay(200)
+//              continueListening()
+//            }
+//            RecognitionListenerEvent.ON_ERROR_OTHER -> {
+//              transcribingStateFlow.emit(TranscribingState.NOT_TRANSCRIBING)
+//            }
           }
         }
       }
@@ -160,8 +175,12 @@ fun setRecognitionListener(
       Log.d("xxx", "onBeginningOfSpeech")
 
       val systemIsMuted = audioManager.isStreamMute(AudioManager.STREAM_NOTIFICATION)
-      val zenMode = Settings.Global.getInt(context.contentResolver, "zen_mode")
-      
+      val zenMode: Int = try {
+        Settings.Global.getInt(context.contentResolver, "zen_mode")
+      } catch (e: Settings.SettingNotFoundException) {
+        0
+      }
+
       Log.d("xxx", "systemIsMuted $systemIsMuted")
       Log.d("xxx", "zenMode $zenMode")
 
@@ -194,8 +213,16 @@ fun setRecognitionListener(
 
     override fun onError(p0: Int) {
       Log.d("xxx", "onError $p0 ${System.currentTimeMillis()}")
-      if (p0 == SpeechRecognizer.ERROR_NO_MATCH) {
-        emitRecognitionListenerEvent(RecognitionListenerEvent.ON_ERROR_NO_MATCH)
+
+      when (p0) {
+        ERROR_NO_MATCH, ERROR_SPEECH_TIMEOUT -> {
+          emitRecognitionListenerEvent(RecognitionListenerEvent.ON_ERROR_CONTINUE)
+        }
+        else -> {
+          // TODO snackbar show error
+          emitRecognitionListenerEvent(RecognitionListenerEvent.ON_ERROR_OTHER)
+        }
+        // TODO all other errors, emit not_transcribing to transcribingflow
       }
     }
 
@@ -252,8 +279,11 @@ fun appendAtCursor(tfv: TextFieldValue, result: String): TextFieldValue {
 
 enum class RecognitionListenerEvent {
   ON_READY_FOR_SPEECH,
-  //  ON_ERROR,
-  ON_ERROR_NO_MATCH,
+
+  ON_ERROR_CLIENT,
+  ON_ERROR_CONTINUE,
+  ON_ERROR_OTHER,
+
   ON_RESULTS,
   ON_END_OF_SPEECH,
   ON_PARTIAL_RESULTS
