@@ -1,5 +1,4 @@
 next task,
-  testing api 23 emulator
   check competitors
   release build
   test on mums phone
