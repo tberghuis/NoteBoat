@@ -49,16 +49,12 @@ class MainActivity : ComponentActivity() {
   @Inject
   lateinit var optionDao: OptionDao
 
-//  var feature: String? = null
-
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
 
     // doitwrong
     val feature = intent.extras?.getString("feature")
     logd("feature $feature")
-
-
 
     CoroutineScope(Dispatchers.IO).launch {
       migrateLegacy()
@@ -122,10 +118,6 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun MainApp(feature: String?) {
   val navController = rememberNavController()
-  // doitwrong TM
-  // this is wrong cause i want cancel, back to go to home
-//  val startDestination = if (feature == "new_voice_note") "new-note" else "home"
-
   val newVoiceNote = feature == "new_voice_note"
 
   NavHost(navController = navController, startDestination = "home") {
@@ -133,14 +125,7 @@ fun MainApp(feature: String?) {
     // todo add nav argument newNote=true
     // easier to duplicate ui
     composable("new-note") {
-//      val viewModel: NewNoteViewModel = hiltViewModel()
       NewNoteScreen(navController = navController, newVoiceNote=newVoiceNote)
-//      LaunchedEffect(true) {
-//        if (feature == "new_voice_note") {
-//          delay(3000L)
-//          viewModel.transcribingStateFlow.value = TranscribingState.TRANSCRIBING
-//        }
-//      }
     }
     composable(
       "edit-note/{noteId}",
