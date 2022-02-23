@@ -1,7 +1,6 @@
 package xyz.tberghuis.noteboat
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
@@ -32,6 +31,7 @@ import xyz.tberghuis.noteboat.screen.EditNoteScreen
 import xyz.tberghuis.noteboat.screen.HomeScreen
 import xyz.tberghuis.noteboat.screen.NewNoteScreen
 import xyz.tberghuis.noteboat.ui.theme.NoteBoatTheme
+import xyz.tberghuis.noteboat.utils.logd
 import java.io.File
 import javax.inject.Inject
 
@@ -48,7 +48,7 @@ class MainActivity : ComponentActivity() {
     super.onCreate(savedInstanceState)
 
     val feature = intent.extras?.getString("feature")
-    Log.d("xxx", "feature $feature")
+    logd("feature $feature")
 
 
 
