@@ -10,6 +10,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Mic
 import androidx.compose.material.icons.filled.MicOff
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
@@ -17,13 +18,16 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.core.content.ContextCompat
 import com.google.accompanist.insets.navigationBarsWithImePadding
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
+import xyz.tberghuis.noteboat.utils.logd
 import xyz.tberghuis.noteboat.vm.TranscribingState
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun TranscribeFloatingActionButton(
-  transcribingStateFlow: MutableStateFlow<TranscribingState>
+  transcribingStateFlow: MutableStateFlow<TranscribingState>,
+  newVoiceNote: Boolean = false
 ) {
 //  val viewModel: NewNoteViewModel = hiltViewModel()
   val keyboardController = LocalSoftwareKeyboardController.current
@@ -63,5 +67,15 @@ fun TranscribeFloatingActionButton(
     onClick = fabOnClick
   ) {
     fabIcon()
+  }
+
+  LaunchedEffect(true) {
+    if (newVoiceNote) {
+      logd("new voice note")
+      delay(3000L)
+      // doitwrong don't bother checkSelfPermission
+      keyboardController?.hide()
+      transcribingStateFlow.value = TranscribingState.TRANSCRIBING
+    }
   }
 }

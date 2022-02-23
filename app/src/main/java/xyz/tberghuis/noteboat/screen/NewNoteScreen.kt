@@ -25,6 +25,7 @@ import xyz.tberghuis.noteboat.vm.TranscribingState
 fun NewNoteScreen(
   navController: NavHostController,
   viewModel: NewNoteViewModel = hiltViewModel(),
+  newVoiceNote: Boolean = false
 ) {
   val scaffoldState = rememberScaffoldState()
   val scope = rememberCoroutineScope()
@@ -66,7 +67,7 @@ fun NewNoteScreen(
     },
     floatingActionButtonPosition = FabPosition.End,
     floatingActionButton = {
-      TranscribeFloatingActionButton(viewModel.transcribingStateFlow)
+      TranscribeFloatingActionButton(viewModel.transcribingStateFlow, newVoiceNote)
     },
   )
 }

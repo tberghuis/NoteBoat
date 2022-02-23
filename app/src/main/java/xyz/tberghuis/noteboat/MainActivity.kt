@@ -7,8 +7,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.core.view.WindowCompat
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -19,6 +21,7 @@ import com.google.accompanist.insets.ProvideWindowInsets
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toInstant
@@ -32,6 +35,8 @@ import xyz.tberghuis.noteboat.screen.HomeScreen
 import xyz.tberghuis.noteboat.screen.NewNoteScreen
 import xyz.tberghuis.noteboat.ui.theme.NoteBoatTheme
 import xyz.tberghuis.noteboat.utils.logd
+import xyz.tberghuis.noteboat.vm.NewNoteViewModel
+import xyz.tberghuis.noteboat.vm.TranscribingState
 import java.io.File
 import javax.inject.Inject
 
@@ -44,9 +49,12 @@ class MainActivity : ComponentActivity() {
   @Inject
   lateinit var optionDao: OptionDao
 
+//  var feature: String? = null
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
 
+    // doitwrong
     val feature = intent.extras?.getString("feature")
     logd("feature $feature")
 
@@ -63,7 +71,7 @@ class MainActivity : ComponentActivity() {
         ProvideWindowInsets {
           // A surface container using the 'background' color from the theme
           Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colors.background) {
-            MainApp()
+            MainApp(feature)
           }
         }
       }
@@ -112,14 +120,28 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun MainApp() {
+fun MainApp(feature: String?) {
   val navController = rememberNavController()
+  // doitwrong TM
+  // this is wrong cause i want cancel, back to go to home
+//  val startDestination = if (feature == "new_voice_note") "new-note" else "home"
+
+  val newVoiceNote = feature == "new_voice_note"
 
   NavHost(navController = navController, startDestination = "home") {
     composable("home") { HomeScreen(navController = navController) }
     // todo add nav argument newNote=true
     // easier to duplicate ui
-    composable("new-note") { NewNoteScreen(navController = navController) }
+    composable("new-note") {
+//      val viewModel: NewNoteViewModel = hiltViewModel()
+      NewNoteScreen(navController = navController, newVoiceNote=newVoiceNote)
+//      LaunchedEffect(true) {
+//        if (feature == "new_voice_note") {
+//          delay(3000L)
+//          viewModel.transcribingStateFlow.value = TranscribingState.TRANSCRIBING
+//        }
+//      }
+    }
     composable(
       "edit-note/{noteId}",
       arguments = listOf(
@@ -129,6 +151,12 @@ fun MainApp() {
 //      val noteId: Int = backStackEntry.arguments?.getInt("noteId")!!
       // noteid should be in the viewmodel savehandlestate
       EditNoteScreen(navController = navController)
+    }
+  }
+
+  LaunchedEffect(true) {
+    if (newVoiceNote) {
+      navController.navigate("new-note")
     }
   }
 }
