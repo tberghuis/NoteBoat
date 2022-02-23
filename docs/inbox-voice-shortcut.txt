@@ -1,0 +1,4 @@
+Added shortcut "New voice note" that allows a new voice note to be opened using Google Assistant.
+To use say "Open Note Boat, new voice note" or "open new voice note in Note Boat".
+
+update play store listing
