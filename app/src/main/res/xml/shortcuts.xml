@@ -6,8 +6,7 @@
             android:action="android.intent.action.VIEW"
             android:targetClass="xyz.tberghuis.noteboat.MainActivity"
             android:targetPackage="site.thomasberghuis.noteboat">
-<!--            understand better android:name , it is defined as a BII -->
-
+            <!-- understand better android:name , it is defined as a BII -->
             <parameter
                 android:name="feature"
                 android:key="feature" />
@@ -18,12 +17,11 @@
         android:shortcutId="new_voice_note"
         android:shortcutShortLabel="@string/shortcut_short_label">
         <capability-binding android:key="actions.intent.OPEN_APP_FEATURE">
+            <!-- "open new voice note in note boat" -->
+            <!-- "open note boat new voice note" -->
             <parameter-binding
                 android:key="feature"
                 android:value="new voice note" />
         </capability-binding>
     </shortcut>
-
-
-
 </shortcuts>
