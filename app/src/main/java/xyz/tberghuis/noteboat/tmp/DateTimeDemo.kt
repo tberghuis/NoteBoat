@@ -5,8 +5,7 @@ import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import kotlinx.datetime.*
-import xyz.tberghuis.noteboat.utils.Log
-
+import xyz.tberghuis.noteboat.utils.logd
 
 // should have put this file in tmp folder
 
