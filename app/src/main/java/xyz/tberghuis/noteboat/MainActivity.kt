@@ -73,7 +73,7 @@ class MainActivity : ComponentActivity() {
   private suspend fun migrateLegacy() {
     val runMigration = optionDao.getOption("run_legacy_migration")
     if (runMigration != "true") {
-      // Log.d("xxx", "runMigration $runMigration")
+      // logd("runMigration $runMigration")
       return
     }
     // eagerly update??? probably bad to assume migration will complete, DOITWRONG
@@ -81,7 +81,7 @@ class MainActivity : ComponentActivity() {
 
     val file = File(applicationContext.filesDir, "../app_flutter/notes.db")
     if (!file.exists()) {
-      // Log.d("xxx", "no legacy database found")
+      // logd("no legacy database found")
       return
     }
 
@@ -90,10 +90,10 @@ class MainActivity : ComponentActivity() {
       LegacyDatabase::class.java,
       file.path
     ).build()
-    // Log.d("xxx", "legacyDb $legacyDb")
+    // logd("legacyDb $legacyDb")
 
     val legacyNotes = legacyDb.legacyNoteDao().getAll()
-    // Log.d("xxx", "legacyNotes $legacyNotes")
+    // logd("legacyNotes $legacyNotes")
 
     legacyNotes.forEach {
       val noteText = it.noteText!!

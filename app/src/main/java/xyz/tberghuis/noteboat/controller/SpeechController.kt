@@ -68,14 +68,14 @@ class SpeechController(
         transcribingStateFlow.collect {
           when (it) {
             TranscribingState.TRANSCRIBING -> {
-              Log.d("xxx", "transcribing")
+              logd("transcribing")
 
               baseTextFieldValue = textFieldValueState.value
 
               startListening()
             }
             TranscribingState.NOT_TRANSCRIBING -> {
-              Log.d("xxx", "not transcribing")
+              logd("not transcribing")
               stopListening()
             }
           }
@@ -154,7 +154,7 @@ class SpeechController(
   }
 
   private fun continueListening() {
-    Log.d("xxx", "continueListening")
+    logd("continueListening")
     if (transcribingStateFlow.value == TranscribingState.TRANSCRIBING) {
       startListening()
     }
@@ -177,11 +177,11 @@ fun setRecognitionListener(
 
   speechRecognizer.setRecognitionListener(object : RecognitionListener {
     override fun onReadyForSpeech(p0: Bundle?) {
-      Log.d("xxx", "onReadyForSpeech")
+      logd("onReadyForSpeech")
     }
 
     override fun onBeginningOfSpeech() {
-      Log.d("xxx", "onBeginningOfSpeech")
+      logd("onBeginningOfSpeech")
       // don't worry about zen mode cause i catch exception
 //      val zenMode: Int = try {
 //        Settings.Global.getInt(context.contentResolver, "zen_mode")
@@ -214,19 +214,19 @@ fun setRecognitionListener(
     }
 
     override fun onRmsChanged(p0: Float) {
-//        Log.d("xxx", "onRmsChanged")
+//        logd("onRmsChanged")
     }
 
     override fun onBufferReceived(p0: ByteArray?) {
-      Log.d("xxx", "onBufferReceived")
+      logd("onBufferReceived")
     }
 
     override fun onEndOfSpeech() {
-      Log.d("xxx", "onEndOfSpeech ${System.currentTimeMillis()}")
+      logd("onEndOfSpeech ${System.currentTimeMillis()}")
     }
 
     override fun onError(p0: Int) {
-      Log.d("xxx", "onError $p0 ${System.currentTimeMillis()}")
+      logd("onError $p0 ${System.currentTimeMillis()}")
 
       when (p0) {
         ERROR_NO_MATCH, ERROR_SPEECH_TIMEOUT -> {
@@ -241,10 +241,10 @@ fun setRecognitionListener(
     }
 
     override fun onResults(p0: Bundle?) {
-      Log.d("xxx", "onResults ${System.currentTimeMillis()}")
+      logd("onResults ${System.currentTimeMillis()}")
       p0?.let {
         val data = p0.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION)
-        Log.d("xxx", data.toString())
+        logd(data.toString())
 
         data?.get(0)?.let {
           scope.launch {
@@ -256,10 +256,10 @@ fun setRecognitionListener(
     }
 
     override fun onPartialResults(p0: Bundle?) {
-      Log.d("xxx", "onPartialResults")
+      logd("onPartialResults")
       p0?.let {
         val data = p0.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION)
-        Log.d("xxx", data.toString())
+        logd(data.toString())
         data?.get(0)?.let {
           scope.launch {
             speechController.partialResultsFlow.emit(it)
@@ -269,7 +269,7 @@ fun setRecognitionListener(
     }
 
     override fun onEvent(p0: Int, p1: Bundle?) {
-      Log.d("xxx", "onEvent")
+      logd("onEvent")
     }
   })
 }

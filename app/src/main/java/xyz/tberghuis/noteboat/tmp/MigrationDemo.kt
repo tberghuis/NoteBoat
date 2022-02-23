@@ -38,7 +38,7 @@ fun MigrationDemo() {
   Column {
     Text("hello migration")
     Button(onClick = {
-      Log.d("xxx", "migrrate click")
+      logd("migrrate click")
       scope.launch {
         viewModel.migrate()
       }
@@ -65,11 +65,11 @@ class MigrationViewModel @Inject constructor(
       LegacyDatabase::class.java,
       path
     ).build()
-    Log.d("xxx", "legacyDb $legacyDb")
+    logd("legacyDb $legacyDb")
 
     withContext(Dispatchers.IO) {
       val legacyNotes = legacyDb.legacyNoteDao().getAll()
-      Log.d("xxx", "legacyNotes $legacyNotes")
+      logd("legacyNotes $legacyNotes")
 
       legacyNotes.forEach {
         val noteText = it.noteText!!
