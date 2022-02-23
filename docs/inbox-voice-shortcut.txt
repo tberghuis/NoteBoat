@@ -1,3 +1,15 @@
 ....
 next task
 do it wrong, do it right later
+
+
+manifest
+...
+
+https://developer.android.com/guide/topics/ui/shortcuts
+
+/new-note with param launch-voice-note
+or i could just use route /launch-voice-note
+
+"open new voice note in note boat"
+"open note boat new voice note"
