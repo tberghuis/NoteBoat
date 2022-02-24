@@ -1,6 +1,7 @@
 package xyz.tberghuis.noteboat.composable
 
 import android.Manifest
+import android.app.Activity
 import android.content.pm.PackageManager
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -26,8 +27,7 @@ import xyz.tberghuis.noteboat.vm.TranscribingState
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun TranscribeFloatingActionButton(
-  transcribingStateFlow: MutableStateFlow<TranscribingState>,
-  newVoiceNote: Boolean = false
+  transcribingStateFlow: MutableStateFlow<TranscribingState>
 ) {
 //  val viewModel: NewNoteViewModel = hiltViewModel()
   val keyboardController = LocalSoftwareKeyboardController.current
@@ -69,13 +69,18 @@ fun TranscribeFloatingActionButton(
     fabIcon()
   }
 
-  LaunchedEffect(true) {
-    if (newVoiceNote) {
-      logd("new voice note")
-      delay(3000L)
-      // doitwrong don't bother checkSelfPermission
-      keyboardController?.hide()
-      transcribingStateFlow.value = TranscribingState.TRANSCRIBING
+  val intent = (LocalContext.current as Activity).intent
+  // doitwrong
+  LaunchedEffect(intent) {
+    when (intent.extras?.getString("feature")) {
+      "new_voice_note" -> {
+        logd("new voice note")
+        delay(3000L)
+        // doitwrong don't bother checkSelfPermission
+        keyboardController?.hide()
+        transcribingStateFlow.value = TranscribingState.TRANSCRIBING
+      }
     }
   }
+
 }

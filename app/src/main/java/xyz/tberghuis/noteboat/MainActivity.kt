@@ -1,5 +1,6 @@
 package xyz.tberghuis.noteboat
 
+import android.app.Activity
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -9,6 +10,7 @@ import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.core.view.WindowCompat
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavType
@@ -53,8 +55,8 @@ class MainActivity : ComponentActivity() {
     super.onCreate(savedInstanceState)
 
     // doitwrong
-    val feature = intent.extras?.getString("feature")
-    logd("feature $feature")
+//    val feature = intent.extras?.getString("feature")
+//    logd("feature $feature")
 
     CoroutineScope(Dispatchers.IO).launch {
       migrateLegacy()
@@ -67,7 +69,7 @@ class MainActivity : ComponentActivity() {
         ProvideWindowInsets {
           // A surface container using the 'background' color from the theme
           Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colors.background) {
-            MainApp(feature)
+            MainApp()
           }
         }
       }
@@ -116,16 +118,18 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun MainApp(feature: String?) {
+fun MainApp() {
   val navController = rememberNavController()
-  val newVoiceNote = feature == "new_voice_note"
+  val intent = (LocalContext.current as Activity).intent
+//  intent.extras?.getString("feature")
+
 
   NavHost(navController = navController, startDestination = "home") {
     composable("home") { HomeScreen(navController = navController) }
     // todo add nav argument newNote=true
     // easier to duplicate ui
     composable("new-note") {
-      NewNoteScreen(navController = navController, newVoiceNote=newVoiceNote)
+      NewNoteScreen(navController = navController)
     }
     composable(
       "edit-note/{noteId}",
@@ -139,9 +143,12 @@ fun MainApp(feature: String?) {
     }
   }
 
-  LaunchedEffect(true) {
-    if (newVoiceNote) {
-      navController.navigate("new-note")
+  // doitwrong
+  LaunchedEffect(intent) {
+    when (intent.extras?.getString("feature")) {
+      "new_voice_note" -> {
+        navController.navigate("new-note")
+      }
     }
   }
 }
