@@ -21,6 +21,7 @@ import xyz.tberghuis.noteboat.composable.TranscribeFloatingActionButton
 import xyz.tberghuis.noteboat.utils.logd
 import xyz.tberghuis.noteboat.vm.NewNoteViewModel
 import xyz.tberghuis.noteboat.vm.TranscribingState
+import kotlinx.coroutines.flow.collect
 
 @OptIn(
   ExperimentalComposeUiApi::class,
@@ -29,7 +30,6 @@ import xyz.tberghuis.noteboat.vm.TranscribingState
 fun NewNoteScreen(
   navController: NavHostController,
   viewModel: NewNoteViewModel = hiltViewModel(),
-  navParam: String?
 ) {
   val scaffoldState = rememberScaffoldState()
   val scope = rememberCoroutineScope()
@@ -76,19 +76,12 @@ fun NewNoteScreen(
   )
 
   val keyboardController = LocalSoftwareKeyboardController.current
-  // in future run this in viewmodel init
-  // just a launchedeffect to hide keyboard here
-  RunOnceEffect() {
-    logd("newnotescreen LaunchedEffect")
-    logd("navParam $navParam")
-    when (navParam) {
-      "voice" -> {
-        logd("new voice note")
-        delay(3000L)
-        logd("after delay 3000")
-        // doitwrong don't bother checkSelfPermission
-        keyboardController?.hide()
-        viewModel.transcribingStateFlow.value = TranscribingState.TRANSCRIBING
+  LaunchedEffect(true) {
+    viewModel.transcribingStateFlow.collect {
+      when (it) {
+        TranscribingState.TRANSCRIBING -> {
+          keyboardController?.hide()
+        }
       }
     }
   }

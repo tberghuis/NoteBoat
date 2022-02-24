@@ -127,13 +127,12 @@ fun MainApp() {
   val intent = (LocalContext.current as Activity).intent
 //  intent.extras?.getString("feature")
 
-
   NavHost(navController = navController, startDestination = "home") {
     composable("home") { HomeScreen(navController = navController) }
     // todo add nav argument newNote=true
     // easier to duplicate ui
     composable("new-note") {
-      NewNoteScreen(navController = navController, navParam = null)
+      NewNoteScreen(navController = navController)
     }
     composable(
       "new-note/{navParam}",
@@ -141,8 +140,8 @@ fun MainApp() {
         navArgument("navParam") { type = NavType.StringType },
       )
     ) { backStackEntry ->
-      val navParam: String? = backStackEntry.arguments?.getString("navParam")
-      NewNoteScreen(navController = navController, navParam = navParam)
+//      val navParam: String? = backStackEntry.arguments?.getString("navParam")
+      NewNoteScreen(navController = navController)
     }
     composable(
       "edit-note/{noteId}",
