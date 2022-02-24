@@ -1,6 +1,7 @@
 package xyz.tberghuis.noteboat.composable
 
 import android.Manifest
+import android.app.Activity
 import android.content.pm.PackageManager
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -10,6 +11,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Mic
 import androidx.compose.material.icons.filled.MicOff
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
@@ -17,7 +19,9 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.core.content.ContextCompat
 import com.google.accompanist.insets.navigationBarsWithImePadding
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
+import xyz.tberghuis.noteboat.utils.logd
 import xyz.tberghuis.noteboat.vm.TranscribingState
 
 @OptIn(ExperimentalComposeUiApi::class)
@@ -64,4 +68,6 @@ fun TranscribeFloatingActionButton(
   ) {
     fabIcon()
   }
+
+
 }

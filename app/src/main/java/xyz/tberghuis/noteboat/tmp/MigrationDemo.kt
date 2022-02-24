@@ -25,7 +25,7 @@ import xyz.tberghuis.noteboat.data.AppDatabase
 import xyz.tberghuis.noteboat.data.LegacyDatabase
 import xyz.tberghuis.noteboat.data.Note
 import xyz.tberghuis.noteboat.data.NoteDao
-import xyz.tberghuis.noteboat.utils.Log
+import xyz.tberghuis.noteboat.utils.logd
 import javax.inject.Inject
 
 @Composable
@@ -38,7 +38,7 @@ fun MigrationDemo() {
   Column {
     Text("hello migration")
     Button(onClick = {
-      Log.d("xxx", "migrrate click")
+      logd("migrrate click")
       scope.launch {
         viewModel.migrate()
       }
@@ -65,11 +65,11 @@ class MigrationViewModel @Inject constructor(
       LegacyDatabase::class.java,
       path
     ).build()
-    Log.d("xxx", "legacyDb $legacyDb")
+    logd("legacyDb $legacyDb")
 
     withContext(Dispatchers.IO) {
       val legacyNotes = legacyDb.legacyNoteDao().getAll()
-      Log.d("xxx", "legacyNotes $legacyNotes")
+      logd("legacyNotes $legacyNotes")
 
       legacyNotes.forEach {
         val noteText = it.noteText!!

@@ -1,0 +1,74 @@
+next task,
+  check competitors - f-droid, warnings about recording...
+  release build
+  test on mums phone
+
+mic fab colors, red on blue, black on blue
+
+override fun xyz = .... (shorten code)
+
+do i even need record audio and internet permissions???
+
+future... 
+  SpeechRecognizer.isRecognitionAvailable = false
+
+update play store screenshots
+
+turn inbox*.txt into github issues
+
+######################
+add bottom padding text field, so text scroll clear FAB
+
+implement edit note
+
+fix UI/UX request recording permissions
+
+no permission still allow to use app with feature removed
+add toggle recording permission to settings page
+
+hide disable IME when transcribing
+
+viewmodel implement ITranscribeViewModel, use in SpeechController
+ITranscribeViewModel will need updateDb method
+
+https://kotlinlang.org/docs/interfaces.html#0
+
+###################
+testing doc...
+
+rewrite with TextFieldValue and launchedeffect collect
+
+underline partialresult (composition)
+
+when focus textfield, place cursor at end
+
+when transcribing, on tap snackbar "stop speech input to edit"
+
+fix non exhastive when statements and other warnings
+
+remove log.d
+
+cull inbox.txt from voicenotes project
+
+...
+update version
+push to master branch
+release play store
+
+move noteboat-flutter github repo (check for issues)
+move this repo from v2 to noteboat (check for issues)
+fresh checkout
+
+bug ime padding when showing dialog
+
+app shortcut, new voice note
+
+update gradle dependencies versions
+
+update play store https://github.com/tberghuis/NoteBoat
+
+git remote set-url origin git@github.com:tberghuis/NoteBoat.git
+
+make a github readme
+
+use VoiceNotes as a reference for app shortcuts

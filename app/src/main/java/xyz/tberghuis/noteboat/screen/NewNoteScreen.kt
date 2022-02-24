@@ -7,16 +7,21 @@ import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.google.accompanist.insets.statusBarsPadding
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import xyz.tberghuis.noteboat.RunOnceEffect
 import xyz.tberghuis.noteboat.composable.NoteContent
 import xyz.tberghuis.noteboat.composable.OnPauseLifecycleEvent
 import xyz.tberghuis.noteboat.composable.TranscribeFloatingActionButton
+import xyz.tberghuis.noteboat.utils.logd
 import xyz.tberghuis.noteboat.vm.NewNoteViewModel
 import xyz.tberghuis.noteboat.vm.TranscribingState
+import kotlinx.coroutines.flow.collect
 
 @OptIn(
   ExperimentalComposeUiApi::class,
@@ -69,6 +74,17 @@ fun NewNoteScreen(
       TranscribeFloatingActionButton(viewModel.transcribingStateFlow)
     },
   )
+
+  val keyboardController = LocalSoftwareKeyboardController.current
+  LaunchedEffect(true) {
+    viewModel.transcribingStateFlow.collect {
+      when (it) {
+        TranscribingState.TRANSCRIBING -> {
+          keyboardController?.hide()
+        }
+      }
+    }
+  }
 }
 
 @Composable

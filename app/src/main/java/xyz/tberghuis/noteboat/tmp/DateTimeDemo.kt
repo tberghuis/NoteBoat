@@ -5,8 +5,7 @@ import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import kotlinx.datetime.*
-import xyz.tberghuis.noteboat.utils.Log
-
+import xyz.tberghuis.noteboat.utils.logd
 
 // should have put this file in tmp folder
 
@@ -27,7 +26,7 @@ fun DateTimeDemo() {
 
       localDateTime.toJavaLocalDateTime() // https://stackoverflow.com/questions/22463062/how-to-parse-format-dates-with-localdatetime-java-8
       val epoch2 = localDateTime.toInstant(TimeZone.currentSystemDefault()).toEpochMilliseconds()
-      Log.d("xxx", "currentMoment $currentMoment $localDateTime $epoch2")
+      logd("currentMoment $currentMoment $localDateTime $epoch2")
     }) {
       Text("button")
     }
