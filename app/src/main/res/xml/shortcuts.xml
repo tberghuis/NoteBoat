@@ -6,6 +6,8 @@
             android:action="android.intent.action.VIEW"
             android:targetClass="xyz.tberghuis.noteboat.MainActivity"
             android:targetPackage="site.thomasberghuis.noteboat">
+
+            
             <!-- understand better android:name , it is defined as a BII -->
             <parameter
                 android:name="feature"

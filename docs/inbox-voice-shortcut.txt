@@ -13,6 +13,18 @@ TODO use url-template
 
 Deep links: Launch app destinations using Android deep links by defining a <url-template> tag within the intent element. This method is useful if your app navigation already relies on deep links.
 
+***app-linked URLs***
+Using a URL template for Android deep links
+If your app is already able to handle app-linked URLs, with dynamic parameters, you can define a <url-template> in the intent to generate Android deep links for fulfillment. The following sample defines a <url-template>:
+
+
+<capability android:name="actions.intent.ORDER_MENU_ITEM">
+  <intent>
+    <url-template android:value="myapp://order{?menu}" />
+    <parameter android:name="menuItem.name" android:key="menu" />
+  </intent>
+</capability>
+
 after fix and deploy...
 
 https://support.google.com/actions-console/contact/support?authuser=1
