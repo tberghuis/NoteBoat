@@ -2,3 +2,7 @@ Added shortcut "New voice note" that allows a new voice note to be opened using 
 To use say "Open Note Boat, new voice note" or "open new voice note in Note Boat".
 
 update play store listing
+
+
+ask question on SO
+best practice app shortcut, compose navigation???
