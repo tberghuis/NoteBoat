@@ -14,6 +14,7 @@ import androidx.navigation.NavHostController
 import com.google.accompanist.insets.statusBarsPadding
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import xyz.tberghuis.noteboat.RunOnceEffect
 import xyz.tberghuis.noteboat.composable.NoteContent
 import xyz.tberghuis.noteboat.composable.OnPauseLifecycleEvent
 import xyz.tberghuis.noteboat.composable.TranscribeFloatingActionButton
@@ -75,11 +76,16 @@ fun NewNoteScreen(
   )
 
   val keyboardController = LocalSoftwareKeyboardController.current
-  LaunchedEffect(true) {
+  // in future run this in viewmodel init
+  // just a launchedeffect to hide keyboard here
+  RunOnceEffect() {
+    logd("newnotescreen LaunchedEffect")
+    logd("navParam $navParam")
     when (navParam) {
       "voice" -> {
         logd("new voice note")
         delay(3000L)
+        logd("after delay 3000")
         // doitwrong don't bother checkSelfPermission
         keyboardController?.hide()
         viewModel.transcribingStateFlow.value = TranscribingState.TRANSCRIBING

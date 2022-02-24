@@ -9,6 +9,8 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.core.view.WindowCompat
@@ -41,6 +43,8 @@ import xyz.tberghuis.noteboat.vm.NewNoteViewModel
 import xyz.tberghuis.noteboat.vm.TranscribingState
 import java.io.File
 import javax.inject.Inject
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -128,6 +132,9 @@ fun MainApp() {
     composable("home") { HomeScreen(navController = navController) }
     // todo add nav argument newNote=true
     // easier to duplicate ui
+    composable("new-note") {
+      NewNoteScreen(navController = navController, navParam = null)
+    }
     composable(
       "new-note/{navParam}",
       arguments = listOf(
@@ -149,13 +156,27 @@ fun MainApp() {
     }
   }
 
-  // doitwrong
-  LaunchedEffect(intent) {
+// doing it wrong
+  RunOnceEffect {
     when (intent.extras?.getString("feature")) {
       "new_voice_note" -> {
         logd("mainapp new voice note")
         navController.navigate("new-note/voice")
       }
+    }
+  }
+}
+
+// do it wrong
+// i can't fully wrap my head around this but it is working for now
+@Composable
+fun RunOnceEffect(callback: suspend () -> Unit) {
+  // https://stackoverflow.com/questions/69629427/prevent-launchedeffect-from-re-running-on-configuration-change
+  var hasRun by rememberSaveable { mutableStateOf(false) }
+  if (!hasRun) {
+    LaunchedEffect(true) {
+      callback()
+      hasRun = true
     }
   }
 }
