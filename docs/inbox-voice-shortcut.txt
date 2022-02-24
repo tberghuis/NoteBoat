@@ -6,3 +6,13 @@ update play store listing
 
 ask question on SO
 best practice app shortcut, compose navigation???
+
+how long till google assistant works production
+
+TODO use url-template
+
+Deep links: Launch app destinations using Android deep links by defining a <url-template> tag within the intent element. This method is useful if your app navigation already relies on deep links.
+
+after fix and deploy...
+
+https://support.google.com/actions-console/contact/support?authuser=1
