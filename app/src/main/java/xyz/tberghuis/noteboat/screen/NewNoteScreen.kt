@@ -7,14 +7,17 @@ import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.google.accompanist.insets.statusBarsPadding
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import xyz.tberghuis.noteboat.composable.NoteContent
 import xyz.tberghuis.noteboat.composable.OnPauseLifecycleEvent
 import xyz.tberghuis.noteboat.composable.TranscribeFloatingActionButton
+import xyz.tberghuis.noteboat.utils.logd
 import xyz.tberghuis.noteboat.vm.NewNoteViewModel
 import xyz.tberghuis.noteboat.vm.TranscribingState
 
@@ -25,6 +28,7 @@ import xyz.tberghuis.noteboat.vm.TranscribingState
 fun NewNoteScreen(
   navController: NavHostController,
   viewModel: NewNoteViewModel = hiltViewModel(),
+  navParam: String?
 ) {
   val scaffoldState = rememberScaffoldState()
   val scope = rememberCoroutineScope()
@@ -69,6 +73,19 @@ fun NewNoteScreen(
       TranscribeFloatingActionButton(viewModel.transcribingStateFlow)
     },
   )
+
+  val keyboardController = LocalSoftwareKeyboardController.current
+  LaunchedEffect(true) {
+    when (navParam) {
+      "voice" -> {
+        logd("new voice note")
+        delay(3000L)
+        // doitwrong don't bother checkSelfPermission
+        keyboardController?.hide()
+        viewModel.transcribingStateFlow.value = TranscribingState.TRANSCRIBING
+      }
+    }
+  }
 }
 
 @Composable

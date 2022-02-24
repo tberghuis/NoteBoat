@@ -69,18 +69,5 @@ fun TranscribeFloatingActionButton(
     fabIcon()
   }
 
-  val intent = (LocalContext.current as Activity).intent
-  // doitwrong
-  LaunchedEffect(intent) {
-    when (intent.extras?.getString("feature")) {
-      "new_voice_note" -> {
-        logd("new voice note")
-        delay(3000L)
-        // doitwrong don't bother checkSelfPermission
-        keyboardController?.hide()
-        transcribingStateFlow.value = TranscribingState.TRANSCRIBING
-      }
-    }
-  }
 
 }

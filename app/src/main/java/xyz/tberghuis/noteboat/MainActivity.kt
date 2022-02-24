@@ -128,8 +128,14 @@ fun MainApp() {
     composable("home") { HomeScreen(navController = navController) }
     // todo add nav argument newNote=true
     // easier to duplicate ui
-    composable("new-note") {
-      NewNoteScreen(navController = navController)
+    composable(
+      "new-note/{navParam}",
+      arguments = listOf(
+        navArgument("navParam") { type = NavType.StringType },
+      )
+    ) { backStackEntry ->
+      val navParam: String? = backStackEntry.arguments?.getString("navParam")
+      NewNoteScreen(navController = navController, navParam = navParam)
     }
     composable(
       "edit-note/{noteId}",
@@ -147,7 +153,8 @@ fun MainApp() {
   LaunchedEffect(intent) {
     when (intent.extras?.getString("feature")) {
       "new_voice_note" -> {
-        navController.navigate("new-note")
+        logd("mainapp new voice note")
+        navController.navigate("new-note/voice")
       }
     }
   }
