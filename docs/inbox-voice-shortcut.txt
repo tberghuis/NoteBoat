@@ -34,3 +34,10 @@ after fix and deploy...
 
 https://support.google.com/actions-console/contact/support?authuser=1
 contacted asked for app action to be reviewed. should have saved what i wrote in the contact form
+
+
+
+
+################
+rewrite RunOnce with scope
+
