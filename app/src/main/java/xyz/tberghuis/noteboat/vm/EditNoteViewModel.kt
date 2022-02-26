@@ -29,7 +29,7 @@ class EditNoteViewModel @Inject constructor(
   val noteTextFieldValueState = mutableStateOf(TextFieldValue())
 
   val transcribingStateFlow = MutableStateFlow(TranscribingState.NOT_TRANSCRIBING)
-    val speechController =
+  val speechController =
     SpeechController(
       appContext,
       transcribingStateFlow,
