@@ -2,6 +2,7 @@ package xyz.tberghuis.noteboat.vm
 
 import android.content.Context
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
@@ -28,7 +29,7 @@ class EditNoteViewModel @Inject constructor(
   val noteTextFieldValueState = mutableStateOf(TextFieldValue())
 
   val transcribingStateFlow = MutableStateFlow(TranscribingState.NOT_TRANSCRIBING)
-    val speechController =
+  val speechController =
     SpeechController(
       appContext,
       transcribingStateFlow,
@@ -41,7 +42,7 @@ class EditNoteViewModel @Inject constructor(
       val noteText = withContext(Dispatchers.IO) {
         noteDao.getNoteText(noteId)
       }
-      noteTextFieldValueState.value = TextFieldValue(noteText)
+      noteTextFieldValueState.value = TextFieldValue(noteText, TextRange(noteText.length))
       speechController.run()
     }
   }

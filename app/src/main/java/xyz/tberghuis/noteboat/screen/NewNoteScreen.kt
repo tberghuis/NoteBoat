@@ -71,7 +71,7 @@ fun NewNoteScreen(
     },
     floatingActionButtonPosition = FabPosition.End,
     floatingActionButton = {
-      TranscribeFloatingActionButton(viewModel.transcribingStateFlow)
+      TranscribeFloatingActionButton(viewModel.transcribingStateFlow, onComplete)
     },
   )
 

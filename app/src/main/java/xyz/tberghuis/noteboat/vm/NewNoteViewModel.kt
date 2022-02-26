@@ -2,6 +2,7 @@ package xyz.tberghuis.noteboat.vm
 
 import android.content.Context
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
@@ -46,7 +47,13 @@ class NewNoteViewModel @Inject constructor(
       val newNoteDraft = withContext(Dispatchers.IO) {
         optionDao.getOption("new_note_draft")
       }
-      noteTextFieldValueState.value = TextFieldValue(newNoteDraft)
+
+//      val selection = TextRange(newNoteDraft.length)
+
+      noteTextFieldValueState.value = TextFieldValue(newNoteDraft, TextRange(newNoteDraft.length))
+
+
+
       speechController.run()
     }
     viewModelScope.launch {
@@ -78,7 +85,9 @@ class NewNoteViewModel @Inject constructor(
       noteDao.insertAll(Note(noteText = newNote, createdEpoch = epoch, modifiedEpoch = epoch))
       optionDao.updateOption("new_note_draft", "")
     }
+    noteTextFieldValueState.value = TextFieldValue()
   }
+
 }
 
 enum class TranscribingState {
