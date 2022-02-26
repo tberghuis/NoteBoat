@@ -1,3 +1,0 @@
-save FAB
-insert cursor last position on textfield focus
-cull inbox*.txt move tasks to github issues
