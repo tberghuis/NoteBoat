@@ -1,5 +1,5 @@
 update version build gradle
-releas build
+release build
 release internal test
 test
 production rollout
@@ -7,3 +7,5 @@ git merge branch
 switch branch to master, fetch
 update github README, play store listing
 cull inbox*.txt
+close update github issues
+*refactor

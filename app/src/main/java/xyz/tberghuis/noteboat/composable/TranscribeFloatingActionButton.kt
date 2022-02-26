@@ -5,11 +5,14 @@ import android.app.Activity
 import android.content.pm.PackageManager
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.Icon
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Mic
 import androidx.compose.material.icons.filled.MicOff
+import androidx.compose.material.icons.filled.Save
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -17,7 +20,9 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
+import androidx.navigation.NavHostController
 import com.google.accompanist.insets.navigationBarsWithImePadding
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -27,7 +32,8 @@ import xyz.tberghuis.noteboat.vm.TranscribingState
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun TranscribeFloatingActionButton(
-  transcribingStateFlow: MutableStateFlow<TranscribingState>
+  transcribingStateFlow: MutableStateFlow<TranscribingState>,
+  onComplete: () -> Unit,
 ) {
 //  val viewModel: NewNoteViewModel = hiltViewModel()
   val keyboardController = LocalSoftwareKeyboardController.current
@@ -62,11 +68,21 @@ fun TranscribeFloatingActionButton(
     fabIcon = @Composable { Icon(Icons.Filled.MicOff, "stop speech input") }
   }
 
-  FloatingActionButton(
-    modifier = Modifier.navigationBarsWithImePadding(),
-    onClick = fabOnClick
-  ) {
-    fabIcon()
+  Row {
+    FloatingActionButton(
+      modifier = Modifier.navigationBarsWithImePadding(),
+      onClick = fabOnClick
+    ) {
+      fabIcon()
+    }
+    FloatingActionButton(
+      modifier = Modifier
+        .navigationBarsWithImePadding()
+        .padding(start = 16.dp),
+      onClick = onComplete
+    ) {
+      Icon(Icons.Filled.Save, "save")
+    }
   }
 
 
