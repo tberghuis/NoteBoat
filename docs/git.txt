@@ -1,2 +1,3 @@
 how to merge command line... 
+git checkout master
 git merge --squash dev
