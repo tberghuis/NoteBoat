@@ -1,2 +1,4 @@
 shared viewmodel "new voice note", navigate and start transcribing
 update gradle versions
+learn navigation because i need to clear back stack....
+nav docs
