@@ -47,13 +47,7 @@ class NewNoteViewModel @Inject constructor(
       val newNoteDraft = withContext(Dispatchers.IO) {
         optionDao.getOption("new_note_draft")
       }
-
-//      val selection = TextRange(newNoteDraft.length)
-
       noteTextFieldValueState.value = TextFieldValue(newNoteDraft, TextRange(newNoteDraft.length))
-
-
-
       speechController.run()
     }
     viewModelScope.launch {
@@ -63,7 +57,7 @@ class NewNoteViewModel @Inject constructor(
           logd("new voice note")
           delay(3000L)
           logd("after delay 3000")
-          // doitwrong don't bother checkSelfPermission
+          // doitwrong don't bother checkSelfPermission for now
           transcribingStateFlow.value = TranscribingState.TRANSCRIBING
         }
       }
@@ -88,7 +82,6 @@ class NewNoteViewModel @Inject constructor(
     }
     noteTextFieldValueState.value = TextFieldValue()
   }
-
 }
 
 enum class TranscribingState {

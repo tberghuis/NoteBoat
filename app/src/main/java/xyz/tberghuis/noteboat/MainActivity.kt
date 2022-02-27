@@ -126,8 +126,6 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun MainApp() {
   val navController = rememberNavController()
-  val intent = (LocalContext.current as Activity).intent
-//  intent.extras?.getString("feature")
 
   NavHost(navController = navController, startDestination = "home") {
     composable("home") { HomeScreen(navController = navController) }
@@ -142,15 +140,10 @@ fun MainApp() {
         navArgument("navParam") { type = NavType.StringType },
       ),
       deepLinks = listOf(navDeepLink { uriPattern = "noteboat://noteboat/new-note/{navParam}" })
-
     ) { backStackEntry ->
 //      val navParam: String? = backStackEntry.arguments?.getString("navParam")
       NewNoteScreen(navController = navController)
     }
-
-
-
-
     composable(
       "edit-note/{noteId}",
       arguments = listOf(
@@ -160,32 +153,6 @@ fun MainApp() {
 //      val noteId: Int = backStackEntry.arguments?.getInt("noteId")!!
       // noteid should be in the viewmodel savehandlestate
       EditNoteScreen(navController = navController)
-    }
-  }
-
-// doing it wrong
-//  RunOnceEffect {
-//    when (intent.extras?.getString("feature")) {
-//      "new_voice_note" -> {
-//        logd("mainapp new voice note")
-//
-//
-//        navController.navigate("new-note/voice")
-//      }
-//    }
-//  }
-}
-
-// do it wrong
-// i can't fully wrap my head around this but it is working for now
-@Composable
-fun RunOnceEffect(callback: suspend () -> Unit) {
-  // https://stackoverflow.com/questions/69629427/prevent-launchedeffect-from-re-running-on-configuration-change
-  var hasRun by rememberSaveable { mutableStateOf(false) }
-  if (!hasRun) {
-    LaunchedEffect(true) {
-      callback()
-      hasRun = true
     }
   }
 }
