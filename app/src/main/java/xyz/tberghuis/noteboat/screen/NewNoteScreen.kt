@@ -2,7 +2,6 @@ package xyz.tberghuis.noteboat.screen
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.material.*
-//import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.*
@@ -16,13 +15,10 @@ import com.google.accompanist.insets.navigationBarsPadding
 import com.google.accompanist.insets.statusBarsPadding
 import com.google.accompanist.insets.ui.Scaffold
 import com.google.accompanist.insets.ui.TopAppBar
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import xyz.tberghuis.noteboat.RunOnceEffect
 import xyz.tberghuis.noteboat.composable.NoteContent
 import xyz.tberghuis.noteboat.composable.OnPauseLifecycleEvent
 import xyz.tberghuis.noteboat.composable.TranscribeFloatingActionButton
-import xyz.tberghuis.noteboat.utils.logd
 import xyz.tberghuis.noteboat.vm.NewNoteViewModel
 import xyz.tberghuis.noteboat.vm.TranscribingState
 import kotlinx.coroutines.flow.collect
