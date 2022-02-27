@@ -2,6 +2,7 @@ package xyz.tberghuis.noteboat.screen
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.material.*
+//import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.*
@@ -11,7 +12,10 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import com.google.accompanist.insets.navigationBarsPadding
 import com.google.accompanist.insets.statusBarsPadding
+import com.google.accompanist.insets.ui.Scaffold
+import com.google.accompanist.insets.ui.TopAppBar
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import xyz.tberghuis.noteboat.RunOnceEffect
@@ -62,8 +66,9 @@ fun NewNoteScreen(
   Scaffold(
     scaffoldState = scaffoldState,
     topBar = { NewNoteTopBar(onComplete = onComplete, onCancel = onCancel) },
-    content = {
+    content = { paddingValues ->
       NoteContent(
+        paddingValues,
         viewModel.transcribingStateFlow,
         viewModel.noteTextFieldValueState,
         viewModel::updateNewNoteDraft
@@ -93,7 +98,9 @@ fun NewNoteTopBar(
   onCancel: () -> Unit
 ) {
   TopAppBar(
-    modifier = Modifier.statusBarsPadding(),
+    modifier = Modifier
+      .statusBarsPadding()
+      .navigationBarsPadding(bottom = false),
     title = { Text("New Note") },
     navigationIcon = {
       IconButton(onClick = {

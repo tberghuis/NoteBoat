@@ -52,7 +52,9 @@ fun HomeScreen(
 @Composable
 fun HomeTopBar() {
   TopAppBar(
-    modifier = Modifier.statusBarsPadding(),
+    modifier = Modifier
+      .statusBarsPadding()
+      .navigationBarsPadding(bottom = false),
     title = { Text("Note Boat") }
   )
 }

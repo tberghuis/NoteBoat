@@ -1,9 +1,7 @@
 package xyz.tberghuis.noteboat.composable
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.TextField
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -17,6 +15,7 @@ import xyz.tberghuis.noteboat.vm.TranscribingState
 
 @Composable
 fun NoteContent(
+  paddingValues: PaddingValues,
   transcribingStateFlow: StateFlow<TranscribingState>,
   noteTextFieldValueState: MutableState<TextFieldValue>,
   updateDb: (String) -> Unit
@@ -34,7 +33,7 @@ fun NoteContent(
     { }
   }
 
-  Column {
+  Column(Modifier.padding(paddingValues)) {
     Box {
       // todo in future i should wait till noteTextFieldValueState initialized
       TextField(

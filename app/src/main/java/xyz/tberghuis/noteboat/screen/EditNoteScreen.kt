@@ -9,6 +9,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import com.google.accompanist.insets.navigationBarsPadding
 import com.google.accompanist.insets.statusBarsPadding
 import xyz.tberghuis.noteboat.composable.NoteContent
 import xyz.tberghuis.noteboat.composable.OnPauseLifecycleEvent
@@ -62,8 +63,9 @@ fun EditNoteScreen(
   Scaffold(
     scaffoldState = scaffoldState,
     topBar = { EditNoteTopBar(showDeleteDialog = showDeleteDialog, onComplete = onComplete) },
-    content = {
+    content = { paddingValues ->
       NoteContent(
+        paddingValues,
         viewModel.transcribingStateFlow,
         viewModel.noteTextFieldValueState,
         viewModel::updateNote
@@ -82,7 +84,9 @@ fun EditNoteTopBar(
   showDeleteDialog: MutableState<Boolean>,
 ) {
   TopAppBar(
-    modifier = Modifier.statusBarsPadding(),
+    modifier = Modifier
+      .statusBarsPadding()
+      .navigationBarsPadding(bottom = false),
     title = { Text("Edit Note") },
     navigationIcon = {
       IconButton(onClick = {
