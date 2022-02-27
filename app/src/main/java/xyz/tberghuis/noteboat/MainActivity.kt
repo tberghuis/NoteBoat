@@ -45,6 +45,7 @@ import java.io.File
 import javax.inject.Inject
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
+import androidx.navigation.navDeepLink
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -59,7 +60,8 @@ class MainActivity : ComponentActivity() {
     super.onCreate(savedInstanceState)
 
     // doitwrong
-//    val feature = intent.extras?.getString("feature")
+    val feature = intent.extras?.getString("feature")
+    logd("onCreate feature $feature")
 //    logd("feature $feature")
 
     CoroutineScope(Dispatchers.IO).launch {
@@ -138,11 +140,17 @@ fun MainApp() {
       "new-note/{navParam}",
       arguments = listOf(
         navArgument("navParam") { type = NavType.StringType },
-      )
+      ),
+      deepLinks = listOf(navDeepLink { uriPattern = "noteboat://noteboat/new-note/{navParam}" })
+
     ) { backStackEntry ->
 //      val navParam: String? = backStackEntry.arguments?.getString("navParam")
       NewNoteScreen(navController = navController)
     }
+
+
+
+
     composable(
       "edit-note/{noteId}",
       arguments = listOf(
@@ -156,14 +164,16 @@ fun MainApp() {
   }
 
 // doing it wrong
-  RunOnceEffect {
-    when (intent.extras?.getString("feature")) {
-      "new_voice_note" -> {
-        logd("mainapp new voice note")
-        navController.navigate("new-note/voice")
-      }
-    }
-  }
+//  RunOnceEffect {
+//    when (intent.extras?.getString("feature")) {
+//      "new_voice_note" -> {
+//        logd("mainapp new voice note")
+//
+//
+//        navController.navigate("new-note/voice")
+//      }
+//    }
+//  }
 }
 
 // do it wrong

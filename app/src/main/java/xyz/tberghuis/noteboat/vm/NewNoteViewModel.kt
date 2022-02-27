@@ -57,8 +57,9 @@ class NewNoteViewModel @Inject constructor(
       speechController.run()
     }
     viewModelScope.launch {
+      logd("NewNoteViewModel navParam $navParam")
       when (navParam) {
-        "voice" -> {
+        "new_voice_note" -> {
           logd("new voice note")
           delay(3000L)
           logd("after delay 3000")

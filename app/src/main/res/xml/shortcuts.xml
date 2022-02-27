@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
-
     <capability android:name="actions.intent.OPEN_APP_FEATURE">
-        <intent
-            android:action="android.intent.action.VIEW"
-            android:targetClass="xyz.tberghuis.noteboat.MainActivity"
-            android:targetPackage="site.thomasberghuis.noteboat">
-
-
-            <!-- understand better android:name , it is defined as a BII -->
+        <intent>
+            <!-- todo -->
+            <!-- <url-template android:value="noteboat://noteboat/new-note{?feature}" />-->
+            <url-template android:value="noteboat://noteboat/new-note/{feature}" />
             <parameter
                 android:name="feature"
                 android:key="feature" />
