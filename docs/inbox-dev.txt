@@ -1,0 +1,2 @@
+shared viewmodel "new voice note", navigate and start transcribing
+update gradle versions
