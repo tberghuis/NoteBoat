@@ -16,6 +16,7 @@ import kotlinx.coroutines.withContext
 import kotlinx.datetime.Clock
 import xyz.tberghuis.noteboat.controller.SpeechController
 import xyz.tberghuis.noteboat.data.NoteDao
+import xyz.tberghuis.noteboat.utils.logd
 import javax.inject.Inject
 
 @HiltViewModel
@@ -48,6 +49,12 @@ class EditNoteViewModel @Inject constructor(
   }
 
   fun updateNote(noteText: String) {
+    if (noteText == noteTextFieldValueState.value.text) {
+      // nothing changed
+      logd("updateNote nothing changed: $noteText")
+      return
+    }
+    logd("updateNote $noteText")
     viewModelScope.launch {
       val epoch = Clock.System.now().toEpochMilliseconds()
       noteDao.updateNoteText(noteId, noteText, epoch)
