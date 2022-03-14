@@ -17,6 +17,7 @@ import com.google.accompanist.insets.navigationBarsPadding
 import com.google.accompanist.insets.statusBarsPadding
 import xyz.tberghuis.noteboat.vm.HomeViewModel
 import com.google.accompanist.insets.ui.Scaffold
+import xyz.tberghuis.noteboat.data.Note
 
 @Composable
 fun HomeScreen(
@@ -70,22 +71,36 @@ fun HomeContent(
     contentPadding = PaddingValues(10.dp)
   ) {
     items(items = allNotes.value) { note ->
-      Card(
-        modifier = Modifier
-          .fillMaxWidth()
-          .padding(vertical = 5.dp)
-          .clickable {
-            // todo nav edit note
-            navController.navigate("edit-note/${note.noteId}")
-          },
-        elevation = 10.dp
-      ) {
-        Column(
-          modifier = Modifier.padding(10.dp)
-        ) {
-          Text(note.noteText)
-        }
+
+      Box(Modifier.fillMaxWidth()) {
+        Text("hello from underneath")
+        NoteCard(navController, note)
       }
+
     }
   }
+}
+
+@Composable
+fun NoteCard(
+  navController: NavHostController,
+  note: Note
+) {
+  Card(
+    modifier = Modifier
+      .fillMaxWidth()
+      .padding(vertical = 5.dp)
+      .clickable {
+        // todo nav edit note
+        navController.navigate("edit-note/${note.noteId}")
+      },
+    elevation = 10.dp
+  ) {
+    Column(
+      modifier = Modifier.padding(10.dp)
+    ) {
+      Text(note.noteText)
+    }
+  }
+
 }
