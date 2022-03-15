@@ -14,3 +14,21 @@ compose animation codelab
 marketing, video showing voice transcription, google assistant
 
 next time work from dev branch instead of master
+
+#################
+swipe to reveal delete
+ overwrite dev branch
+ https://github.com/Skyyo/compose-swipe-to-reveal
+ tmp.SwipeDemo hardcode array, lazycolumn
+ doitwrong
+ refactor
+ release
+
+###################
+marketing
+  screenshots
+  transcribing video
+  google assistant video
+  github readme
+  playstore description
+  r/androidapps
