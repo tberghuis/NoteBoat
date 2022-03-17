@@ -11,13 +11,30 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextAlign.Companion.Center
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.insets.statusBarsPadding
+import kotlinx.coroutines.flow.MutableStateFlow
 
 
 val someStringArray = arrayOf("item 1", "item 2", "item 3")
+
+val revealedStringsList = MutableStateFlow(listOf<Int>())
+
+fun onItemExpanded(cardId: Int) {
+  if (revealedStringsList.value.contains(cardId)) return
+  revealedStringsList.value = revealedStringsList.value.toMutableList().also { list ->
+    list.add(cardId)
+  }
+}
+
+fun onItemCollapsed(cardId: Int) {
+  if (!revealedStringsList.value.contains(cardId)) return
+  revealedStringsList.value = revealedStringsList.value.toMutableList().also { list ->
+    list.remove(cardId)
+  }
+}
+
 
 @Composable
 fun SwipeDemo() {
@@ -27,7 +44,13 @@ fun SwipeDemo() {
 
     LazyColumn(Modifier.statusBarsPadding()) {
       itemsIndexed(someStringArray, key = { i, _ -> i }) { i, _ ->
-        MyCard(i)
+
+        Box {
+          ActionsRow()
+          MyCard(i)
+        }
+
+
       }
 
     }
@@ -57,4 +80,18 @@ fun MyCard(i: Int) {
 @Composable
 fun SwipeDemoPreview() {
   SwipeDemo()
+}
+
+@Composable
+fun ActionsRow() {
+  Card(
+    Modifier
+      .fillMaxWidth()
+      .padding(10.dp)
+      .height(50.dp),
+  ) {
+    Box(contentAlignment = Alignment.CenterEnd) {
+      Text("actions row")
+    }
+  }
 }
