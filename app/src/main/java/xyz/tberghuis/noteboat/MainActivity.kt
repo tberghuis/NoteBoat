@@ -46,6 +46,7 @@ import javax.inject.Inject
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.navigation.navDeepLink
+import xyz.tberghuis.noteboat.tmp.SwipeDemo
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -75,7 +76,8 @@ class MainActivity : ComponentActivity() {
         ProvideWindowInsets {
           // A surface container using the 'background' color from the theme
           Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colors.background) {
-            MainApp()
+//            MainApp()
+            SwipeDemo()
           }
         }
       }
