@@ -32,3 +32,6 @@ marketing
   github readme
   playstore description
   r/androidapps
+
+
+compose animation docs
