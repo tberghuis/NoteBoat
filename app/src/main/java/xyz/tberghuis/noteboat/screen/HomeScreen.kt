@@ -1,5 +1,6 @@
 package xyz.tberghuis.noteboat.screen
 
+import androidx.compose.animation.core.MutableTransitionState
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -7,9 +8,13 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
@@ -72,8 +77,11 @@ fun HomeContent(
   ) {
     items(items = allNotes.value) { note ->
 
-      Box(Modifier.fillMaxWidth()) {
-        Text("hello from underneath")
+      Box(
+        Modifier.fillMaxWidth(),
+        contentAlignment = Alignment.Center
+      ) {
+        ActionsCard(note)
         NoteCard(navController, note)
       }
 
@@ -82,14 +90,52 @@ fun HomeContent(
 }
 
 @Composable
+fun ActionsCard(note: Note, viewModel: HomeViewModel = hiltViewModel()) {
+
+
+  Box(
+    Modifier
+      .fillMaxWidth(),
+    contentAlignment = Alignment.CenterEnd
+  ) {
+    IconButton(onClick = {
+      // delete that note no warning
+      viewModel.deleteNote(note)
+    }) {
+      Icon(Icons.Filled.Delete, "delete")
+    }
+  }
+}
+
+//@Composable
+//fun DraggableNoteCard(
+//  navController: NavHostController,
+//  note: Note
+//){
+//
+//}
+
+
+@Composable
 fun NoteCard(
   navController: NavHostController,
   note: Note
 ) {
+
+//  val transitionState = remember {
+//    MutableTransitionState(isRevealed).apply {
+//      targetState = !isRevealed
+//    }
+//  }
+
+
   Card(
     modifier = Modifier
       .fillMaxWidth()
+      // in future use Spacer instead of unfunctional padding
       .padding(vertical = 5.dp)
+      // play around
+      .offset { IntOffset(-200, 0) }
       .clickable {
         // todo nav edit note
         navController.navigate("edit-note/${note.noteId}")

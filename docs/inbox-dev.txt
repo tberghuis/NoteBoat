@@ -42,3 +42,4 @@ animate background color...
 
 reply to medium article, mention used in open source app note boat
 
+actions row same height.... as note card

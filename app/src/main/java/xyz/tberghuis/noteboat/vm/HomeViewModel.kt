@@ -19,6 +19,17 @@ class HomeViewModel @Inject constructor(
 
   val allNotes = noteDao.getAll()
 
+  val offsetNotes = MutableStateFlow(setOf<Note>())
+
+
+  fun deleteNote(note: Note) {
+    // todo remove from offsetNotes
+
+    viewModelScope.launch {
+      noteDao.delete(note)
+    }
+  }
+
 //  private val _noteList = MutableStateFlow(listOf<Note>())
 //  val noteList: StateFlow<List<Note>> = _noteList
 //  init {
