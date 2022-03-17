@@ -35,3 +35,7 @@ marketing
 
 
 compose animation docs
+
+
+next task trash can icon....
+animate background color...
