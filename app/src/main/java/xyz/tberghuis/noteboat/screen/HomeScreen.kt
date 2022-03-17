@@ -10,6 +10,7 @@ import androidx.compose.foundation.gestures.detectHorizontalDragGestures
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -86,8 +87,9 @@ fun HomeContent(
   LazyColumn(
     contentPadding = PaddingValues(10.dp)
   ) {
-    items(items = allNotes.value) { note ->
 
+    itemsIndexed(allNotes.value, key = { _, note -> note.noteId })
+    { _, note ->
       Box(
         Modifier.fillMaxWidth(),
         contentAlignment = Alignment.Center
@@ -101,7 +103,6 @@ fun HomeContent(
           viewModel::onHideActions
         )
       }
-
     }
   }
 }
