@@ -43,3 +43,7 @@ animate background color...
 reply to medium article, mention used in open source app note boat
 
 actions row same height.... as note card
+
+medium article, pull request use a set
+
+use itemsIndexed... test updates correctly

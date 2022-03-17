@@ -30,6 +30,15 @@ class HomeViewModel @Inject constructor(
     }
   }
 
+
+  fun onRevealActions(note: Note) {
+    offsetNotes.value += note
+  }
+
+  fun onHideActions(note: Note) {
+    offsetNotes.value -= note
+  }
+
 //  private val _noteList = MutableStateFlow(listOf<Note>())
 //  val noteList: StateFlow<List<Note>> = _noteList
 //  init {
