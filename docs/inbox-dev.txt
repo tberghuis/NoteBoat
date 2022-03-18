@@ -6,11 +6,6 @@ prompt for recording permissions when new voice note....
 
 https://github.com/Skyyo/compose-swipe-to-reveal
 
-
-compose layouts codelab
-compose animation codelab
-
-
 marketing, video showing voice transcription, google assistant
 
 next time work from dev branch instead of master
