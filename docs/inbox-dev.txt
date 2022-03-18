@@ -18,6 +18,7 @@ swipe to reveal delete
  doitwrong
  refactor
  release
+ pull request
 
 ###################
 marketing
