@@ -27,6 +27,7 @@ class HomeViewModel @Inject constructor(
 
     viewModelScope.launch {
       noteDao.delete(note)
+      offsetNotes.value -= note
     }
   }
 
