@@ -4,21 +4,7 @@ nav docs
 
 prompt for recording permissions when new voice note....
 
-https://github.com/Skyyo/compose-swipe-to-reveal
-
 marketing, video showing voice transcription, google assistant
-
-next time work from dev branch instead of master
-
-#################
-swipe to reveal delete
- overwrite dev branch
- https://github.com/Skyyo/compose-swipe-to-reveal
- tmp.SwipeDemo hardcode array, lazycolumn
- doitwrong
- refactor
- release
- pull request
 
 ###################
 marketing
@@ -28,18 +14,3 @@ marketing
   github readme
   playstore description
   r/androidapps
-
-
-compose animation docs
-
-
-next task trash can icon....
-animate background color...
-
-reply to medium article, mention used in open source app note boat
-
-actions row same height.... as note card
-
-medium article, pull request use a set
-
-use itemsIndexed... test updates correctly
