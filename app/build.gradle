@@ -13,8 +13,8 @@ android {
         applicationId "site.thomasberghuis.noteboat"
         minSdk 24
         targetSdk 32
-        versionCode 11
-        versionName "2.2.5"
+        versionCode 12
+        versionName "2.3.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
