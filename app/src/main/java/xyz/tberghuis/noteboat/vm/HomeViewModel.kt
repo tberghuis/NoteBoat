@@ -14,23 +14,17 @@ import kotlinx.coroutines.flow.collect
 @HiltViewModel
 class HomeViewModel @Inject constructor(
   private val noteDao: NoteDao,
-
   ) : ViewModel() {
 
   val allNotes = noteDao.getAll()
-
   val offsetNotes = MutableStateFlow(setOf<Note>())
 
-
   fun deleteNote(note: Note) {
-    // todo remove from offsetNotes
-
     viewModelScope.launch {
       noteDao.delete(note)
       offsetNotes.value -= note
     }
   }
-
 
   fun onRevealActions(note: Note) {
     offsetNotes.value += note
@@ -50,5 +44,4 @@ class HomeViewModel @Inject constructor(
 //      }
 //    }
 //  }
-
 }
