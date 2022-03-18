@@ -7,6 +7,7 @@ features
   date-time heading
   test record and transcribe same time
   new note voice command as a separate app
+  share button, save in syncthing folder
 
 cull trello notes
 cull any github or issues?
