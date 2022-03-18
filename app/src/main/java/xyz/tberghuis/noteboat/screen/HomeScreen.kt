@@ -170,8 +170,8 @@ fun NoteCard(
       .pointerInput(Unit) {
         detectHorizontalDragGestures { _, dragAmount ->
           when {
-            dragAmount > 10 -> onHideActions(note)
-            dragAmount < -10 -> onRevealActions(note)
+            dragAmount > 20 -> onHideActions(note)
+            dragAmount < -20 -> onRevealActions(note)
           }
         }
       }
