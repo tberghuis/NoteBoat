@@ -17,6 +17,8 @@ class HomeViewModel @Inject constructor(
   ) : ViewModel() {
 
   val allNotes = noteDao.getAll()
+
+  // https://github.com/Skyyo/compose-swipe-to-reveal
   val offsetNotes = MutableStateFlow(setOf<Note>())
 
   fun deleteNote(note: Note) {
