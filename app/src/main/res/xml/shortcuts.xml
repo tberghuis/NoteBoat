@@ -12,8 +12,17 @@
     </capability>
 
     <shortcut
+        android:enabled="true"
         android:shortcutId="new_voice_note"
         android:shortcutShortLabel="@string/shortcut_short_label">
+
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:data="noteboat://noteboat/new-note/new_voice_note"
+            android:targetClass="xyz.tberghuis.noteboat.MainActivity"
+            android:targetPackage="site.thomasberghuis.noteboat">
+        </intent>
+
         <capability-binding android:key="actions.intent.OPEN_APP_FEATURE">
             <!-- "open new voice note in note boat" -->
             <!-- "open note boat new voice note" -->

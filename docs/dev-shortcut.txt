@@ -29,3 +29,5 @@ https://github.com/federicocotogno/Android_Pinned_Shorcuts
 test against different API levels
 
 increment version
+
+icon for new voice note

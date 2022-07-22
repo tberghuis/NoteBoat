@@ -43,6 +43,9 @@ class NewNoteViewModel @Inject constructor(
     )
 
   init {
+
+    logd("navParam $navParam")
+
     viewModelScope.launch {
       val newNoteDraft = withContext(Dispatchers.IO) {
         optionDao.getOption("new_note_draft")
