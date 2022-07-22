@@ -5,3 +5,5 @@ play store, github readme
   screenshots
   description
 
+read docs https://developer.android.com/guide/topics/ui/shortcuts
+shortcuts codelab
