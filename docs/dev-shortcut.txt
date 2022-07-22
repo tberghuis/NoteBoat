@@ -25,3 +25,5 @@ SO shortcuts questions
 pinned shortcuts tutorial
 https://www.youtube.com/watch?v=pnPZox3lXM8
 https://github.com/federicocotogno/Android_Pinned_Shorcuts
+
+test against different API levels
