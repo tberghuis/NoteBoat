@@ -1,3 +1,7 @@
+### DONE ###
+
+############
+
 update gradle versions
 shortcut icon homescreen
 release

@@ -88,6 +88,9 @@ class SpeechController(
             -> {
               continueListening()
             }
+            else -> {
+              // todo
+            }
 //            RecognitionListenerEvent.ON_ERROR_CONTINUE,
 //            -> {
 ////              speechRecognizer.cancel()
