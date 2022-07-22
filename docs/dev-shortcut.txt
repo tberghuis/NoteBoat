@@ -18,3 +18,4 @@ warning: The following options were not recognized by any processor: '[room.sche
 1 warning
 
 next task read https://developer.android.com/guide/topics/ui/shortcuts/creating-shortcuts
+https://developer.android.com/guide/components/intents-filters
