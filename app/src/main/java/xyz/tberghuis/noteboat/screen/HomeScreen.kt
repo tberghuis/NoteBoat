@@ -77,15 +77,11 @@ fun HomeTopBar() {
 
 @Composable
 fun HomeContent(
-//  viewModel: HomeViewModel = viewModel(),
   navController: NavHostController,
-//  paddingValues: PaddingValues
 ) {
-
   val viewModel: HomeViewModel = hiltViewModel()
 
   val allNotes = viewModel.allNotes.collectAsState(listOf())
-
   val offsetNotes = viewModel.offsetNotes.collectAsState(setOf())
 
   LazyColumn(
