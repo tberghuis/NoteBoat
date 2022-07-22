@@ -21,3 +21,7 @@ next task read https://developer.android.com/guide/topics/ui/shortcuts/creating-
 https://developer.android.com/guide/components/intents-filters
 
 SO shortcuts questions
+
+pinned shortcuts tutorial
+https://www.youtube.com/watch?v=pnPZox3lXM8
+https://github.com/federicocotogno/Android_Pinned_Shorcuts
