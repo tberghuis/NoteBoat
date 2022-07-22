@@ -11,3 +11,8 @@ play store, github readme
 
 read docs https://developer.android.com/guide/topics/ui/shortcuts
 shortcuts codelab
+
+why does hilt 2.43 not work SAVED_STATE_REGISTRY_OWNER_KEY
+
+warning: The following options were not recognized by any processor: '[room.schemaLocation]'
+1 warning
