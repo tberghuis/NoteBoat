@@ -1,0 +1,6 @@
+update gradle versions
+shortcut icon homescreen
+release
+play store, github readme
+  screenshots
+  description
