@@ -85,6 +85,10 @@ dependencies {
     // ??
     // implementation "androidx.navigation:navigation-compose:$compose_version"
 
+    def nav_version = "2.5.0"
+    implementation "androidx.navigation:navigation-compose:$nav_version"
+
+
     implementation "androidx.compose.material:material-icons-extended:$compose_version"
 
     // https://github.com/Kotlin/kotlinx-datetime
