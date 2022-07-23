@@ -1,9 +1,2 @@
-### DONE ###
-release
-############
-
-play store, github readme
-  screenshots
-    show shortcut icon
-  description
-  inkscape "google assistant, Open note boat, new voice note"
+wait for playstore review
+post to r/fossdroid
