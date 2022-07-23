@@ -1,33 +1,17 @@
 ### DONE ###
+update gradle versions
+shortcut icon homescreen
+icon for new voice note
 
 ############
 
-update gradle versions
-shortcut icon homescreen
+
 release
 play store, github readme
   screenshots
   description
 
-read docs https://developer.android.com/guide/topics/ui/shortcuts
-shortcuts codelab
-
-why does hilt 2.43 not work SAVED_STATE_REGISTRY_OWNER_KEY
-
-warning: The following options were not recognized by any processor: '[room.schemaLocation]'
-1 warning
-
-next task read https://developer.android.com/guide/topics/ui/shortcuts/creating-shortcuts
-https://developer.android.com/guide/components/intents-filters
-
-SO shortcuts questions
-
-pinned shortcuts tutorial
-https://www.youtube.com/watch?v=pnPZox3lXM8
-https://github.com/federicocotogno/Android_Pinned_Shorcuts
-
 test against different API levels
 
 increment version
 
-icon for new voice note
