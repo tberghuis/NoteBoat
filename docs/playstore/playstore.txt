@@ -1,0 +1,16 @@
+App name: 
+  Note Boat
+Short description:
+  Note Boat is a note taking app that includes speech to text functionality
+
+Full description:
+  Use Note Boat to manage short notes.
+
+  Features:
+    * speech-to-text
+    * swipe to reveal delete
+    * launch "new voice note" shortcut
+    * Google assistant "open note boat, new voice note"
+
+  Source code: https://github.com/tberghuis/NoteBoat
+
