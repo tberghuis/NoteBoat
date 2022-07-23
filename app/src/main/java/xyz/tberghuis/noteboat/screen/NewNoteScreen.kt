@@ -83,6 +83,9 @@ fun NewNoteScreen(
         TranscribingState.TRANSCRIBING -> {
           keyboardController?.hide()
         }
+        else -> {
+          // todo
+        }
       }
     }
   }

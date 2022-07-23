@@ -1,5 +1,6 @@
 package xyz.tberghuis.noteboat.vm
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -14,7 +15,7 @@ import kotlinx.coroutines.flow.collect
 @HiltViewModel
 class HomeViewModel @Inject constructor(
   private val noteDao: NoteDao,
-  ) : ViewModel() {
+) : ViewModel() {
 
   val allNotes = noteDao.getAll()
 

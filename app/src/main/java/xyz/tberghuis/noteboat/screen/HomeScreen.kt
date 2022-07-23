@@ -25,6 +25,7 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.google.accompanist.insets.navigationBarsPadding
 import com.google.accompanist.insets.statusBarsPadding
@@ -76,12 +77,11 @@ fun HomeTopBar() {
 
 @Composable
 fun HomeContent(
-  viewModel: HomeViewModel = hiltViewModel(),
   navController: NavHostController,
-//  paddingValues: PaddingValues
 ) {
-  val allNotes = viewModel.allNotes.collectAsState(listOf())
+  val viewModel: HomeViewModel = hiltViewModel()
 
+  val allNotes = viewModel.allNotes.collectAsState(listOf())
   val offsetNotes = viewModel.offsetNotes.collectAsState(setOf())
 
   LazyColumn(
