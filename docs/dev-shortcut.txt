@@ -9,7 +9,9 @@ icon for new voice note
 release
 play store, github readme
   screenshots
+    show shortcut icon
   description
+  inkscape "google assistant, Open note boat, new voice note"
 
 test against different API levels
 
