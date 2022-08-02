@@ -26,6 +26,8 @@ fun NoteContent(
     // replace with when when i learn more kotlin
     if (transcribing.value == TranscribingState.NOT_TRANSCRIBING) {
       return@derivedStateOf {
+        // this is bad, probably better to updateDb from
+        // launchedEffect snapshotFlow
         updateDb(it.text)
         noteTextFieldValueState.value = it
       }

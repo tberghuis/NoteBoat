@@ -11,10 +11,12 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.google.accompanist.insets.navigationBarsPadding
 import com.google.accompanist.insets.statusBarsPadding
+import kotlinx.coroutines.launch
 import xyz.tberghuis.noteboat.composable.NoteContent
 import xyz.tberghuis.noteboat.composable.OnPauseLifecycleEvent
 import xyz.tberghuis.noteboat.composable.TranscribeFloatingActionButton
 import xyz.tberghuis.noteboat.vm.EditNoteViewModel
+import xyz.tberghuis.noteboat.vm.TranscribingState
 
 @Composable
 fun EditNoteScreen(
@@ -22,9 +24,12 @@ fun EditNoteScreen(
   navController: NavHostController
 ) {
   val scaffoldState = rememberScaffoldState()
-
+  val scope = rememberCoroutineScope()
   val onComplete: () -> Unit = {
-    navController.navigateUp()
+    scope.launch {
+      viewModel.transcribingStateFlow.emit(TranscribingState.NOT_TRANSCRIBING)
+      navController.navigateUp()
+    }
   }
   BackHandler {
     onComplete()

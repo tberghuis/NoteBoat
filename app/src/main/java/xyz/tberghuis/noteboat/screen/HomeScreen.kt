@@ -104,6 +104,11 @@ fun HomeContent(
         )
       }
     }
+
+    item {
+      // clear FAB
+      Spacer(Modifier.height(70.dp))
+    }
   }
 }
 
