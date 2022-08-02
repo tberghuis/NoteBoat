@@ -24,12 +24,9 @@ fun EditNoteScreen(
   navController: NavHostController
 ) {
   val scaffoldState = rememberScaffoldState()
-  val scope = rememberCoroutineScope()
   val onComplete: () -> Unit = {
-    scope.launch {
-      viewModel.transcribingStateFlow.emit(TranscribingState.NOT_TRANSCRIBING)
-      navController.navigateUp()
-    }
+    viewModel.updateNote(viewModel.noteTextFieldValueState.value.text)
+    navController.navigateUp()
   }
   BackHandler {
     onComplete()

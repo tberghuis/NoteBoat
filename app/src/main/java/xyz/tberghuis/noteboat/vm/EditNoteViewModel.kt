@@ -40,22 +40,19 @@ class EditNoteViewModel @Inject constructor(
 
   init {
     viewModelScope.launch {
-      val noteText = withContext(Dispatchers.IO) {
-        noteDao.getNoteText(noteId)
-      }
+      val noteText = noteDao.getNoteText(noteId)
       noteTextFieldValueState.value = TextFieldValue(noteText, TextRange(noteText.length))
       speechController.run()
     }
   }
 
   fun updateNote(noteText: String) {
-    if (noteText == noteTextFieldValueState.value.text) {
-      // nothing changed
-      logd("updateNote nothing changed: $noteText")
-      return
-    }
     logd("updateNote $noteText")
     viewModelScope.launch {
+      val oldNote = noteDao.getNoteText(noteId)
+      if (oldNote == noteText) {
+        return@launch
+      }
       val epoch = Clock.System.now().toEpochMilliseconds()
       noteDao.updateNoteText(noteId, noteText, epoch)
     }

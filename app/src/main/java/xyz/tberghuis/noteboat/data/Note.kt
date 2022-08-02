@@ -29,7 +29,7 @@ interface NoteDao {
   fun getNote(noteId: Int): Flow<Note?>
 
   @Query("SELECT note_text FROM note where note_id = :noteId")
-  fun getNoteText(noteId: Int): String
+  suspend fun getNoteText(noteId: Int): String
 
   @Insert
   suspend fun insertAll(vararg note: Note)
