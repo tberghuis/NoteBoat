@@ -17,7 +17,7 @@ fun OnPauseLifecycleEvent(
   transcribingStateFlow: MutableStateFlow<TranscribingState>
 ) {
   val scope = rememberCoroutineScope()
-  OnLifecycleEvent { owner, event ->
+  OnLifecycleEvent { _, event ->
     // do stuff on event
     when (event) {
       Lifecycle.Event.ON_PAUSE -> {

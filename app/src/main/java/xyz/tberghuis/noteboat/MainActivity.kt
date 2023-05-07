@@ -141,7 +141,7 @@ fun MainApp() {
         navArgument("navParam") { type = NavType.StringType },
       ),
       deepLinks = listOf(navDeepLink { uriPattern = "noteboat://noteboat/new-note/{navParam}" })
-    ) { backStackEntry ->
+    ) {
 //      val navParam: String? = backStackEntry.arguments?.getString("navParam")
       NewNoteScreen(navController = navController)
     }
@@ -150,7 +150,7 @@ fun MainApp() {
       arguments = listOf(
         navArgument("noteId") { type = NavType.IntType },
       )
-    ) { backStackEntry ->
+    ) {
 //      val noteId: Int = backStackEntry.arguments?.getInt("noteId")!!
       // noteid should be in the viewmodel savehandlestate
       EditNoteScreen(navController = navController)
