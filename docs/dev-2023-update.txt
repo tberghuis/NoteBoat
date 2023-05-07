@@ -5,4 +5,8 @@ migrate deprecated https://google.github.io/accompanist/insets/
 edit note FAB clearance
 use compose preview
 
+this problem is too hard
+future i will probably remove FAB from note new/edit,
+replace with bottom sheet
+
 release
