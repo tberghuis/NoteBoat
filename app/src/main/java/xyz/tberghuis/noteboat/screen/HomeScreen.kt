@@ -27,10 +27,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
-import com.google.accompanist.insets.navigationBarsPadding
-import com.google.accompanist.insets.statusBarsPadding
 import xyz.tberghuis.noteboat.vm.HomeViewModel
-import com.google.accompanist.insets.ui.Scaffold
 import xyz.tberghuis.noteboat.data.Note
 import kotlin.math.roundToInt
 
@@ -69,8 +66,8 @@ fun HomeScreen(
 fun HomeTopBar() {
   TopAppBar(
     modifier = Modifier
-      .statusBarsPadding()
-      .navigationBarsPadding(bottom = false),
+      .statusBarsPadding(),
+//      .navigationBarsPadding(),
     title = { Text("Note Boat") }
   )
 }

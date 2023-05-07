@@ -9,7 +9,6 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.text.input.TextFieldValue
-import com.google.accompanist.insets.navigationBarsWithImePadding
 import kotlinx.coroutines.flow.StateFlow
 import xyz.tberghuis.noteboat.vm.TranscribingState
 
@@ -44,7 +43,8 @@ fun NoteContent(
         onValueChange = onValueChange,
         modifier = Modifier
           .focusRequester(focusRequester)
-          .navigationBarsWithImePadding()
+          .navigationBarsPadding()
+          .imePadding()
           .fillMaxSize()
       )
       // don't allow clicks on textfield

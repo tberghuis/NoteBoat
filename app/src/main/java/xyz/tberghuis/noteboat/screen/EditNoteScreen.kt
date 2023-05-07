@@ -1,6 +1,8 @@
 package xyz.tberghuis.noteboat.screen
 
 import androidx.activity.compose.BackHandler
+import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -9,8 +11,6 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import com.google.accompanist.insets.navigationBarsPadding
-import com.google.accompanist.insets.statusBarsPadding
 import kotlinx.coroutines.launch
 import xyz.tberghuis.noteboat.composable.NoteContent
 import xyz.tberghuis.noteboat.composable.OnPauseLifecycleEvent
@@ -87,8 +87,8 @@ fun EditNoteTopBar(
 ) {
   TopAppBar(
     modifier = Modifier
-      .statusBarsPadding()
-      .navigationBarsPadding(bottom = false),
+      .statusBarsPadding(),
+
     title = { Text("Edit Note") },
     navigationIcon = {
       IconButton(onClick = {

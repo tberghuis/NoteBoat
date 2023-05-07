@@ -15,7 +15,6 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import androidx.room.Room
-import com.google.accompanist.insets.ProvideWindowInsets
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -61,11 +60,9 @@ class MainActivity : ComponentActivity() {
 
     setContent {
       NoteBoatTheme {
-        ProvideWindowInsets {
-          // A surface container using the 'background' color from the theme
-          Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colors.background) {
-            MainApp()
-          }
+        // A surface container using the 'background' color from the theme
+        Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colors.background) {
+          MainApp()
         }
       }
     }
@@ -87,9 +84,7 @@ class MainActivity : ComponentActivity() {
     }
 
     val legacyDb = Room.databaseBuilder(
-      applicationContext,
-      LegacyDatabase::class.java,
-      file.path
+      applicationContext, LegacyDatabase::class.java, file.path
     ).build()
     // logd("legacyDb $legacyDb")
 
@@ -124,18 +119,15 @@ fun MainApp() {
       NewNoteScreen(navController = navController)
     }
     composable(
-      "new-note/{navParam}",
-      arguments = listOf(
+      "new-note/{navParam}", arguments = listOf(
         navArgument("navParam") { type = NavType.StringType },
-      ),
-      deepLinks = listOf(navDeepLink { uriPattern = "noteboat://noteboat/new-note/{navParam}" })
+      ), deepLinks = listOf(navDeepLink { uriPattern = "noteboat://noteboat/new-note/{navParam}" })
     ) {
 //      val navParam: String? = backStackEntry.arguments?.getString("navParam")
       NewNoteScreen(navController = navController)
     }
     composable(
-      "edit-note/{noteId}",
-      arguments = listOf(
+      "edit-note/{noteId}", arguments = listOf(
         navArgument("noteId") { type = NavType.IntType },
       )
     ) {
