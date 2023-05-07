@@ -3,5 +3,6 @@ update dependencies
 migrate deprecated https://google.github.io/accompanist/insets/
 
 edit note FAB clearance
+use compose preview
 
 release
