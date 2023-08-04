@@ -1,0 +1,5 @@
+lock screen widget
+launch voice note shortcut
+
+update gradle dependencies
+
