@@ -2,9 +2,12 @@ lock screen widget
   private repo lockscreenwidget
 launch voice note shortcut
 
-update gradle dependencies
+
 
 step 1, backup notes to paper
+
+update gradle dependencies
+
 doitwrong
 add setting screen, 
   make sure all changes respect
