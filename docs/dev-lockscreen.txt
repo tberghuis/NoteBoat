@@ -20,3 +20,8 @@ cull lockscreenwidget inbox.txt code
 bottom sheet for save, transcribe buttons
   philipp lackner
 
+custom notification style that looks like a button
+.... this is the killer app for future app ideas
+
+
+
