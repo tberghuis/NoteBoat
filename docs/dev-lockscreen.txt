@@ -4,3 +4,6 @@ launch voice note shortcut
 
 update gradle dependencies
 
+step 1, backup notes to paper
+doitwrong
+add setting screen
