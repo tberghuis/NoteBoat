@@ -13,3 +13,8 @@ add setting screen,
   make sure all changes respect
 
 cull lockscreenwidget inbox.txt code
+
+
+bottom sheet for save, transcribe buttons
+  philipp lackner
+
