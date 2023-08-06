@@ -8,3 +8,5 @@ step 1, backup notes to paper
 doitwrong
 add setting screen, 
   make sure all changes respect
+
+cull lockscreenwidget inbox.txt code
