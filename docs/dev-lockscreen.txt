@@ -2,6 +2,8 @@ lock screen widget
   private repo lockscreenwidget
 launch voice note shortcut
 
+  notification pending intent, voice note shortcut
+
 
 
 step 1, backup notes to paper
