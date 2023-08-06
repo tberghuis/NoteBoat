@@ -61,7 +61,7 @@ android {
 }
 
 dependencies {
-    implementation 'androidx.core:core-ktx:1.10.0'
+    implementation 'androidx.core:core-ktx:1.10.1'
     implementation "androidx.compose.ui:ui:$compose_version"
     implementation "androidx.compose.material:material:$compose_version"
     implementation "androidx.compose.ui:ui-tooling-preview:$compose_version"
@@ -76,7 +76,7 @@ dependencies {
     kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
     implementation 'androidx.hilt:hilt-navigation-compose:1.0.0'
 
-    implementation "androidx.navigation:navigation-compose:2.5.3"
+    implementation "androidx.navigation:navigation-compose:2.6.0"
 
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
@@ -92,7 +92,7 @@ dependencies {
 //    implementation "com.google.accompanist:accompanist-insets-ui:0.23.0"
 
     def lifecycle_version = "2.5.0"
-    implementation "androidx.lifecycle:lifecycle-viewmodel:$lifecycle_version"
+//    implementation "androidx.lifecycle:lifecycle-viewmodel:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycle_version"
