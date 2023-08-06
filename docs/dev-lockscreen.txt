@@ -24,4 +24,8 @@ custom notification style that looks like a button
 .... this is the killer app for future app ideas
 
 
+settings screen
+  notification permission
+  lock screen "new voice" shortcut
 
+use floating timer reference
