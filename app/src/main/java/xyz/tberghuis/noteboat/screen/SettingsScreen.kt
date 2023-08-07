@@ -25,12 +25,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.core.content.ContextCompat.startActivity
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionStatus
 import com.google.accompanist.permissions.rememberPermissionState
 import xyz.tberghuis.noteboat.R
 import xyz.tberghuis.noteboat.utils.logd
+import xyz.tberghuis.noteboat.vm.SettingsViewModel
 
 
 @Composable
@@ -120,6 +122,16 @@ fun SettingsContent(padding: PaddingValues) {
         }
       )
     }
+    Row {
+      LockscreenShortcutSetting()
+    }
+
 
   }
 }
+
+@Composable
+fun LockscreenShortcutSetting(vm: SettingsViewModel = hiltViewModel()) {
+  Text("LockscreenShortcutSetting ${vm.fsdf}")
+}
+

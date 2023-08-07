@@ -98,6 +98,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycle_version"
 
     implementation("com.google.accompanist:accompanist-permissions:0.30.1")
+    implementation "androidx.datastore:datastore-preferences:1.0.0"
 }
 
 // Allow references to generated code
