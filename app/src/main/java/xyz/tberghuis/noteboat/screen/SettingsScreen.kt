@@ -82,7 +82,7 @@ fun SettingsContent(padding: PaddingValues) {
   ) {
 
     Row {
-      Text("Grant notification permission")
+      Text("Notification permission")
       Switch(
         checked = notificationPermissionGranted.value,
         onCheckedChange = {
