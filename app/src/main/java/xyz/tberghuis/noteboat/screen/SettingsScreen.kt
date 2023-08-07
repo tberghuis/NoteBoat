@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.material.Button
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.Scaffold
@@ -17,6 +18,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
+import com.google.accompanist.permissions.rememberPermissionState
 import xyz.tberghuis.noteboat.R
 
 @Composable
@@ -49,17 +52,30 @@ fun SettingsScreen(
 }
 
 
+@OptIn(ExperimentalPermissionsApi::class)
 @Composable
 fun SettingsContent(padding: PaddingValues) {
+
+  val permissionState = rememberPermissionState(
+    android.Manifest.permission.POST_NOTIFICATIONS
+  )
+
+
+
   Column(
     modifier = Modifier
       .padding(padding)
       .fillMaxSize()
   ) {
 
-    Text(
-      "settings screen",
-    )
+    // doitwrong
+
+    Button(onClick = {
+       permissionState.launchPermissionRequest()
+    }) {
+      Text("notification permission")
+    }
+
 
   }
 
