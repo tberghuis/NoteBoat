@@ -138,7 +138,7 @@ fun MainApp() {
     }
 
     composable("settings") {
-      SettingsScreen()
+      SettingsScreen(navController = navController)
     }
 
 
