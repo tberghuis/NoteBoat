@@ -31,3 +31,8 @@ settings screen
 use floating timer reference
 
 t. user prefs show_shortcut_lock_screen
+
+notification permission
+  if permission == false when activityresultcontract returns
+    send to system settings
+
