@@ -28,6 +28,7 @@ import com.google.accompanist.permissions.PermissionStatus
 import com.google.accompanist.permissions.rememberPermissionState
 import com.google.accompanist.permissions.shouldShowRationale
 import xyz.tberghuis.noteboat.R
+import xyz.tberghuis.noteboat.utils.logd
 
 @Composable
 fun SettingsScreen(
@@ -81,14 +82,19 @@ fun SettingsContent(padding: PaddingValues) {
   ) {
 
     Row {
-      Text("Notification permissions granted")
+      Text("Grant notification permission")
       Switch(
         checked = notificationPermissionGranted.value,
         onCheckedChange = {
-          // todo if permissionState.status == denied
-          //          && permissionState.status.shouldShowRationale == false
-          //        send to systems settings (notifications)
-          permissionState.launchPermissionRequest()
+          logd("onCheckedChange $it")
+          if (it) {
+            // todo if permissionState.status == denied
+            //          && permissionState.status.shouldShowRationale == false
+            //        send to systems settings (notifications)
+            permissionState.launchPermissionRequest()
+          } else {
+            // todo send to systems settings (notifications)
+          }
           null
         }
       )
