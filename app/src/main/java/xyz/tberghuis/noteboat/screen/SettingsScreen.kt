@@ -19,7 +19,9 @@ import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -132,6 +134,16 @@ fun SettingsContent(padding: PaddingValues) {
 
 @Composable
 fun LockscreenShortcutSetting(vm: SettingsViewModel = hiltViewModel()) {
-  Text("LockscreenShortcutSetting ${vm.fsdf}")
+
+  val checked by vm.showShortcutLockScreenFlow.collectAsState(false)
+
+  Text("Shortcut \"New voice note\" lock screen")
+  Switch(
+    checked = checked,
+    onCheckedChange = {
+      vm.showShortcutClick()
+      null
+    },
+  )
 }
 
