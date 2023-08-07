@@ -2,6 +2,7 @@ package xyz.tberghuis.noteboat.screen
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
@@ -25,6 +26,7 @@ import androidx.navigation.NavHostController
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionStatus
 import com.google.accompanist.permissions.rememberPermissionState
+import com.google.accompanist.permissions.shouldShowRationale
 import xyz.tberghuis.noteboat.R
 
 @Composable
@@ -65,7 +67,7 @@ fun SettingsContent(padding: PaddingValues) {
     android.Manifest.permission.POST_NOTIFICATIONS
   )
 
-  val checkedState = remember {
+  val notificationPermissionGranted = remember {
     derivedStateOf {
       // doesitblend yes
       (permissionState.status == PermissionStatus.Granted)
@@ -78,19 +80,19 @@ fun SettingsContent(padding: PaddingValues) {
       .fillMaxSize()
   ) {
 
-    // doitwrong
-
-    Button(onClick = {
-      permissionState.launchPermissionRequest()
-    }) {
-      Text("notification permission")
+    Row {
+      Text("Notification permissions granted")
+      Switch(
+        checked = notificationPermissionGranted.value,
+        onCheckedChange = {
+          // todo if permissionState.status == denied
+          //          && permissionState.status.shouldShowRationale == false
+          //        send to systems settings (notifications)
+          permissionState.launchPermissionRequest()
+          null
+        }
+      )
     }
-
-
-    Switch(
-      checked = checkedState.value,
-      onCheckedChange = { }
-    )
 
 
   }
