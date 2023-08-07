@@ -34,7 +34,7 @@ fun SettingsScreen(
           IconButton(onClick = { navController.navigateUp() }) {
             Icon(
               imageVector = Icons.Filled.ArrowBack,
-              contentDescription = "Back"
+              contentDescription = stringResource(R.string.back)
             )
           }
 
