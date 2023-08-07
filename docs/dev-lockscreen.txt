@@ -29,3 +29,5 @@ settings screen
   lock screen "new voice" shortcut
 
 use floating timer reference
+
+t. user prefs show_shortcut_lock_screen
