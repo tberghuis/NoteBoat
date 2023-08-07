@@ -75,6 +75,20 @@ fun SettingsContent(padding: PaddingValues) {
     }
   }
 
+  // this is wrong, but its the users fault for not saying "allow"
+  val launchPermissionRequest = remember {
+    var count = 0
+    {
+      if (count < 1) {
+        permissionState.launchPermissionRequest()
+      } else {
+        // todo send to systems settings (notifications)
+        logd("send to systems settings (notifications)")
+      }
+      count++
+    }
+  }
+
   Column(
     modifier = Modifier
       .padding(padding)
@@ -88,10 +102,8 @@ fun SettingsContent(padding: PaddingValues) {
         onCheckedChange = {
           logd("onCheckedChange $it")
           if (it) {
-            // todo if permissionState.status == denied
-            //          && permissionState.status.shouldShowRationale == false
-            //        send to systems settings (notifications)
-            permissionState.launchPermissionRequest()
+            launchPermissionRequest.invoke()
+
           } else {
             // todo send to systems settings (notifications)
           }
