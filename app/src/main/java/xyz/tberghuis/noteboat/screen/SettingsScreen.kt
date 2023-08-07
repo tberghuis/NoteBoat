@@ -137,7 +137,7 @@ fun LockscreenShortcutSetting(vm: SettingsViewModel = hiltViewModel()) {
 
   val checked by vm.showShortcutLockScreenFlow.collectAsState(false)
 
-  Text("Shortcut \"New voice note\" lock screen")
+  Text("Shortcut \"New voice note\" on lock screen")
   Switch(
     checked = checked,
     onCheckedChange = {
