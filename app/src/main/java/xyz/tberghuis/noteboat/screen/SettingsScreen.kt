@@ -1,12 +1,15 @@
 package xyz.tberghuis.noteboat.screen
 
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
+import android.provider.Settings
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
-import androidx.compose.material.Button
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.Scaffold
@@ -17,18 +20,18 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.core.content.ContextCompat.startActivity
 import androidx.navigation.NavHostController
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionStatus
 import com.google.accompanist.permissions.rememberPermissionState
-import com.google.accompanist.permissions.shouldShowRationale
 import xyz.tberghuis.noteboat.R
 import xyz.tberghuis.noteboat.utils.logd
+
 
 @Composable
 fun SettingsScreen(
@@ -59,11 +62,19 @@ fun SettingsScreen(
 
 }
 
+fun openAppNotificationSettings(context: Context) {
+  val intent: Intent = Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS)
+    .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+    .putExtra(Settings.EXTRA_APP_PACKAGE, context.packageName)
+  // todo
+//    .putExtra(Settings.EXTRA_CHANNEL_ID, MY_CHANNEL_ID)
+  context.startActivity(intent)
+}
 
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
 fun SettingsContent(padding: PaddingValues) {
-
+  val context = LocalContext.current
   val permissionState = rememberPermissionState(
     android.Manifest.permission.POST_NOTIFICATIONS
   )
@@ -75,15 +86,14 @@ fun SettingsContent(padding: PaddingValues) {
     }
   }
 
-  // this is wrong, but its the users fault for not saying "allow"
+  // this is wrong, but its the users fault for not saying "allow" first time
   val launchPermissionRequest = remember {
     var count = 0
     {
       if (count < 1) {
         permissionState.launchPermissionRequest()
       } else {
-        // todo send to systems settings (notifications)
-        logd("send to systems settings (notifications)")
+        openAppNotificationSettings(context)
       }
       count++
     }
@@ -103,16 +113,13 @@ fun SettingsContent(padding: PaddingValues) {
           logd("onCheckedChange $it")
           if (it) {
             launchPermissionRequest.invoke()
-
           } else {
-            // todo send to systems settings (notifications)
+            openAppNotificationSettings(context)
           }
           null
         }
       )
     }
 
-
   }
-
 }
