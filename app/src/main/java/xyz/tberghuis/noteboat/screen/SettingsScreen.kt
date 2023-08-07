@@ -1,6 +1,7 @@
 package xyz.tberghuis.noteboat.screen
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
@@ -20,7 +21,7 @@ import xyz.tberghuis.noteboat.R
 
 @Composable
 fun SettingsScreen(
-    navController: NavHostController
+  navController: NavHostController
 ) {
 
   Scaffold(
@@ -42,19 +43,24 @@ fun SettingsScreen(
       )
     },
   ) { padding ->
-    Column(
-      modifier = Modifier
-        .padding(padding)
-        .fillMaxSize()
-    ) {
-
-      Text(
-        "settings screen",
-      )
-
-    }
+    SettingsContent(padding)
   }
 
 }
 
 
+@Composable
+fun SettingsContent(padding: PaddingValues) {
+  Column(
+    modifier = Modifier
+      .padding(padding)
+      .fillMaxSize()
+  ) {
+
+    Text(
+      "settings screen",
+    )
+
+  }
+
+}
