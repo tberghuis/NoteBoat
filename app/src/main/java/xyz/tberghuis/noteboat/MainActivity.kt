@@ -34,6 +34,7 @@ import xyz.tberghuis.noteboat.utils.logd
 import java.io.File
 import javax.inject.Inject
 import androidx.navigation.navDeepLink
+import xyz.tberghuis.noteboat.screen.SettingsScreen
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -135,5 +136,11 @@ fun MainApp() {
       // noteid should be in the viewmodel savehandlestate
       EditNoteScreen(navController = navController)
     }
+
+    composable("settings") {
+      SettingsScreen()
+    }
+
+
   }
 }

@@ -15,6 +15,7 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -22,6 +23,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -30,6 +32,7 @@ import androidx.navigation.NavHostController
 import xyz.tberghuis.noteboat.vm.HomeViewModel
 import xyz.tberghuis.noteboat.data.Note
 import kotlin.math.roundToInt
+import xyz.tberghuis.noteboat.R
 
 @Composable
 fun HomeScreen(
@@ -39,7 +42,7 @@ fun HomeScreen(
   val scaffoldState = rememberScaffoldState()
   Scaffold(
     scaffoldState = scaffoldState,
-    topBar = { HomeTopBar() },
+    topBar = { HomeTopBar(navController) },
     floatingActionButtonPosition = FabPosition.End,
     floatingActionButton = {
       FloatingActionButton(
@@ -63,13 +66,23 @@ fun HomeScreen(
 }
 
 @Composable
-fun HomeTopBar() {
+fun HomeTopBar(  navController: NavHostController) {
   TopAppBar(
     modifier = Modifier
       .statusBarsPadding(),
 //      .navigationBarsPadding(),
-    title = { Text("Note Boat") }
+    title = { Text("Note Boat") },
+    actions = {
+      IconButton(onClick = {
+        navController.navigate("settings")
+      }) {
+        Icon(Icons.Filled.Settings, stringResource(R.string.settings))
+      }
+
+    }
   )
+
+
 }
 
 @Composable
