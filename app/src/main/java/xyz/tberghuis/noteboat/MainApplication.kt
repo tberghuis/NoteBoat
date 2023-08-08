@@ -7,11 +7,23 @@ import android.app.NotificationManager
 import android.content.Intent
 import android.content.IntentFilter
 import dagger.hilt.android.HiltAndroidApp
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
+import xyz.tberghuis.noteboat.di.DatastoreModule.providePreferencesRepository
 import xyz.tberghuis.noteboat.receiver.ScreenReceiver
 import xyz.tberghuis.noteboat.utils.logd
 
 @HiltAndroidApp
 class MainApplication : Application() {
+
+  private val screenReceiverIntentFilter = IntentFilter(Intent.ACTION_SCREEN_ON).apply {
+    addAction(Intent.ACTION_SCREEN_OFF)
+    addAction(Intent.ACTION_USER_PRESENT)
+  }
+  private val screenReceiver = ScreenReceiver()
+
   override fun onCreate() {
     super.onCreate()
     channelLockScreen()
@@ -20,11 +32,20 @@ class MainApplication : Application() {
 
   private fun registerScreenReceiver() {
     logd("registerScreenReceiver")
-    val screenReceiver = ScreenReceiver()
-    val intentFilter = IntentFilter(Intent.ACTION_SCREEN_ON)
-    intentFilter.addAction(Intent.ACTION_SCREEN_OFF)
-    intentFilter.addAction(Intent.ACTION_USER_PRESENT)
-    registerReceiver(screenReceiver, intentFilter)
+
+    CoroutineScope(IO).launch {
+      providePreferencesRepository(this@MainApplication).showShortcutLockScreenFlow.collect { showShortcut ->
+        if (showShortcut) {
+          registerReceiver(screenReceiver, screenReceiverIntentFilter)
+        } else {
+          try {
+            unregisterReceiver(screenReceiver)
+          } catch (e: IllegalArgumentException) {
+          }
+        }
+      }
+    }
+
   }
 
   private fun channelLockScreen() {
@@ -38,4 +59,6 @@ class MainApplication : Application() {
     val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
     notificationManager.createNotificationChannel(mChannel)
   }
+
+
 }
