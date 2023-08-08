@@ -48,13 +48,15 @@ class MainActivity : ComponentActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
 
-    setShowWhenLocked(true)
+    // only if started by lock screen notification
+    if (intent != null && intent.hasExtra(LOCK_SCREEN_EXTRA_START) && intent.getBooleanExtra(
+        LOCK_SCREEN_EXTRA_START,
+        false
+      )
+    ) {
+      setShowWhenLocked(true)
+    }
 
-
-    // doitwrong
-    val feature = intent.extras?.getString("feature")
-    logd("onCreate feature $feature")
-//    logd("feature $feature")
 
     CoroutineScope(Dispatchers.IO).launch {
       migrateLegacy()
@@ -70,6 +72,11 @@ class MainActivity : ComponentActivity() {
         }
       }
     }
+  }
+
+  override fun onStop() {
+    setShowWhenLocked(false)
+    super.onStop()
   }
 
   private suspend fun migrateLegacy() {
