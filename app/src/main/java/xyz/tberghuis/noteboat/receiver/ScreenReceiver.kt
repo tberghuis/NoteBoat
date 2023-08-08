@@ -12,7 +12,6 @@ import androidx.core.net.toUri
 import xyz.tberghuis.noteboat.LOCK_SCREEN_CHANNEL_ID
 import xyz.tberghuis.noteboat.LOCK_SCREEN_EXTRA_START
 import xyz.tberghuis.noteboat.LOCK_SCREEN_NOTIFICATION_ID
-import xyz.tberghuis.noteboat.MainActivity
 import xyz.tberghuis.noteboat.R
 import xyz.tberghuis.noteboat.utils.logd
 
@@ -63,8 +62,8 @@ private fun postNotification(context: Context) {
 
   val builder = NotificationCompat.Builder(context, LOCK_SCREEN_CHANNEL_ID)
     .setSmallIcon(R.drawable.ic_launcher_foreground)
-    .setContentTitle("content title")
-    .setContentText("content text")
+    .setContentTitle("New voice note")
+//    .setContentText("content text")
     .setPriority(NotificationCompat.PRIORITY_DEFAULT)
     .setContentIntent(pendingIntent)
     .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
