@@ -7,16 +7,8 @@ custom notification style that looks like a button
 .... this is the killer app for future app ideas
 
 
-t. user prefs show_shortcut_lock_screen
-
-
-
-
 notification permission
   if permission == false when activityresultcontract returns
     send to system settings
 
-notification title, description ...
-
-###################
 settings screen ui, alignment
