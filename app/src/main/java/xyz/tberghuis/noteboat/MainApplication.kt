@@ -27,18 +27,15 @@ class MainApplication : Application() {
     registerReceiver(screenReceiver, intentFilter)
   }
 
-
   private fun channelLockScreen() {
     val importance = NotificationManager.IMPORTANCE_DEFAULT
     val mChannel = NotificationChannel(
       LOCK_SCREEN_CHANNEL_ID,
-      "todo lockscreen channel name strings.xml",
+      "Lock screen shortcut: New voice note",
       importance
     )
-    mChannel.description = "todo lockscreen channel desc strings.xml"
     mChannel.lockscreenVisibility = Notification.VISIBILITY_PUBLIC
     val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
     notificationManager.createNotificationChannel(mChannel)
   }
-
 }

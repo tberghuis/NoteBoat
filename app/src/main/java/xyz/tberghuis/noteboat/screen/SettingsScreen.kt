@@ -32,6 +32,7 @@ import androidx.navigation.NavHostController
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionStatus
 import com.google.accompanist.permissions.rememberPermissionState
+import xyz.tberghuis.noteboat.LOCK_SCREEN_CHANNEL_ID
 import xyz.tberghuis.noteboat.R
 import xyz.tberghuis.noteboat.utils.logd
 import xyz.tberghuis.noteboat.vm.SettingsViewModel
@@ -70,8 +71,7 @@ fun openAppNotificationSettings(context: Context) {
   val intent: Intent = Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS)
     .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
     .putExtra(Settings.EXTRA_APP_PACKAGE, context.packageName)
-  // todo
-//    .putExtra(Settings.EXTRA_CHANNEL_ID, MY_CHANNEL_ID)
+    .putExtra(Settings.EXTRA_CHANNEL_ID, LOCK_SCREEN_CHANNEL_ID)
   context.startActivity(intent)
 }
 
