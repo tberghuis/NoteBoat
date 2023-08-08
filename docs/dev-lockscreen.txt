@@ -1,20 +1,3 @@
-lock screen widget
-  private repo lockscreenwidget
-launch voice note shortcut
-
-  notification pending intent, voice note shortcut
-
-
-
-step 1, backup notes to paper
-
-update gradle dependencies
-
-doitwrong
-add setting screen, 
-  make sure all changes respect
-
-cull lockscreenwidget inbox.txt code
 
 
 bottom sheet for save, transcribe buttons
@@ -24,16 +7,16 @@ custom notification style that looks like a button
 .... this is the killer app for future app ideas
 
 
-settings screen
-  notification permission
-  lock screen "new voice" shortcut
-
-use floating timer reference
-
 t. user prefs show_shortcut_lock_screen
+
+
+
 
 notification permission
   if permission == false when activityresultcontract returns
     send to system settings
 
 notification title, description ...
+
+###################
+settings screen ui, alignment
