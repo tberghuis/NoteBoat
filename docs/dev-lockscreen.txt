@@ -1,14 +1,10 @@
 
-
 bottom sheet for save, transcribe buttons
   philipp lackner
 
 custom notification style that looks like a button
-.... this is the killer app for future app ideas
-
+.... this is the killer app for future app ideas, e.g. tasker/home_assistant lock screen shortcuts
 
 notification permission
   if permission == false when activityresultcontract returns
     send to system settings
-
-settings screen ui, alignment
