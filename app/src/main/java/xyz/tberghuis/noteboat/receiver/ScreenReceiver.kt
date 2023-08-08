@@ -8,6 +8,7 @@ import android.content.Context
 import android.content.Intent
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.core.net.toUri
 import xyz.tberghuis.noteboat.LOCK_SCREEN_CHANNEL_ID
 import xyz.tberghuis.noteboat.LOCK_SCREEN_EXTRA_START
 import xyz.tberghuis.noteboat.LOCK_SCREEN_NOTIFICATION_ID
@@ -43,10 +44,11 @@ class ScreenReceiver : BroadcastReceiver() {
   }
 }
 
-
 @SuppressLint("MissingPermission")
 private fun postNotification(context: Context) {
-  val intent = Intent(context, MainActivity::class.java).apply {
+
+  val intent = Intent(Intent.ACTION_VIEW).apply {
+    data = "noteboat://noteboat/new-note/new_voice_note".toUri()
     flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
     putExtra(LOCK_SCREEN_EXTRA_START, true)
   }
@@ -59,7 +61,6 @@ private fun postNotification(context: Context) {
       PendingIntent.FLAG_IMMUTABLE
     )
 
-
   val builder = NotificationCompat.Builder(context, LOCK_SCREEN_CHANNEL_ID)
     .setSmallIcon(R.drawable.ic_launcher_foreground)
     .setContentTitle("content title")
@@ -68,7 +69,6 @@ private fun postNotification(context: Context) {
     .setContentIntent(pendingIntent)
     .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
     .setAutoCancel(true)
-
 
   with(NotificationManagerCompat.from(context)) {
     // notificationId is a unique int for each notification that you must define

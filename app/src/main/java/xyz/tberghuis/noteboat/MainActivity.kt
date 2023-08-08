@@ -48,6 +48,9 @@ class MainActivity : ComponentActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
 
+    setShowWhenLocked(true)
+
+
     // doitwrong
     val feature = intent.extras?.getString("feature")
     logd("onCreate feature $feature")

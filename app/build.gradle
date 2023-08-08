@@ -14,7 +14,7 @@ android {
     defaultConfig {
         // NOTE does not match package of source code
         applicationId "site.thomasberghuis.noteboat"
-        minSdk 26
+        minSdk 27
         targetSdk 33
         versionCode 15
         versionName "2.5.0"
