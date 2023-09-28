@@ -1,11 +1,8 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
-
     id 'com.google.devtools.ksp'
     id 'dagger.hilt.android.plugin'
-
-//    id 'kotlin-kapt'
 }
 
 android {
@@ -23,13 +20,6 @@ android {
         vectorDrawables {
             useSupportLibrary true
         }
-
-//        javaCompileOptions {
-//            annotationProcessorOptions {
-//                arguments += ["room.schemaLocation": "$projectDir/schemas".toString()]
-//            }
-//        }
-
     }
 
     buildTypes {
@@ -92,7 +82,6 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-datetime:0.3.2"
 
     def lifecycle_version = "2.6.2"
-//    implementation "androidx.lifecycle:lifecycle-viewmodel:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycle_version"
@@ -104,4 +93,3 @@ dependencies {
 ksp {
     arg('room.schemaLocation', "$projectDir/schemas")
 }
-
