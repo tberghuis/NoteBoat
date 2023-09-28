@@ -23,11 +23,11 @@ fun TmpScreen() {
     bottomBar = {
       BottomAppBar(
         backgroundColor = MaterialTheme.colors.background,
-        contentPadding = PaddingValues(10.dp),
+        contentPadding = PaddingValues(20.dp),
       ) {
         Spacer(Modifier.weight(1f))
         FloatingActionButton(
-          modifier = Modifier.padding(end = 10.dp),
+          modifier = Modifier.padding(end = 20.dp),
           onClick = { /* doSomething() */ }) {
           Icon(Icons.Filled.MicOff, contentDescription = "Localized description")
         }
