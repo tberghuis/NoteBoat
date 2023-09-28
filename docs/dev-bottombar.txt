@@ -1,7 +1,9 @@
 
 remove hilt???
 
-bottom bar
+tmp, activity, scaffold, bottom bar
+
+
 
 cull txt files
 
