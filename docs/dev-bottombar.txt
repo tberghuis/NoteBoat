@@ -1,0 +1,7 @@
+update dependencies
+...
+bottom bar
+
+cull txt files
+
+release github upload tag APK
