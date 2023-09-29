@@ -82,7 +82,7 @@ fun NewNoteScreen(
 //      TranscribeFloatingActionButton(viewModel.transcribingStateFlow, onComplete)
 //    },
     bottomBar = {
-      NoteBottomAppBar()
+      NoteBottomAppBar(viewModel.transcribingStateFlow, onComplete)
     }
   )
 
