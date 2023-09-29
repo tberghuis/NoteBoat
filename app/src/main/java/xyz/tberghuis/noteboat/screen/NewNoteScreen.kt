@@ -19,8 +19,8 @@ import xyz.tberghuis.noteboat.composable.TranscribeFloatingActionButton
 import xyz.tberghuis.noteboat.vm.NewNoteViewModel
 import xyz.tberghuis.noteboat.vm.TranscribingState
 import kotlinx.coroutines.flow.collect
+import xyz.tberghuis.noteboat.composable.NoteBottomAppBar
 import xyz.tberghuis.noteboat.composable.XNoteContent
-import xyz.tberghuis.noteboat.tmp2.NoteBottomAppBar
 import xyz.tberghuis.noteboat.tmp2.NoteContent
 
 @OptIn(
