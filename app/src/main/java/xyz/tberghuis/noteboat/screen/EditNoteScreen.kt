@@ -15,6 +15,8 @@ import kotlinx.coroutines.launch
 import xyz.tberghuis.noteboat.composable.OnPauseLifecycleEvent
 import xyz.tberghuis.noteboat.composable.TranscribeFloatingActionButton
 import xyz.tberghuis.noteboat.composable.XNoteContent
+import xyz.tberghuis.noteboat.tmp2.NoteBottomAppBar
+import xyz.tberghuis.noteboat.tmp2.NoteContent
 import xyz.tberghuis.noteboat.vm.EditNoteViewModel
 import xyz.tberghuis.noteboat.vm.TranscribingState
 
@@ -66,17 +68,16 @@ fun EditNoteScreen(
     scaffoldState = scaffoldState,
     topBar = { EditNoteTopBar(showDeleteDialog = showDeleteDialog, onComplete = onComplete) },
     content = { paddingValues ->
-      XNoteContent(
+      NoteContent(
         paddingValues,
         viewModel.transcribingStateFlow,
         viewModel.noteTextFieldValueState,
         viewModel::updateNote
       )
     },
-    floatingActionButtonPosition = FabPosition.End,
-    floatingActionButton = {
-      TranscribeFloatingActionButton(viewModel.transcribingStateFlow, onComplete)
-    },
+    bottomBar = {
+      NoteBottomAppBar(viewModel.transcribingStateFlow, onComplete)
+    }
   )
 }
 
