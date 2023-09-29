@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.BottomAppBar
@@ -70,12 +71,6 @@ fun NewNoteScreen(
     scaffoldState = scaffoldState,
     topBar = { NewNoteTopBar(onComplete = onComplete, onCancel = onCancel) },
     content = { paddingValues ->
-
-//      Column(modifier = Modifier.padding(paddingValues).fillMaxSize()) {
-//        Text("content")
-//
-//      }
-
       NoteContent(
         paddingValues,
         viewModel.transcribingStateFlow,
@@ -83,23 +78,12 @@ fun NewNoteScreen(
         viewModel::updateNewNoteDraft
       )
     },
-//    floatingActionButtonPosition = FabPosition.End,
 //    floatingActionButton = {
 //      TranscribeFloatingActionButton(viewModel.transcribingStateFlow, onComplete)
 //    },
     bottomBar = {
-      BottomAppBar(
-        modifier = Modifier
-          .navigationBarsPadding()
-          .fillMaxWidth(),
-        backgroundColor = MaterialTheme.colors.background,
-        contentPadding = PaddingValues(20.dp),
-      ) {
-        Text("bottom bar")
-      }
+      NoteBottomAppBar()
     }
-
-
   )
 
   val keyboardController = LocalSoftwareKeyboardController.current
