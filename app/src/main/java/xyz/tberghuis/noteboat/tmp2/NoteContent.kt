@@ -43,8 +43,6 @@ fun NoteContent(
         onValueChange = onValueChange,
         modifier = Modifier
           .focusRequester(focusRequester)
-//          .navigationBarsPadding()
-//          .imePadding()
           .fillMaxSize()
       )
       // don't allow clicks on textfield

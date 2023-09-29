@@ -34,7 +34,6 @@ fun NoteBottomAppBar(
   transcribingStateFlow: MutableStateFlow<TranscribingState>,
   onComplete: () -> Unit,
 ) {
-
   val keyboardController = LocalSoftwareKeyboardController.current
   val transcribingState = transcribingStateFlow.collectAsState()
   val context = LocalContext.current
@@ -61,9 +60,7 @@ fun NoteBottomAppBar(
 
   var fabIcon = @Composable { Icon(Icons.Filled.Mic, "speech input") }
 
-// doitwrong then refactor
   if (transcribingState.value == TranscribingState.TRANSCRIBING) {
-
     fabOnClick = {
       transcribingStateFlow.value = TranscribingState.NOT_TRANSCRIBING
     }
