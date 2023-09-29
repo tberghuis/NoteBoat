@@ -28,13 +28,12 @@ import xyz.tberghuis.noteboat.data.NoteDao
 import xyz.tberghuis.noteboat.data.OptionDao
 import xyz.tberghuis.noteboat.screen.EditNoteScreen
 import xyz.tberghuis.noteboat.screen.HomeScreen
-import xyz.tberghuis.noteboat.screen.NewNoteScreen
 import xyz.tberghuis.noteboat.ui.theme.NoteBoatTheme
-import xyz.tberghuis.noteboat.utils.logd
 import java.io.File
 import javax.inject.Inject
 import androidx.navigation.navDeepLink
 import xyz.tberghuis.noteboat.screen.SettingsScreen
+import xyz.tberghuis.noteboat.tmp2.NewNoteScreen
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
