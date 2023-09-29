@@ -1,4 +1,4 @@
-package xyz.tberghuis.noteboat.composable
+package xyz.tberghuis.noteboat.tmp2
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.StateFlow
 import xyz.tberghuis.noteboat.vm.TranscribingState
 
 @Composable
-fun XNoteContent(
+fun NoteContent(
   paddingValues: PaddingValues,
   transcribingStateFlow: StateFlow<TranscribingState>,
   noteTextFieldValueState: MutableState<TextFieldValue>,

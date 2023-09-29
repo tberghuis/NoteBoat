@@ -1,19 +1,29 @@
 package xyz.tberghuis.noteboat.tmp2
 
 import androidx.activity.compose.BackHandler
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.BottomAppBar
 import androidx.compose.material.FabPosition
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
+import androidx.compose.material.Text
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.ExperimentalComposeUiApi
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import kotlinx.coroutines.launch
-import xyz.tberghuis.noteboat.composable.NoteContent
 import xyz.tberghuis.noteboat.composable.OnPauseLifecycleEvent
 import xyz.tberghuis.noteboat.composable.TranscribeFloatingActionButton
 import xyz.tberghuis.noteboat.screen.NewNoteTopBar
@@ -60,6 +70,12 @@ fun NewNoteScreen(
     scaffoldState = scaffoldState,
     topBar = { NewNoteTopBar(onComplete = onComplete, onCancel = onCancel) },
     content = { paddingValues ->
+
+//      Column(modifier = Modifier.padding(paddingValues).fillMaxSize()) {
+//        Text("content")
+//
+//      }
+
       NoteContent(
         paddingValues,
         viewModel.transcribingStateFlow,
@@ -67,10 +83,23 @@ fun NewNoteScreen(
         viewModel::updateNewNoteDraft
       )
     },
-    floatingActionButtonPosition = FabPosition.End,
-    floatingActionButton = {
-      TranscribeFloatingActionButton(viewModel.transcribingStateFlow, onComplete)
-    },
+//    floatingActionButtonPosition = FabPosition.End,
+//    floatingActionButton = {
+//      TranscribeFloatingActionButton(viewModel.transcribingStateFlow, onComplete)
+//    },
+    bottomBar = {
+      BottomAppBar(
+        modifier = Modifier
+          .navigationBarsPadding()
+          .fillMaxWidth(),
+        backgroundColor = MaterialTheme.colors.background,
+        contentPadding = PaddingValues(20.dp),
+      ) {
+        Text("bottom bar")
+      }
+    }
+
+
   )
 
   val keyboardController = LocalSoftwareKeyboardController.current
@@ -80,6 +109,7 @@ fun NewNoteScreen(
         TranscribingState.TRANSCRIBING -> {
           keyboardController?.hide()
         }
+
         else -> {
           // todo
         }

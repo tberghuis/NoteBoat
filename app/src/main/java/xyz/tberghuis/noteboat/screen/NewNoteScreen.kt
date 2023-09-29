@@ -14,12 +14,12 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import kotlinx.coroutines.launch
-import xyz.tberghuis.noteboat.composable.NoteContent
 import xyz.tberghuis.noteboat.composable.OnPauseLifecycleEvent
 import xyz.tberghuis.noteboat.composable.TranscribeFloatingActionButton
 import xyz.tberghuis.noteboat.vm.NewNoteViewModel
 import xyz.tberghuis.noteboat.vm.TranscribingState
 import kotlinx.coroutines.flow.collect
+import xyz.tberghuis.noteboat.composable.XNoteContent
 
 @OptIn(
   ExperimentalComposeUiApi::class,
@@ -61,7 +61,7 @@ fun XNewNoteScreen(
     scaffoldState = scaffoldState,
     topBar = { NewNoteTopBar(onComplete = onComplete, onCancel = onCancel) },
     content = { paddingValues ->
-      NoteContent(
+      XNoteContent(
         paddingValues,
         viewModel.transcribingStateFlow,
         viewModel.noteTextFieldValueState,
