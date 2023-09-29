@@ -9,3 +9,5 @@ update github README, play store listing
 cull inbox*.txt
 close update github issues
 *refactor
+
+upload APK github, tag release

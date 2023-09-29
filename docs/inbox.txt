@@ -40,3 +40,5 @@ gboard version - 13 feb
 
 bug with either compose or gboard
 gboard text editing copy paste not working properly
+
+remove hilt
