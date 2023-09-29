@@ -20,12 +20,14 @@ import xyz.tberghuis.noteboat.vm.NewNoteViewModel
 import xyz.tberghuis.noteboat.vm.TranscribingState
 import kotlinx.coroutines.flow.collect
 import xyz.tberghuis.noteboat.composable.XNoteContent
+import xyz.tberghuis.noteboat.tmp2.NoteBottomAppBar
+import xyz.tberghuis.noteboat.tmp2.NoteContent
 
 @OptIn(
   ExperimentalComposeUiApi::class,
 )
 @Composable
-fun XNewNoteScreen(
+fun NewNoteScreen(
   navController: NavHostController,
   viewModel: NewNoteViewModel = hiltViewModel(),
 ) {
@@ -61,17 +63,16 @@ fun XNewNoteScreen(
     scaffoldState = scaffoldState,
     topBar = { NewNoteTopBar(onComplete = onComplete, onCancel = onCancel) },
     content = { paddingValues ->
-      XNoteContent(
+      NoteContent(
         paddingValues,
         viewModel.transcribingStateFlow,
         viewModel.noteTextFieldValueState,
         viewModel::updateNewNoteDraft
       )
     },
-    floatingActionButtonPosition = FabPosition.End,
-    floatingActionButton = {
-      TranscribeFloatingActionButton(viewModel.transcribingStateFlow, onComplete)
-    },
+    bottomBar = {
+      NoteBottomAppBar(viewModel.transcribingStateFlow, onComplete)
+    }
   )
 
   val keyboardController = LocalSoftwareKeyboardController.current
@@ -81,6 +82,7 @@ fun XNewNoteScreen(
         TranscribingState.TRANSCRIBING -> {
           keyboardController?.hide()
         }
+
         else -> {
           // todo
         }
