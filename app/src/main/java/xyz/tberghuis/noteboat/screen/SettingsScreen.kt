@@ -2,7 +2,6 @@ package xyz.tberghuis.noteboat.screen
 
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import android.provider.Settings
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -30,7 +29,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
@@ -40,7 +38,6 @@ import xyz.tberghuis.noteboat.LOCK_SCREEN_CHANNEL_ID
 import xyz.tberghuis.noteboat.R
 import xyz.tberghuis.noteboat.utils.logd
 import xyz.tberghuis.noteboat.vm.SettingsViewModel
-
 
 @Composable
 fun SettingsScreen(
