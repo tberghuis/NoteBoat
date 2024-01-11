@@ -65,4 +65,9 @@ class TmpVm(val app: Application) : AndroidViewModel(app) {
   }
 
 
+  fun writeTxtFile() {
+    logd("writeTxtFile")
+  }
+
+
 }

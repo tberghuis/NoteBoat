@@ -43,7 +43,7 @@ fun TmpScreen(
       Text("createFile")
     }
     CreateDocument()
-
+    WriteTxtFile()
   }
 
 }
@@ -61,6 +61,18 @@ fun CreateDocument(
   Text("path ${vm.path}")
   Button(onClick = {
     launcher.launch("myfilename.txt")
+  }) {
+    Text("WriteTxtFile")
+  }
+}
+
+
+@Composable
+fun WriteTxtFile(
+  vm: TmpVm = viewModel()
+) {
+  Button(onClick = {
+    vm.writeTxtFile()
   }) {
     Text("WriteTxtFile")
   }
