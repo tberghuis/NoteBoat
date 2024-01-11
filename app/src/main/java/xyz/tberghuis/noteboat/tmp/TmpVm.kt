@@ -12,6 +12,7 @@ import androidx.compose.runtime.setValue
 import androidx.core.app.ActivityCompat.startActivityForResult
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
+import java.io.File
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
 import xyz.tberghuis.noteboat.MainApplication
@@ -23,7 +24,7 @@ val TMP_WRITE_REQUEST_CODE = 111
 class TmpVm(val app: Application) : AndroidViewModel(app) {
   val db = (app as MainApplication).appDatabase
 
-  var path by mutableStateOf<String?>(null)
+//  var path by mutableStateOf<String?>(null)
   var uri by mutableStateOf<Uri?>(null)
 
 
@@ -75,11 +76,17 @@ class TmpVm(val app: Application) : AndroidViewModel(app) {
   }
 
   fun getDbPathUri() {
-    val fd = app.filesDir
-    logd("fd $fd")
-    val currentDBPath = "/data/data/${app.packageName}/databases/noteboatv2.db"
-    logd("currentDBPath $currentDBPath")
     val dbPath = app.getDatabasePath("noteboatv2.db")
     logd("dbPath $dbPath")
+  }
+
+  fun writeDbFile() {
+    logd("writeDbFile")
+    val dbFile = app.getDatabasePath("noteboatv2.db")
+    app.contentResolver.openOutputStream(uri!!)?.use { os ->
+      dbFile.inputStream().use { fis ->
+        fis.copyTo(os)
+      }
+    }
   }
 }

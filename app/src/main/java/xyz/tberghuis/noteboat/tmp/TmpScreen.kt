@@ -1,17 +1,11 @@
 package xyz.tberghuis.noteboat.tmp
 
-import android.app.Activity
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
-import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
 import xyz.tberghuis.noteboat.utils.logd
 
@@ -19,9 +13,6 @@ import xyz.tberghuis.noteboat.utils.logd
 fun TmpScreen(
   vm: TmpVm = viewModel()
 ) {
-  val context = LocalContext.current
-
-
   Column {
     Text("hello tmp screen")
     Button(onClick = {
@@ -29,17 +20,15 @@ fun TmpScreen(
     }) {
       Text("close db")
     }
-
     Button(onClick = {
       vm.checkpoint()
     }) {
       Text("checkpoint")
     }
-    CreateDocument()
-    WriteTxtFile()
-    GetDbPathUri()
-  }
 
+    CreateDbBackup()
+    WriteDbFile()
+  }
 }
 
 
@@ -52,13 +41,33 @@ fun CreateDocument(
       logd("uri $it")
       vm.uri = it
     }
-  Text("path ${vm.path}")
   Button(onClick = {
     launcher.launch("myfilename.txt")
   }) {
     Text("CreateDocument")
   }
 }
+
+
+@Composable
+fun CreateDbBackup(
+  vm: TmpVm = viewModel()
+) {
+  val launcher =
+    rememberLauncherForActivityResult(ActivityResultContracts.CreateDocument("application/x-sqlite3")) {
+      logd("uri $it")
+      vm.uri = it
+    }
+  Text("uri ${vm.uri}")
+  Button(onClick = {
+    launcher.launch("backup.db")
+  }) {
+    Text("CreateDbBackup")
+  }
+}
+
+
+
 
 
 @Composable
@@ -73,12 +82,12 @@ fun WriteTxtFile(
 }
 
 @Composable
-fun GetDbPathUri(
+fun WriteDbFile(
   vm: TmpVm = viewModel()
 ) {
   Button(onClick = {
-    vm.getDbPathUri()
+    vm.writeDbFile()
   }) {
-    Text("GetDbPathUri")
+    Text("writeDbFile")
   }
 }

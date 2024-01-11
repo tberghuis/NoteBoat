@@ -9,4 +9,3 @@ ls -la
 
 cd /sdcard/TOM/syncthing/poco-share
 ls -la
-cat myfilename.txt
