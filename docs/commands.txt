@@ -1,1 +1,7 @@
 adb uninstall site.thomasberghuis.noteboat
+
+adb devices
+adb shell
+run-as site.thomasberghuis.noteboat
+cd databases
+ls -la
