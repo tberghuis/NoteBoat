@@ -31,17 +31,19 @@ fun NoteContent(
 ) {
   val focusRequester = remember { FocusRequester() }
   val transcribing = transcribingStateFlow.collectAsState()
-  val onValueChange by derivedStateOf<(TextFieldValue) -> Unit> {
-    // replace with when when i learn more kotlin
-    if (transcribing.value == TranscribingState.NOT_TRANSCRIBING) {
-      return@derivedStateOf {
-        // this is bad, probably better to updateDb from
-        // launchedEffect snapshotFlow
-        updateDb(it.text)
-        noteTextFieldValueState.value = it
+  val onValueChange by remember {
+    derivedStateOf<(TextFieldValue) -> Unit> {
+      // replace with when when i learn more kotlin
+      if (transcribing.value == TranscribingState.NOT_TRANSCRIBING) {
+        return@derivedStateOf {
+          // this is bad, probably better to updateDb from
+          // launchedEffect snapshotFlow
+          updateDb(it.text)
+          noteTextFieldValueState.value = it
+        }
       }
+      { }
     }
-    { }
   }
 
   Column(Modifier.padding(paddingValues)) {
@@ -55,7 +57,7 @@ fun NoteContent(
           .focusRequester(focusRequester)
           .fillMaxSize()
       )
-      // don't allow clicks on textfield
+      // don't allow clicks on TextField
       if (transcribing.value == TranscribingState.TRANSCRIBING) {
         Box(
           modifier = Modifier
