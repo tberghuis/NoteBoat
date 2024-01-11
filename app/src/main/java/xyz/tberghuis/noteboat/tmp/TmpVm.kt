@@ -1,7 +1,11 @@
 package xyz.tberghuis.noteboat.tmp
 
+import android.app.Activity
 import android.app.Application
+import android.content.Context
+import android.content.Intent
 import android.database.Cursor
+import androidx.core.app.ActivityCompat.startActivityForResult
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers.IO
@@ -9,6 +13,8 @@ import kotlinx.coroutines.launch
 import xyz.tberghuis.noteboat.MainApplication
 import xyz.tberghuis.noteboat.utils.logd
 
+
+val TMP_WRITE_REQUEST_CODE = 111
 
 class TmpVm(val app: Application) : AndroidViewModel(app) {
   val db = (app as MainApplication).appDatabase
@@ -38,4 +44,19 @@ class TmpVm(val app: Application) : AndroidViewModel(app) {
       logd("checkpoint finish")
     }
   }
+
+
+  fun createFile(activity: Activity) {
+//    val mimeType = "application/x-sqlite3"
+    val mimeType = "text/*"
+    val fileName = "willitblend.txt"
+
+    val intent = Intent(Intent.ACTION_CREATE_DOCUMENT)
+    intent.addCategory(Intent.CATEGORY_OPENABLE)
+    intent.setType(mimeType)
+    intent.putExtra(Intent.EXTRA_TITLE, fileName)
+    startActivityForResult(activity, intent, TMP_WRITE_REQUEST_CODE, null)
+  }
+
+
 }
