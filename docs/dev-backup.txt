@@ -9,4 +9,11 @@ close room db  before import
 
 
 https://developer.android.com/guide/topics/data
-  
+Storage Access Framework
+
+READ_EXTERNAL_STORAGE, WRITE_EXTERNAL_STORAGE, and MANAGE_EXTERNAL_STORAGE.  
+doitwrong mvp
+https://developer.android.com/training/data-storage/shared
+
+SAF or dataset BlobStoreManager???
+try both
