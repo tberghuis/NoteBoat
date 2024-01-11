@@ -17,6 +17,14 @@ fun TmpScreen(
     }) {
       Text("close db")
     }
+
+    Button(onClick = {
+      vm.checkpoint()
+    }) {
+      Text("checkpoint")
+    }
+
+
   }
 
 }
