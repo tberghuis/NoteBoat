@@ -37,11 +37,11 @@ fun TmpScreen(
     }
 
 
-    Button(onClick = {
-      vm.createFile(context as Activity)
-    }) {
-      Text("createFile")
-    }
+//    Button(onClick = {
+//      vm.createFile(context as Activity)
+//    }) {
+//      Text("createFile")
+//    }
     CreateDocument()
     WriteTxtFile()
   }
@@ -56,13 +56,13 @@ fun CreateDocument(
   val launcher =
     rememberLauncherForActivityResult(ActivityResultContracts.CreateDocument("text/*")) {
       logd("uri $it")
-      vm.path = it?.path
+      vm.uri = it
     }
   Text("path ${vm.path}")
   Button(onClick = {
     launcher.launch("myfilename.txt")
   }) {
-    Text("WriteTxtFile")
+    Text("CreateDocument")
   }
 }
 

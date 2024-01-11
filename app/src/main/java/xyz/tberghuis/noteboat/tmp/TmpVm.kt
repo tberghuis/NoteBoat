@@ -5,6 +5,7 @@ import android.app.Application
 import android.content.Context
 import android.content.Intent
 import android.database.Cursor
+import android.net.Uri
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -23,6 +24,7 @@ class TmpVm(val app: Application) : AndroidViewModel(app) {
   val db = (app as MainApplication).appDatabase
 
   var path by mutableStateOf<String?>(null)
+  var uri by mutableStateOf<Uri?>(null)
 
 
   init {
@@ -52,38 +54,23 @@ class TmpVm(val app: Application) : AndroidViewModel(app) {
   }
 
 
-  fun createFile(activity: Activity) {
-//    val mimeType = "application/x-sqlite3"
-    val mimeType = "text/*"
-    val fileName = "willitblend.txt"
-
-    val intent = Intent(Intent.ACTION_CREATE_DOCUMENT)
-    intent.addCategory(Intent.CATEGORY_OPENABLE)
-    intent.setType(mimeType)
-    intent.putExtra(Intent.EXTRA_TITLE, fileName)
-    startActivityForResult(activity, intent, TMP_WRITE_REQUEST_CODE, null)
-  }
-
+//  fun createFile(activity: Activity) {
+////    val mimeType = "application/x-sqlite3"
+//    val mimeType = "text/*"
+//    val fileName = "willitblend.txt"
+//
+//    val intent = Intent(Intent.ACTION_CREATE_DOCUMENT)
+//    intent.addCategory(Intent.CATEGORY_OPENABLE)
+//    intent.setType(mimeType)
+//    intent.putExtra(Intent.EXTRA_TITLE, fileName)
+//    startActivityForResult(activity, intent, TMP_WRITE_REQUEST_CODE, null)
+//  }
 
   fun writeTxtFile() {
     logd("writeTxtFile")
-    val fos = app.contentResolver.openOutputStream()
-
-  }
-
-  fun writeTxtFileTmp() {
-    val fileOutupStream: FileOutputStream? = contentResolver.openOutputStream(data.data!!)
-    try {
-      bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fileOutupStream)
-      fileOutupStream!!.flush()
-      fileOutupStream.close()
-      Toast.makeText(this, "saved $fileName", Toast.LENGTH_LONG).show()
-    } catch (e: Exception) {
-      Toast.makeText(this, "something went wrong" + e.message, Toast.LENGTH_SHORT).show()
-      e.printStackTrace()
+    app.contentResolver.openOutputStream(uri!!)?.use { os ->
+      os.write("will it blend".toByteArray())
+      os.flush()
     }
-
   }
-
-
 }

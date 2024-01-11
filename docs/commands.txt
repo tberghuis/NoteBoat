@@ -5,3 +5,8 @@ adb shell
 run-as site.thomasberghuis.noteboat
 cd databases
 ls -la
+
+
+cd /sdcard/TOM/syncthing/poco-share
+ls -la
+cat myfilename.txt
