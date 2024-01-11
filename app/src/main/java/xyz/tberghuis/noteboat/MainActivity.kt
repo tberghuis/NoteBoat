@@ -14,30 +14,23 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import xyz.tberghuis.noteboat.data.NoteDao
 import xyz.tberghuis.noteboat.data.OptionDao
 import xyz.tberghuis.noteboat.screen.EditNoteScreen
 import xyz.tberghuis.noteboat.screen.HomeScreen
 import xyz.tberghuis.noteboat.ui.theme.NoteBoatTheme
 import androidx.navigation.navDeepLink
-import xyz.tberghuis.noteboat.data.migrateLegacy
 import xyz.tberghuis.noteboat.screen.NewNoteScreen
 import xyz.tberghuis.noteboat.screen.SettingsScreen
 
 class MainActivity : ComponentActivity() {
-
-  lateinit var noteDao: NoteDao
-
-  lateinit var optionDao: OptionDao
+  private lateinit var noteDao: NoteDao
+  private lateinit var optionDao: OptionDao
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     noteDao = (application as MainApplication).appDatabase.noteDao()
     optionDao = (application as MainApplication).appDatabase.optionDao()
-
 
     // only if started by lock screen notification
     if (intent != null && intent.hasExtra(LOCK_SCREEN_EXTRA_START) && intent.getBooleanExtra(
@@ -48,13 +41,11 @@ class MainActivity : ComponentActivity() {
       setShowWhenLocked(true)
     }
 
-
-    CoroutineScope(Dispatchers.IO).launch {
-      migrateLegacy(application, optionDao, noteDao)
-    }
+//    CoroutineScope(Dispatchers.IO).launch {
+//      migrateLegacy(application, optionDao, noteDao)
+//    }
 
     WindowCompat.setDecorFitsSystemWindows(window, false)
-
     setContent {
       NoteBoatTheme {
         // A surface container using the 'background' color from the theme
@@ -69,7 +60,6 @@ class MainActivity : ComponentActivity() {
     setShowWhenLocked(false)
     super.onStop()
   }
-
 }
 
 @Composable
@@ -100,11 +90,8 @@ fun MainApp() {
       // noteid should be in the viewmodel savehandlestate
       EditNoteScreen(navController = navController)
     }
-
     composable("settings") {
       SettingsScreen(navController = navController)
     }
-
-
   }
 }
