@@ -1,42 +1,37 @@
 package xyz.tberghuis.noteboat.vm
 
-import android.content.Context
+import android.app.Application
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlinx.datetime.Clock
+import xyz.tberghuis.noteboat.MainApplication
 import xyz.tberghuis.noteboat.controller.SpeechController
 import xyz.tberghuis.noteboat.data.Note
-import xyz.tberghuis.noteboat.data.NoteDao
-import xyz.tberghuis.noteboat.data.OptionDao
 import xyz.tberghuis.noteboat.utils.logd
-import javax.inject.Inject
 
-@HiltViewModel
-class NewNoteViewModel @Inject constructor(
-  @ApplicationContext appContext: Context,
-  private val noteDao: NoteDao,
-  private val optionDao: OptionDao,
+class NewNoteViewModel(
+  application: Application,
   savedStateHandle: SavedStateHandle
-) : ViewModel() {
+) : AndroidViewModel(application) {
   val navParam: String? = savedStateHandle.get<String>("navParam")
+  val noteDao = (application as MainApplication).appDatabase.noteDao()
+  val optionDao = (application as MainApplication).appDatabase.optionDao()
 
   // if i was pedantic i could use null for initial
   val noteTextFieldValueState = mutableStateOf(TextFieldValue())
   val transcribingStateFlow = MutableStateFlow(TranscribingState.NOT_TRANSCRIBING)
   val speechController =
     SpeechController(
-      appContext,
+      application,
       transcribingStateFlow,
       noteTextFieldValueState,
       ::updateNewNoteDraft

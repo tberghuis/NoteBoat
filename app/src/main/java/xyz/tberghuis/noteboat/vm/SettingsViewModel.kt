@@ -1,16 +1,16 @@
 package xyz.tberghuis.noteboat.vm
 
-import androidx.lifecycle.ViewModel
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import xyz.tberghuis.noteboat.data.PreferencesRepository
-import javax.inject.Inject
+import xyz.tberghuis.noteboat.MainApplication
 
-@HiltViewModel
-class SettingsViewModel @Inject constructor(
-  private val preferencesRepository: PreferencesRepository
-) : ViewModel() {
+class SettingsViewModel(
+  application: Application
+) : AndroidViewModel(application) {
+  private val preferencesRepository = (application as MainApplication).preferencesRepository
+
   val showShortcutLockScreenFlow = preferencesRepository.showShortcutLockScreenFlow
 
   fun showShortcutClick() {

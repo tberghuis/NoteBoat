@@ -1,3 +1,5 @@
+remove hilt
+
 update dependencies
 ...
 buildType debugTmp

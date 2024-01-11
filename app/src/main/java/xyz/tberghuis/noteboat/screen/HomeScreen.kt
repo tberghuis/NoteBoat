@@ -26,7 +26,6 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import xyz.tberghuis.noteboat.vm.HomeViewModel
@@ -89,7 +88,7 @@ fun HomeTopBar(  navController: NavHostController) {
 fun HomeContent(
   navController: NavHostController,
 ) {
-  val viewModel: HomeViewModel = hiltViewModel()
+  val viewModel: HomeViewModel = viewModel()
 
   val allNotes = viewModel.allNotes.collectAsState(listOf())
   val offsetNotes = viewModel.offsetNotes.collectAsState(setOf())
@@ -125,7 +124,7 @@ fun HomeContent(
 @Composable
 fun ActionsCard(
   note: Note,
-  viewModel: HomeViewModel = hiltViewModel()
+  viewModel: HomeViewModel = viewModel()
 ) {
 
 

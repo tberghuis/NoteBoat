@@ -6,17 +6,21 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Intent
 import android.content.IntentFilter
-import dagger.hilt.android.HiltAndroidApp
+import android.util.Log
+import androidx.room.Room
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import xyz.tberghuis.noteboat.di.DatastoreModule.providePreferencesRepository
+import xyz.tberghuis.noteboat.data.AppDatabase
+import xyz.tberghuis.noteboat.data.PreferencesRepository
+import xyz.tberghuis.noteboat.data.dataStore
 import xyz.tberghuis.noteboat.receiver.ScreenReceiver
 import xyz.tberghuis.noteboat.utils.logd
 
-@HiltAndroidApp
 class MainApplication : Application() {
+
+  lateinit var appDatabase: AppDatabase
+  lateinit var preferencesRepository: PreferencesRepository
 
   private val screenReceiverIntentFilter = IntentFilter(Intent.ACTION_SCREEN_ON).apply {
     addAction(Intent.ACTION_SCREEN_OFF)
@@ -26,6 +30,8 @@ class MainApplication : Application() {
 
   override fun onCreate() {
     super.onCreate()
+    appDatabase = provideDatabase()
+    preferencesRepository = providePreferencesRepository()
     channelLockScreen()
     registerScreenReceiver()
   }
@@ -34,13 +40,14 @@ class MainApplication : Application() {
     logd("registerScreenReceiver")
 
     CoroutineScope(IO).launch {
-      providePreferencesRepository(this@MainApplication).showShortcutLockScreenFlow.collect { showShortcut ->
+      preferencesRepository.showShortcutLockScreenFlow.collect { showShortcut ->
         if (showShortcut) {
           registerReceiver(screenReceiver, screenReceiverIntentFilter)
         } else {
           try {
             unregisterReceiver(screenReceiver)
           } catch (e: IllegalArgumentException) {
+            Log.e("MainApplication", "$e")
           }
         }
       }
@@ -58,6 +65,21 @@ class MainApplication : Application() {
     mChannel.lockscreenVisibility = Notification.VISIBILITY_PUBLIC
     val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
     notificationManager.createNotificationChannel(mChannel)
+  }
+
+
+  private fun provideDatabase(): AppDatabase {
+    return Room.databaseBuilder(
+      this,
+      AppDatabase::class.java,
+      "noteboatv2.db"
+    )
+      .createFromAsset("noteboatv2.db")
+      .build()
+  }
+
+  private fun providePreferencesRepository(): PreferencesRepository {
+    return PreferencesRepository(dataStore)
   }
 
 

@@ -15,7 +15,6 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import androidx.room.Room
-import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -30,22 +29,21 @@ import xyz.tberghuis.noteboat.screen.EditNoteScreen
 import xyz.tberghuis.noteboat.screen.HomeScreen
 import xyz.tberghuis.noteboat.ui.theme.NoteBoatTheme
 import java.io.File
-import javax.inject.Inject
 import androidx.navigation.navDeepLink
 import xyz.tberghuis.noteboat.screen.NewNoteScreen
 import xyz.tberghuis.noteboat.screen.SettingsScreen
 
-@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
-  @Inject
   lateinit var noteDao: NoteDao
 
-  @Inject
   lateinit var optionDao: OptionDao
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
+    noteDao = (application as MainApplication).appDatabase.noteDao()
+    optionDao = (application as MainApplication).appDatabase.optionDao()
+
 
     // only if started by lock screen notification
     if (intent != null && intent.hasExtra(LOCK_SCREEN_EXTRA_START) && intent.getBooleanExtra(

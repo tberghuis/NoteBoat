@@ -1,22 +1,17 @@
 package xyz.tberghuis.noteboat.vm
 
-import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.ViewModel
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import xyz.tberghuis.noteboat.MainApplication
 import xyz.tberghuis.noteboat.data.Note
-import xyz.tberghuis.noteboat.data.NoteDao
-import javax.inject.Inject
-import kotlinx.coroutines.flow.collect
 
-@HiltViewModel
-class HomeViewModel @Inject constructor(
-  private val noteDao: NoteDao,
-) : ViewModel() {
-
+class HomeViewModel (
+  application: Application,
+) : AndroidViewModel(application) {
+  val noteDao = (application as MainApplication).appDatabase.noteDao()
   val allNotes = noteDao.getAll()
 
   // https://github.com/Skyyo/compose-swipe-to-reveal

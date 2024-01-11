@@ -31,7 +31,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat.startActivity
-import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionStatus
@@ -149,7 +149,7 @@ fun SettingsContent(padding: PaddingValues) {
 }
 
 @Composable
-fun LockscreenShortcutSetting(vm: SettingsViewModel = hiltViewModel()) {
+fun LockscreenShortcutSetting(vm: SettingsViewModel = viewModel()) {
 
   val checked by vm.showShortcutLockScreenFlow.collectAsState(false)
 

@@ -10,7 +10,6 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.TextFieldValue
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import kotlinx.coroutines.launch
 import xyz.tberghuis.noteboat.composable.OnPauseLifecycleEvent
@@ -18,6 +17,7 @@ import xyz.tberghuis.noteboat.vm.NewNoteViewModel
 import xyz.tberghuis.noteboat.vm.TranscribingState
 import xyz.tberghuis.noteboat.composable.NoteBottomAppBar
 import xyz.tberghuis.noteboat.composable.NoteContent
+import androidx.lifecycle.viewmodel.compose.viewModel
 
 @OptIn(
   ExperimentalComposeUiApi::class,
@@ -25,7 +25,7 @@ import xyz.tberghuis.noteboat.composable.NoteContent
 @Composable
 fun NewNoteScreen(
   navController: NavHostController,
-  viewModel: NewNoteViewModel = hiltViewModel(),
+  viewModel: NewNoteViewModel = viewModel(),
 ) {
   val scaffoldState = rememberScaffoldState()
   val scope = rememberCoroutineScope()

@@ -8,16 +8,16 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import xyz.tberghuis.noteboat.composable.NoteBottomAppBar
 import xyz.tberghuis.noteboat.composable.NoteContent
 import xyz.tberghuis.noteboat.composable.OnPauseLifecycleEvent
 import xyz.tberghuis.noteboat.vm.EditNoteViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 
 @Composable
 fun EditNoteScreen(
-  viewModel: EditNoteViewModel = hiltViewModel(),
+  viewModel: EditNoteViewModel = viewModel(),
   navController: NavHostController
 ) {
   val scaffoldState = rememberScaffoldState()
