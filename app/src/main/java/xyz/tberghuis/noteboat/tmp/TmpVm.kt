@@ -5,6 +5,9 @@ import android.app.Application
 import android.content.Context
 import android.content.Intent
 import android.database.Cursor
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.core.app.ActivityCompat.startActivityForResult
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
@@ -19,8 +22,7 @@ val TMP_WRITE_REQUEST_CODE = 111
 class TmpVm(val app: Application) : AndroidViewModel(app) {
   val db = (app as MainApplication).appDatabase
 
-
-  
+  var path by mutableStateOf<String?>(null)
 
 
   init {

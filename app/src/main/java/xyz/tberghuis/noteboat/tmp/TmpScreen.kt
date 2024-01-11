@@ -42,7 +42,7 @@ fun TmpScreen(
     }) {
       Text("createFile")
     }
-    WriteTxtFile()
+    CreateDocument()
 
   }
 
@@ -50,22 +50,15 @@ fun TmpScreen(
 
 
 @Composable
-fun WriteTxtFile() {
-  var path by remember {
-    mutableStateOf<String?>(null)
-  }
-  var encodedPath by remember {
-    mutableStateOf<String?>(null)
-  }
+fun CreateDocument(
+  vm: TmpVm = viewModel()
+) {
   val launcher =
     rememberLauncherForActivityResult(ActivityResultContracts.CreateDocument("text/*")) {
       logd("uri $it")
-      path = it?.path
-      encodedPath = it?.encodedPath
+      vm.path = it?.path
     }
-
-  Text("path $path")
-  Text("encodedPath $encodedPath")
+  Text("path ${vm.path}")
   Button(onClick = {
     launcher.launch("myfilename.txt")
   }) {
