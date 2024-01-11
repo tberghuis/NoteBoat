@@ -6,4 +6,7 @@ copy sqlite file to external storage SAF
 close room db first before backup
 close room db  before import 
   delete -shm -wal files before import
+
+
+https://developer.android.com/guide/topics/data
   
