@@ -1,13 +1,19 @@
 package xyz.tberghuis.noteboat.tmp
 
+import android.R.attr.bitmap
+import android.content.Intent
+import android.graphics.Bitmap
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.ui.Modifier
+import java.io.FileOutputStream
 import xyz.tberghuis.noteboat.ui.theme.NoteBoatTheme
+
 
 class TmpActivity : ComponentActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,4 +26,22 @@ class TmpActivity : ComponentActivity() {
       }
     }
   }
+
+
+//  protected fun onActivityResult(requestCode: Int, resultCode: Int, @Nullable data: Intent) {
+//    if (resultCode == RESULT_OK && requestCode == WRITE_REQUEST_CODE) {
+//      val fileOutupStream: FileOutputStream? = contentResolver.openOutputStream(data.data!!)
+//      try {
+//        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fileOutupStream)
+//        fileOutupStream!!.flush()
+//        fileOutupStream.close()
+//        Toast.makeText(this, "saved $fileName", Toast.LENGTH_LONG).show()
+//      } catch (e: Exception) {
+//        Toast.makeText(this, "something went wrong" + e.message, Toast.LENGTH_SHORT).show()
+//        e.printStackTrace()
+//      }
+//    }
+//  }
+
+
 }

@@ -1,12 +1,19 @@
 package xyz.tberghuis.noteboat.tmp
 
 import android.app.Activity
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
+import xyz.tberghuis.noteboat.utils.logd
 
 @Composable
 fun TmpScreen(
@@ -35,8 +42,33 @@ fun TmpScreen(
     }) {
       Text("createFile")
     }
-
+    WriteTxtFile()
 
   }
 
+}
+
+
+@Composable
+fun WriteTxtFile() {
+  var path by remember {
+    mutableStateOf<String?>(null)
+  }
+  var encodedPath by remember {
+    mutableStateOf<String?>(null)
+  }
+  val launcher =
+    rememberLauncherForActivityResult(ActivityResultContracts.CreateDocument("text/*")) {
+      logd("uri $it")
+      path = it?.path
+      encodedPath = it?.encodedPath
+    }
+
+  Text("path $path")
+  Text("encodedPath $encodedPath")
+  Button(onClick = {
+    launcher.launch("myfilename.txt")
+  }) {
+    Text("WriteTxtFile")
+  }
 }

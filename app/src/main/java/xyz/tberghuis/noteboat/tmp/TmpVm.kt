@@ -19,6 +19,10 @@ val TMP_WRITE_REQUEST_CODE = 111
 class TmpVm(val app: Application) : AndroidViewModel(app) {
   val db = (app as MainApplication).appDatabase
 
+
+  
+
+
   init {
     logd("TmpVm init")
   }
