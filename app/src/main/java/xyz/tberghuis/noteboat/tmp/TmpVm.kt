@@ -67,6 +67,22 @@ class TmpVm(val app: Application) : AndroidViewModel(app) {
 
   fun writeTxtFile() {
     logd("writeTxtFile")
+    val fos = app.contentResolver.openOutputStream()
+
+  }
+
+  fun writeTxtFileTmp() {
+    val fileOutupStream: FileOutputStream? = contentResolver.openOutputStream(data.data!!)
+    try {
+      bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fileOutupStream)
+      fileOutupStream!!.flush()
+      fileOutupStream.close()
+      Toast.makeText(this, "saved $fileName", Toast.LENGTH_LONG).show()
+    } catch (e: Exception) {
+      Toast.makeText(this, "something went wrong" + e.message, Toast.LENGTH_SHORT).show()
+      e.printStackTrace()
+    }
+
   }
 
 

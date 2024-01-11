@@ -28,20 +28,7 @@ class TmpActivity : ComponentActivity() {
   }
 
 
-//  protected fun onActivityResult(requestCode: Int, resultCode: Int, @Nullable data: Intent) {
-//    if (resultCode == RESULT_OK && requestCode == WRITE_REQUEST_CODE) {
-//      val fileOutupStream: FileOutputStream? = contentResolver.openOutputStream(data.data!!)
-//      try {
-//        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fileOutupStream)
-//        fileOutupStream!!.flush()
-//        fileOutupStream.close()
-//        Toast.makeText(this, "saved $fileName", Toast.LENGTH_LONG).show()
-//      } catch (e: Exception) {
-//        Toast.makeText(this, "something went wrong" + e.message, Toast.LENGTH_SHORT).show()
-//        e.printStackTrace()
-//      }
-//    }
-//  }
+
 
 
 }
