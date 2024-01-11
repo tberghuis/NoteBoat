@@ -14,22 +14,16 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import androidx.room.Room
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.datetime.TimeZone
-import kotlinx.datetime.toInstant
-import kotlinx.datetime.toLocalDateTime
-import xyz.tberghuis.noteboat.data.LegacyDatabase
-import xyz.tberghuis.noteboat.data.Note
 import xyz.tberghuis.noteboat.data.NoteDao
 import xyz.tberghuis.noteboat.data.OptionDao
 import xyz.tberghuis.noteboat.screen.EditNoteScreen
 import xyz.tberghuis.noteboat.screen.HomeScreen
 import xyz.tberghuis.noteboat.ui.theme.NoteBoatTheme
-import java.io.File
 import androidx.navigation.navDeepLink
+import xyz.tberghuis.noteboat.data.migrateLegacy
 import xyz.tberghuis.noteboat.screen.NewNoteScreen
 import xyz.tberghuis.noteboat.screen.SettingsScreen
 
@@ -56,7 +50,7 @@ class MainActivity : ComponentActivity() {
 
 
     CoroutineScope(Dispatchers.IO).launch {
-      migrateLegacy()
+      migrateLegacy(application, optionDao, noteDao)
     }
 
     WindowCompat.setDecorFitsSystemWindows(window, false)
@@ -76,43 +70,6 @@ class MainActivity : ComponentActivity() {
     super.onStop()
   }
 
-  private suspend fun migrateLegacy() {
-    val runMigration = optionDao.getOption("run_legacy_migration")
-    if (runMigration != "true") {
-      // logd("runMigration $runMigration")
-      return
-    }
-    // eagerly update??? probably bad to assume migration will complete, DOITWRONG
-    optionDao.updateOption("run_legacy_migration", "false")
-
-    val file = File(applicationContext.filesDir, "../app_flutter/notes.db")
-    if (!file.exists()) {
-      // logd("no legacy database found")
-      return
-    }
-
-    val legacyDb = Room.databaseBuilder(
-      applicationContext, LegacyDatabase::class.java, file.path
-    ).build()
-    // logd("legacyDb $legacyDb")
-
-    val legacyNotes = legacyDb.legacyNoteDao().getAll()
-    // logd("legacyNotes $legacyNotes")
-
-    legacyNotes.forEach {
-      val noteText = it.noteText!!
-      fun toEpoch(s: String?): Long {
-        return s!!.toLocalDateTime().toInstant(TimeZone.currentSystemDefault())
-          .toEpochMilliseconds()
-      }
-
-      val createdEpoch = toEpoch(it.createdDate)
-      val modifiedEpoch = toEpoch(it.modifiedDate)
-      val note =
-        Note(noteText = noteText, createdEpoch = createdEpoch, modifiedEpoch = modifiedEpoch)
-      noteDao.insertAll(note)
-    }
-  }
 }
 
 @Composable

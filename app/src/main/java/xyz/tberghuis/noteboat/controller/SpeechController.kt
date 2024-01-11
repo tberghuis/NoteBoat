@@ -7,7 +7,6 @@ import android.media.AudioManager
 import android.media.AudioManager.ADJUST_MUTE
 import android.media.AudioManager.ADJUST_UNMUTE
 import android.os.Bundle
-import android.provider.Settings
 import android.speech.RecognitionListener
 import android.speech.RecognizerIntent
 import android.speech.SpeechRecognizer
@@ -17,7 +16,6 @@ import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.TextFieldValue
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import xyz.tberghuis.noteboat.utils.logd
