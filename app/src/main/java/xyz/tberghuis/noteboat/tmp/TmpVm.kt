@@ -73,4 +73,13 @@ class TmpVm(val app: Application) : AndroidViewModel(app) {
       os.flush()
     }
   }
+
+  fun getDbPathUri() {
+    val fd = app.filesDir
+    logd("fd $fd")
+    val currentDBPath = "/data/data/${app.packageName}/databases/noteboatv2.db"
+    logd("currentDBPath $currentDBPath")
+    val dbPath = app.getDatabasePath("noteboatv2.db")
+    logd("dbPath $dbPath")
+  }
 }

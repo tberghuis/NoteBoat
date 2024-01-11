@@ -35,15 +35,9 @@ fun TmpScreen(
     }) {
       Text("checkpoint")
     }
-
-
-//    Button(onClick = {
-//      vm.createFile(context as Activity)
-//    }) {
-//      Text("createFile")
-//    }
     CreateDocument()
     WriteTxtFile()
+    GetDbPathUri()
   }
 
 }
@@ -75,5 +69,16 @@ fun WriteTxtFile(
     vm.writeTxtFile()
   }) {
     Text("WriteTxtFile")
+  }
+}
+
+@Composable
+fun GetDbPathUri(
+  vm: TmpVm = viewModel()
+) {
+  Button(onClick = {
+    vm.getDbPathUri()
+  }) {
+    Text("GetDbPathUri")
   }
 }
