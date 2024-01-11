@@ -1,6 +1,5 @@
 package xyz.tberghuis.noteboat.data
 
-import androidx.annotation.NonNull
 import androidx.room.*
 
 // this comes from app_flutter/note.db
