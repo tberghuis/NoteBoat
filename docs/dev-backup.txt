@@ -1,9 +1,4 @@
-
-update dependencies
-...
 buildType debugTmp
 official docs
 ...
-
-refactor code
-remove flutter migration
+copy sqlite file to external storage SAF
