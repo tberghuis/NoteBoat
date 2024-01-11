@@ -11,4 +11,7 @@ class TmpVm(application: Application) : AndroidViewModel(application) {
     logd("TmpVm init")
   }
 
+  fun closeDb() {
+    logd("closeDb")
+  }
 }
