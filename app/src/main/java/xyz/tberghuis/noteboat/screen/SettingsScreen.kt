@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -109,14 +110,7 @@ fun SettingsContent(padding: PaddingValues) {
       .padding(padding)
       .fillMaxSize()
   ) {
-
-    Row(
-      modifier = Modifier
-        .fillMaxWidth()
-        .padding(15.dp),
-      horizontalArrangement = Arrangement.SpaceBetween,
-      verticalAlignment = Alignment.CenterVertically,
-    ) {
+    SettingsScreenRow {
       Text("Notification permission")
       Switch(
         checked = notificationPermissionGranted.value,
@@ -131,17 +125,9 @@ fun SettingsContent(padding: PaddingValues) {
         }
       )
     }
-    Row(
-      modifier = Modifier
-        .fillMaxWidth()
-        .padding(15.dp),
-      horizontalArrangement = Arrangement.SpaceBetween,
-      verticalAlignment = Alignment.CenterVertically,
-    ) {
+    SettingsScreenRow {
       LockscreenShortcutSetting()
     }
-
-
   }
 }
 
@@ -160,3 +146,15 @@ fun LockscreenShortcutSetting(vm: SettingsViewModel = viewModel()) {
   )
 }
 
+@Composable
+fun SettingsScreenRow(content: @Composable RowScope.() -> Unit) {
+  Row(
+    modifier = Modifier
+      .fillMaxWidth()
+      .padding(15.dp),
+    horizontalArrangement = Arrangement.SpaceBetween,
+    verticalAlignment = Alignment.CenterVertically,
+  ) {
+    content()
+  }
+}
