@@ -16,38 +16,14 @@ fun TmpScreen(
   Column {
     Text("hello tmp screen")
     Button(onClick = {
-      vm.closeDb()
-    }) {
-      Text("close db")
-    }
-    Button(onClick = {
       vm.checkpoint()
     }) {
       Text("checkpoint")
     }
-
     CreateDbBackup()
     WriteDbFile()
   }
 }
-
-
-@Composable
-fun CreateDocument(
-  vm: TmpVm = viewModel()
-) {
-  val launcher =
-    rememberLauncherForActivityResult(ActivityResultContracts.CreateDocument("text/*")) {
-      logd("uri $it")
-      vm.uri = it
-    }
-  Button(onClick = {
-    launcher.launch("myfilename.txt")
-  }) {
-    Text("CreateDocument")
-  }
-}
-
 
 @Composable
 fun CreateDbBackup(
@@ -63,21 +39,6 @@ fun CreateDbBackup(
     launcher.launch("backup.db")
   }) {
     Text("CreateDbBackup")
-  }
-}
-
-
-
-
-
-@Composable
-fun WriteTxtFile(
-  vm: TmpVm = viewModel()
-) {
-  Button(onClick = {
-    vm.writeTxtFile()
-  }) {
-    Text("WriteTxtFile")
   }
 }
 

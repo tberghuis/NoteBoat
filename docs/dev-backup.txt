@@ -13,7 +13,7 @@ Storage Access Framework
 
 READ_EXTERNAL_STORAGE, WRITE_EXTERNAL_STORAGE, and MANAGE_EXTERNAL_STORAGE.  
 doitwrong mvp
-https://developer.android.com/training/data-storage/shared
+https://developer.android.com/training/data-storage/shared/documents-files
 
 SAF or dataset BlobStoreManager???
 try both
