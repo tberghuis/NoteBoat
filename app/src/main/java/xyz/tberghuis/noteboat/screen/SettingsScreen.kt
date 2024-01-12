@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.material.Button
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.Scaffold
@@ -121,40 +122,56 @@ fun SettingsContent(padding: PaddingValues) {
           } else {
             openAppNotificationSettings(context)
           }
-          null
         }
       )
     }
     SettingsScreenRow {
       LockscreenShortcutSetting()
     }
+    SettingsScreenRow(
+      horizontalArrangement = Arrangement.Center,
+    ) {
+      BackupDatabase()
+    }
   }
 }
 
 @Composable
 fun LockscreenShortcutSetting(vm: SettingsViewModel = viewModel()) {
-
   val checked by vm.showShortcutLockScreenFlow.collectAsState(false)
-
   Text("Shortcut \"New voice note\" on lock screen")
   Switch(
     checked = checked,
     onCheckedChange = {
       vm.showShortcutClick()
-      null
     },
   )
 }
 
 @Composable
-fun SettingsScreenRow(content: @Composable RowScope.() -> Unit) {
+fun SettingsScreenRow(
+  horizontalArrangement: Arrangement.Horizontal = Arrangement.SpaceBetween,
+  content: @Composable RowScope.() -> Unit
+) {
   Row(
     modifier = Modifier
       .fillMaxWidth()
       .padding(15.dp),
-    horizontalArrangement = Arrangement.SpaceBetween,
+    horizontalArrangement = horizontalArrangement,
     verticalAlignment = Alignment.CenterVertically,
   ) {
     content()
+  }
+}
+
+@Composable
+fun BackupDatabase(
+  vm: SettingsViewModel = viewModel()
+) {
+
+  Button(onClick = {
+
+  }) {
+    Text("Backup Database")
   }
 }
