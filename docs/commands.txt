@@ -7,5 +7,8 @@ cd databases
 ls -la
 
 
+adb -s emulator-5554 shell
+cd /mnt/media_rw/1D1C-220C
+
 cd /sdcard/TOM/syncthing/poco-share
 ls -la
