@@ -19,3 +19,11 @@ SAF or dataset BlobStoreManager???
 try both
 
 https://github.com/android/storage-samples
+
+
+import db
+  close db
+  delete .db .db-shm .db-wal
+  file picker - copy .db
+  dialog successful
+  restart activity
