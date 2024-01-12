@@ -3,6 +3,8 @@ package xyz.tberghuis.noteboat.screen
 import android.content.Context
 import android.content.Intent
 import android.provider.Settings
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -36,6 +38,7 @@ import androidx.navigation.NavHostController
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionStatus
 import com.google.accompanist.permissions.rememberPermissionState
+import xyz.tberghuis.noteboat.DEFAULT_BACKUP_DB_FILENAME
 import xyz.tberghuis.noteboat.LOCK_SCREEN_CHANNEL_ID
 import xyz.tberghuis.noteboat.R
 import xyz.tberghuis.noteboat.utils.logd
@@ -168,9 +171,14 @@ fun SettingsScreenRow(
 fun BackupDatabase(
   vm: SettingsViewModel = viewModel()
 ) {
-
+  val launcher =
+    rememberLauncherForActivityResult(ActivityResultContracts.CreateDocument("application/x-sqlite3")) { uri ->
+      uri?.let {
+        vm.backupDb(uri)
+      }
+    }
   Button(onClick = {
-
+    launcher.launch(DEFAULT_BACKUP_DB_FILENAME)
   }) {
     Text("Backup Database")
   }

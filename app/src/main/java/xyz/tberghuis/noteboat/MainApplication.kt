@@ -72,9 +72,9 @@ class MainApplication : Application() {
     return Room.databaseBuilder(
       this,
       AppDatabase::class.java,
-      "noteboatv2.db"
+      DB_FILENAME
     )
-      .createFromAsset("noteboatv2.db")
+      .createFromAsset(DB_FILENAME)
       .build()
   }
 
