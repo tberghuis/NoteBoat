@@ -80,8 +80,6 @@ dependencies {
 
   implementation(libs.androidx.material)
 
-
-
   implementation("androidx.navigation:navigation-compose:2.7.7")
   val roomVersion = "2.6.1"
   implementation("androidx.room:room-runtime:$roomVersion")
@@ -96,41 +94,15 @@ dependencies {
   implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.5.0")
 
   implementation("com.google.accompanist:accompanist-permissions:0.32.0")
-
 }
-
-
-//dependencies {
-//  implementation("androidx.core:core-ktx:1.13.1")
-//
-//
-//
-//  implementation("androidx.compose.ui:ui:$composeVersion")
-//  implementation("androidx.compose.material:material:$composeVersion")
-//  implementation("androidx.compose.ui:ui-tooling-preview:$composeVersion")
-//
-//  testImplementation("junit:junit:4.13.2")
-//  androidTestImplementation("androidx.test.ext:junit:1.2.1")
-//  androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
-//  androidTestImplementation("androidx.compose.ui:ui-test-junit4:$composeVersion")
-//  debugImplementation("androidx.compose.ui:ui-tooling:$composeVersion")
-//
-
-//
-
-//
-
-//
-
-//
-//  val lifecycleVersion = "2.8.3"
-//  implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion")
-//  implementation("androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycleVersion")
-//  implementation("androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycleVersion")
-//
-
-//}
 
 ksp {
   arg("room.schemaLocation", "$projectDir/schemas")
 }
+
+//dependencies {
+//  val lifecycleVersion = "2.8.3"
+//  implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion")
+//  implementation("androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycleVersion")
+//  implementation("androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycleVersion")
+//}
