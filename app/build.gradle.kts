@@ -80,20 +80,20 @@ dependencies {
 
   implementation(libs.androidx.material)
 
-  implementation("androidx.navigation:navigation-compose:2.7.7")
+  implementation(libs.androidx.navigation.compose)
   val roomVersion = "2.6.1"
-  implementation("androidx.room:room-runtime:$roomVersion")
-  ksp("androidx.room:room-compiler:$roomVersion")
-  implementation("androidx.room:room-ktx:$roomVersion")
+  implementation(libs.androidx.room.runtime)
+  ksp(libs.androidx.room.compiler)
+  implementation(libs.androidx.room.ktx)
   val composeVersion = "1.6.8"
-  implementation("androidx.compose.material:material-icons-extended:$composeVersion")
-  implementation("androidx.datastore:datastore-preferences:1.1.1")
+  implementation(libs.androidx.material.icons.extended)
+  implementation(libs.androidx.datastore.preferences)
 
   // https://github.com/Kotlin/kotlinx-datetime
   // coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.4'
-  implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.5.0")
+  implementation(libs.kotlinx.datetime)
 
-  implementation("com.google.accompanist:accompanist-permissions:0.32.0")
+  implementation(libs.accompanist.permissions)
 }
 
 ksp {
