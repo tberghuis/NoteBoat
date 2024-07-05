@@ -15,3 +15,5 @@
 local.properties
 
 /app/release/
+.idea/deploymentTargetSelector.xml
+.idea/other.xml
