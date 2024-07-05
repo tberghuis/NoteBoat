@@ -1,8 +1,4 @@
 plugins {
-//    id 'com.android.application'
-//    id 'org.jetbrains.kotlin.android'
-//    id 'com.google.devtools.ksp'
-
   id("com.android.application")
   id("org.jetbrains.kotlin.android")
   id("com.google.devtools.ksp")
@@ -15,7 +11,7 @@ android {
     // NOTE does not match package of source code
     applicationId = "site.thomasberghuis.noteboat"
     minSdk = 27
-    targetSdk = 33
+    targetSdk = 34
     versionCode = 19
     versionName = "2.8.0"
 
