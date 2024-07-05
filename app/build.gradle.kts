@@ -69,6 +69,7 @@ dependencies {
   implementation(libs.androidx.ui)
   implementation(libs.androidx.ui.graphics)
   implementation(libs.androidx.ui.tooling.preview)
+  implementation(libs.androidx.material)
 
   testImplementation(libs.junit)
   androidTestImplementation(libs.androidx.junit)
@@ -78,21 +79,15 @@ dependencies {
   debugImplementation(libs.androidx.ui.tooling)
   debugImplementation(libs.androidx.ui.test.manifest)
 
-  implementation(libs.androidx.material)
-
   implementation(libs.androidx.navigation.compose)
-  val roomVersion = "2.6.1"
   implementation(libs.androidx.room.runtime)
   ksp(libs.androidx.room.compiler)
   implementation(libs.androidx.room.ktx)
-  val composeVersion = "1.6.8"
   implementation(libs.androidx.material.icons.extended)
   implementation(libs.androidx.datastore.preferences)
-
   // https://github.com/Kotlin/kotlinx-datetime
   // coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.4'
   implementation(libs.kotlinx.datetime)
-
   implementation(libs.accompanist.permissions)
 }
 
