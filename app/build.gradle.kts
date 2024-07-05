@@ -68,35 +68,35 @@ android {
 dependencies {
   implementation("androidx.core:core-ktx:1.13.1")
 
-  val compose_version = "1.5.4"
+  val composeVersion = "1.6.8"
 
-  implementation("androidx.compose.ui:ui:$compose_version")
-  implementation("androidx.compose.material:material:$compose_version")
-  implementation("androidx.compose.ui:ui-tooling-preview:$compose_version")
+  implementation("androidx.compose.ui:ui:$composeVersion")
+  implementation("androidx.compose.material:material:$composeVersion")
+  implementation("androidx.compose.ui:ui-tooling-preview:$composeVersion")
 
   testImplementation("junit:junit:4.13.2")
   androidTestImplementation("androidx.test.ext:junit:1.2.1")
   androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
-  androidTestImplementation("androidx.compose.ui:ui-test-junit4:$compose_version")
-  debugImplementation("androidx.compose.ui:ui-tooling:$compose_version")
+  androidTestImplementation("androidx.compose.ui:ui-test-junit4:$composeVersion")
+  debugImplementation("androidx.compose.ui:ui-tooling:$composeVersion")
 
   implementation("androidx.navigation:navigation-compose:2.7.7")
 
-  val room_version = "2.6.1"
-  implementation("androidx.room:room-runtime:$room_version")
-  ksp("androidx.room:room-compiler:$room_version")
-  implementation("androidx.room:room-ktx:$room_version")
+  val roomVersion = "2.6.1"
+  implementation("androidx.room:room-runtime:$roomVersion")
+  ksp("androidx.room:room-compiler:$roomVersion")
+  implementation("androidx.room:room-ktx:$roomVersion")
 
-  implementation("androidx.compose.material:material-icons-extended:$compose_version")
+  implementation("androidx.compose.material:material-icons-extended:$composeVersion")
 
   // https://github.com/Kotlin/kotlinx-datetime
   // coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.4'
   implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.5.0")
 
-  val lifecycle_version = "2.8.3"
-  implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
-  implementation("androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycle_version")
-  implementation("androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycle_version")
+  val lifecycleVersion = "2.8.3"
+  implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion")
+  implementation("androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycleVersion")
+  implementation("androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycleVersion")
 
   implementation("com.google.accompanist:accompanist-permissions:0.32.0")
   implementation("androidx.datastore:datastore-preferences:1.1.1")
