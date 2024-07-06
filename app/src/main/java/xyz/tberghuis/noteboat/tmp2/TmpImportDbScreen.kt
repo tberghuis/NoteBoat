@@ -24,6 +24,7 @@ fun TmpImportDbScreen(
   Column {
     Text("import db")
     FilePickerButton()
+    CreateNewFile()
   }
 }
 
@@ -39,7 +40,9 @@ fun TmpImportDbScreenPreview() {
 
 
 @Composable
-fun FilePickerButton(vm: TmpImportDbVm = viewModel()) {
+fun FilePickerButton(
+  vm: TmpImportDbVm = viewModel()
+) {
   val launcher =
     rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
       logd("rememberLauncherForActivityResult $result")
@@ -60,5 +63,13 @@ fun FilePickerButton(vm: TmpImportDbVm = viewModel()) {
     launcher.launch(intent)
   }) {
     Text("file picker")
+  }
+}
+
+
+@Composable
+fun CreateNewFile(vm: TmpImportDbVm = viewModel()) {
+  Button(onClick = { vm.createNewFile() }) {
+    Text("new file")
   }
 }
