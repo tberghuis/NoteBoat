@@ -4,8 +4,8 @@ import android.app.Application
 import android.net.Uri
 import androidx.lifecycle.AndroidViewModel
 import java.io.File
-import java.io.FileInputStream
 import java.io.FileOutputStream
+import java.io.InputStream
 
 class TmpImportDbVm(
   val app: Application,
@@ -13,14 +13,26 @@ class TmpImportDbVm(
   var importFileUri: Uri? = null
 
   fun copyInputStream() {
-    // will this overwrite a file correctly?
     val newFile = File(app.filesDir, "newfile.db")
-    val fos = FileOutputStream(newFile)
-    val fis = app.contentResolver.openInputStream(importFileUri!!) as FileInputStream
-    val inChannel = fis.channel
-    val outChannel = fos.channel
-    inChannel.transferTo(0, inChannel.size(), outChannel)
-    fis.close()
-    fos.close()
+    val inputStream = app.contentResolver.openInputStream(importFileUri!!)
+    copyStreamToFile(inputStream!!, newFile)
   }
 }
+
+// https://stackoverflow.com/questions/10854211/android-store-inputstream-in-file
+// will this overwrite a file correctly?
+fun copyStreamToFile(inputStream: InputStream, outputFile: File) {
+  inputStream.use { input ->
+    val outputStream = FileOutputStream(outputFile)
+    outputStream.use { output ->
+      val buffer = ByteArray(4 * 1024) // buffer size
+      while (true) {
+        val byteCount = input.read(buffer)
+        if (byteCount < 0) break
+        output.write(buffer, 0, byteCount)
+      }
+      output.flush()
+    }
+  }
+}
+
