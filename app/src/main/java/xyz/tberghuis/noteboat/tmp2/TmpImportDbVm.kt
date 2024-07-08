@@ -20,6 +20,10 @@ class TmpImportDbVm(
       }
     }
   }
+
+  fun stopDb() {
+    TODO("Not yet implemented")
+  }
 }
 
 // https://stackoverflow.com/questions/10854211/android-store-inputstream-in-file

@@ -25,6 +25,7 @@ fun TmpImportDbScreen(
     Text("import db")
     FilePickerButton()
     CopyInputStream()
+    StopDb()
   }
 }
 
@@ -70,5 +71,14 @@ fun FilePickerButton(
 fun CopyInputStream(vm: TmpImportDbVm = viewModel()) {
   Button(onClick = { vm.copyInputStream() }) {
     Text("copy input stream")
+  }
+}
+
+@Composable
+fun StopDb(vm: TmpImportDbVm = viewModel()) {
+  Button(onClick = {
+    vm.stopDb()
+  }) {
+    Text("stop db")
   }
 }
