@@ -3,16 +3,26 @@ package xyz.tberghuis.noteboat.tmp2
 import android.app.Application
 import android.net.Uri
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.viewModelScope
 import java.io.File
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import xyz.tberghuis.noteboat.MainApplication
+import xyz.tberghuis.noteboat.utils.logd
 
 class TmpImportDbVm(
-  val app: Application,
-) : AndroidViewModel(app) {
+  application: Application,
+) : AndroidViewModel(application) {
   var importFileUri: Uri? = null
 
+  private val mainApp = (application as MainApplication)
+
+
   fun copyInputStream() {
-    val newFile = File(app.filesDir, "newfile.db")
-    val inputStream = app.contentResolver.openInputStream(importFileUri!!)
+    val newFile = File(mainApp.filesDir, "newfile.db")
+    val inputStream = mainApp.contentResolver.openInputStream(importFileUri!!)
     // https://www.baeldung.com/kotlin/inputstream-to-file
     inputStream!!.use { input ->
       newFile.outputStream().use { output ->
@@ -21,8 +31,31 @@ class TmpImportDbVm(
     }
   }
 
+  fun openDb() {
+
+    viewModelScope.launch(IO) {
+      logd("open db")
+      val optionDao = mainApp.appDatabase.optionDao()
+      optionDao.getOption("hello")
+
+//    val newNoteDraft = withContext(Dispatchers.IO) {
+//      optionDao.getOption("new_note_draft")
+//    }
+      logd("isopen ${mainApp.appDatabase.isOpen}")
+    }
+
+
+  }
+
+
   fun stopDb() {
-    TODO("Not yet implemented")
+    logd("stop db")
+    logd("isopen ${mainApp.appDatabase.isOpen}")
+
+    if (mainApp.appDatabase.isOpen) {
+      mainApp.appDatabase.close()
+    }
+//    mainApp.appDatabase = null
   }
 }
 
