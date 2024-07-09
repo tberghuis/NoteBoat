@@ -30,7 +30,6 @@ class MainApplication : Application() {
 
   override fun onCreate() {
     super.onCreate()
-//    appDatabase = provideDatabase()
     initializeDatabase()
     preferencesRepository = providePreferencesRepository()
     channelLockScreen()
@@ -68,26 +67,13 @@ class MainApplication : Application() {
     notificationManager.createNotificationChannel(mChannel)
   }
 
-
-//  private fun provideDatabase(): AppDatabase {
-//    return Room.databaseBuilder(
-//      this,
-//      AppDatabase::class.java,
-//      DB_FILENAME
-//    )
-//      .createFromAsset(DB_FILENAME)
-//      .build()
-//  }
-
-  fun initializeDatabase(createFromAsset: Boolean = true) {
+  private fun initializeDatabase() {
     appDatabase = Room.databaseBuilder(
       this,
       AppDatabase::class.java,
       DB_FILENAME
-    ).apply {
-      if (createFromAsset)
-        createFromAsset(DB_FILENAME)
-    }
+    )
+      .createFromAsset(DB_FILENAME)
       .build()
   }
 

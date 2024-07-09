@@ -27,7 +27,6 @@ fun TmpImportDbScreen(
     CopyInputStream()
     OpenAndCloseDb()
     ImportDb()
-    ReloadDb()
   }
 }
 
@@ -91,14 +90,5 @@ fun ImportDb(vm: TmpImportDbVm = viewModel()) {
     vm.importSelectedDb()
   }) {
     Text("import db")
-  }
-}
-
-@Composable
-fun ReloadDb(vm: TmpImportDbVm = viewModel()) {
-  Button(onClick = {
-    vm.reloadDb()
-  }) {
-    Text("reload db")
   }
 }

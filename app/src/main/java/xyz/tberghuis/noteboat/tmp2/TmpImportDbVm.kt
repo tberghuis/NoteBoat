@@ -58,11 +58,11 @@ class TmpImportDbVm(
   }
 
   // willitblend
-  fun reloadDb() {
-    logd("reload db")
-    mainApp.initializeDatabase(false)
-    mainApp.appDatabase.openHelper.writableDatabase
-  }
+//  fun reloadDb() {
+//    logd("reload db")
+//    mainApp.initializeDatabase(false)
+//    mainApp.appDatabase.openHelper.writableDatabase
+//  }
 
 
 }
