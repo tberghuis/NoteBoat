@@ -22,7 +22,7 @@ class TmpImportDbVm(
 
 
   fun copyInputStream() {
-    val newFile = File(mainApp.filesDir, "newfile.db")
+    val newFile = File(mainApp.filesDir, "import-notes.db")
     val inputStream = mainApp.contentResolver.openInputStream(importFileUri!!)
     // https://www.baeldung.com/kotlin/inputstream-to-file
     inputStream!!.use { input ->
@@ -59,6 +59,14 @@ class TmpImportDbVm(
 
   fun copyNotesFromTmpDb() {
     logd("copyNotesFromTmpDb")
+
+    // open import-notes.db
+    val importNotesFile = File(mainApp.filesDir, "import-notes.db")
+
+    logd("importNotesFile ${importNotesFile.path}")
+
+    // read all notes
+
   }
 }
 
