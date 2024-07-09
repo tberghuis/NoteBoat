@@ -12,6 +12,7 @@ import kotlinx.coroutines.launch
 import xyz.tberghuis.noteboat.DB_FILENAME
 import xyz.tberghuis.noteboat.MainApplication
 import xyz.tberghuis.noteboat.data.AppDatabase
+import xyz.tberghuis.noteboat.data.Note
 import xyz.tberghuis.noteboat.utils.logd
 
 class TmpImportDbVm(
@@ -59,6 +60,9 @@ class TmpImportDbVm(
 //  }
 
   fun copyNotesFromTmpDb() {
+
+//    todo try catch
+    
     viewModelScope.launch(IO) {
 
       logd("copyNotesFromTmpDb")
@@ -77,10 +81,11 @@ class TmpImportDbVm(
         .build()
 
       // read all notes
-      val importNotesList = roomImport.noteDao().getAll().first()
+      val importNotesList = roomImport.noteDao().getAll().first().map {
+        it.copy(noteId = 0)
+      }
 
       // write to appDatabase
-//      mainApp.appDatabase.noteDao().insertAll(*importNotesList.toTypedArray())
       mainApp.appDatabase.noteDao().insertAll(importNotesList)
 
       // close import db
