@@ -1,5 +1,6 @@
 package xyz.tberghuis.noteboat.screen
 
+import android.app.Activity.RESULT_OK
 import android.content.Context
 import android.content.Intent
 import android.provider.Settings
@@ -16,6 +17,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.AlertDialog
 import androidx.compose.material.Button
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
@@ -43,8 +45,6 @@ import com.google.accompanist.permissions.rememberPermissionState
 import xyz.tberghuis.noteboat.DEFAULT_BACKUP_DB_FILENAME
 import xyz.tberghuis.noteboat.LOCK_SCREEN_CHANNEL_ID
 import xyz.tberghuis.noteboat.R
-import xyz.tberghuis.noteboat.tmp3.DeleteAllNotesButton
-import xyz.tberghuis.noteboat.tmp3.ImportFromBackupButton
 import xyz.tberghuis.noteboat.utils.logd
 import xyz.tberghuis.noteboat.vm.SettingsViewModel
 
@@ -155,21 +155,65 @@ fun SettingsContent(padding: PaddingValues) {
   }
 }
 
+@Composable
+fun DeleteAllNotesButton(
+  vm: SettingsViewModel = viewModel()
+) {
+  Button(onClick = {
+    vm.confirmDeleteAllNotesDialog = true
+  }) {
+    Text("Delete All Notes")
+  }
+  if (vm.confirmDeleteAllNotesDialog) {
+    AlertDialog(
+      onDismissRequest = { vm.confirmDeleteAllNotesDialog = false },
+      confirmButton = {
+        Button(onClick = {
+          vm.confirmDeleteAllNotesDialog = false
+          vm.deleteAllNotes()
+        }) {
+          Text("OK")
+        }
+      },
+      modifier = Modifier,
+      dismissButton = {
+        Button(onClick = {
+          vm.confirmDeleteAllNotesDialog = false
+        }) {
+          Text("Cancel")
+        }
+      },
+      text = {
+        Text("Confirm delete all notes?")
+      },
+    )
+  }
+}
 
+@Composable
+fun ImportFromBackupButton(
+  vm: SettingsViewModel = viewModel()
+) {
+  val launcher =
+    rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+      logd("rememberLauncherForActivityResult $result")
+      when (result.resultCode) {
+        RESULT_OK -> {
+          result.data?.data?.let { vm.importDb(it) }
+        }
+      }
+    }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+  Button(onClick = {
+    val intent = Intent(Intent.ACTION_GET_CONTENT).apply {
+      type = "*/*"
+      addCategory(Intent.CATEGORY_OPENABLE)
+    }
+    launcher.launch(intent)
+  }) {
+    Text("Import Notes from Backup")
+  }
+}
 
 @Composable
 fun LockscreenShortcutSetting(vm: SettingsViewModel = viewModel()) {
