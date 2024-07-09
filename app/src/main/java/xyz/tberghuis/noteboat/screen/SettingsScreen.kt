@@ -14,6 +14,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Button
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
@@ -41,7 +43,8 @@ import com.google.accompanist.permissions.rememberPermissionState
 import xyz.tberghuis.noteboat.DEFAULT_BACKUP_DB_FILENAME
 import xyz.tberghuis.noteboat.LOCK_SCREEN_CHANNEL_ID
 import xyz.tberghuis.noteboat.R
-import xyz.tberghuis.noteboat.tmp3.TmpSettingsContent
+import xyz.tberghuis.noteboat.tmp3.DeleteAllNotesButton
+import xyz.tberghuis.noteboat.tmp3.ImportFromBackupButton
 import xyz.tberghuis.noteboat.utils.logd
 import xyz.tberghuis.noteboat.vm.SettingsViewModel
 
@@ -69,8 +72,7 @@ fun SettingsScreen(
       )
     },
   ) { padding ->
-//    SettingsContent(padding)
-    TmpSettingsContent(padding)
+    SettingsContent(padding)
   }
 
 }
@@ -114,7 +116,9 @@ fun SettingsContent(padding: PaddingValues) {
   Column(
     modifier = Modifier
       .padding(padding)
+      .verticalScroll(rememberScrollState())
       .fillMaxSize()
+
   ) {
     SettingsScreenRow {
       Text("Notification permission")
@@ -138,8 +142,34 @@ fun SettingsContent(padding: PaddingValues) {
     ) {
       BackupDatabase()
     }
+    SettingsScreenRow(
+      horizontalArrangement = Arrangement.Center,
+    ) {
+      DeleteAllNotesButton()
+    }
+    SettingsScreenRow(
+      horizontalArrangement = Arrangement.Center,
+    ) {
+      ImportFromBackupButton()
+    }
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 @Composable
 fun LockscreenShortcutSetting(vm: SettingsViewModel = viewModel()) {
