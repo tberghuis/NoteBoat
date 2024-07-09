@@ -32,21 +32,13 @@ class TmpImportDbVm(
   }
 
   fun openDb() {
-
     viewModelScope.launch(IO) {
       logd("open db")
       val optionDao = mainApp.appDatabase.optionDao()
       optionDao.getOption("hello")
-
-//    val newNoteDraft = withContext(Dispatchers.IO) {
-//      optionDao.getOption("new_note_draft")
-//    }
       logd("isopen ${mainApp.appDatabase.isOpen}")
     }
-
-
   }
-
 
   fun stopDb() {
     logd("stop db")
@@ -55,8 +47,24 @@ class TmpImportDbVm(
     if (mainApp.appDatabase.isOpen) {
       mainApp.appDatabase.close()
     }
-//    mainApp.appDatabase = null
+
+    logd("isopen ${mainApp.appDatabase.isOpen}")
   }
+
+
+  fun openAndCloseDb() {
+    logd("stop db")
+    logd("isopen ${mainApp.appDatabase.isOpen}")
+    if (!mainApp.appDatabase.isOpen) {
+      mainApp.appDatabase.openHelper.readableDatabase
+      logd("isopen ${mainApp.appDatabase.isOpen}")
+    }
+    // deletes .db-shm and .db-wal files
+    mainApp.appDatabase.close()
+    logd("isopen ${mainApp.appDatabase.isOpen}")
+  }
+
+
 }
 
 // https://stackoverflow.com/questions/10854211/android-store-inputstream-in-file

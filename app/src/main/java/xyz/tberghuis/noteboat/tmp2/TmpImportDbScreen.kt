@@ -27,6 +27,7 @@ fun TmpImportDbScreen(
     CopyInputStream()
     OpenDb()
     StopDb()
+    OpenAndCloseDb()
   }
 }
 
@@ -90,5 +91,15 @@ fun OpenDb(vm: TmpImportDbVm = viewModel()) {
     vm.openDb()
   }) {
     Text("open db")
+  }
+}
+
+
+@Composable
+fun OpenAndCloseDb(vm: TmpImportDbVm = viewModel()) {
+  Button(onClick = {
+    vm.openAndCloseDb()
+  }) {
+    Text("open and close db")
   }
 }
