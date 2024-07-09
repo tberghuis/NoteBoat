@@ -32,39 +32,34 @@ class TmpImportDbVm(
     }
   }
 
-  fun openAndCloseDb() {
-    viewModelScope.launch(IO) {
-      logd("stop db")
-      logd("isopen ${mainApp.appDatabase.isOpen}")
-      if (!mainApp.appDatabase.isOpen) {
-        mainApp.appDatabase.openHelper.readableDatabase
-        logd("isopen ${mainApp.appDatabase.isOpen}")
-      }
-      // deletes .db-shm and .db-wal files
-      mainApp.appDatabase.close()
-      logd("isopen ${mainApp.appDatabase.isOpen}")
-    }
-  }
-
-  fun importSelectedDb() {
-    val dbFile = mainApp.getDatabasePath(DB_FILENAME)
-    val inputStream = mainApp.contentResolver.openInputStream(importFileUri!!)
-    // https://www.baeldung.com/kotlin/inputstream-to-file
-    inputStream!!.use { input ->
-      dbFile.outputStream().use { output ->
-        input.copyTo(output)
-      }
-    }
-  }
-
-  // willitblend
-//  fun reloadDb() {
-//    logd("reload db")
-//    mainApp.initializeDatabase(false)
-//    mainApp.appDatabase.openHelper.writableDatabase
+//  fun openAndCloseDb() {
+//    viewModelScope.launch(IO) {
+//      logd("stop db")
+//      logd("isopen ${mainApp.appDatabase.isOpen}")
+//      if (!mainApp.appDatabase.isOpen) {
+//        mainApp.appDatabase.openHelper.readableDatabase
+//        logd("isopen ${mainApp.appDatabase.isOpen}")
+//      }
+//      // deletes .db-shm and .db-wal files
+//      mainApp.appDatabase.close()
+//      logd("isopen ${mainApp.appDatabase.isOpen}")
+//    }
 //  }
 
+//  fun importSelectedDb() {
+//    val dbFile = mainApp.getDatabasePath(DB_FILENAME)
+//    val inputStream = mainApp.contentResolver.openInputStream(importFileUri!!)
+//    // https://www.baeldung.com/kotlin/inputstream-to-file
+//    inputStream!!.use { input ->
+//      dbFile.outputStream().use { output ->
+//        input.copyTo(output)
+//      }
+//    }
+//  }
 
+  fun copyNotesFromTmpDb() {
+    logd("copyNotesFromTmpDb")
+  }
 }
 
 // https://stackoverflow.com/questions/10854211/android-store-inputstream-in-file
