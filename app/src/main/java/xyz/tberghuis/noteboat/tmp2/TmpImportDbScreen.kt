@@ -18,14 +18,9 @@ import xyz.tberghuis.noteboat.ui.theme.NoteBoatTheme
 import xyz.tberghuis.noteboat.utils.logd
 
 @Composable
-fun TmpImportDbScreen(
-  vm: TmpImportDbVm = viewModel()
-) {
+fun TmpImportDbScreen() {
   Column {
     Text("import db")
-    FilePickerButton()
-    CopyInputStream()
-    ImportFromTmpDb()
     ImportDb()
   }
 }
@@ -39,50 +34,6 @@ fun TmpImportDbScreenPreview() {
     }
   }
 }
-
-
-@Composable
-fun FilePickerButton(
-  vm: TmpImportDbVm = viewModel()
-) {
-  val launcher =
-    rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-      logd("rememberLauncherForActivityResult $result")
-      when (result.resultCode) {
-        RESULT_OK -> {
-          logd("intent ${result.data}")
-          logd("data ${result.data?.data}")
-          vm.importFileUri = result.data?.data
-        }
-      }
-    }
-
-  Button(onClick = {
-    val intent = Intent(Intent.ACTION_GET_CONTENT).apply {
-      type = "*/*"
-      addCategory(Intent.CATEGORY_OPENABLE)
-    }
-    launcher.launch(intent)
-  }) {
-    Text("file picker")
-  }
-}
-
-@Composable
-fun CopyInputStream(vm: TmpImportDbVm = viewModel()) {
-  Button(onClick = { vm.copyInputStream() }) {
-    Text("copy input stream")
-  }
-}
-
-
-@Composable
-fun ImportFromTmpDb(vm: TmpImportDbVm = viewModel()) {
-  Button(onClick = { vm.copyNotesFromTmpDb() }) {
-    Text("copyNotesFromTmpDb")
-  }
-}
-
 
 @Composable
 fun ImportDb(

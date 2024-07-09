@@ -19,21 +19,7 @@ import xyz.tberghuis.noteboat.utils.logd
 class TmpImportDbVm(
   application: Application,
 ) : AndroidViewModel(application) {
-  var importFileUri: Uri? = null
-
   private val mainApp = (application as MainApplication)
-
-
-  fun copyInputStream() {
-    val newFile = File(mainApp.filesDir, "import-notes.db")
-    val inputStream = mainApp.contentResolver.openInputStream(importFileUri!!)
-    // https://www.baeldung.com/kotlin/inputstream-to-file
-    inputStream!!.use { input ->
-      newFile.outputStream().use { output ->
-        input.copyTo(output)
-      }
-    }
-  }
 
 //  fun openAndCloseDb() {
 //    viewModelScope.launch(IO) {
@@ -60,47 +46,13 @@ class TmpImportDbVm(
 //    }
 //  }
 
-  fun copyNotesFromTmpDb() {
-    viewModelScope.launch(IO) {
-      logd("copyNotesFromTmpDb")
-
-      // open import-notes.db
-      val importNotesFile = File(mainApp.filesDir, "import-notes.db")
-
-      logd("importNotesFile ${importNotesFile.path}")
-
-      // create room instance
-      val roomImport = Room.databaseBuilder(
-        mainApp,
-        AppDatabase::class.java,
-        importNotesFile.path
-      )
-        .build()
-
-      // read all notes
-      // if invalid file, room will log error and give me empty notes list
-      val importNotesList = roomImport.noteDao().getAll().first().map {
-        it.copy(noteId = 0)
-      }
-      // write to appDatabase
-      mainApp.appDatabase.noteDao().insertAll(importNotesList)
-
-      // close import db
-      roomImport.close()
-
-      // delete import db
-      importNotesFile.delete()
-    }
-  }
-
-
   fun importDb(importDbUri: Uri) {
     viewModelScope.launch(IO) {
       // todo use CONSTANT for filename
       val importDbFile = File(mainApp.filesDir, "import-notes.db")
       val inputStream = mainApp.contentResolver.openInputStream(importDbUri)
       // https://www.baeldung.com/kotlin/inputstream-to-file
-      inputStream!!.use { input ->
+      inputStream?.use { input ->
         importDbFile.outputStream().use { output ->
           input.copyTo(output)
         }
