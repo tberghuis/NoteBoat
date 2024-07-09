@@ -28,7 +28,6 @@ import xyz.tberghuis.noteboat.screen.BackupDatabase
 import xyz.tberghuis.noteboat.screen.LockscreenShortcutSetting
 import xyz.tberghuis.noteboat.screen.SettingsScreenRow
 import xyz.tberghuis.noteboat.screen.openAppNotificationSettings
-import xyz.tberghuis.noteboat.tmp2.TmpImportDbVm
 import xyz.tberghuis.noteboat.utils.logd
 import xyz.tberghuis.noteboat.vm.SettingsViewModel
 
