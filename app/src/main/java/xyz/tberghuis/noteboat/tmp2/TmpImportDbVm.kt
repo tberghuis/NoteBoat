@@ -9,6 +9,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import xyz.tberghuis.noteboat.DB_FILENAME
 import xyz.tberghuis.noteboat.MainApplication
 import xyz.tberghuis.noteboat.utils.logd
 
@@ -42,6 +43,17 @@ class TmpImportDbVm(
       // deletes .db-shm and .db-wal files
       mainApp.appDatabase.close()
       logd("isopen ${mainApp.appDatabase.isOpen}")
+    }
+  }
+
+  fun importSelectedDb() {
+    val dbFile = mainApp.getDatabasePath(DB_FILENAME)
+    val inputStream = mainApp.contentResolver.openInputStream(importFileUri!!)
+    // https://www.baeldung.com/kotlin/inputstream-to-file
+    inputStream!!.use { input ->
+      dbFile.outputStream().use { output ->
+        input.copyTo(output)
+      }
     }
   }
 }
