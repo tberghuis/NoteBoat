@@ -25,8 +25,6 @@ fun TmpImportDbScreen(
     Text("import db")
     FilePickerButton()
     CopyInputStream()
-    OpenDb()
-    StopDb()
     OpenAndCloseDb()
   }
 }
@@ -75,25 +73,6 @@ fun CopyInputStream(vm: TmpImportDbVm = viewModel()) {
     Text("copy input stream")
   }
 }
-
-@Composable
-fun StopDb(vm: TmpImportDbVm = viewModel()) {
-  Button(onClick = {
-    vm.stopDb()
-  }) {
-    Text("stop db")
-  }
-}
-
-@Composable
-fun OpenDb(vm: TmpImportDbVm = viewModel()) {
-  Button(onClick = {
-    vm.openDb()
-  }) {
-    Text("open db")
-  }
-}
-
 
 @Composable
 fun OpenAndCloseDb(vm: TmpImportDbVm = viewModel()) {

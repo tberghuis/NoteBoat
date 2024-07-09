@@ -31,40 +31,19 @@ class TmpImportDbVm(
     }
   }
 
-  fun openDb() {
-    viewModelScope.launch(IO) {
-      logd("open db")
-      val optionDao = mainApp.appDatabase.optionDao()
-      optionDao.getOption("hello")
-      logd("isopen ${mainApp.appDatabase.isOpen}")
-    }
-  }
-
-  fun stopDb() {
-    logd("stop db")
-    logd("isopen ${mainApp.appDatabase.isOpen}")
-
-    if (mainApp.appDatabase.isOpen) {
-      mainApp.appDatabase.close()
-    }
-
-    logd("isopen ${mainApp.appDatabase.isOpen}")
-  }
-
-
   fun openAndCloseDb() {
-    logd("stop db")
-    logd("isopen ${mainApp.appDatabase.isOpen}")
-    if (!mainApp.appDatabase.isOpen) {
-      mainApp.appDatabase.openHelper.readableDatabase
+    viewModelScope.launch(IO) {
+      logd("stop db")
+      logd("isopen ${mainApp.appDatabase.isOpen}")
+      if (!mainApp.appDatabase.isOpen) {
+        mainApp.appDatabase.openHelper.readableDatabase
+        logd("isopen ${mainApp.appDatabase.isOpen}")
+      }
+      // deletes .db-shm and .db-wal files
+      mainApp.appDatabase.close()
       logd("isopen ${mainApp.appDatabase.isOpen}")
     }
-    // deletes .db-shm and .db-wal files
-    mainApp.appDatabase.close()
-    logd("isopen ${mainApp.appDatabase.isOpen}")
   }
-
-
 }
 
 // https://stackoverflow.com/questions/10854211/android-store-inputstream-in-file
