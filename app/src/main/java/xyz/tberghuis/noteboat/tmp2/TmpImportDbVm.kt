@@ -2,6 +2,7 @@ package xyz.tberghuis.noteboat.tmp2
 
 import android.app.Application
 import android.net.Uri
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.room.Room
@@ -60,11 +61,7 @@ class TmpImportDbVm(
 //  }
 
   fun copyNotesFromTmpDb() {
-
-//    todo try catch
-    
     viewModelScope.launch(IO) {
-
       logd("copyNotesFromTmpDb")
 
       // open import-notes.db
@@ -81,10 +78,10 @@ class TmpImportDbVm(
         .build()
 
       // read all notes
+      // if invalid file, room will log error and give me empty notes list
       val importNotesList = roomImport.noteDao().getAll().first().map {
         it.copy(noteId = 0)
       }
-
       // write to appDatabase
       mainApp.appDatabase.noteDao().insertAll(importNotesList)
 
