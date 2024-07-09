@@ -10,10 +10,11 @@ import xyz.tberghuis.noteboat.DB_FILENAME
 import xyz.tberghuis.noteboat.MainApplication
 
 class SettingsViewModel(
-  val app: Application
-) : AndroidViewModel(app) {
-  private val preferencesRepository = (app as MainApplication).preferencesRepository
-  val db = (app as MainApplication).appDatabase
+  application: Application,
+) : AndroidViewModel(application) {
+  private val mainApp = (application as MainApplication)
+  private val preferencesRepository = mainApp.preferencesRepository
+  val db = mainApp.appDatabase
   val showShortcutLockScreenFlow = preferencesRepository.showShortcutLockScreenFlow
 
   fun showShortcutClick() {
@@ -37,8 +38,8 @@ class SettingsViewModel(
         }
       }
 
-      val dbFile = app.getDatabasePath(DB_FILENAME)
-      app.contentResolver.openOutputStream(backupFileUri)?.use { os ->
+      val dbFile = mainApp.getDatabasePath(DB_FILENAME)
+      mainApp.contentResolver.openOutputStream(backupFileUri)?.use { os ->
         dbFile.inputStream().use { fis ->
           fis.copyTo(os)
         }
