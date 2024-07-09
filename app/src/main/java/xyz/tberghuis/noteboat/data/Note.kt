@@ -34,6 +34,10 @@ interface NoteDao {
   @Insert
   suspend fun insertAll(vararg note: Note)
 
+  suspend fun insertAll(notes: List<Note>){
+    insertAll(*notes.toTypedArray())
+  }
+
   @Delete
   suspend fun delete(vararg note: Note)
 

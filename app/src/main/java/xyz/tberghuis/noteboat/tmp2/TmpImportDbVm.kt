@@ -80,11 +80,14 @@ class TmpImportDbVm(
       val importNotesList = roomImport.noteDao().getAll().first()
 
       // write to appDatabase
-      mainApp.appDatabase.noteDao().insertAll(*importNotesList.toTypedArray())
+//      mainApp.appDatabase.noteDao().insertAll(*importNotesList.toTypedArray())
+      mainApp.appDatabase.noteDao().insertAll(importNotesList)
 
-      // todo
-//      close import db
-//      delete import db
+      // close import db
+      roomImport.close()
+
+      // delete import db
+      importNotesFile.delete()
     }
   }
 }
