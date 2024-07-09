@@ -54,4 +54,10 @@ class TmpImportDbVm(
       importNotesFile.delete()
     }
   }
+
+  fun deleteAllNotes(){
+    viewModelScope.launch(IO) {
+      mainApp.appDatabase.noteDao().deleteAll()
+    }
+  }
 }

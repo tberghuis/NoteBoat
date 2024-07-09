@@ -21,6 +21,7 @@ import xyz.tberghuis.noteboat.utils.logd
 fun TmpImportDbScreen() {
   Column {
     Text("import db")
+    DeleteAllNotes()
     ImportDb()
   }
 }
@@ -57,5 +58,14 @@ fun ImportDb(
     launcher.launch(intent)
   }) {
     Text("ImportDb")
+  }
+}
+
+@Composable
+fun DeleteAllNotes(
+  vm: TmpImportDbVm = viewModel()
+) {
+  Button(onClick = { vm.deleteAllNotes() }) {
+    Text("DeleteAllNotes")
   }
 }

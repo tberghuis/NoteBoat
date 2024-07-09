@@ -34,7 +34,7 @@ interface NoteDao {
   @Insert
   suspend fun insertAll(vararg note: Note)
 
-  suspend fun insertAll(notes: List<Note>){
+  suspend fun insertAll(notes: List<Note>) {
     insertAll(*notes.toTypedArray())
   }
 
@@ -43,6 +43,9 @@ interface NoteDao {
 
   @Query("delete from note where note_id = :noteId")
   suspend fun delete(noteId: Int)
+
+  @Query("delete from note")
+  suspend fun deleteAll()
 
   @Query("UPDATE note set note_text = :noteText, modified_epoch = :modifiedEpoch WHERE note_id = :noteId")
   suspend fun updateNoteText(noteId: Int, noteText: String, modifiedEpoch: Long)
