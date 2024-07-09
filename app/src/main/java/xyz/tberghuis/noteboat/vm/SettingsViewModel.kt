@@ -30,7 +30,6 @@ class SettingsViewModel(
 
   fun importDb(importDbUri: Uri) {
     viewModelScope.launch(IO) {
-      // todo use CONSTANT for filename
       val importDbFile = File(mainApp.filesDir, IMPORT_DB_FILENAME)
       val inputStream = mainApp.contentResolver.openInputStream(importDbUri)
       // https://www.baeldung.com/kotlin/inputstream-to-file
