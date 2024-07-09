@@ -15,11 +15,6 @@ fun TmpScreen(
 ) {
   Column {
     Text("hello tmp screen")
-    Button(onClick = {
-      vm.checkpoint()
-    }) {
-      Text("checkpoint")
-    }
     CreateDbBackup()
     WriteDbFile()
   }
