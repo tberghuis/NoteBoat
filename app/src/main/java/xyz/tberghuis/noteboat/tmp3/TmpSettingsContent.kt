@@ -111,9 +111,22 @@ fun DeleteAllNotesButton(
   if (vm.confirmDeleteAllNotesDialog) {
     AlertDialog(
       onDismissRequest = { vm.confirmDeleteAllNotesDialog = false },
-      confirmButton = {},
+      confirmButton = {
+        Button(onClick = {
+          vm.confirmDeleteAllNotesDialog = false
+          vm.deleteAllNotes()
+        }) {
+          Text("OK")
+        }
+      },
       modifier = Modifier,
-      dismissButton = {},
+      dismissButton = {
+        Button(onClick = {
+          vm.confirmDeleteAllNotesDialog = false
+        }) {
+          Text("Cancel")
+        }
+      },
       text = {
         Text("Confirm delete all notes?")
       },
