@@ -4,13 +4,14 @@ import android.app.Application
 import android.net.Uri
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.room.Room
 import java.io.File
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import xyz.tberghuis.noteboat.DB_FILENAME
 import xyz.tberghuis.noteboat.MainApplication
+import xyz.tberghuis.noteboat.data.AppDatabase
 import xyz.tberghuis.noteboat.utils.logd
 
 class TmpImportDbVm(
@@ -68,10 +69,22 @@ class TmpImportDbVm(
       logd("importNotesFile ${importNotesFile.path}")
 
       // create room instance
+      val roomImport = Room.databaseBuilder(
+        mainApp,
+        AppDatabase::class.java,
+        importNotesFile.path
+      )
+        .build()
 
       // read all notes
+      val importNotesList = roomImport.noteDao().getAll().first()
 
       // write to appDatabase
+      mainApp.appDatabase.noteDao().insertAll(*importNotesList.toTypedArray())
+
+      // todo
+//      close import db
+//      delete import db
     }
   }
 }
