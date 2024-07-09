@@ -35,7 +35,7 @@ import xyz.tberghuis.noteboat.vm.SettingsViewModel
 
 @Composable
 fun DeleteAllNotesButton(
-  vm: TmpImportDbVm = viewModel()
+  vm: SettingsViewModel = viewModel()
 ) {
   Button(onClick = {
     vm.confirmDeleteAllNotesDialog = true
@@ -70,7 +70,7 @@ fun DeleteAllNotesButton(
 
 @Composable
 fun ImportFromBackupButton(
-  vm: TmpImportDbVm = viewModel()
+  vm: SettingsViewModel = viewModel()
 ) {
   val launcher =
     rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
