@@ -9,6 +9,7 @@ import java.io.File
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import xyz.tberghuis.noteboat.IMPORT_DB_FILENAME
 import xyz.tberghuis.noteboat.MainApplication
 import xyz.tberghuis.noteboat.data.AppDatabase
 import xyz.tberghuis.noteboat.utils.logd
@@ -21,7 +22,7 @@ class TmpImportDbVm(
   fun importDb(importDbUri: Uri) {
     viewModelScope.launch(IO) {
       // todo use CONSTANT for filename
-      val importDbFile = File(mainApp.filesDir, "import-notes.db")
+      val importDbFile = File(mainApp.filesDir, IMPORT_DB_FILENAME)
       val inputStream = mainApp.contentResolver.openInputStream(importDbUri)
       // https://www.baeldung.com/kotlin/inputstream-to-file
       inputStream?.use { input ->
@@ -31,7 +32,7 @@ class TmpImportDbVm(
       }
 
       // open import-notes.db
-      val importNotesFile = File(mainApp.filesDir, "import-notes.db")
+      val importNotesFile = File(mainApp.filesDir, IMPORT_DB_FILENAME)
       logd("importNotesFile ${importNotesFile.path}")
       // create room instance
       val roomImport = Room.databaseBuilder(
