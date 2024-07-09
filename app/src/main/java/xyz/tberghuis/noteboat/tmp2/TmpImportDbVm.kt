@@ -58,15 +58,21 @@ class TmpImportDbVm(
 //  }
 
   fun copyNotesFromTmpDb() {
-    logd("copyNotesFromTmpDb")
+    viewModelScope.launch(IO) {
 
-    // open import-notes.db
-    val importNotesFile = File(mainApp.filesDir, "import-notes.db")
+      logd("copyNotesFromTmpDb")
 
-    logd("importNotesFile ${importNotesFile.path}")
+      // open import-notes.db
+      val importNotesFile = File(mainApp.filesDir, "import-notes.db")
 
-    // read all notes
+      logd("importNotesFile ${importNotesFile.path}")
 
+      // create room instance
+
+      // read all notes
+
+      // write to appDatabase
+    }
   }
 }
 
