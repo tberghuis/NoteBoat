@@ -42,6 +42,7 @@ import xyz.tberghuis.noteboat.DEFAULT_BACKUP_DB_FILENAME
 import xyz.tberghuis.noteboat.LOCK_SCREEN_CHANNEL_ID
 import xyz.tberghuis.noteboat.R
 import xyz.tberghuis.noteboat.tmp2.TmpImportDbScreen
+import xyz.tberghuis.noteboat.tmp3.TmpSettingsContent
 import xyz.tberghuis.noteboat.utils.logd
 import xyz.tberghuis.noteboat.vm.SettingsViewModel
 
@@ -69,7 +70,8 @@ fun SettingsScreen(
       )
     },
   ) { padding ->
-    SettingsContent(padding)
+//    SettingsContent(padding)
+    TmpSettingsContent(padding)
   }
 
 }
@@ -137,11 +139,6 @@ fun SettingsContent(padding: PaddingValues) {
     ) {
       BackupDatabase()
     }
-
-
-    TmpImportDbScreen()
-
-
   }
 }
 
