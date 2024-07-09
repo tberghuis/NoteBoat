@@ -4,7 +4,10 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Switch
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -52,7 +55,9 @@ fun TmpSettingsContent(padding: PaddingValues) {
   Column(
     modifier = Modifier
       .padding(padding)
+      .verticalScroll(rememberScrollState())
       .fillMaxSize()
+
   ) {
     SettingsScreenRow {
       Text("Notification permission")
@@ -76,5 +81,79 @@ fun TmpSettingsContent(padding: PaddingValues) {
     ) {
       BackupDatabase()
     }
+
+
+
+
+    SettingsScreenRow(
+      horizontalArrangement = Arrangement.Center,
+    ) {
+      BackupDatabase()
+    }
+
+    SettingsScreenRow(
+      horizontalArrangement = Arrangement.Center,
+    ) {
+      BackupDatabase()
+    }
+
+    SettingsScreenRow(
+      horizontalArrangement = Arrangement.Center,
+    ) {
+      BackupDatabase()
+    }
+
+
+    SettingsScreenRow(
+      horizontalArrangement = Arrangement.Center,
+    ) {
+      BackupDatabase()
+    }
+
+    SettingsScreenRow(
+      horizontalArrangement = Arrangement.Center,
+    ) {
+      BackupDatabase()
+    }
+
+
+    SettingsScreenRow(
+      horizontalArrangement = Arrangement.Center,
+    ) {
+      BackupDatabase()
+    }
+
+
+    SettingsScreenRow(
+      horizontalArrangement = Arrangement.Center,
+    ) {
+      BackupDatabase()
+    }
+    SettingsScreenRow(
+      horizontalArrangement = Arrangement.Center,
+    ) {
+      BackupDatabase()
+    }
+    SettingsScreenRow(
+      horizontalArrangement = Arrangement.Center,
+    ) {
+      BackupDatabase()
+    }
+    SettingsScreenRow(
+      horizontalArrangement = Arrangement.Center,
+    ) {
+      BackupDatabase()
+    }
+    SettingsScreenRow(
+      horizontalArrangement = Arrangement.Center,
+    ) {
+      BackupDatabase()
+    }
+    SettingsScreenRow(
+      horizontalArrangement = Arrangement.Center,
+    ) {
+      BackupDatabase()
+    }
+
   }
 }

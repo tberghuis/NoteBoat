@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
@@ -14,6 +15,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
+import xyz.tberghuis.noteboat.tmp3.TmpColumnScroll
+import xyz.tberghuis.noteboat.tmp3.TmpSettingsContent
 import xyz.tberghuis.noteboat.ui.theme.NoteBoatTheme
 import xyz.tberghuis.noteboat.utils.logd
 
@@ -31,7 +34,9 @@ fun TmpImportDbScreen() {
 fun TmpImportDbScreenPreview() {
   NoteBoatTheme {
     Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colors.background) {
-      TmpImportDbScreen()
+//      TmpImportDbScreen()
+//      TmpColumnScroll()
+      TmpSettingsContent(PaddingValues())
     }
   }
 }
