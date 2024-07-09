@@ -2,6 +2,9 @@ package xyz.tberghuis.noteboat.tmp2
 
 import android.app.Application
 import android.net.Uri
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.room.Room
@@ -18,6 +21,8 @@ class TmpImportDbVm(
   application: Application,
 ) : AndroidViewModel(application) {
   private val mainApp = (application as MainApplication)
+
+  var confirmDeleteAllNotesDialog by mutableStateOf(false)
 
   fun importDb(importDbUri: Uri) {
     viewModelScope.launch(IO) {
@@ -55,7 +60,7 @@ class TmpImportDbVm(
     }
   }
 
-  fun deleteAllNotes(){
+  fun deleteAllNotes() {
     viewModelScope.launch(IO) {
       mainApp.appDatabase.noteDao().deleteAll()
     }

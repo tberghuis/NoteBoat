@@ -25,6 +25,7 @@ import xyz.tberghuis.noteboat.screen.BackupDatabase
 import xyz.tberghuis.noteboat.screen.LockscreenShortcutSetting
 import xyz.tberghuis.noteboat.screen.SettingsScreenRow
 import xyz.tberghuis.noteboat.screen.openAppNotificationSettings
+import xyz.tberghuis.noteboat.tmp2.TmpImportDbVm
 import xyz.tberghuis.noteboat.utils.logd
 import xyz.tberghuis.noteboat.vm.SettingsViewModel
 
@@ -100,25 +101,24 @@ fun TmpSettingsContent(padding: PaddingValues) {
 
 @Composable
 fun DeleteAllNotesButton(
-  vm: SettingsViewModel = viewModel()
+  vm: TmpImportDbVm = viewModel()
 ) {
   Button(onClick = {
+    vm.confirmDeleteAllNotesDialog = true
   }) {
     Text("Delete All Notes")
   }
-
-
-  AlertDialog(
-    onDismissRequest = {},
-    confirmButton = {},
-    modifier = Modifier,
-    dismissButton = {},
-    text = {
-      Text("Confirm delete all notes?")
-    },
-  )
-
-
+  if (vm.confirmDeleteAllNotesDialog) {
+    AlertDialog(
+      onDismissRequest = { vm.confirmDeleteAllNotesDialog = false },
+      confirmButton = {},
+      modifier = Modifier,
+      dismissButton = {},
+      text = {
+        Text("Confirm delete all notes?")
+      },
+    )
+  }
 }
 
 @Composable
