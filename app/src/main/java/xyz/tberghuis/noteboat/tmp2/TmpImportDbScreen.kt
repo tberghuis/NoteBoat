@@ -26,6 +26,7 @@ fun TmpImportDbScreen(
     FilePickerButton()
     CopyInputStream()
     ImportFromTmpDb()
+    ImportDb()
   }
 }
 
@@ -79,5 +80,31 @@ fun CopyInputStream(vm: TmpImportDbVm = viewModel()) {
 fun ImportFromTmpDb(vm: TmpImportDbVm = viewModel()) {
   Button(onClick = { vm.copyNotesFromTmpDb() }) {
     Text("copyNotesFromTmpDb")
+  }
+}
+
+
+@Composable
+fun ImportDb(
+  vm: TmpImportDbVm = viewModel()
+) {
+  val launcher =
+    rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+      logd("rememberLauncherForActivityResult $result")
+      when (result.resultCode) {
+        RESULT_OK -> {
+          result.data?.data?.let { vm.importDb(it) }
+        }
+      }
+    }
+
+  Button(onClick = {
+    val intent = Intent(Intent.ACTION_GET_CONTENT).apply {
+      type = "*/*"
+      addCategory(Intent.CATEGORY_OPENABLE)
+    }
+    launcher.launch(intent)
+  }) {
+    Text("ImportDb")
   }
 }

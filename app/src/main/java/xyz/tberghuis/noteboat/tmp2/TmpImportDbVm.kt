@@ -92,6 +92,43 @@ class TmpImportDbVm(
       importNotesFile.delete()
     }
   }
+
+
+  fun importDb(importDbUri: Uri) {
+    viewModelScope.launch(IO) {
+      // todo use CONSTANT for filename
+      val importDbFile = File(mainApp.filesDir, "import-notes.db")
+      val inputStream = mainApp.contentResolver.openInputStream(importDbUri)
+      // https://www.baeldung.com/kotlin/inputstream-to-file
+      inputStream!!.use { input ->
+        importDbFile.outputStream().use { output ->
+          input.copyTo(output)
+        }
+      }
+
+      // open import-notes.db
+      val importNotesFile = File(mainApp.filesDir, "import-notes.db")
+      logd("importNotesFile ${importNotesFile.path}")
+      // create room instance
+      val roomImport = Room.databaseBuilder(
+        mainApp,
+        AppDatabase::class.java,
+        importNotesFile.path
+      )
+        .build()
+      // read all notes
+      // if invalid file, room will log error and give me empty notes list
+      val importNotesList = roomImport.noteDao().getAll().first().map {
+        it.copy(noteId = 0)
+      }
+      // write to appDatabase
+      mainApp.appDatabase.noteDao().insertAll(importNotesList)
+      // close import db
+      roomImport.close()
+      // delete import db
+      importNotesFile.delete()
+    }
+  }
 }
 
 // https://stackoverflow.com/questions/10854211/android-store-inputstream-in-file
