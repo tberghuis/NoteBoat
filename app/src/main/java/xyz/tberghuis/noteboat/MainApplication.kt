@@ -30,7 +30,8 @@ class MainApplication : Application() {
 
   override fun onCreate() {
     super.onCreate()
-    appDatabase = provideDatabase()
+//    appDatabase = provideDatabase()
+    initializeDatabase()
     preferencesRepository = providePreferencesRepository()
     channelLockScreen()
     registerScreenReceiver()
@@ -68,19 +69,29 @@ class MainApplication : Application() {
   }
 
 
-  private fun provideDatabase(): AppDatabase {
-    return Room.databaseBuilder(
+//  private fun provideDatabase(): AppDatabase {
+//    return Room.databaseBuilder(
+//      this,
+//      AppDatabase::class.java,
+//      DB_FILENAME
+//    )
+//      .createFromAsset(DB_FILENAME)
+//      .build()
+//  }
+
+  fun initializeDatabase(createFromAsset: Boolean = true) {
+    appDatabase = Room.databaseBuilder(
       this,
       AppDatabase::class.java,
       DB_FILENAME
-    )
-      .createFromAsset(DB_FILENAME)
+    ).apply {
+      if (createFromAsset)
+        createFromAsset(DB_FILENAME)
+    }
       .build()
   }
 
   private fun providePreferencesRepository(): PreferencesRepository {
     return PreferencesRepository(dataStore)
   }
-
-
 }

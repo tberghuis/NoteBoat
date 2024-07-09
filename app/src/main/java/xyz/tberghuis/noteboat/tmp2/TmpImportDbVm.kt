@@ -56,6 +56,15 @@ class TmpImportDbVm(
       }
     }
   }
+
+  // willitblend
+  fun reloadDb() {
+    logd("reload db")
+    mainApp.initializeDatabase(false)
+    mainApp.appDatabase.openHelper.writableDatabase
+  }
+
+
 }
 
 // https://stackoverflow.com/questions/10854211/android-store-inputstream-in-file
