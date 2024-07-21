@@ -1,4 +1,4 @@
-package xyz.tberghuis.noteboat.tmp2
+package xyz.tberghuis.noteboat.composable
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -17,24 +17,31 @@ import xyz.tberghuis.noteboat.vm.HomeViewModel
 import xyz.tberghuis.noteboat.data.Note
 
 @Composable
-fun TmpActionsCard(
+fun ActionsCard(
   note: Note,
   viewModel: HomeViewModel = viewModel()
 ) {
-
-
   Box(
     Modifier
       .fillMaxWidth(),
     contentAlignment = Alignment.CenterEnd
   ) {
-    IconButton(onClick = {
-      // delete that note no warning
-      viewModel.deleteNote(note)
-    }) {
-      Icon(Icons.Filled.Delete, "delete")
+    Row {
+      IconButton(onClick = {
+        viewModel.togglePinned(note)
+      }) {
+        Icon(
+          if (note.pinned) Icons.Filled.PushPin else Icons.Outlined.PushPin,
+          if (note.pinned) "unpin" else "pin",
+        )
+      }
+
+      IconButton(onClick = {
+        // delete that note no warning
+        viewModel.deleteNote(note)
+      }) {
+        Icon(Icons.Filled.Delete, "delete")
+      }
     }
   }
 }
-
-

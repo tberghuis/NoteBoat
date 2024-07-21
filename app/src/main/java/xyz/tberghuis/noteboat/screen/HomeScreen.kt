@@ -32,7 +32,7 @@ import xyz.tberghuis.noteboat.vm.HomeViewModel
 import xyz.tberghuis.noteboat.data.Note
 import kotlin.math.roundToInt
 import xyz.tberghuis.noteboat.R
-import xyz.tberghuis.noteboat.tmp2.TmpActionsCard2
+import xyz.tberghuis.noteboat.composable.ActionsCard
 
 @Composable
 fun HomeScreen(
@@ -89,24 +89,20 @@ fun HomeContent(
   navController: NavHostController,
 ) {
   val viewModel: HomeViewModel = viewModel()
-
   val allNotes = viewModel.allNotes.collectAsState(listOf())
   val offsetNotes = viewModel.offsetNotes.collectAsState(setOf())
-
   LazyColumn(
     contentPadding = PaddingValues(10.dp)
   ) {
-
     // when key = note_id there was a bug, could not swipe to reveal after toggling note.pinned
-    items(allNotes.value, key = {
-      it.hashCode()
-    }) { note ->
+    items(allNotes.value,
+      key = { it.hashCode() }
+    ) { note ->
       Box(
         Modifier.fillMaxWidth(),
         contentAlignment = Alignment.Center
       ) {
-//        ActionsCard(note)
-        TmpActionsCard2(note)
+        ActionsCard(note)
         NoteCard(
           navController,
           note,
@@ -116,31 +112,9 @@ fun HomeContent(
         )
       }
     }
-
     item {
       // clear FAB
       Spacer(Modifier.height(70.dp))
-    }
-  }
-}
-
-@Composable
-fun ActionsCard(
-  note: Note,
-  viewModel: HomeViewModel = viewModel()
-) {
-
-
-  Box(
-    Modifier
-      .fillMaxWidth(),
-    contentAlignment = Alignment.CenterEnd
-  ) {
-    IconButton(onClick = {
-      // delete that note no warning
-      viewModel.deleteNote(note)
-    }) {
-      Icon(Icons.Filled.Delete, "delete")
     }
   }
 }
