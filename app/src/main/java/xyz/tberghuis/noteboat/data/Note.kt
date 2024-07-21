@@ -52,4 +52,9 @@ interface NoteDao {
 
   @Query("UPDATE note set note_text = :noteText, modified_epoch = :modifiedEpoch WHERE note_id = :noteId")
   suspend fun updateNoteText(noteId: Int, noteText: String, modifiedEpoch: Long)
+
+
+  @Update
+  suspend fun update(note: Note)
+
 }

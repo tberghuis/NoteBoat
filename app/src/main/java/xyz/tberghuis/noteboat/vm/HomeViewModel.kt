@@ -8,7 +8,7 @@ import kotlinx.coroutines.launch
 import xyz.tberghuis.noteboat.MainApplication
 import xyz.tberghuis.noteboat.data.Note
 
-class HomeViewModel (
+class HomeViewModel(
   application: Application,
 ) : AndroidViewModel(application) {
   val noteDao = (application as MainApplication).appDatabase.noteDao()
@@ -32,14 +32,14 @@ class HomeViewModel (
     offsetNotes.value -= note
   }
 
-//  private val _noteList = MutableStateFlow(listOf<Note>())
-//  val noteList: StateFlow<List<Note>> = _noteList
-//  init {
-//    viewModelScope.launch {
-//      // this is bad as will collect when activity DEAD
-//      noteDao.getAll().collect {
-//        _noteList.value = it
-//      }
-//    }
-//  }
+  fun togglePinned(note: Note) {
+    offsetNotes.value -= note
+
+//    note.pinned = !note.pinned
+
+    viewModelScope.launch {
+      noteDao.update(note.copy(pinned = !note.pinned))
+//      noteDao.update(note)
+    }
+  }
 }
