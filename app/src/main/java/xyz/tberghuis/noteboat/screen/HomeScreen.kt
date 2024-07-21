@@ -15,6 +15,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.twotone.PushPin
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -63,7 +64,7 @@ fun HomeScreen(
 }
 
 @Composable
-fun HomeTopBar(  navController: NavHostController) {
+fun HomeTopBar(navController: NavHostController) {
   TopAppBar(
     modifier = Modifier
       .statusBarsPadding(),
@@ -196,6 +197,17 @@ fun NoteCard(
     Column(
       modifier = Modifier.padding(10.dp)
     ) {
+
+      if (note.pinned) {
+        Icon(
+          Icons.TwoTone.PushPin, "pinned",
+          modifier = Modifier.offset(x = (-8).dp, y = (-5).dp),
+        )
+      }
+
+
+
+
       Text(note.noteText)
     }
   }

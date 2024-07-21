@@ -25,7 +25,7 @@ data class Note(
 
 @Dao
 interface NoteDao {
-  @Query("SELECT * FROM note ORDER BY modified_epoch DESC")
+  @Query("SELECT * FROM note ORDER BY pinned DESC, modified_epoch DESC")
   fun getAll(): Flow<List<Note>>
 
   @Query("SELECT * FROM note where note_id = :noteId")
