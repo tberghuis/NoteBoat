@@ -43,16 +43,12 @@ fun TmpActionsCard2(
   note: Note,
   viewModel: HomeViewModel = viewModel()
 ) {
-
   Box(
     Modifier
       .fillMaxWidth(),
     contentAlignment = Alignment.CenterEnd
   ) {
-
     Row {
-
-
       IconButton(onClick = {
         viewModel.togglePinned(note)
       }) {
@@ -62,32 +58,12 @@ fun TmpActionsCard2(
         )
       }
 
-
-
-//      if (note.pinned) {
-//        IconButton(onClick = {
-//          viewModel.togglePinned(note)
-//        }) {
-//          Icon(Icons.Filled.PushPin, "unpin")
-//        }
-//      } else {
-//        IconButton(onClick = {
-//          viewModel.togglePinned(note)
-//        }) {
-//          Icon(Icons.Outlined.PushPin, "pin")
-//        }
-//      }
-
-
-
-
       IconButton(onClick = {
         // delete that note no warning
         viewModel.deleteNote(note)
       }) {
         Icon(Icons.Filled.Delete, "delete")
       }
-
     }
   }
 }

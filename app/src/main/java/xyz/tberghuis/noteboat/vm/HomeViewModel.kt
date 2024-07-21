@@ -34,12 +34,8 @@ class HomeViewModel(
 
   fun togglePinned(note: Note) {
     offsetNotes.value -= note
-
-//    note.pinned = !note.pinned
-
     viewModelScope.launch {
       noteDao.update(note.copy(pinned = !note.pinned))
-//      noteDao.update(note)
     }
   }
 }

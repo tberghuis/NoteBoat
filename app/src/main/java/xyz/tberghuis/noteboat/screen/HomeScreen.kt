@@ -10,7 +10,6 @@ import androidx.compose.foundation.gestures.detectHorizontalDragGestures
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -33,7 +32,6 @@ import xyz.tberghuis.noteboat.vm.HomeViewModel
 import xyz.tberghuis.noteboat.data.Note
 import kotlin.math.roundToInt
 import xyz.tberghuis.noteboat.R
-import xyz.tberghuis.noteboat.tmp2.TmpActionsCard
 import xyz.tberghuis.noteboat.tmp2.TmpActionsCard2
 
 @Composable
@@ -99,19 +97,16 @@ fun HomeContent(
     contentPadding = PaddingValues(10.dp)
   ) {
 
+    // when key = note_id there was a bug, could not swipe to reveal after toggling note.pinned
     items(allNotes.value, key = {
       it.hashCode()
-    }
-    ) { note ->
+    }) { note ->
       Box(
         Modifier.fillMaxWidth(),
         contentAlignment = Alignment.Center
       ) {
 //        ActionsCard(note)
-
         TmpActionsCard2(note)
-
-
         NoteCard(
           navController,
           note,
@@ -120,30 +115,7 @@ fun HomeContent(
           viewModel::onHideActions
         )
       }
-
     }
-
-
-//    itemsIndexed(allNotes.value, key = { _, note -> "${note.noteId} - ${note.pinned}" })
-//    { _, note ->
-//      Box(
-//        Modifier.fillMaxWidth(),
-//        contentAlignment = Alignment.Center
-//      ) {
-////        ActionsCard(note)
-//
-//        TmpActionsCard2(note)
-//
-//
-//        NoteCard(
-//          navController,
-//          note,
-//          offsetNotes.value.contains(note),
-//          viewModel::onRevealActions,
-//          viewModel::onHideActions
-//        )
-//      }
-//    }
 
     item {
       // clear FAB
@@ -202,7 +174,6 @@ fun NoteCard(
   val offsetTransition by transition.animateFloat(
     label = "cardOffsetTransition",
     transitionSpec = { tween(durationMillis = 500) },
-//    targetValueByState = { if (isOffset) -200f else 0f },
     targetValueByState = { if (isOffset) -350f else 0f },
   )
 
@@ -237,12 +208,7 @@ fun NoteCard(
           modifier = Modifier.offset(x = (-8).dp, y = (-5).dp),
         )
       }
-
-
-
-
       Text(note.noteText)
     }
   }
-
 }

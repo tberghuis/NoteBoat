@@ -12,7 +12,6 @@ data class Note(
   val noteId: Int = 0,
   @ColumnInfo(name = "note_text") val noteText: String,
 
-
   // epoch = Clock.System.now().toEpochMilliseconds()
   // moment = Instant.fromEpochMilliseconds(epoch)
   // date = moment.toLocalDateTime(TimeZone.currentSystemDefault())
@@ -20,8 +19,7 @@ data class Note(
   @ColumnInfo(name = "modified_epoch") val modifiedEpoch: Long,
 
   @ColumnInfo(name = "pinned", defaultValue = "0") val pinned: Boolean = false,
-
-  )
+)
 
 @Dao
 interface NoteDao {
@@ -53,8 +51,6 @@ interface NoteDao {
   @Query("UPDATE note set note_text = :noteText, modified_epoch = :modifiedEpoch WHERE note_id = :noteId")
   suspend fun updateNoteText(noteId: Int, noteText: String, modifiedEpoch: Long)
 
-
   @Update
   suspend fun update(note: Note)
-
 }
