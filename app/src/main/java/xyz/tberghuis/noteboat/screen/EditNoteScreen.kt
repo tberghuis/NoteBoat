@@ -4,7 +4,7 @@ import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -90,7 +90,7 @@ fun EditNoteTopBar(
       IconButton(onClick = {
         onComplete()
       }) {
-        Icon(Icons.Filled.ArrowBack, "complete")
+        Icon(Icons.AutoMirrored.Filled.ArrowBack, "complete")
       }
     },
     actions = {

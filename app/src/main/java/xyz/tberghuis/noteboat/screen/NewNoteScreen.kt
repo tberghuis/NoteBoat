@@ -4,9 +4,9 @@ import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Cancel
 import androidx.compose.runtime.*
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.TextFieldValue
@@ -19,9 +19,6 @@ import xyz.tberghuis.noteboat.composable.NoteBottomAppBar
 import xyz.tberghuis.noteboat.composable.NoteContent
 import androidx.lifecycle.viewmodel.compose.viewModel
 
-@OptIn(
-  ExperimentalComposeUiApi::class,
-)
 @Composable
 fun NewNoteScreen(
   navController: NavHostController,
@@ -101,7 +98,7 @@ fun NewNoteTopBar(
       IconButton(onClick = {
         onComplete()
       }) {
-        Icon(Icons.Filled.ArrowBack, "complete")
+        Icon(Icons.AutoMirrored.Filled.ArrowBack, "complete")
       }
     },
     actions = {
