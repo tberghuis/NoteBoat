@@ -9,7 +9,6 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import xyz.tberghuis.noteboat.tmp2.TmpPinned
 import xyz.tberghuis.noteboat.ui.theme.NoteBoatTheme
 
 @Composable
@@ -26,7 +25,7 @@ fun TmpScreen(
 fun TmpScreenPreview() {
   NoteBoatTheme {
     Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colors.background) {
-      TmpPinned()
+//      TmpPinned()
     }
   }
 }
