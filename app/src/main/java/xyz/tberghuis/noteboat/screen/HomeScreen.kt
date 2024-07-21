@@ -32,6 +32,7 @@ import xyz.tberghuis.noteboat.vm.HomeViewModel
 import xyz.tberghuis.noteboat.data.Note
 import kotlin.math.roundToInt
 import xyz.tberghuis.noteboat.R
+import xyz.tberghuis.noteboat.tmp2.TmpActionsCard
 
 @Composable
 fun HomeScreen(
@@ -102,7 +103,11 @@ fun HomeContent(
         Modifier.fillMaxWidth(),
         contentAlignment = Alignment.Center
       ) {
-        ActionsCard(note)
+//        ActionsCard(note)
+        
+        TmpActionsCard(note)
+
+
         NoteCard(
           navController,
           note,
