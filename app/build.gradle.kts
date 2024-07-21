@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-
 plugins {
   alias(libs.plugins.android.application)
   alias(libs.plugins.jetbrains.kotlin.android)
@@ -15,8 +13,8 @@ android {
     applicationId = "site.thomasberghuis.noteboat"
     minSdk = 27
     targetSdk = 34
-    versionCode = 20
-    versionName = "2.9.0"
+    versionCode = 21
+    versionName = "2.10.0"
 
     testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     vectorDrawables {
