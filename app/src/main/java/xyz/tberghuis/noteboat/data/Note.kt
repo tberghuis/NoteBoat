@@ -1,6 +1,5 @@
 package xyz.tberghuis.noteboat.data
 
-import androidx.annotation.NonNull
 import androidx.room.*
 import kotlinx.coroutines.flow.Flow
 
@@ -11,14 +10,18 @@ data class Note(
   @PrimaryKey(autoGenerate = true)
   @ColumnInfo(name = "note_id")
   val noteId: Int = 0,
-  @NonNull @ColumnInfo(name = "note_text") val noteText: String,
+  @ColumnInfo(name = "note_text") val noteText: String,
+
 
   // epoch = Clock.System.now().toEpochMilliseconds()
   // moment = Instant.fromEpochMilliseconds(epoch)
   // date = moment.toLocalDateTime(TimeZone.currentSystemDefault())
-  @NonNull @ColumnInfo(name = "created_epoch") val createdEpoch: Long,
-  @NonNull @ColumnInfo(name = "modified_epoch") val modifiedEpoch: Long
-)
+  @ColumnInfo(name = "created_epoch") val createdEpoch: Long,
+  @ColumnInfo(name = "modified_epoch") val modifiedEpoch: Long,
+
+  @ColumnInfo(name = "pinned", defaultValue = "0") val pinned: Boolean = false,
+
+  )
 
 @Dao
 interface NoteDao {
