@@ -10,12 +10,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import xyz.tberghuis.noteboat.utils.logd
 
 @Composable
 fun TrashScreen() {
 
-  LaunchedEffect(Unit){
+  LaunchedEffect(Unit) {
     logd("trash screen")
   }
 
@@ -31,7 +32,10 @@ fun TrashScreen() {
       horizontalAlignment = Alignment.Start,
     )
     {
-      Text("hello trash screen")
+      Text(
+        "hello trash screen",
+        color = Color.Red,
+      )
     }
   }
 }
