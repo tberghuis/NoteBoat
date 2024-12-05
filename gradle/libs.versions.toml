@@ -1,6 +1,6 @@
 [versions]
 accompanistPermissions = "0.32.0"
-agp = "8.5.1"
+agp = "8.7.3"
 composeVersion = "1.6.8"
 datastorePreferences = "1.1.1"
 kotlin = "2.0.0"
