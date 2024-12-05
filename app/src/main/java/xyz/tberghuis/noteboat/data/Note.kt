@@ -35,9 +35,6 @@ interface NoteDao {
   @Query("SELECT * FROM note WHERE trash=0 ORDER BY pinned DESC, modified_epoch DESC")
   fun getAll(): Flow<List<Note>>
 
-//  @Query("SELECT * FROM note where note_id = :noteId")
-//  fun getNote(noteId: Int): Flow<Note?>
-
   @Query("SELECT * FROM note where note_id = :noteId")
   suspend fun getNote(noteId: Int): Note
 
