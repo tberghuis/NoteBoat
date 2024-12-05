@@ -8,6 +8,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.datetime.Clock
 import xyz.tberghuis.noteboat.MainApplication
@@ -53,7 +54,9 @@ class EditNoteViewModel(
 
   fun deleteNote() {
     viewModelScope.launch {
-      noteDao.delete(noteId)
+//      noteDao.delete(noteId)
+      val n = noteDao.getNote(noteId).first()!!
+      noteDao.update(n.copy(trash = true))
     }
   }
 }

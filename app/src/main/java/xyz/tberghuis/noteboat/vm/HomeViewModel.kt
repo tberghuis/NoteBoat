@@ -19,7 +19,8 @@ class HomeViewModel(
 
   fun deleteNote(note: Note) {
     viewModelScope.launch {
-      noteDao.delete(note)
+//      noteDao.delete(note)
+      noteDao.update(note.copy(trash=true))
       offsetNotes.value -= note
     }
   }

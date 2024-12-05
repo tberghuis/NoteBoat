@@ -26,11 +26,13 @@ data class Note(
   @ColumnInfo(name = "modified_epoch") val modifiedEpoch: Long,
 
   @ColumnInfo(name = "pinned", defaultValue = "0") val pinned: Boolean = false,
+
+  @ColumnInfo(name = "trash", defaultValue = "0") val trash: Boolean = false,
 )
 
 @Dao
 interface NoteDao {
-  @Query("SELECT * FROM note ORDER BY pinned DESC, modified_epoch DESC")
+  @Query("SELECT * FROM note WHERE trash=0 ORDER BY pinned DESC, modified_epoch DESC")
   fun getAll(): Flow<List<Note>>
 
   @Query("SELECT * FROM note where note_id = :noteId")
@@ -46,11 +48,11 @@ interface NoteDao {
     insertAll(*notes.toTypedArray())
   }
 
-  @Delete
-  suspend fun delete(vararg note: Note)
-
-  @Query("delete from note where note_id = :noteId")
-  suspend fun delete(noteId: Int)
+//  @Delete
+//  suspend fun delete(vararg note: Note)
+//
+//  @Query("delete from note where note_id = :noteId")
+//  suspend fun delete(noteId: Int)
 
   @Query("delete from note")
   suspend fun deleteAll()
