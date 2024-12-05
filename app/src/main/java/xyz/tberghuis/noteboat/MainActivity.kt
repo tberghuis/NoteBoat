@@ -22,6 +22,7 @@ import xyz.tberghuis.noteboat.ui.theme.NoteBoatTheme
 import androidx.navigation.navDeepLink
 import xyz.tberghuis.noteboat.screen.NewNoteScreen
 import xyz.tberghuis.noteboat.screen.SettingsScreen
+import xyz.tberghuis.noteboat.tmp2.TrashScreen
 
 class MainActivity : ComponentActivity() {
   private lateinit var noteDao: NoteDao
@@ -66,7 +67,8 @@ class MainActivity : ComponentActivity() {
 fun MainApp() {
   val navController = rememberNavController()
 
-  NavHost(navController = navController, startDestination = "home") {
+  // todo startDestination home
+  NavHost(navController = navController, startDestination = "trash") {
     composable("home") { HomeScreen(navController = navController) }
     // todo add nav argument newNote=true
     // easier to duplicate ui
@@ -93,5 +95,12 @@ fun MainApp() {
     composable("settings") {
       SettingsScreen(navController = navController)
     }
+
+
+    composable("trash") {
+      TrashScreen()
+    }
+
+
   }
 }
