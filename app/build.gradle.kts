@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-  compileSdk = 34
+  compileSdk = 35
 
   defaultConfig {
     // NOTE does not match package of source code
