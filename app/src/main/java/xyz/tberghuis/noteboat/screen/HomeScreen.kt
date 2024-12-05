@@ -3,6 +3,7 @@ package xyz.tberghuis.noteboat.screen
 import android.annotation.SuppressLint
 import androidx.compose.animation.core.MutableTransitionState
 import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.rememberTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.clickable
@@ -144,7 +145,7 @@ fun NoteCard(
       targetState = !isOffset
     }
   }
-  val transition = updateTransition(transitionState, "cardTransition")
+  val transition = rememberTransition(transitionState, "cardTransition")
   val offsetTransition by transition.animateFloat(
     label = "cardOffsetTransition",
     transitionSpec = { tween(durationMillis = 500) },
