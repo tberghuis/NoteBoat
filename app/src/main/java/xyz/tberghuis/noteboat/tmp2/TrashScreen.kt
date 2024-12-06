@@ -7,12 +7,11 @@ import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import xyz.tberghuis.noteboat.screen.HomeContent
-import xyz.tberghuis.noteboat.screen.HomeTopBar
 
 @Composable
 fun TrashScreen() {
   Scaffold(
-    topBar = { HomeTopBar() },
+    topBar = { TrashTopBar() },
     content = { contentPadding ->
       Box(
         Modifier
