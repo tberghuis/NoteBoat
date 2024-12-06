@@ -33,6 +33,8 @@ fun TmpNoteCard(
   )
 
   LaunchedEffect(dismissState) {
+    // dismissState.confirmValueChange was called twice during tests
+    // so using snapshotFlow first() to be safe
     snapshotFlow { dismissState.currentValue }
       .filter {
         it == SwipeToDismissBoxValue.EndToStart
