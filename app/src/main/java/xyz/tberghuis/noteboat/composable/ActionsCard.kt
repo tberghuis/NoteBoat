@@ -38,7 +38,7 @@ fun ActionsCard(
 
       IconButton(onClick = {
         // delete that note no warning
-        viewModel.deleteNote(note)
+        viewModel.trashNote(note)
       }) {
         Icon(Icons.Filled.Delete, "delete")
       }

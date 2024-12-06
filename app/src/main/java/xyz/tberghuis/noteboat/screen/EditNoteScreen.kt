@@ -39,7 +39,7 @@ fun EditNoteScreen(
       confirmButton = {
         Button(onClick = {
           showDeleteDialog.value = false
-          viewModel.deleteNote()
+          viewModel.trashNote()
           onComplete()
         }) {
           Text("OK")

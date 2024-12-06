@@ -53,7 +53,7 @@ class EditNoteViewModel(
     }
   }
 
-  fun deleteNote() {
+  fun trashNote() {
     viewModelScope.launch {
 //      noteDao.delete(noteId)
 //      val n = noteDao.getNote(noteId).first()!!

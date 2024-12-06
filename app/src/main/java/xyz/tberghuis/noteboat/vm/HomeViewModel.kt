@@ -18,7 +18,7 @@ class HomeViewModel(
   // https://github.com/Skyyo/compose-swipe-to-reveal
   val offsetNotes = MutableStateFlow(setOf<Note>())
 
-  fun deleteNote(note: Note) {
+  fun trashNote(note: Note) {
     viewModelScope.launch {
 //      noteDao.delete(note)
       noteDao.update(note.copy(trash=true))
