@@ -1,6 +1,8 @@
 package xyz.tberghuis.noteboat.tmp2
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -19,8 +21,9 @@ import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.first
 import xyz.tberghuis.noteboat.utils.logd
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun TmpNoteCard(
+fun TrashNoteCard(
   note: Note,
 ) {
   val dismissState = rememberSwipeToDismissBoxState(
@@ -55,9 +58,14 @@ fun TmpNoteCard(
       modifier = Modifier
         .fillMaxWidth()
         .padding(vertical = 5.dp)
-        .clickable {
-          // todo long press "restore note" dialog
-        },
+        .combinedClickable(
+          onClick = { },
+          onLongClick = {
+            // todo show restore dialog
+            logd("long click")
+            // for now just restore
+          },
+        ),
       elevation = 10.dp
     ) {
       Column(

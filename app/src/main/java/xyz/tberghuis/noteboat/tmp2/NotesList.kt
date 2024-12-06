@@ -9,7 +9,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 
 @Composable
-fun NotesList() {
+fun TrashNotesList() {
   val viewModel: TrashScreenVm = viewModel()
   val trashNotes = viewModel.trashNotes.collectAsState(listOf())
   LazyColumn(
@@ -18,7 +18,7 @@ fun NotesList() {
     items(trashNotes.value,
       key = { it.hashCode() }
     ) { note ->
-      TmpNoteCard(note)
+      TrashNoteCard(note)
     }
   }
 }

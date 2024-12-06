@@ -17,7 +17,7 @@ fun TrashScreen() {
           .padding(contentPadding)
           .navigationBarsPadding()
       ) {
-        NotesList()
+        TrashNotesList()
       }
     },
   )
