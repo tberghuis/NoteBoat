@@ -9,8 +9,9 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 
 @Composable
-fun TrashNotesList() {
-  val viewModel: TrashScreenVm = viewModel()
+fun TrashNotesList(
+    viewModel: TrashScreenVm = viewModel()
+) {
   val trashNotes = viewModel.trashNotes.collectAsState(listOf())
   LazyColumn(
     contentPadding = PaddingValues(10.dp)

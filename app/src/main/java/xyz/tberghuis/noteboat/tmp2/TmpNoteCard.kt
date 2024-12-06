@@ -20,11 +20,13 @@ import androidx.compose.ui.Modifier
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.first
 import xyz.tberghuis.noteboat.utils.logd
+import androidx.lifecycle.viewmodel.compose.viewModel
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun TrashNoteCard(
   note: Note,
+  vm: TrashScreenVm = viewModel()
 ) {
   val dismissState = rememberSwipeToDismissBoxState(
 //    confirmValueChange = {
@@ -43,8 +45,8 @@ fun TrashNoteCard(
         it == SwipeToDismissBoxValue.EndToStart
       }
       .first()
-    // todo vm.realDelete
     logd("real delete")
+    vm.deleteNote(note)
   }
 
   SwipeToDismissBox(

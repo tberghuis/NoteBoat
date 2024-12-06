@@ -51,8 +51,8 @@ interface NoteDao {
     insertAll(*notes.toTypedArray())
   }
 
-//  @Delete
-//  suspend fun delete(vararg note: Note)
+  @Delete
+  suspend fun delete(vararg note: Note)
 //
 //  @Query("delete from note where note_id = :noteId")
 //  suspend fun delete(noteId: Int)
