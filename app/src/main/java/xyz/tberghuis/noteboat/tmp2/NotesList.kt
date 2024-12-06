@@ -27,7 +27,7 @@ fun NotesList() {
         Modifier.fillMaxWidth(),
         contentAlignment = Alignment.Center
       ) {
-        Text("note $note")
+        TmpNoteCard(note)
 //        ActionsCard(note)
 //        NoteCard(
 //          note,
