@@ -5,7 +5,6 @@ import androidx.compose.animation.core.MutableTransitionState
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.rememberTransition
 import androidx.compose.animation.core.tween
-import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectHorizontalDragGestures
 import androidx.compose.foundation.layout.*
@@ -14,7 +13,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.twotone.PushPin
 import androidx.compose.runtime.Composable
@@ -78,11 +76,8 @@ fun HomeTopBar(navController: NavHostController) {
       }) {
         Icon(Icons.Filled.Settings, stringResource(R.string.settings))
       }
-
     }
   )
-
-
 }
 
 @Composable
@@ -120,15 +115,6 @@ fun HomeContent(
   }
 }
 
-//@Composable
-//fun DraggableNoteCard(
-//  navController: NavHostController,
-//  note: Note
-//){
-//
-//}
-
-// read docs to understand if i am doing things wrong
 // doitwrong
 @SuppressLint("UnusedTransitionTargetStateParameter")
 @Composable
