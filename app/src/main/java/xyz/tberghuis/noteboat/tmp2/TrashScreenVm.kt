@@ -12,9 +12,9 @@ class TrashScreenVm(
 ) :
   AndroidViewModel(application) {
 
-  val noteDao = application.appDatabase.noteDao()
+  private val noteDao = application.appDatabase.noteDao()
   // todo
-  val trashNotes = noteDao.getAll()
+  val trashNotes = noteDao.getTrash()
 
 
 }
