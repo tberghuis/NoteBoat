@@ -1,7 +1,6 @@
 package xyz.tberghuis.noteboat.tmp2
 
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -28,14 +27,7 @@ fun TrashNoteCard(
   note: Note,
   vm: TrashScreenVm = viewModel()
 ) {
-  val dismissState = rememberSwipeToDismissBoxState(
-//    confirmValueChange = {
-//      if (it == SwipeToDismissBoxValue.EndToStart) {
-//        logd("swipe to delete note")
-//      }
-//      true
-//    },
-  )
+  val dismissState = rememberSwipeToDismissBoxState()
 
   LaunchedEffect(dismissState) {
     // dismissState.confirmValueChange was called twice during tests
