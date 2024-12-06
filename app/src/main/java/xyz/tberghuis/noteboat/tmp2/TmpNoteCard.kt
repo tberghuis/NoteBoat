@@ -66,6 +66,7 @@ fun TrashNoteCard(
             // todo show restore dialog
             logd("long click")
             // for now just restore
+            vm.restoreNote(note)
           },
         ),
       elevation = 10.dp

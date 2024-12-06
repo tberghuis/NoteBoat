@@ -12,14 +12,18 @@ class TrashScreenVm(
 //  savedStateHandle: SavedStateHandle
 ) :
   AndroidViewModel(application) {
-
   private val noteDao = application.appDatabase.noteDao()
-  // todo
   val trashNotes = noteDao.getTrash()
 
   fun deleteNote(note: Note) {
     viewModelScope.launch {
       noteDao.delete(note)
+    }
+  }
+
+  fun restoreNote(note: Note) {
+    viewModelScope.launch {
+      noteDao.update(note.copy(trash = false))
     }
   }
 }
