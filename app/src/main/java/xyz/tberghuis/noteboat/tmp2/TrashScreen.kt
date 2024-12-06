@@ -2,6 +2,7 @@ package xyz.tberghuis.noteboat.tmp2
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Scaffold
@@ -27,7 +28,7 @@ fun TrashScreen() {
     Column(
       modifier = Modifier
         .padding(padding)
-        .navigationBarsPadding(),
+        .navigationBarsPadding().fillMaxSize(),
       verticalArrangement = Arrangement.Center,
       horizontalAlignment = Alignment.Start,
     )
