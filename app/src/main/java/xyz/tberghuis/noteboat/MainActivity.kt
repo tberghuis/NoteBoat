@@ -71,7 +71,7 @@ fun MainApp() {
 
   CompositionLocalProvider(LocalNavController provides navController) {
     // todo startDestination home
-    NavHost(navController = navController, startDestination = "trash") {
+    NavHost(navController = navController, startDestination = "home") {
       composable("home") { HomeScreen() }
       // todo add nav argument newNote=true
       // easier to duplicate ui

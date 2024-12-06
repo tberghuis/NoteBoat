@@ -13,6 +13,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.twotone.PushPin
 import androidx.compose.runtime.Composable
@@ -71,6 +72,11 @@ fun HomeTopBar() {
 //      .navigationBarsPadding(),
     title = { Text("Note Boat") },
     actions = {
+      IconButton(onClick = {
+        navController.navigate("trash")
+      }) {
+        Icon(Icons.Filled.Delete, stringResource(R.string.trash))
+      }
       IconButton(onClick = {
         navController.navigate("settings")
       }) {
