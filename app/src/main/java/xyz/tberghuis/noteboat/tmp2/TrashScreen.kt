@@ -16,12 +16,6 @@ import xyz.tberghuis.noteboat.utils.logd
 
 @Composable
 fun TrashScreen() {
-
-  LaunchedEffect(Unit) {
-    logd("trash screen")
-  }
-
-
   Scaffold(
 
   ) { padding ->
