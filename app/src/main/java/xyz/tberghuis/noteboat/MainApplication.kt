@@ -7,19 +7,15 @@ import android.app.NotificationManager
 import android.content.Intent
 import android.content.IntentFilter
 import android.util.Log
-import androidx.room.Room
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
-import xyz.tberghuis.noteboat.data.AppDatabase
 import xyz.tberghuis.noteboat.data.PreferencesRepository
 import xyz.tberghuis.noteboat.data.dataStore
 import xyz.tberghuis.noteboat.receiver.ScreenReceiver
 import xyz.tberghuis.noteboat.utils.logd
 
 class MainApplication : Application() {
-
-//  lateinit var appDatabase: AppDatabase
   lateinit var preferencesRepository: PreferencesRepository
 
   private val screenReceiverIntentFilter = IntentFilter(Intent.ACTION_SCREEN_ON).apply {
@@ -30,7 +26,6 @@ class MainApplication : Application() {
 
   override fun onCreate() {
     super.onCreate()
-//    initializeDatabase()
     preferencesRepository = providePreferencesRepository()
     channelLockScreen()
     registerScreenReceiver()
@@ -52,7 +47,6 @@ class MainApplication : Application() {
         }
       }
     }
-
   }
 
   private fun channelLockScreen() {
@@ -66,16 +60,6 @@ class MainApplication : Application() {
     val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
     notificationManager.createNotificationChannel(mChannel)
   }
-
-//  private fun initializeDatabase() {
-//    appDatabase = Room.databaseBuilder(
-//      this,
-//      AppDatabase::class.java,
-//      DB_FILENAME
-//    )
-//      .createFromAsset(DB_FILENAME)
-//      .build()
-//  }
 
   private fun providePreferencesRepository(): PreferencesRepository {
     return PreferencesRepository(dataStore)
