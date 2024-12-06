@@ -1,4 +1,4 @@
-package xyz.tberghuis.noteboat.tmp2
+package xyz.tberghuis.noteboat.composable
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.combinedClickable
@@ -20,6 +20,7 @@ import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.first
 import xyz.tberghuis.noteboat.utils.logd
 import androidx.lifecycle.viewmodel.compose.viewModel
+import xyz.tberghuis.noteboat.tmp2.TrashScreenVm
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable

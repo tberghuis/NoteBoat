@@ -7,7 +7,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import xyz.tberghuis.noteboat.tmp2.TrashNoteCard
 import xyz.tberghuis.noteboat.tmp2.TrashScreenVm
 
 @Composable
