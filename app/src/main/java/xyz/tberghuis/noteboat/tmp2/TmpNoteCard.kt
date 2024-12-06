@@ -16,17 +16,38 @@ import androidx.compose.material3.SwipeToDismissBox
 import androidx.compose.material3.SwipeToDismissBoxValue
 import androidx.compose.material3.rememberSwipeToDismissBoxState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.first
+import xyz.tberghuis.noteboat.utils.logd
 
 @Composable
 fun TmpNoteCard(
   note: Note,
 ) {
+  val dismissState = rememberSwipeToDismissBoxState(
+//    confirmValueChange = {
+//      if (it == SwipeToDismissBoxValue.EndToStart) {
+//        logd("swipe to delete note")
+//      }
+//      true
+//    },
+  )
 
+  LaunchedEffect(dismissState) {
+    snapshotFlow { dismissState.currentValue }
+      .filter {
+        it == SwipeToDismissBoxValue.EndToStart
+      }
+      .first()
+    // todo vm.realDelete
+    logd("real delete")
+  }
 
-  val dismissState = rememberSwipeToDismissBoxState()
   SwipeToDismissBox(
     state = dismissState,
     backgroundContent = {
@@ -60,8 +81,5 @@ fun TmpNoteCard(
         Text(note.noteText)
       }
     }
-
   }
-
-
 }
