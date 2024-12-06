@@ -50,21 +50,10 @@ fun TmpNoteCard(
 
   SwipeToDismissBox(
     state = dismissState,
-    backgroundContent = {
-      val color by
-      animateColorAsState(
-        when (dismissState.targetValue) {
-          SwipeToDismissBoxValue.Settled -> Color.LightGray
-          SwipeToDismissBoxValue.StartToEnd -> Color.Green
-          SwipeToDismissBoxValue.EndToStart -> Color.Red
-        }, label = "ColorAnimation"
-      )
-      Box(
-        Modifier
-          .fillMaxSize()
-          .background(color)
-      )
-    }
+    backgroundContent = { },
+    modifier = Modifier,
+    enableDismissFromStartToEnd = false,
+    enableDismissFromEndToStart = true,
   ) {
     Card(
       modifier = Modifier
