@@ -17,13 +17,14 @@ import xyz.tberghuis.noteboat.IMPORT_DB_FILENAME
 import xyz.tberghuis.noteboat.MainApplication
 import xyz.tberghuis.noteboat.data.AppDatabase
 import xyz.tberghuis.noteboat.data.appDatabase
+import xyz.tberghuis.noteboat.data.preferencesRepository
 import xyz.tberghuis.noteboat.utils.logd
 
 class SettingsViewModel(
   application: Application,
 ) : AndroidViewModel(application) {
   private val mainApp = (application as MainApplication)
-  private val preferencesRepository = mainApp.preferencesRepository
+  private val preferencesRepository = application.preferencesRepository
   val db = application.appDatabase
   val showShortcutLockScreenFlow = preferencesRepository.showShortcutLockScreenFlow
 

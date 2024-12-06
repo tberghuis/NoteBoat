@@ -12,11 +12,12 @@ import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
 import xyz.tberghuis.noteboat.data.PreferencesRepository
 import xyz.tberghuis.noteboat.data.dataStore
+import xyz.tberghuis.noteboat.data.preferencesRepository
 import xyz.tberghuis.noteboat.receiver.ScreenReceiver
 import xyz.tberghuis.noteboat.utils.logd
 
 class MainApplication : Application() {
-  lateinit var preferencesRepository: PreferencesRepository
+//  lateinit var preferencesRepository: PreferencesRepository
 
   private val screenReceiverIntentFilter = IntentFilter(Intent.ACTION_SCREEN_ON).apply {
     addAction(Intent.ACTION_SCREEN_OFF)
@@ -26,7 +27,7 @@ class MainApplication : Application() {
 
   override fun onCreate() {
     super.onCreate()
-    preferencesRepository = providePreferencesRepository()
+//    preferencesRepository = providePreferencesRepository()
     channelLockScreen()
     registerScreenReceiver()
   }
@@ -61,7 +62,7 @@ class MainApplication : Application() {
     notificationManager.createNotificationChannel(mChannel)
   }
 
-  private fun providePreferencesRepository(): PreferencesRepository {
-    return PreferencesRepository(dataStore)
-  }
+//  private fun providePreferencesRepository(): PreferencesRepository {
+//    return PreferencesRepository(dataStore)
+//  }
 }

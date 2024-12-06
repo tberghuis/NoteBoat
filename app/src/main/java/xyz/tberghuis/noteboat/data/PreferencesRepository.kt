@@ -30,4 +30,18 @@ class PreferencesRepository(private val dataStore: DataStore<Preferences>) {
       preferences[booleanPreferencesKey("show_shortcut_lock_screen")] = !currentValue
     }
   }
+
+
+  companion object {
+    @Volatile
+    private var instance: PreferencesRepository? = null
+    fun getInstance(context: Context) =
+      instance ?: synchronized(this) {
+        instance ?: PreferencesRepository(context.dataStore).also { instance = it }
+      }
+  }
+
 }
+
+val Context.preferencesRepository: PreferencesRepository
+  get() = PreferencesRepository.getInstance(this)
