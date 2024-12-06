@@ -26,21 +26,20 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavHostController
 import xyz.tberghuis.noteboat.vm.HomeViewModel
 import xyz.tberghuis.noteboat.data.Note
 import kotlin.math.roundToInt
+import xyz.tberghuis.noteboat.LocalNavController
 import xyz.tberghuis.noteboat.R
 import xyz.tberghuis.noteboat.composable.ActionsCard
 
 @Composable
-fun HomeScreen(
-  navController: NavHostController
-) {
+fun HomeScreen() {
+  val navController = LocalNavController.current
   val scaffoldState = rememberScaffoldState()
   Scaffold(
     scaffoldState = scaffoldState,
-    topBar = { HomeTopBar(navController) },
+    topBar = { HomeTopBar() },
     floatingActionButtonPosition = FabPosition.End,
     floatingActionButton = {
       FloatingActionButton(
@@ -57,14 +56,15 @@ fun HomeScreen(
           .padding(contentPadding)
           .navigationBarsPadding()
       ) {
-        HomeContent(navController = navController)
+        HomeContent()
       }
     },
   )
 }
 
 @Composable
-fun HomeTopBar(navController: NavHostController) {
+fun HomeTopBar() {
+  val navController = LocalNavController.current
   TopAppBar(
     modifier = Modifier
       .statusBarsPadding(),
@@ -81,9 +81,7 @@ fun HomeTopBar(navController: NavHostController) {
 }
 
 @Composable
-fun HomeContent(
-  navController: NavHostController,
-) {
+fun HomeContent() {
   val viewModel: HomeViewModel = viewModel()
   val allNotes = viewModel.allNotes.collectAsState(listOf())
   val offsetNotes = viewModel.offsetNotes.collectAsState(setOf())
@@ -100,7 +98,6 @@ fun HomeContent(
       ) {
         ActionsCard(note)
         NoteCard(
-          navController,
           note,
           offsetNotes.value.contains(note),
           viewModel::onRevealActions,
@@ -119,13 +116,12 @@ fun HomeContent(
 @SuppressLint("UnusedTransitionTargetStateParameter")
 @Composable
 fun NoteCard(
-  navController: NavHostController,
   note: Note,
   isOffset: Boolean,
   onRevealActions: (note: Note) -> Unit,
   onHideActions: (note: Note) -> Unit,
 ) {
-
+  val navController = LocalNavController.current
   val transitionState = remember {
     MutableTransitionState(isOffset).apply {
       targetState = !isOffset

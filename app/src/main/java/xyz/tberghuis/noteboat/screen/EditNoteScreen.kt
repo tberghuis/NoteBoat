@@ -8,18 +8,18 @@ import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavHostController
 import xyz.tberghuis.noteboat.composable.NoteBottomAppBar
 import xyz.tberghuis.noteboat.composable.NoteContent
 import xyz.tberghuis.noteboat.composable.OnPauseLifecycleEvent
 import xyz.tberghuis.noteboat.vm.EditNoteViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
+import xyz.tberghuis.noteboat.LocalNavController
 
 @Composable
 fun EditNoteScreen(
   viewModel: EditNoteViewModel = viewModel(),
-  navController: NavHostController
 ) {
+  val navController = LocalNavController.current
   val scaffoldState = rememberScaffoldState()
   val onComplete: () -> Unit = {
     viewModel.updateNote(viewModel.noteTextFieldValueState.value.text)

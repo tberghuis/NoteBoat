@@ -10,7 +10,6 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.TextFieldValue
-import androidx.navigation.NavHostController
 import kotlinx.coroutines.launch
 import xyz.tberghuis.noteboat.composable.OnPauseLifecycleEvent
 import xyz.tberghuis.noteboat.vm.NewNoteViewModel
@@ -18,12 +17,13 @@ import xyz.tberghuis.noteboat.vm.TranscribingState
 import xyz.tberghuis.noteboat.composable.NoteBottomAppBar
 import xyz.tberghuis.noteboat.composable.NoteContent
 import androidx.lifecycle.viewmodel.compose.viewModel
+import xyz.tberghuis.noteboat.LocalNavController
 
 @Composable
 fun NewNoteScreen(
-  navController: NavHostController,
   viewModel: NewNoteViewModel = viewModel(),
 ) {
+  val navController = LocalNavController.current
   val scaffoldState = rememberScaffoldState()
   val scope = rememberCoroutineScope()
 

@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
 import androidx.core.view.WindowCompat
 import androidx.navigation.NavType
@@ -67,40 +68,47 @@ class MainActivity : ComponentActivity() {
 fun MainApp() {
   val navController = rememberNavController()
 
-  // todo startDestination home
-  NavHost(navController = navController, startDestination = "trash") {
-    composable("home") { HomeScreen(navController = navController) }
-    // todo add nav argument newNote=true
-    // easier to duplicate ui
-    composable("new-note") {
-      NewNoteScreen(navController = navController)
-    }
-    composable(
-      "new-note/{navParam}", arguments = listOf(
-        navArgument("navParam") { type = NavType.StringType },
-      ), deepLinks = listOf(navDeepLink { uriPattern = "noteboat://noteboat/new-note/{navParam}" })
-    ) {
+  CompositionLocalProvider(LocalNavController provides navController) {
+    // todo startDestination home
+    NavHost(navController = navController, startDestination = "trash") {
+      composable("home") { HomeScreen() }
+      // todo add nav argument newNote=true
+      // easier to duplicate ui
+      composable("new-note") {
+        NewNoteScreen()
+      }
+      composable(
+        "new-note/{navParam}",
+        arguments = listOf(
+          navArgument("navParam") { type = NavType.StringType },
+        ),
+        deepLinks = listOf(navDeepLink { uriPattern = "noteboat://noteboat/new-note/{navParam}" })
+      ) {
 //      val navParam: String? = backStackEntry.arguments?.getString("navParam")
-      NewNoteScreen(navController = navController)
-    }
-    composable(
-      "edit-note/{noteId}", arguments = listOf(
-        navArgument("noteId") { type = NavType.IntType },
-      )
-    ) {
+        NewNoteScreen()
+      }
+      composable(
+        "edit-note/{noteId}", arguments = listOf(
+          navArgument("noteId") { type = NavType.IntType },
+        )
+      ) {
 //      val noteId: Int = backStackEntry.arguments?.getInt("noteId")!!
-      // noteid should be in the viewmodel savehandlestate
-      EditNoteScreen(navController = navController)
-    }
-    composable("settings") {
-      SettingsScreen(navController = navController)
-    }
+        // noteid should be in the viewmodel savehandlestate
+        EditNoteScreen()
+      }
+      composable("settings") {
+        SettingsScreen()
+      }
 
 
-    composable("trash") {
-      TrashScreen()
-    }
+      composable("trash") {
+        TrashScreen()
+      }
 
+
+    }
 
   }
+
+
 }
