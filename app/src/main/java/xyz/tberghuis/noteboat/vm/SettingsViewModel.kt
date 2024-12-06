@@ -16,6 +16,7 @@ import xyz.tberghuis.noteboat.DB_FILENAME
 import xyz.tberghuis.noteboat.IMPORT_DB_FILENAME
 import xyz.tberghuis.noteboat.MainApplication
 import xyz.tberghuis.noteboat.data.AppDatabase
+import xyz.tberghuis.noteboat.data.appDatabase
 import xyz.tberghuis.noteboat.utils.logd
 
 class SettingsViewModel(
@@ -23,7 +24,7 @@ class SettingsViewModel(
 ) : AndroidViewModel(application) {
   private val mainApp = (application as MainApplication)
   private val preferencesRepository = mainApp.preferencesRepository
-  val db = mainApp.appDatabase
+  val db = application.appDatabase
   val showShortcutLockScreenFlow = preferencesRepository.showShortcutLockScreenFlow
 
   var confirmDeleteAllNotesDialog by mutableStateOf(false)

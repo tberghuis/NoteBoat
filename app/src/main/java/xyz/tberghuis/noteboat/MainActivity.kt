@@ -21,6 +21,7 @@ import xyz.tberghuis.noteboat.screen.EditNoteScreen
 import xyz.tberghuis.noteboat.screen.HomeScreen
 import xyz.tberghuis.noteboat.ui.theme.NoteBoatTheme
 import androidx.navigation.navDeepLink
+import xyz.tberghuis.noteboat.data.appDatabase
 import xyz.tberghuis.noteboat.screen.NewNoteScreen
 import xyz.tberghuis.noteboat.screen.SettingsScreen
 import xyz.tberghuis.noteboat.tmp2.TrashScreen
@@ -31,8 +32,8 @@ class MainActivity : ComponentActivity() {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    noteDao = (application as MainApplication).appDatabase.noteDao()
-    optionDao = (application as MainApplication).appDatabase.optionDao()
+    noteDao = appDatabase.noteDao()
+    optionDao = appDatabase.optionDao()
 
     // only if started by lock screen notification
     if (intent != null && intent.hasExtra(LOCK_SCREEN_EXTRA_START) && intent.getBooleanExtra(

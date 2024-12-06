@@ -13,6 +13,7 @@ import kotlinx.coroutines.launch
 import kotlinx.datetime.Clock
 import xyz.tberghuis.noteboat.MainApplication
 import xyz.tberghuis.noteboat.controller.SpeechController
+import xyz.tberghuis.noteboat.data.appDatabase
 import xyz.tberghuis.noteboat.utils.logd
 
 class EditNoteViewModel(
@@ -20,7 +21,7 @@ class EditNoteViewModel(
   savedStateHandle: SavedStateHandle
 ) : AndroidViewModel(application) {
   val noteId: Int = savedStateHandle.get<Int>("noteId")!!
-  val noteDao = (application as MainApplication).appDatabase.noteDao()
+  val noteDao = application.appDatabase.noteDao()
   val noteTextFieldValueState = mutableStateOf(TextFieldValue())
 
   val transcribingStateFlow = MutableStateFlow(TranscribingState.NOT_TRANSCRIBING)

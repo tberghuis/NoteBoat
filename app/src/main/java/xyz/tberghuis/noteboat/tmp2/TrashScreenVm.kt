@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.SavedStateHandle
 import xyz.tberghuis.noteboat.MainApplication
+import xyz.tberghuis.noteboat.data.appDatabase
 
 class TrashScreenVm(
   application: Application,
@@ -11,7 +12,7 @@ class TrashScreenVm(
 ) :
   AndroidViewModel(application) {
 
-  val noteDao = (application as MainApplication).appDatabase.noteDao()
+  val noteDao = application.appDatabase.noteDao()
   // todo
   val trashNotes = noteDao.getAll()
 

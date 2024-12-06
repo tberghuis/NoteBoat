@@ -16,6 +16,7 @@ import kotlinx.datetime.Clock
 import xyz.tberghuis.noteboat.MainApplication
 import xyz.tberghuis.noteboat.controller.SpeechController
 import xyz.tberghuis.noteboat.data.Note
+import xyz.tberghuis.noteboat.data.appDatabase
 import xyz.tberghuis.noteboat.utils.logd
 
 class NewNoteViewModel(
@@ -23,8 +24,8 @@ class NewNoteViewModel(
   savedStateHandle: SavedStateHandle
 ) : AndroidViewModel(application) {
   val navParam: String? = savedStateHandle.get<String>("navParam")
-  val noteDao = (application as MainApplication).appDatabase.noteDao()
-  val optionDao = (application as MainApplication).appDatabase.optionDao()
+  val noteDao = application.appDatabase.noteDao()
+  val optionDao = application.appDatabase.optionDao()
 
   // if i was pedantic i could use null for initial
   val noteTextFieldValueState = mutableStateOf(TextFieldValue())

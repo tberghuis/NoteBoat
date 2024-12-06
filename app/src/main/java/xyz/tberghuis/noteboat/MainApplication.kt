@@ -19,7 +19,7 @@ import xyz.tberghuis.noteboat.utils.logd
 
 class MainApplication : Application() {
 
-  lateinit var appDatabase: AppDatabase
+//  lateinit var appDatabase: AppDatabase
   lateinit var preferencesRepository: PreferencesRepository
 
   private val screenReceiverIntentFilter = IntentFilter(Intent.ACTION_SCREEN_ON).apply {
@@ -30,7 +30,7 @@ class MainApplication : Application() {
 
   override fun onCreate() {
     super.onCreate()
-    initializeDatabase()
+//    initializeDatabase()
     preferencesRepository = providePreferencesRepository()
     channelLockScreen()
     registerScreenReceiver()
@@ -67,15 +67,15 @@ class MainApplication : Application() {
     notificationManager.createNotificationChannel(mChannel)
   }
 
-  private fun initializeDatabase() {
-    appDatabase = Room.databaseBuilder(
-      this,
-      AppDatabase::class.java,
-      DB_FILENAME
-    )
-      .createFromAsset(DB_FILENAME)
-      .build()
-  }
+//  private fun initializeDatabase() {
+//    appDatabase = Room.databaseBuilder(
+//      this,
+//      AppDatabase::class.java,
+//      DB_FILENAME
+//    )
+//      .createFromAsset(DB_FILENAME)
+//      .build()
+//  }
 
   private fun providePreferencesRepository(): PreferencesRepository {
     return PreferencesRepository(dataStore)

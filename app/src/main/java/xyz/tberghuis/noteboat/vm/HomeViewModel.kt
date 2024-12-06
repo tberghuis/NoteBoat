@@ -7,11 +7,12 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import xyz.tberghuis.noteboat.MainApplication
 import xyz.tberghuis.noteboat.data.Note
+import xyz.tberghuis.noteboat.data.appDatabase
 
 class HomeViewModel(
   application: Application,
 ) : AndroidViewModel(application) {
-  val noteDao = (application as MainApplication).appDatabase.noteDao()
+  val noteDao = application.appDatabase.noteDao()
   val allNotes = noteDao.getAll()
 
   // https://github.com/Skyyo/compose-swipe-to-reveal
