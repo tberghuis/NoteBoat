@@ -54,14 +54,14 @@ fun NotesList() {
         }
       ) {
 
-//        TmpNoteCard(note)
+        TmpNoteCard(note)
 
-        OutlinedCard(shape = RectangleShape) {
-          ListItem(
-            headlineContent = { Text("Cupcake") },
-            supportingContent = { Text("Swipe me left or right!") }
-          )
-        }
+//        OutlinedCard(shape = RectangleShape) {
+//          ListItem(
+//            headlineContent = { Text("Cupcake") },
+//            supportingContent = { Text("Swipe me left or right!") }
+//          )
+//        }
 
 
       }
