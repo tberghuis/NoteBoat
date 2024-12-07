@@ -1,4 +1,4 @@
-package xyz.tberghuis.noteboat.tmp2
+package xyz.tberghuis.noteboat.composable
 
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material.Icon
