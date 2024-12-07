@@ -20,7 +20,7 @@ import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.first
 import xyz.tberghuis.noteboat.utils.logd
 import androidx.lifecycle.viewmodel.compose.viewModel
-import xyz.tberghuis.noteboat.tmp2.TrashScreenVm
+import xyz.tberghuis.noteboat.vm.TrashScreenVm
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable

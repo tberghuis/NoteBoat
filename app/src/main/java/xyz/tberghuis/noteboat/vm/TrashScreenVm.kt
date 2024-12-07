@@ -1,4 +1,4 @@
-package xyz.tberghuis.noteboat.tmp2
+package xyz.tberghuis.noteboat.vm
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
