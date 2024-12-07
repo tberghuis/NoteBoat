@@ -70,11 +70,8 @@ fun MainApp() {
   val navController = rememberNavController()
 
   CompositionLocalProvider(LocalNavController provides navController) {
-    // todo startDestination home
     NavHost(navController = navController, startDestination = "home") {
       composable("home") { HomeScreen() }
-      // todo add nav argument newNote=true
-      // easier to duplicate ui
       composable("new-note") {
         NewNoteScreen()
       }

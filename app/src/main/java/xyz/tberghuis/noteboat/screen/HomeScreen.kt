@@ -156,7 +156,6 @@ fun NoteCard(
         }
       }
       .clickable {
-        // todo nav edit note
         navController.navigate("edit-note/${note.noteId}")
       },
     elevation = 10.dp
