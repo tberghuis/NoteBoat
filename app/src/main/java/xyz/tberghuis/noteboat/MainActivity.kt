@@ -24,7 +24,7 @@ import androidx.navigation.navDeepLink
 import xyz.tberghuis.noteboat.data.appDatabase
 import xyz.tberghuis.noteboat.screen.NewNoteScreen
 import xyz.tberghuis.noteboat.screen.SettingsScreen
-import xyz.tberghuis.noteboat.tmp2.TrashScreen
+import xyz.tberghuis.noteboat.screen.TrashScreen
 
 class MainActivity : ComponentActivity() {
   private lateinit var noteDao: NoteDao
