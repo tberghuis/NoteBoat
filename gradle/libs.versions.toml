@@ -1,7 +1,6 @@
 [versions]
 accompanistPermissions = "0.36.0"
 agp = "8.9.0"
-composeVersion = "1.7.5"
 datastorePreferences = "1.1.1"
 kotlin = "2.0.21"
 kotlinxDatetime = "0.5.0"
@@ -24,7 +23,7 @@ androidx-datastore-preferences = { module = "androidx.datastore:datastore-prefer
 androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
-androidx-material-icons-extended = { module = "androidx.compose.material:material-icons-extended", version.ref = "composeVersion" }
+androidx-material-icons-extended = { module = "androidx.compose.material:material-icons-extended" }
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
 androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomVersion" }
 androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomVersion" }
