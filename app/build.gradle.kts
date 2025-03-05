@@ -57,13 +57,7 @@ android {
 }
 
 kotlin {
-  compilerOptions {
-//     jvmTarget.set(JvmTarget.JVM_17)
-    // freeCompilerArgs.add("...")
-  }
-
-   jvmToolchain(17)
-
+  jvmToolchain(17)
 }
 
 dependencies {
