@@ -11,29 +11,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 
 private val DarkColorScheme = darkColorScheme(
-
 )
 
 private val LightColorScheme = lightColorScheme(
-
 )
-
-//@Composable
-//fun NoteBoatTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable () -> Unit) {
-//  val colors = if (darkTheme) {
-//    DarkColorPalette
-//  } else {
-//    LightColorPalette
-//  }
-//
-//  MaterialTheme(
-//    colors = colors,
-//    typography = Typography,
-//    shapes = Shapes,
-//    content = content
-//  )
-//}
-
 
 @Composable
 fun NoteBoatTheme(
@@ -47,11 +28,9 @@ fun NoteBoatTheme(
       val context = LocalContext.current
       if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
     }
-
     darkTheme -> DarkColorScheme
     else -> LightColorScheme
   }
-
   MaterialTheme(
     colorScheme = colorScheme,
     typography = Typography,
