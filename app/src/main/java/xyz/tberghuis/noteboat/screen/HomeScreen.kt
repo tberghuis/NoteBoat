@@ -13,10 +13,8 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
@@ -59,7 +57,6 @@ fun HomeScreen() {
     floatingActionButtonPosition = FabPosition.End,
     floatingActionButton = {
       FloatingActionButton(
-//        modifier = Modifier.navigationBarsPadding(),
         onClick = {
           navController.navigate("new-note")
         }) {
@@ -70,7 +67,6 @@ fun HomeScreen() {
       Box(
         Modifier
           .padding(contentPadding)
-//          .navigationBarsPadding()
       ) {
         HomeContent()
       }
@@ -84,8 +80,6 @@ fun HomeTopBar() {
   val navController = LocalNavController.current
   TopAppBar(
     modifier = Modifier,
-//      .statusBarsPadding(),
-//      .navigationBarsPadding(),
     title = { Text("Note Boat") },
     actions = {
       IconButton(onClick = {
