@@ -54,14 +54,12 @@ import xyz.tberghuis.noteboat.composable.ActionsCard
 @Composable
 fun HomeScreen() {
   val navController = LocalNavController.current
-//  val scaffoldState = rememberScaffoldState()
   Scaffold(
-//    scaffoldState = scaffoldState,
     topBar = { HomeTopBar() },
     floatingActionButtonPosition = FabPosition.End,
     floatingActionButton = {
       FloatingActionButton(
-        modifier = Modifier.navigationBarsPadding(),
+//        modifier = Modifier.navigationBarsPadding(),
         onClick = {
           navController.navigate("new-note")
         }) {
@@ -72,7 +70,7 @@ fun HomeScreen() {
       Box(
         Modifier
           .padding(contentPadding)
-          .navigationBarsPadding()
+//          .navigationBarsPadding()
       ) {
         HomeContent()
       }
@@ -85,8 +83,8 @@ fun HomeScreen() {
 fun HomeTopBar() {
   val navController = LocalNavController.current
   TopAppBar(
-    modifier = Modifier
-      .statusBarsPadding(),
+    modifier = Modifier,
+//      .statusBarsPadding(),
 //      .navigationBarsPadding(),
     title = { Text("Note Boat") },
     actions = {
