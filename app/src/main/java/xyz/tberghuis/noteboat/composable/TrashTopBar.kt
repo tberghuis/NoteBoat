@@ -1,6 +1,5 @@
 package xyz.tberghuis.noteboat.composable
 
-import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -19,8 +18,7 @@ import xyz.tberghuis.noteboat.R
 fun TrashTopBar() {
   val navController = LocalNavController.current
   TopAppBar(
-    modifier = Modifier
-      .statusBarsPadding(),
+    modifier = Modifier,
     title = { Text("Trash") },
     navigationIcon = {
       IconButton(onClick = { navController.navigateUp() }) {
