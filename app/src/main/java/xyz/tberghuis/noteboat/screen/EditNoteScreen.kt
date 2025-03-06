@@ -2,10 +2,17 @@ package xyz.tberghuis.noteboat.screen
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.statusBarsPadding
-import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Button
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import xyz.tberghuis.noteboat.composable.NoteBottomAppBar
@@ -20,7 +27,7 @@ fun EditNoteScreen(
   viewModel: EditNoteViewModel = viewModel(),
 ) {
   val navController = LocalNavController.current
-  val scaffoldState = rememberScaffoldState()
+//  val scaffoldState = rememberScaffoldState()
   val onComplete: () -> Unit = {
     viewModel.updateNote(viewModel.noteTextFieldValueState.value.text)
     navController.navigateUp()
@@ -60,7 +67,7 @@ fun EditNoteScreen(
   OnPauseLifecycleEvent(viewModel.transcribingStateFlow)
 
   Scaffold(
-    scaffoldState = scaffoldState,
+//    scaffoldState = scaffoldState,
     topBar = { EditNoteTopBar(showDeleteDialog = showDeleteDialog, onComplete = onComplete) },
     content = { paddingValues ->
       NoteContent(
@@ -76,6 +83,7 @@ fun EditNoteScreen(
   )
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun EditNoteTopBar(
   onComplete: () -> Unit,

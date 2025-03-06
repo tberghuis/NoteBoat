@@ -5,12 +5,12 @@ import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Card
+import androidx.compose.material3.Card
 import androidx.compose.ui.unit.dp
 import xyz.tberghuis.noteboat.data.Note
-import androidx.compose.material.Text
 import androidx.compose.material3.SwipeToDismissBox
 import androidx.compose.material3.SwipeToDismissBoxValue
+import androidx.compose.material3.Text
 import androidx.compose.material3.rememberSwipeToDismissBoxState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -62,7 +62,7 @@ fun TrashNoteCard(
             vm.restoreNote(note)
           },
         ),
-      elevation = 10.dp
+//      elevation = 10.dp
     ) {
       Column(
         modifier = Modifier.padding(10.dp)

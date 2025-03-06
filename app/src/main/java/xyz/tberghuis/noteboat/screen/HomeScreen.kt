@@ -10,12 +10,20 @@ import androidx.compose.foundation.gestures.detectHorizontalDragGestures
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.twotone.PushPin
+import androidx.compose.material3.Card
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FabPosition
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -37,9 +45,9 @@ import xyz.tberghuis.noteboat.composable.ActionsCard
 @Composable
 fun HomeScreen() {
   val navController = LocalNavController.current
-  val scaffoldState = rememberScaffoldState()
+//  val scaffoldState = rememberScaffoldState()
   Scaffold(
-    scaffoldState = scaffoldState,
+//    scaffoldState = scaffoldState,
     topBar = { HomeTopBar() },
     floatingActionButtonPosition = FabPosition.End,
     floatingActionButton = {
@@ -63,6 +71,7 @@ fun HomeScreen() {
   )
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeTopBar() {
   val navController = LocalNavController.current
@@ -158,7 +167,7 @@ fun NoteCard(
       .clickable {
         navController.navigate("edit-note/${note.noteId}")
       },
-    elevation = 10.dp
+//    elevation = 10.dp
   ) {
     Column(
       modifier = Modifier.padding(10.dp)
