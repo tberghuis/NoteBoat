@@ -1,7 +1,6 @@
 package xyz.tberghuis.noteboat.screen
 
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
@@ -13,14 +12,12 @@ import xyz.tberghuis.noteboat.composable.TrashTopBar
 fun TrashScreen() {
   Scaffold(
     topBar = { TrashTopBar() },
-    content = { contentPadding ->
-      Box(
-        Modifier
-          .padding(contentPadding)
-          .navigationBarsPadding()
-      ) {
-        TrashNotesList()
-      }
-    },
-  )
+  ) { innerPadding ->
+    Box(
+      Modifier
+        .padding(innerPadding)
+    ) {
+      TrashNotesList()
+    }
+  }
 }
