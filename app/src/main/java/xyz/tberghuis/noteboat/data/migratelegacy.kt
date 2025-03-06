@@ -6,6 +6,8 @@ import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toInstant
 import kotlinx.datetime.toLocalDateTime
 import java.io.File
+import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.LocalDateTime.Companion
 
 suspend fun migrateLegacy(application: Application, optionDao: OptionDao, noteDao: NoteDao) {
   val runMigration = optionDao.getOption("run_legacy_migration")
@@ -25,7 +27,7 @@ suspend fun migrateLegacy(application: Application, optionDao: OptionDao, noteDa
   legacyNotes.forEach {
     val noteText = it.noteText!!
     fun toEpoch(s: String?): Long {
-      return s!!.toLocalDateTime().toInstant(TimeZone.currentSystemDefault())
+      return LocalDateTime.parse(s!!).toInstant(TimeZone.currentSystemDefault())
         .toEpochMilliseconds()
     }
     val createdEpoch = toEpoch(it.createdDate)
