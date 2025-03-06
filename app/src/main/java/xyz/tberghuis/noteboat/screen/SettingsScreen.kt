@@ -14,7 +14,6 @@ import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -56,25 +55,21 @@ fun SettingsScreen() {
   Scaffold(
     topBar = {
       TopAppBar(
-        modifier = Modifier
-          .statusBarsPadding(),
+        modifier = Modifier,
         title = { Text(stringResource(R.string.settings)) },
         navigationIcon = {
-
           IconButton(onClick = { navController.navigateUp() }) {
             Icon(
               imageVector = Icons.AutoMirrored.Filled.ArrowBack,
               contentDescription = stringResource(R.string.back)
             )
           }
-
         },
       )
     },
   ) { padding ->
     SettingsContent(padding)
   }
-
 }
 
 fun openAppNotificationSettings(context: Context) {
@@ -118,7 +113,6 @@ fun SettingsContent(padding: PaddingValues) {
       .padding(padding)
       .verticalScroll(rememberScrollState())
       .fillMaxSize()
-
   ) {
     SettingsScreenRow {
       Text("Notification permission")
