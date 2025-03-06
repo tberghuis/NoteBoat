@@ -1,26 +1,15 @@
 package xyz.tberghuis.noteboat
 
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.ui.Modifier
-import androidx.core.view.WindowCompat
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import xyz.tberghuis.noteboat.data.NoteDao
-import xyz.tberghuis.noteboat.data.OptionDao
 import xyz.tberghuis.noteboat.screen.EditNoteScreen
 import xyz.tberghuis.noteboat.screen.HomeScreen
-import xyz.tberghuis.noteboat.ui.theme.NoteBoatTheme
 import androidx.navigation.navDeepLink
-import xyz.tberghuis.noteboat.data.appDatabase
 import xyz.tberghuis.noteboat.screen.NewNoteScreen
 import xyz.tberghuis.noteboat.screen.SettingsScreen
 import xyz.tberghuis.noteboat.screen.TrashScreen
@@ -28,7 +17,6 @@ import xyz.tberghuis.noteboat.screen.TrashScreen
 @Composable
 fun NoteBoatNavGraph() {
   val navController = rememberNavController()
-
   CompositionLocalProvider(LocalNavController provides navController) {
     NavHost(navController = navController, startDestination = "home") {
       composable("home") { HomeScreen() }
@@ -57,16 +45,9 @@ fun NoteBoatNavGraph() {
       composable("settings") {
         SettingsScreen()
       }
-
-
       composable("trash") {
         TrashScreen()
       }
-
-
     }
-
   }
-
-
 }
