@@ -67,7 +67,6 @@ fun NoteBottomAppBar(
 
   BottomAppBar(
     modifier = Modifier
-//      .navigationBarsPadding()
       .imePadding(),
     contentPadding = PaddingValues(20.dp),
   ) {

@@ -29,9 +29,7 @@ fun NewNoteScreen(
   viewModel: NewNoteViewModel = viewModel(),
 ) {
   val navController = LocalNavController.current
-//  val scaffoldState = rememberScaffoldState()
   val scope = rememberCoroutineScope()
-
   val onComplete: () -> Unit = {
     if (viewModel.noteTextFieldValueState.value.text.trim().isEmpty()) {
       viewModel.updateNewNoteDraft("")
@@ -58,7 +56,6 @@ fun NewNoteScreen(
   OnPauseLifecycleEvent(viewModel.transcribingStateFlow)
 
   Scaffold(
-//    scaffoldState = scaffoldState,
     topBar = { NewNoteTopBar(onComplete = onComplete, onCancel = onCancel) },
     content = { paddingValues ->
       NoteContent(
@@ -96,9 +93,7 @@ fun NewNoteTopBar(
   onCancel: () -> Unit
 ) {
   TopAppBar(
-    modifier = Modifier
-      .statusBarsPadding(),
-
+    modifier = Modifier,
     title = { Text("New Note") },
     navigationIcon = {
       IconButton(onClick = {
