@@ -1,7 +1,6 @@
 package xyz.tberghuis.noteboat.screen
 
 import androidx.activity.compose.BackHandler
-import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Delete
@@ -27,7 +26,6 @@ fun EditNoteScreen(
   viewModel: EditNoteViewModel = viewModel(),
 ) {
   val navController = LocalNavController.current
-//  val scaffoldState = rememberScaffoldState()
   val onComplete: () -> Unit = {
     viewModel.updateNote(viewModel.noteTextFieldValueState.value.text)
     navController.navigateUp()
@@ -67,7 +65,6 @@ fun EditNoteScreen(
   OnPauseLifecycleEvent(viewModel.transcribingStateFlow)
 
   Scaffold(
-//    scaffoldState = scaffoldState,
     topBar = { EditNoteTopBar(showDeleteDialog = showDeleteDialog, onComplete = onComplete) },
     content = { paddingValues ->
       NoteContent(
@@ -90,9 +87,7 @@ fun EditNoteTopBar(
   showDeleteDialog: MutableState<Boolean>,
 ) {
   TopAppBar(
-    modifier = Modifier
-      .statusBarsPadding(),
-
+    modifier = Modifier,
     title = { Text("Edit Note") },
     navigationIcon = {
       IconButton(onClick = {
