@@ -27,6 +27,10 @@ android {
       isMinifyEnabled = false
       proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
     }
+    create("dev") {
+      initWith(getByName("debug"))
+      applicationIdSuffix = ".dev"
+    }
   }
   compileOptions {
     // was meant to fix kotlinx-datetime, no class found error java...Instant

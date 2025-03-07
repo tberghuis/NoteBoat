@@ -80,7 +80,7 @@ fun HomeTopBar() {
   val navController = LocalNavController.current
   TopAppBar(
     modifier = Modifier,
-    title = { Text("Note Boat") },
+    title = { Text(stringResource(R.string.app_name)) },
     actions = {
       IconButton(onClick = {
         navController.navigate("trash")
