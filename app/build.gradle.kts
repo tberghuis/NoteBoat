@@ -27,11 +27,24 @@ android {
       isMinifyEnabled = false
       proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
     }
+  }
+
+  // allow for developing with a different app id, in which
+  // compose previews will still work
+  // (could not get compose previews to work with a new build type)
+  flavorDimensions += "version"
+  productFlavors {
+    create("default") {
+      dimension = "version"
+    }
+    // change the launcher icon, app name and app id
     create("dev") {
-      initWith(getByName("debug"))
+      dimension = "version"
       applicationIdSuffix = ".dev"
+      versionNameSuffix = "-dev"
     }
   }
+
   compileOptions {
     // was meant to fix kotlinx-datetime, no class found error java...Instant
     // didn't work so switching min sdk to 26

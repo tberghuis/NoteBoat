@@ -18,3 +18,4 @@ local.properties
 .idea/deploymentTargetSelector.xml
 .idea/other.xml
 .kotlin/
+/.idea/appInsightsSettings.xml

@@ -12,7 +12,7 @@ import xyz.tberghuis.noteboat.ui.theme.NoteBoatTheme
 
 @Composable
 fun TmpScreen(
-  vm: TmpVm = viewModel()
+//  vm: TmpVm = viewModel()
 ) {
   Column {
     Text("hello tmp screen")
@@ -26,7 +26,7 @@ fun TmpScreenPreview() {
     Surface(
       modifier = Modifier.fillMaxSize(),
     ) {
-//      TmpPinned()
+      TmpScreen()
     }
   }
 }
