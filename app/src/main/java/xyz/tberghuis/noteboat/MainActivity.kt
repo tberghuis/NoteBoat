@@ -7,7 +7,6 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
-import androidx.core.view.WindowCompat
 import xyz.tberghuis.noteboat.data.NoteDao
 import xyz.tberghuis.noteboat.data.OptionDao
 import xyz.tberghuis.noteboat.ui.theme.NoteBoatTheme
@@ -30,10 +29,6 @@ class MainActivity : ComponentActivity() {
     ) {
       setShowWhenLocked(true)
     }
-
-//    CoroutineScope(Dispatchers.IO).launch {
-//      migrateLegacy(application, optionDao, noteDao)
-//    }
 
 //    WindowCompat.setDecorFitsSystemWindows(window, false)
     enableEdgeToEdge()
