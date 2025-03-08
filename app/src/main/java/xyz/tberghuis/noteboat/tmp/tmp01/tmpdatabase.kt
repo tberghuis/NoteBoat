@@ -9,6 +9,8 @@ import androidx.room.RoomDatabase
   entities = [TmpCategory::class, TmpNote::class], version = 1, exportSchema = false,
 )
 abstract class TmpDatabase : RoomDatabase() {
+  abstract fun categoryDao(): TmpCategoryDao
+  abstract fun tmpNoteDao(): TmpNoteDao
 
   companion object {
     @Volatile

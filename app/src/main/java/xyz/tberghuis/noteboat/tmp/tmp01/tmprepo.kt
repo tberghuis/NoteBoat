@@ -37,3 +37,7 @@ interface TmpCategoryDao {
   @Update
   suspend fun update(category: TmpCategory)
 }
+
+@Dao
+interface TmpNoteDao {
+}
