@@ -1,6 +1,5 @@
 package xyz.tberghuis.noteboat.data
 
-import android.app.Application
 import android.content.Context
 import androidx.room.AutoMigration
 import androidx.room.Database
@@ -22,10 +21,10 @@ abstract class AppDatabase : RoomDatabase() {
   companion object {
     @Volatile
     private var instance: AppDatabase? = null
-    fun getInstance(application: Application) =
+    fun getInstance(context: Context) =
       instance ?: synchronized(this) {
         instance ?: Room.databaseBuilder(
-          application,
+          context.applicationContext,
           AppDatabase::class.java,
           DB_FILENAME
         )
@@ -37,4 +36,4 @@ abstract class AppDatabase : RoomDatabase() {
 }
 
 val Context.appDatabase: AppDatabase
-  get() = AppDatabase.getInstance(this.applicationContext as Application)
+  get() = AppDatabase.getInstance(this)
