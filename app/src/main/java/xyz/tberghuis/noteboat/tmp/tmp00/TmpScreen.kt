@@ -18,11 +18,12 @@ fun TmpScreen(
 ) {
   Column {
     Text("hello tmp screen")
+    Text("category list: ${vm.categoryList}")
 
     Button(onClick = {
       vm.insertCategories()
     }) {
-      Text("button")
+      Text("insertCategories")
     }
 
   }
