@@ -1,4 +1,4 @@
-package xyz.tberghuis.noteboat.tmp
+package xyz.tberghuis.noteboat.tmp.tmp00
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -15,7 +15,6 @@ class TmpActivity : ComponentActivity() {
       NoteBoatTheme {
         Surface(
           modifier = Modifier.fillMaxSize(),
-//          color = MaterialTheme.colors.background
         ) {
           TmpScreen()
         }

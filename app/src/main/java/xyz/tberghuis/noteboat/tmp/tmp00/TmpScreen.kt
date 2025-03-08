@@ -1,8 +1,7 @@
-package xyz.tberghuis.noteboat.tmp
+package xyz.tberghuis.noteboat.tmp.tmp00
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -11,9 +10,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import xyz.tberghuis.noteboat.ui.theme.NoteBoatTheme
 
 @Composable
-fun TmpScreen(
-//  vm: TmpVm = viewModel()
-) {
+fun TmpScreen() {
   Column {
     Text("hello tmp screen")
   }
