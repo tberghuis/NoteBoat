@@ -19,3 +19,4 @@ local.properties
 .idea/other.xml
 .kotlin/
 /.idea/appInsightsSettings.xml
+/app/default/release/

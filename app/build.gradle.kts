@@ -13,8 +13,8 @@ android {
     applicationId = "site.thomasberghuis.noteboat"
     minSdk = 27
     targetSdk = 35
-    versionCode = 23
-    versionName = "2.12.0"
+    versionCode = 24
+    versionName = "2.12.1"
 
     testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     vectorDrawables {
@@ -80,7 +80,6 @@ dependencies {
   implementation(libs.androidx.ui)
   implementation(libs.androidx.ui.graphics)
   implementation(libs.androidx.ui.tooling.preview)
-//  implementation(libs.androidx.material)
   implementation(libs.androidx.material3)
 
   testImplementation(libs.junit)
