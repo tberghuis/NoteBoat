@@ -109,7 +109,8 @@ dependencies {
 
 
 //  implementation(libs.jna)
-  implementation("net.java.dev.jna:jna:5.13.0@aar")
+  // the @aar includes libjnidispatch.so
+  implementation("net.java.dev.jna:jna:5.17.0@aar")
 
 
 }
