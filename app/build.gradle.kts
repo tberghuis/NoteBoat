@@ -20,6 +20,12 @@ android {
     vectorDrawables {
       useSupportLibrary = true
     }
+
+//    ndk {
+//      abiFilters.addAll(listOf("arm64-v8a", "armeabi-v7a", "x86", "x86_64"))
+//    }
+
+
   }
 
   buildTypes {
@@ -102,11 +108,8 @@ dependencies {
   implementation(libs.accompanist.permissions)
 
 
-
-
-
-
-  implementation(libs.jna)
+//  implementation(libs.jna)
+  implementation("net.java.dev.jna:jna:5.13.0@aar")
 
 
 }
