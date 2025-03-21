@@ -100,6 +100,15 @@ dependencies {
   // coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.4'
   implementation(libs.kotlinx.datetime)
   implementation(libs.accompanist.permissions)
+
+
+
+
+
+
+  implementation(libs.jna)
+
+
 }
 
 ksp {
