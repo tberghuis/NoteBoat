@@ -107,12 +107,8 @@ dependencies {
   implementation(libs.kotlinx.datetime)
   implementation(libs.accompanist.permissions)
 
-
-//  implementation(libs.jna)
   // the @aar includes libjnidispatch.so
   implementation("net.java.dev.jna:jna:5.17.0@aar")
-
-
 }
 
 ksp {
