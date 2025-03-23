@@ -36,9 +36,7 @@ class MainActivity : ComponentActivity() {
     setContent {
       NoteBoatTheme {
         Surface(modifier = Modifier.fillMaxSize()) {
-          // todo
-//          NoteBoatNavGraph()
-          FfiTest()
+          NoteBoatNavGraph()
         }
       }
     }
