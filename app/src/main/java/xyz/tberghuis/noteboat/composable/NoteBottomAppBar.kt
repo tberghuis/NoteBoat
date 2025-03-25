@@ -111,8 +111,8 @@ fun PushToTranscribe(
   )
   FloatingActionButton(
     modifier = Modifier
-      .padding(end = 20.dp)
-      .focusProperties { canFocus = false },
+      .padding(end = 20.dp),
+//      .focusProperties { canFocus = false },
     onClick = { },
     interactionSource = interactionSource,
   ) {
