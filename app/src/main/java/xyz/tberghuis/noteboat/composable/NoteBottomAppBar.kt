@@ -98,25 +98,36 @@ fun NoteBottomAppBar(
 fun PushToTranscribe(
   transcribingStateFlow: MutableStateFlow<TranscribingState>,
 ) {
+  val launcher = rememberLauncherForActivityResult(
+    ActivityResultContracts.RequestPermission()
+  ) {}
+  val context = LocalContext.current
   val interactionSource = remember { MutableInteractionSource() }
   interactionSource.onIsPressedStateChanged(
     onPressBegin = {
       logd("press begin")
-      transcribingStateFlow.value = TranscribingState.TRANSCRIBING
+      if (ContextCompat.checkSelfPermission(
+          context,
+          Manifest.permission.RECORD_AUDIO
+        ) == PackageManager.PERMISSION_GRANTED
+      ) {
+        transcribingStateFlow.value = TranscribingState.TRANSCRIBING
+      } else {
+        launcher.launch(Manifest.permission.RECORD_AUDIO)
+      }
     },
     onPressEnd = {
       logd("press end")
       transcribingStateFlow.value = TranscribingState.NOT_TRANSCRIBING
     },
   )
+
   FloatingActionButton(
     modifier = Modifier
       .padding(end = 20.dp),
-//      .focusProperties { canFocus = false },
     onClick = { },
     interactionSource = interactionSource,
   ) {
     Icon(Icons.Filled.Mic, "push to transcribe")
   }
 }
-
