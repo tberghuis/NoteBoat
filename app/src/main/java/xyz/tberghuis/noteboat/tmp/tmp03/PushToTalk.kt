@@ -1,6 +1,8 @@
 package xyz.tberghuis.noteboat.tmp.tmp03
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.gestures.detectTapGestures
+import androidx.compose.foundation.interaction.InteractionSource
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.Arrangement
@@ -65,5 +67,28 @@ fun PushToTalk() {
         )
       },
     )
+  }
+}
+
+@SuppressLint("ComposableNaming")
+@Composable
+fun InteractionSource.onIsPressedStateChanged(
+  onPressBegin: () -> Unit,
+  onPressEnd: () -> Unit,
+) {
+  val isPressed by this.collectIsPressedAsState()
+
+  LaunchedEffect(this) {
+    snapshotFlow { isPressed }.collect {
+      when (it) {
+        true -> {
+          onPressBegin()
+        }
+
+        false -> {
+          onPressEnd()
+        }
+      }
+    }
   }
 }
