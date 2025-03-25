@@ -21,7 +21,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import xyz.tberghuis.noteboat.utils.logd
 import androidx.compose.runtime.getValue
 import kotlinx.coroutines.flow.drop
-import kotlinx.coroutines.flow.take
 
 @Preview
 @Composable
@@ -37,29 +36,13 @@ fun PushToTalk() {
     },
   )
 
-
-//  val isPressed by interactionSource.collectIsPressedAsState()
-//
-//  LaunchedEffect(interactionSource) {
-//    snapshotFlow { isPressed }.collect {
-//      when (it) {
-//        true -> {
-//          logd("press start")
-//        }
-//
-//        false -> {
-//          logd("press stop")
-//        }
-//      }
-//    }
-//  }
-
   Column(
     modifier = Modifier.fillMaxSize(),
     verticalArrangement = Arrangement.Center,
     horizontalAlignment = Alignment.CenterHorizontally,
   ) {
     Text("push to talk")
+
     Button(
       onClick = {},
       interactionSource = interactionSource,
@@ -67,7 +50,6 @@ fun PushToTalk() {
       Text("button")
     }
 
-
     Button(
       onClick = {},
       modifier = Modifier.pointerInput(Unit) {
@@ -80,13 +62,11 @@ fun PushToTalk() {
         )
       }
     ) {
-      Text("detectTapGestures")
+      Text("detectTapGestures does not work")
     }
 
-
-
     Text(
-      "willitblend",
+      "willitblend works",
       modifier = Modifier.pointerInput(Unit) {
         detectTapGestures(
           onPress = {
@@ -96,7 +76,6 @@ fun PushToTalk() {
           }
         )
       }
-
     )
   }
 }
