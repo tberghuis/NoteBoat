@@ -20,12 +20,6 @@ android {
     vectorDrawables {
       useSupportLibrary = true
     }
-
-//    ndk {
-//      abiFilters.addAll(listOf("arm64-v8a", "armeabi-v7a", "x86", "x86_64"))
-//    }
-
-
   }
 
   buildTypes {
@@ -108,16 +102,10 @@ dependencies {
   implementation(libs.accompanist.permissions)
 
   // the @aar includes libjnidispatch.so
-  implementation("net.java.dev.jna:jna:5.17.0@aar")
+  // dev-whisper whisper-rs jnilib
+//  implementation("net.java.dev.jna:jna:5.17.0@aar")
 }
 
 ksp {
   arg("room.schemaLocation", "$projectDir/schemas")
 }
-
-//dependencies {
-//  val lifecycleVersion = "2.8.3"
-//  implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion")
-//  implementation("androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycleVersion")
-//  implementation("androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycleVersion")
-//}
