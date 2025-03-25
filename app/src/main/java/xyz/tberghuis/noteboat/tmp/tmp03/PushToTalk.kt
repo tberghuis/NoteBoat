@@ -10,26 +10,24 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.tooling.preview.Preview
 import xyz.tberghuis.noteboat.utils.logd
+import androidx.compose.runtime.getValue
 
 @Preview
 @Composable
 fun PushToTalk() {
 
   val interactionSource = remember { MutableInteractionSource() }
-  val isPressedState = interactionSource.collectIsPressedAsState()
+  val isPressed by interactionSource.collectIsPressedAsState()
 
-  LaunchedEffect(isPressedState) {
-    snapshotFlow { isPressedState.value }.collect {
+  LaunchedEffect(interactionSource) {
+    snapshotFlow { isPressed }.collect {
       when (it) {
         true -> {
           logd("press start")
