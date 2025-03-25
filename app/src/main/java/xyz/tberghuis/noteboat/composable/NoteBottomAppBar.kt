@@ -21,6 +21,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.focusProperties
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.unit.dp
@@ -44,30 +45,30 @@ fun NoteBottomAppBar(
     ActivityResultContracts.RequestPermission()
   ) {}
 
-  var fabOnClick: () -> Unit = {
-    when (PackageManager.PERMISSION_GRANTED) {
-      ContextCompat.checkSelfPermission(
-        context,
-        Manifest.permission.RECORD_AUDIO
-      ) -> {
-        keyboardController?.hide()
-        transcribingStateFlow.value = TranscribingState.TRANSCRIBING
-      }
+//  var fabOnClick: () -> Unit = {
+//    when (PackageManager.PERMISSION_GRANTED) {
+//      ContextCompat.checkSelfPermission(
+//        context,
+//        Manifest.permission.RECORD_AUDIO
+//      ) -> {
+//        keyboardController?.hide()
+//        transcribingStateFlow.value = TranscribingState.TRANSCRIBING
+//      }
+//
+//      else -> {
+//        launcher.launch(Manifest.permission.RECORD_AUDIO)
+//      }
+//    }
+//  }
 
-      else -> {
-        launcher.launch(Manifest.permission.RECORD_AUDIO)
-      }
-    }
-  }
+//  var fabIcon = @Composable { Icon(Icons.Filled.Mic, "speech input") }
 
-  var fabIcon = @Composable { Icon(Icons.Filled.Mic, "speech input") }
-
-  if (transcribingState.value == TranscribingState.TRANSCRIBING) {
-    fabOnClick = {
-      transcribingStateFlow.value = TranscribingState.NOT_TRANSCRIBING
-    }
-    fabIcon = @Composable { Icon(Icons.Filled.MicOff, "stop speech input") }
-  }
+//  if (transcribingState.value == TranscribingState.TRANSCRIBING) {
+//    fabOnClick = {
+//      transcribingStateFlow.value = TranscribingState.NOT_TRANSCRIBING
+//    }
+//    fabIcon = @Composable { Icon(Icons.Filled.MicOff, "stop speech input") }
+//  }
 
   BottomAppBar(
     modifier = Modifier
@@ -109,7 +110,9 @@ fun PushToTranscribe(
     },
   )
   FloatingActionButton(
-    modifier = Modifier.padding(end = 20.dp),
+    modifier = Modifier
+      .padding(end = 20.dp)
+      .focusProperties { canFocus = false },
     onClick = { },
     interactionSource = interactionSource,
   ) {
