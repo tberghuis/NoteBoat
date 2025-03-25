@@ -1,7 +1,6 @@
 package xyz.tberghuis.noteboat.screen
 
 import androidx.activity.compose.BackHandler
-import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Cancel
@@ -11,9 +10,9 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.TextFieldValue
 import kotlinx.coroutines.launch
 import xyz.tberghuis.noteboat.composable.OnPauseLifecycleEvent
@@ -69,21 +68,6 @@ fun NewNoteScreen(
       NoteBottomAppBar(viewModel.transcribingStateFlow, onComplete)
     }
   )
-
-  val keyboardController = LocalSoftwareKeyboardController.current
-  LaunchedEffect(true) {
-    viewModel.transcribingStateFlow.collect {
-      when (it) {
-        TranscribingState.TRANSCRIBING -> {
-          keyboardController?.hide()
-        }
-
-        else -> {
-          // todo
-        }
-      }
-    }
-  }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
