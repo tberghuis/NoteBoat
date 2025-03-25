@@ -20,27 +20,39 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.tooling.preview.Preview
 import xyz.tberghuis.noteboat.utils.logd
 import androidx.compose.runtime.getValue
+import kotlinx.coroutines.flow.drop
+import kotlinx.coroutines.flow.take
 
 @Preview
 @Composable
 fun PushToTalk() {
 
   val interactionSource = remember { MutableInteractionSource() }
-  val isPressed by interactionSource.collectIsPressedAsState()
+  interactionSource.onIsPressedStateChanged(
+    onPressBegin = {
+      logd("press begin")
+    },
+    onPressEnd = {
+      logd("press end")
+    },
+  )
 
-  LaunchedEffect(interactionSource) {
-    snapshotFlow { isPressed }.collect {
-      when (it) {
-        true -> {
-          logd("press start")
-        }
 
-        false -> {
-          logd("press stop")
-        }
-      }
-    }
-  }
+//  val isPressed by interactionSource.collectIsPressedAsState()
+//
+//  LaunchedEffect(interactionSource) {
+//    snapshotFlow { isPressed }.collect {
+//      when (it) {
+//        true -> {
+//          logd("press start")
+//        }
+//
+//        false -> {
+//          logd("press stop")
+//        }
+//      }
+//    }
+//  }
 
   Column(
     modifier = Modifier.fillMaxSize(),
@@ -94,20 +106,24 @@ fun PushToTalk() {
 fun InteractionSource.onIsPressedStateChanged(
   onPressBegin: () -> Unit,
   onPressEnd: () -> Unit,
+  // dropFirst = true prevents onPressEnd running on first composition
+  dropFirst: Boolean = true
 ) {
   val isPressed by this.collectIsPressedAsState()
-
   LaunchedEffect(this) {
-    snapshotFlow { isPressed }.collect {
-      when (it) {
-        true -> {
-          onPressBegin()
-        }
+    snapshotFlow { isPressed }
+      .drop(
+        if (dropFirst) 1 else 0
+      ).collect {
+        when (it) {
+          true -> {
+            onPressBegin()
+          }
 
-        false -> {
-          onPressEnd()
+          false -> {
+            onPressEnd()
+          }
         }
       }
-    }
   }
 }
