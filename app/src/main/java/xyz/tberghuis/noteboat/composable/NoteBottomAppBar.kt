@@ -83,7 +83,7 @@ fun NoteBottomAppBar(
 //      fabIcon()
 //    }
 
-    PushToTranscribe()
+    PushToTranscribe(transcribingStateFlow)
 
     FloatingActionButton(
       onClick = onComplete
@@ -94,14 +94,18 @@ fun NoteBottomAppBar(
 }
 
 @Composable
-fun PushToTranscribe() {
+fun PushToTranscribe(
+  transcribingStateFlow: MutableStateFlow<TranscribingState>,
+) {
   val interactionSource = remember { MutableInteractionSource() }
   interactionSource.onIsPressedStateChanged(
     onPressBegin = {
       logd("press begin")
+      transcribingStateFlow.value = TranscribingState.TRANSCRIBING
     },
     onPressEnd = {
       logd("press end")
+      transcribingStateFlow.value = TranscribingState.NOT_TRANSCRIBING
     },
   )
   FloatingActionButton(
