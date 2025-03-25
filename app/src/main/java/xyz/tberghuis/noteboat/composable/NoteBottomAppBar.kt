@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.pm.PackageManager
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.imePadding
@@ -17,6 +18,7 @@ import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.remember
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -24,6 +26,8 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import kotlinx.coroutines.flow.MutableStateFlow
+import xyz.tberghuis.noteboat.tmp.tmp03.onIsPressedStateChanged
+import xyz.tberghuis.noteboat.utils.logd
 import xyz.tberghuis.noteboat.vm.TranscribingState
 
 @OptIn(ExperimentalComposeUiApi::class)
@@ -71,12 +75,16 @@ fun NoteBottomAppBar(
     contentPadding = PaddingValues(20.dp),
   ) {
     Spacer(Modifier.weight(1f))
-    FloatingActionButton(
-      modifier = Modifier.padding(end = 20.dp),
-      onClick = fabOnClick
-    ) {
-      fabIcon()
-    }
+
+//    FloatingActionButton(
+//      modifier = Modifier.padding(end = 20.dp),
+//      onClick = fabOnClick
+//    ) {
+//      fabIcon()
+//    }
+
+    PushToTranscribe()
+
     FloatingActionButton(
       onClick = onComplete
     ) {
@@ -84,3 +92,24 @@ fun NoteBottomAppBar(
     }
   }
 }
+
+@Composable
+fun PushToTranscribe() {
+  val interactionSource = remember { MutableInteractionSource() }
+  interactionSource.onIsPressedStateChanged(
+    onPressBegin = {
+      logd("press begin")
+    },
+    onPressEnd = {
+      logd("press end")
+    },
+  )
+  FloatingActionButton(
+    modifier = Modifier.padding(end = 20.dp),
+    onClick = { },
+    interactionSource = interactionSource,
+  ) {
+    Icon(Icons.Filled.Mic, "push to transcribe")
+  }
+}
+
