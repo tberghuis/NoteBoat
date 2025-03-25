@@ -9,10 +9,12 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
@@ -24,12 +26,21 @@ import xyz.tberghuis.noteboat.utils.logd
 fun PushToTalk() {
 
   val interactionSource = remember { MutableInteractionSource() }
-  val isPressed by interactionSource.collectIsPressedAsState()
+  val isPressedState = interactionSource.collectIsPressedAsState()
 
-  var currentStateTxt by remember { mutableStateOf("Not Pressed") }
-  var currentCount by remember { mutableStateOf(0) }
+  LaunchedEffect(isPressedState) {
+    snapshotFlow { isPressedState.value }.collect {
+      when (it) {
+        true -> {
+          logd("press start")
+        }
 
-
+        false -> {
+          logd("press stop")
+        }
+      }
+    }
+  }
 
   Column(
     modifier = Modifier.fillMaxSize(),
@@ -39,15 +50,16 @@ fun PushToTalk() {
     Text("push to talk")
     Button(
       onClick = {},
-      modifier = Modifier.pointerInput(Unit) {
-        detectTapGestures(
-          onPress = {
-            logd("press start")
-            tryAwaitRelease()
-            logd("press finish")
-          }
-        )
-      },
+//      modifier = Modifier.pointerInput(Unit) {
+//        detectTapGestures(
+//          onPress = {
+//            logd("press start")
+//            tryAwaitRelease()
+//            logd("press finish")
+//          }
+//        )
+//      },
+      interactionSource = interactionSource,
     ) {
       Text("button")
     }
