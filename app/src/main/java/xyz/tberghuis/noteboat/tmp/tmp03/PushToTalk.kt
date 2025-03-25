@@ -55,6 +55,24 @@ fun PushToTalk() {
       Text("button")
     }
 
+
+    Button(
+      onClick = {},
+      modifier = Modifier.pointerInput(Unit) {
+        detectTapGestures(
+          onPress = {
+            logd("press start")
+            tryAwaitRelease()
+            logd("press finish")
+          }
+        )
+      }
+    ) {
+      Text("detectTapGestures")
+    }
+
+
+
     Text(
       "willitblend",
       modifier = Modifier.pointerInput(Unit) {
@@ -65,7 +83,8 @@ fun PushToTalk() {
             logd("press finish")
           }
         )
-      },
+      }
+
     )
   }
 }
