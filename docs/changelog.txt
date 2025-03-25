@@ -1,3 +1,6 @@
+v2.13.0    2025-03-25  dev-whisper
+  push to transcribe
+
 v2.12.1    2025-03-09  dev-categories
   minor refactoring
 
