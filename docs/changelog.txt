@@ -1,3 +1,6 @@
+v2.14.0    2025-10-08  001-note-number
+  update dependencies
+
 v2.13.0    2025-03-25  dev-whisper
   push to transcribe
 
