@@ -10,7 +10,8 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
-import kotlinx.datetime.Clock
+import kotlin.time.Clock
+import kotlin.time.ExperimentalTime
 import xyz.tberghuis.noteboat.MainApplication
 import xyz.tberghuis.noteboat.controller.SpeechController
 import xyz.tberghuis.noteboat.data.appDatabase
@@ -41,6 +42,7 @@ class EditNoteViewModel(
     }
   }
 
+  @OptIn(ExperimentalTime::class)
   fun updateNote(noteText: String) {
     logd("updateNote $noteText")
     viewModelScope.launch {

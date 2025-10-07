@@ -7,12 +7,13 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
+import kotlin.time.Clock
+import kotlin.time.ExperimentalTime
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import kotlinx.datetime.Clock
 import xyz.tberghuis.noteboat.MainApplication
 import xyz.tberghuis.noteboat.controller.SpeechController
 import xyz.tberghuis.noteboat.data.Note
@@ -71,6 +72,7 @@ class NewNoteViewModel(
     }
   }
 
+  @OptIn(ExperimentalTime::class)
   fun saveNewNote(newNote: String) {
     // todo check trim newNoteText is not empty
     viewModelScope.launch {
