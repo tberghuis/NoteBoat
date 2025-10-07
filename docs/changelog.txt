@@ -1,4 +1,4 @@
-v2.14.0    2025-10-08  001-note-number
+v2.14.0    2025-10-08  001-note-number  8fd7d3124fdc2cce535c9ceeea0e449c46ba56dd
   update dependencies
 
 v2.13.0    2025-03-25  dev-whisper
