@@ -108,15 +108,19 @@ fun HomeContent() {
     contentPadding = PaddingValues(10.dp)
   ) {
     // when key = note_id there was a bug, could not swipe to reveal after toggling note.pinned
-    items(allNotes.value,
+    items(
+      allNotes.value,
       key = { it.hashCode() }
     ) { note ->
+
+      // calc note number
+
       Box(
         Modifier.fillMaxWidth(),
         contentAlignment = Alignment.Center
       ) {
         ActionsCard(note)
-        TmpNoteCard(
+        NoteCard(
           note,
           offsetNotes.value.contains(note),
           viewModel::onRevealActions,

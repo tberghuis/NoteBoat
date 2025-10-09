@@ -39,6 +39,7 @@ fun TmpHomeContent() {
         ActionsCard(note)
         TmpNoteCard(
           note,
+          1000,
           offsetNotes.value.contains(note),
           viewModel::onRevealActions,
           viewModel::onHideActions
