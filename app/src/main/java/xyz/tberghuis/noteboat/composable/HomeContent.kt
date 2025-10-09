@@ -1,4 +1,4 @@
-package xyz.tberghuis.noteboat.tmp.tmp02
+package xyz.tberghuis.noteboat.composable
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
@@ -14,11 +14,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import xyz.tberghuis.noteboat.vm.HomeViewModel
-import xyz.tberghuis.noteboat.composable.ActionsCard
 import xyz.tberghuis.noteboat.data.Note
 
 @Composable
-fun TmpHomeContent() {
+fun HomeContent() {
   val viewModel: HomeViewModel = viewModel()
   val allNotes = viewModel.allNotes.collectAsState(listOf())
   val offsetNotes = viewModel.offsetNotes.collectAsState(setOf())
@@ -39,7 +38,7 @@ fun TmpHomeContent() {
         contentAlignment = Alignment.Center
       ) {
         ActionsCard(note)
-        TmpNoteCard(
+        NoteCard(
           note,
           noteNumber,
           offsetNotes.value.contains(note),

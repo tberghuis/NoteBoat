@@ -1,4 +1,4 @@
-package xyz.tberghuis.noteboat.tmp.tmp02
+package xyz.tberghuis.noteboat.composable
 
 import android.annotation.SuppressLint
 import androidx.compose.animation.core.MutableTransitionState
@@ -31,7 +31,7 @@ import xyz.tberghuis.noteboat.LocalNavController
 
 @SuppressLint("UnusedTransitionTargetStateParameter")
 @Composable
-fun TmpNoteCard(
+fun NoteCard(
   note: Note,
   noteNumber: Int?,
   isOffset: Boolean,

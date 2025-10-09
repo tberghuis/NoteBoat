@@ -1,3 +1,6 @@
+v2.15.0    2025-10-10  002-note-number
+  add note number top right of note card
+
 v2.14.0    2025-10-08  001-note-number  8fd7d3124fdc2cce535c9ceeea0e449c46ba56dd
   update dependencies
 
