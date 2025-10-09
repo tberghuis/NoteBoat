@@ -35,9 +35,7 @@ fun TmpHomeContent() {
 
 
       // calc note number
-      
-
-
+      val noteNumber = calcNoteNumber()
 
       Box(
         Modifier.fillMaxWidth(),
@@ -46,7 +44,7 @@ fun TmpHomeContent() {
         ActionsCard(note)
         TmpNoteCard(
           note,
-          1000,
+          noteNumber,
           offsetNotes.value.contains(note),
           viewModel::onRevealActions,
           viewModel::onHideActions
@@ -58,4 +56,8 @@ fun TmpHomeContent() {
       Spacer(Modifier.height(70.dp))
     }
   }
+}
+
+fun calcNoteNumber(): Int? {
+  return 1000
 }

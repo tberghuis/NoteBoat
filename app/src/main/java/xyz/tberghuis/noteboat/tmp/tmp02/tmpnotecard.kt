@@ -36,7 +36,7 @@ import xyz.tberghuis.noteboat.LocalNavController
 @Composable
 fun TmpNoteCard(
   note: Note,
-  noteNumber: Int,
+  noteNumber: Int?,
   isOffset: Boolean,
   onRevealActions: (note: Note) -> Unit,
   onHideActions: (note: Note) -> Unit,
@@ -92,15 +92,17 @@ fun TmpNoteCard(
         Text(note.noteText)
       }
       // note number
-      Text(
-        noteNumber.toString(),
-        modifier = Modifier,
-        color = Color.Red,
+      if (noteNumber != null) {
+        Text(
+          noteNumber.toString(),
+          modifier = Modifier,
+          color = Color.Red,
 //    fontSize: TextUnit = TextUnit.Unspecified,
 //    fontStyle: FontStyle? = null,
 //    fontWeight: FontWeight? = null,
 //    fontFamily: FontFamily? = null,
-      )
+        )
+      }
     }
   }
 }
