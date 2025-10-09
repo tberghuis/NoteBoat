@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -16,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import xyz.tberghuis.noteboat.vm.HomeViewModel
 import xyz.tberghuis.noteboat.composable.ActionsCard
+import xyz.tberghuis.noteboat.data.Note
 
 @Composable
 fun TmpHomeContent() {
@@ -32,11 +32,8 @@ fun TmpHomeContent() {
         item.hashCode()
       }
     ) { index, note ->
-
-
       // calc note number
-      val noteNumber = calcNoteNumber()
-
+      val noteNumber = calcNoteNumber(note, index, allNotes.value.size)
       Box(
         Modifier.fillMaxWidth(),
         contentAlignment = Alignment.Center
@@ -58,6 +55,9 @@ fun TmpHomeContent() {
   }
 }
 
-fun calcNoteNumber(): Int? {
-  return 1000
+private fun calcNoteNumber(note: Note, index: Int, totalNotes: Int): Int? {
+  if (note.pinned) {
+    return null
+  }
+  return totalNotes - index
 }
