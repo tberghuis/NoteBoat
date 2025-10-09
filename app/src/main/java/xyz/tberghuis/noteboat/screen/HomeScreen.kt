@@ -48,6 +48,7 @@ import kotlin.math.roundToInt
 import xyz.tberghuis.noteboat.LocalNavController
 import xyz.tberghuis.noteboat.R
 import xyz.tberghuis.noteboat.composable.ActionsCard
+import xyz.tberghuis.noteboat.tmp.tmp02.TmpHomeContent
 import xyz.tberghuis.noteboat.tmp.tmp02.TmpNoteCard
 
 @Composable
@@ -69,7 +70,8 @@ fun HomeScreen() {
         Modifier
           .padding(contentPadding)
       ) {
-        HomeContent()
+//        HomeContent()
+        TmpHomeContent()
       }
     },
   )
