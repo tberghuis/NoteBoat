@@ -7,7 +7,11 @@ import androidx.compose.animation.core.rememberTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectHorizontalDragGestures
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
@@ -68,17 +72,29 @@ fun TmpNoteCard(
       },
 //    elevation = 10.dp
   ) {
-    Column(
-      modifier = Modifier.padding(10.dp)
-    ) {
 
-      if (note.pinned) {
-        Icon(
-          Icons.TwoTone.PushPin, "pinned",
-          modifier = Modifier.offset(x = (-8).dp, y = (-5).dp),
-        )
+    Row(
+      modifier = Modifier
+          .padding(10.dp)
+//      horizontalArrangement = Arrangement.SpaceBetween,
+    ) {
+      Column(
+        modifier = Modifier
+          .weight(1f)
+      ) {
+        if (note.pinned) {
+          Icon(
+            Icons.TwoTone.PushPin, "pinned",
+            modifier = Modifier.offset(x = (-8).dp, y = (-5).dp),
+          )
+        }
+        Text(note.noteText)
       }
-      Text(note.noteText)
+//      Spacer(Modifier.weight(1f))
+      // note number
+      Text("1")
     }
+
+
   }
 }
