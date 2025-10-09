@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
@@ -25,9 +26,12 @@ fun TmpHomeContent() {
     contentPadding = PaddingValues(10.dp)
   ) {
     // when key = note_id there was a bug, could not swipe to reveal after toggling note.pinned
-    items(allNotes.value,
-      key = { it.hashCode() }
-    ) { note ->
+    itemsIndexed(
+      items = allNotes.value,
+      key = { index, item ->
+        item.hashCode()
+      }
+    ) { index, note ->
       Box(
         Modifier.fillMaxWidth(),
         contentAlignment = Alignment.Center
