@@ -7,11 +7,8 @@ import androidx.compose.animation.core.rememberTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectHorizontalDragGestures
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
@@ -74,7 +71,6 @@ fun TmpNoteCard(
       },
 //    elevation = 10.dp
   ) {
-
     Row(
       modifier = Modifier
         .padding(10.dp)
@@ -91,16 +87,11 @@ fun TmpNoteCard(
         }
         Text(note.noteText)
       }
-      // note number
       if (noteNumber != null) {
         Text(
           noteNumber.toString(),
           modifier = Modifier,
           color = Color.Red,
-//    fontSize: TextUnit = TextUnit.Unspecified,
-//    fontStyle: FontStyle? = null,
-//    fontWeight: FontWeight? = null,
-//    fontFamily: FontFamily? = null,
         )
       }
     }
