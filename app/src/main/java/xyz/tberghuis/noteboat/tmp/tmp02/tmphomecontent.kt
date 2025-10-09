@@ -32,6 +32,13 @@ fun TmpHomeContent() {
         item.hashCode()
       }
     ) { index, note ->
+
+
+      // calc note number
+      
+
+
+
       Box(
         Modifier.fillMaxWidth(),
         contentAlignment = Alignment.Center

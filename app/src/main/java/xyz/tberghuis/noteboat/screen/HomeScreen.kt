@@ -112,9 +112,6 @@ fun HomeContent() {
       allNotes.value,
       key = { it.hashCode() }
     ) { note ->
-
-      // calc note number
-
       Box(
         Modifier.fillMaxWidth(),
         contentAlignment = Alignment.Center
