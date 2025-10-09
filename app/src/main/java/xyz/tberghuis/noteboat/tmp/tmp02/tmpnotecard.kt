@@ -24,6 +24,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
@@ -75,8 +76,7 @@ fun TmpNoteCard(
 
     Row(
       modifier = Modifier
-          .padding(10.dp)
-//      horizontalArrangement = Arrangement.SpaceBetween,
+        .padding(10.dp)
     ) {
       Column(
         modifier = Modifier
@@ -90,11 +90,16 @@ fun TmpNoteCard(
         }
         Text(note.noteText)
       }
-//      Spacer(Modifier.weight(1f))
       // note number
-      Text("1")
+      Text(
+        "1000",
+        modifier = Modifier,
+        color = Color.Red,
+//    fontSize: TextUnit = TextUnit.Unspecified,
+//    fontStyle: FontStyle? = null,
+//    fontWeight: FontWeight? = null,
+//    fontFamily: FontFamily? = null,
+      )
     }
-
-
   }
 }
