@@ -48,6 +48,7 @@ import kotlin.math.roundToInt
 import xyz.tberghuis.noteboat.LocalNavController
 import xyz.tberghuis.noteboat.R
 import xyz.tberghuis.noteboat.composable.ActionsCard
+import xyz.tberghuis.noteboat.tmp.tmp02.TmpNoteCard
 
 @Composable
 fun HomeScreen() {
@@ -113,7 +114,7 @@ fun HomeContent() {
         contentAlignment = Alignment.Center
       ) {
         ActionsCard(note)
-        NoteCard(
+        TmpNoteCard(
           note,
           offsetNotes.value.contains(note),
           viewModel::onRevealActions,
