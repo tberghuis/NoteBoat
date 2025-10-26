@@ -14,10 +14,11 @@
 .cxx
 local.properties
 
-/app/release/
-.idea/deploymentTargetSelector.xml
-.idea/other.xml
-.kotlin/
+/.idea/deploymentTargetSelector.xml
+/.idea/other.xml
 /.idea/appInsightsSettings.xml
-/app/default/release/
 /.idea/deviceManager.xml
+
+/app/release/
+/.kotlin/
+/app/default/release/
