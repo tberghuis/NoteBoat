@@ -11,6 +11,7 @@ import xyz.tberghuis.noteboat.data.NoteDao
 import xyz.tberghuis.noteboat.data.OptionDao
 import xyz.tberghuis.noteboat.ui.theme.NoteBoatTheme
 import xyz.tberghuis.noteboat.data.appDatabase
+import xyz.tberghuis.noteboat.tmp.tmp02.TmpScreen
 
 class MainActivity : ComponentActivity() {
   private lateinit var noteDao: NoteDao
@@ -34,9 +35,10 @@ class MainActivity : ComponentActivity() {
     enableEdgeToEdge()
     setContent {
       NoteBoatTheme {
-        Surface(modifier = Modifier.fillMaxSize()) {
-          NoteBoatNavGraph()
-        }
+//        Surface(modifier = Modifier.fillMaxSize()) {
+//          NoteBoatNavGraph()
+//        }
+        TmpScreen()
       }
     }
   }
