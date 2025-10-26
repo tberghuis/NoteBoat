@@ -30,8 +30,6 @@ class MainActivity : ComponentActivity() {
     ) {
       setShowWhenLocked(true)
     }
-
-//    WindowCompat.setDecorFitsSystemWindows(window, false)
     enableEdgeToEdge()
     setContent {
       NoteBoatTheme {
