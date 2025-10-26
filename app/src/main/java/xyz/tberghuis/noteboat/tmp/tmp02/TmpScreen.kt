@@ -14,7 +14,7 @@ import xyz.tberghuis.noteboat.ui.theme.NoteBoatTheme
 fun TmpScreen(
 ) {
   Column {
-    Text("hello world screen fdsfsd")
+    Text("hello world screen")
 
     Button(onClick = {
     }) {
