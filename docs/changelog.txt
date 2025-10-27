@@ -1,3 +1,6 @@
+v2.16.0    2025-10-27  003-remember-scroll-position
+  home screen remembers scroll position
+
 v2.15.0    2025-10-10  002-note-number
   add note number top right of note card
 
