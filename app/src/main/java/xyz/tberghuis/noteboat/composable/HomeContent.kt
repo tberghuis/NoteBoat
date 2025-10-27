@@ -20,7 +20,6 @@ import xyz.tberghuis.noteboat.data.Note
 fun HomeContent() {
   val viewModel: HomeViewModel = viewModel()
   val allNotes = viewModel.allNotes.collectAsState()
-//  val offsetNotes = viewModel.offsetNotes.collectAsState(setOf())
   val offsetNotes = viewModel.offsetNotes.collectAsState()
   LazyColumn(
     contentPadding = PaddingValues(10.dp)
