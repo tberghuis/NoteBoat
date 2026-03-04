@@ -22,3 +22,5 @@ local.properties
 /app/release/
 /.kotlin/
 /app/default/release/
+/.idea/markdown.xml
+/.idea/misc.xml
