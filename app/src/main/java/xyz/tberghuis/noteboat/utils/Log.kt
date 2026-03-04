@@ -7,7 +7,7 @@ import android.util.Log
 //  if (BuildConfig.DEBUG) Log.d("xxx", s)
 //}
 
-
+// todo test that proguard removes this from release builds
 fun logd(s: String) {
   Log.d("xxx", s)
 }
