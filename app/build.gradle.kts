@@ -1,6 +1,6 @@
 plugins {
   alias(libs.plugins.android.application)
-  alias(libs.plugins.jetbrains.kotlin.android)
+//  alias(libs.plugins.jetbrains.kotlin.android)
   alias(libs.plugins.ksp)
   alias(libs.plugins.compose.compiler)
 }
@@ -32,18 +32,18 @@ android {
   // allow for developing with a different app id, in which
   // compose previews will still work
   // (could not get compose previews to work with a new build type)
-  flavorDimensions += "version"
-  productFlavors {
-    create("default") {
-      dimension = "version"
-    }
-    // change the launcher icon, app name and app id
-    create("dev") {
-      dimension = "version"
-      applicationIdSuffix = ".dev"
-      versionNameSuffix = "-dev"
-    }
-  }
+//  flavorDimensions += "version"
+//  productFlavors {
+//    create("default") {
+//      dimension = "version"
+//    }
+//    // change the launcher icon, app name and app id
+//    create("dev") {
+//      dimension = "version"
+//      applicationIdSuffix = ".dev"
+//      versionNameSuffix = "-dev"
+//    }
+//  }
 
   compileOptions {
     // was meant to fix kotlinx-datetime, no class found error java...Instant
