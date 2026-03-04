@@ -2,9 +2,9 @@
 # https://kotlinlang.org/docs/releases.html
 kotlin = "2.2.21"
 # https://github.com/google/ksp/releases
-ksp = "2.3.0"
+ksp = "2.3.2"
 accompanistPermissions = "0.37.3"
-agp = "8.13.0"
+agp = "9.1.0"
 datastorePreferences = "1.1.7"
 kotlinxDatetime = "0.7.1"
 coreKtx = "1.17.0"
