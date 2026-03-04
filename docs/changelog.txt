@@ -1,3 +1,6 @@
+v2.17.0    2026-03-04  004-agp9
+  update gradle dependencies
+
 v2.16.0    2025-10-27  003-remember-scroll-position
   home screen remembers scroll position
 
