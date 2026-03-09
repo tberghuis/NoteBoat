@@ -11,7 +11,7 @@ android {
     // NOTE does not match package of source code
     applicationId = "site.thomasberghuis.noteboat"
     minSdk = 27
-    targetSdk = 35
+    targetSdk = 36
     versionCode = 29
     versionName = "2.17.0"
 
