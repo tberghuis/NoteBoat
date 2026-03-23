@@ -26,7 +26,7 @@ class SpeechControllerAndroid(
   private val transcribingStateFlow: MutableStateFlow<TranscribingState>,
   private val textFieldValueState: MutableState<TextFieldValue>,
   private val updateDb: (String) -> Unit
-) {
+) : SpeechController {
 
   private val speechRecognizerIntent: Intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
   private val speechRecognizer: SpeechRecognizer = SpeechRecognizer.createSpeechRecognizer(context)
@@ -34,16 +34,16 @@ class SpeechControllerAndroid(
   private val audioManager = context.getSystemService(AUDIO_SERVICE) as AudioManager
 
   //  var setMute = false
-  var setMusicMute = false
-  var setNotificationMute = false
+  override var setMusicMute = false
+  override var setNotificationMute = false
 
-  val recognitionListenerEventSharedFlow: MutableSharedFlow<RecognitionListenerEvent> =
+  override val recognitionListenerEventSharedFlow: MutableSharedFlow<RecognitionListenerEvent> =
     MutableSharedFlow()
 
-  val partialResultsFlow = MutableSharedFlow<String>()
-  val resultsFlow = MutableSharedFlow<String>()
+  override val partialResultsFlow = MutableSharedFlow<String>()
+  override val resultsFlow = MutableSharedFlow<String>()
 
-  var baseTextFieldValue = TextFieldValue()
+  override var baseTextFieldValue = TextFieldValue()
 
   init {
     speechRecognizerIntent.putExtra(
@@ -58,7 +58,7 @@ class SpeechControllerAndroid(
 
   }
 
-  suspend fun run() {
+  override suspend fun run() {
     coroutineScope {
       setRecognitionListener(
         speechRecognizer,
