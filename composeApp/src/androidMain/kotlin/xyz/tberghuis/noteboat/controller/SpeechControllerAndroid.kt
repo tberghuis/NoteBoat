@@ -21,7 +21,7 @@ import kotlinx.coroutines.launch
 import xyz.tberghuis.noteboat.utils.logd
 import java.util.*
 
-class XxxSpeechController(
+class SpeechControllerAndroid(
   private val context: Context,
   private val transcribingStateFlow: MutableStateFlow<TranscribingState>,
   private val textFieldValueState: MutableState<TextFieldValue>,
@@ -280,6 +280,3 @@ class XxxSpeechController(
 
 
 }
-
-
-
