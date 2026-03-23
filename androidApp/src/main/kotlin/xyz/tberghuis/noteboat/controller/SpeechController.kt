@@ -62,10 +62,8 @@ class XxxSpeechController(
     coroutineScope {
       setRecognitionListener(
         speechRecognizer,
-        this@XxxSpeechController,
         this,
         audioManager,
-        context
       )
       launch {
         transcribingStateFlow.collect {
@@ -170,15 +168,14 @@ class XxxSpeechController(
 
   private fun setRecognitionListener(
     speechRecognizer: SpeechRecognizer,
-    speechController: XxxSpeechController,
+//    speechController: XxxSpeechController,
     scope: CoroutineScope,
     audioManager: AudioManager,
-    context: Context
   ) {
 
     fun emitRecognitionListenerEvent(e: RecognitionListenerEvent) {
       scope.launch {
-        speechController.recognitionListenerEventSharedFlow.emit(e)
+        recognitionListenerEventSharedFlow.emit(e)
       }
     }
 
@@ -202,7 +199,7 @@ class XxxSpeechController(
             return false
           }
           try {
-            speechController.audioManager.adjustStreamVolume(
+            audioManager.adjustStreamVolume(
               AudioManager.STREAM_NOTIFICATION,
               ADJUST_MUTE,
               0
@@ -212,11 +209,11 @@ class XxxSpeechController(
           }
           return true
         }
-        if (!speechController.setNotificationMute) {
-          speechController.setNotificationMute = muteStream(AudioManager.STREAM_NOTIFICATION)
+        if (!setNotificationMute) {
+          setNotificationMute = muteStream(AudioManager.STREAM_NOTIFICATION)
         }
-        if (!speechController.setMusicMute) {
-          speechController.setMusicMute = muteStream(AudioManager.STREAM_MUSIC)
+        if (!setMusicMute) {
+          setMusicMute = muteStream(AudioManager.STREAM_MUSIC)
         }
       }
 
@@ -256,7 +253,7 @@ class XxxSpeechController(
 
           data?.get(0)?.let {
             scope.launch {
-              speechController.resultsFlow.emit(it)
+              resultsFlow.emit(it)
             }
           }
         }
@@ -270,7 +267,7 @@ class XxxSpeechController(
           logd(data.toString())
           data?.get(0)?.let {
             scope.launch {
-              speechController.partialResultsFlow.emit(it)
+              partialResultsFlow.emit(it)
             }
           }
         }
