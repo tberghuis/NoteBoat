@@ -4,20 +4,15 @@
 //import androidx.compose.runtime.MutableState
 //import androidx.compose.ui.text.input.TextFieldValue
 //import kotlinx.coroutines.coroutineScope
+//import kotlinx.coroutines.flow.MutableSharedFlow
 //import kotlinx.coroutines.launch
 //import xyz.tberghuis.noteboat.utils.logd
 //
 //interface XxxSpeechController {
-//
-//
-//  val audioManager = context.getSystemService(AUDIO_SERVICE) as AudioManager
-//
-//  //  var setMute = false
 //  var setMusicMute = false
 //  var setNotificationMute = false
 //
-//  val recognitionListenerEventSharedFlow: MutableSharedFlow<RecognitionListenerEvent> =
-//    MutableSharedFlow()
+//  val recognitionListenerEventSharedFlow: MutableSharedFlow<RecognitionListenerEvent>
 //
 //  val partialResultsFlow = MutableSharedFlow<String>()
 //  val resultsFlow = MutableSharedFlow<String>()
