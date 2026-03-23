@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 import kotlin.time.Clock
 import kotlin.time.ExperimentalTime
 import xyz.tberghuis.noteboat.MainApplication
-import xyz.tberghuis.noteboat.controller.SpeechController
+import xyz.tberghuis.noteboat.controller.XxxSpeechController
 import xyz.tberghuis.noteboat.data.appDatabase
 import xyz.tberghuis.noteboat.utils.logd
 
@@ -27,7 +27,7 @@ class EditNoteViewModel(
 
   val transcribingStateFlow = MutableStateFlow(TranscribingState.NOT_TRANSCRIBING)
   val speechController =
-    SpeechController(
+    XxxSpeechController(
       application,
       transcribingStateFlow,
       noteTextFieldValueState,

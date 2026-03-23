@@ -22,7 +22,7 @@ import xyz.tberghuis.noteboat.utils.logd
 import xyz.tberghuis.noteboat.vm.TranscribingState
 import java.util.*
 
-class SpeechController(
+class XxxSpeechController(
   private val context: Context,
   private val transcribingStateFlow: MutableStateFlow<TranscribingState>,
   private val textFieldValueState: MutableState<TextFieldValue>,
@@ -61,7 +61,7 @@ class SpeechController(
 
   suspend fun run() {
     coroutineScope {
-      setRecognitionListener(speechRecognizer, this@SpeechController, this, audioManager, context)
+      setRecognitionListener(speechRecognizer, this@XxxSpeechController, this, audioManager, context)
       launch {
         transcribingStateFlow.collect {
           when (it) {
@@ -164,7 +164,7 @@ class SpeechController(
 
 fun setRecognitionListener(
   speechRecognizer: SpeechRecognizer,
-  speechController: SpeechController,
+  speechController: XxxSpeechController,
   scope: CoroutineScope,
   audioManager: AudioManager,
   context: Context
