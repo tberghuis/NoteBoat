@@ -31,7 +31,7 @@ class XxxSpeechController(
   private val speechRecognizerIntent: Intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
   private val speechRecognizer: SpeechRecognizer = SpeechRecognizer.createSpeechRecognizer(context)
 
-  val audioManager = context.getSystemService(AUDIO_SERVICE) as AudioManager
+  private val audioManager = context.getSystemService(AUDIO_SERVICE) as AudioManager
 
   //  var setMute = false
   var setMusicMute = false
@@ -63,7 +63,6 @@ class XxxSpeechController(
       setRecognitionListener(
         speechRecognizer,
         this,
-        audioManager,
       )
       launch {
         transcribingStateFlow.collect {
@@ -170,7 +169,7 @@ class XxxSpeechController(
     speechRecognizer: SpeechRecognizer,
 //    speechController: XxxSpeechController,
     scope: CoroutineScope,
-    audioManager: AudioManager,
+//    audioManager: AudioManager,
   ) {
 
     fun emitRecognitionListenerEvent(e: RecognitionListenerEvent) {
