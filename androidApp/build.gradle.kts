@@ -67,6 +67,11 @@ dependencies {
   implementation(libs.androidx.navigation.compose)
   implementation(libs.androidx.datastore.preferences)
   implementation(libs.accompanist.permissions)
+
+
+//  implementation(platform(libs.koin.bom))
+//  implementation(libs.koin.core)
+
 }
 
 ksp {
