@@ -15,6 +15,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import xyz.tberghuis.noteboat.MainApplication
+import xyz.tberghuis.noteboat.controller.SpeechControllerAndroid
 import xyz.tberghuis.noteboat.controller.TranscribingState
 import xyz.tberghuis.noteboat.controller.XxxSpeechController
 import xyz.tberghuis.noteboat.data.Note
@@ -33,7 +34,7 @@ class NewNoteViewModel(
   val noteTextFieldValueState = mutableStateOf(TextFieldValue())
   val transcribingStateFlow = MutableStateFlow(TranscribingState.NOT_TRANSCRIBING)
   val speechController =
-    XxxSpeechController(
+    SpeechControllerAndroid(
       application,
       transcribingStateFlow,
       noteTextFieldValueState,
