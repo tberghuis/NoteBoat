@@ -1,12 +1,12 @@
-//package xyz.tberghuis.noteboat.controller
-//
-//
+package xyz.tberghuis.noteboat.controller
+
+
 //import androidx.compose.runtime.MutableState
 //import androidx.compose.ui.text.input.TextFieldValue
 //import kotlinx.coroutines.coroutineScope
 //import kotlinx.coroutines.launch
 //import xyz.tberghuis.noteboat.utils.logd
-//import xyz.tberghuis.noteboat.vm.TranscribingState
+//import xyz.tberghuis.noteboat.controller.TranscribingState
 //
 //class XxxSpeechController(
 //  private val context: Context,

@@ -13,6 +13,7 @@ import kotlinx.coroutines.launch
 import kotlin.time.Clock
 import kotlin.time.ExperimentalTime
 import xyz.tberghuis.noteboat.MainApplication
+import xyz.tberghuis.noteboat.controller.TranscribingState
 import xyz.tberghuis.noteboat.controller.XxxSpeechController
 import xyz.tberghuis.noteboat.data.appDatabase
 import xyz.tberghuis.noteboat.utils.logd

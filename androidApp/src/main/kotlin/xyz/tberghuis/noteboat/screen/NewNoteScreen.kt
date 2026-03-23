@@ -17,11 +17,11 @@ import androidx.compose.ui.text.input.TextFieldValue
 import kotlinx.coroutines.launch
 import xyz.tberghuis.noteboat.composable.OnPauseLifecycleEvent
 import xyz.tberghuis.noteboat.vm.NewNoteViewModel
-import xyz.tberghuis.noteboat.vm.TranscribingState
 import xyz.tberghuis.noteboat.composable.NoteBottomAppBar
 import xyz.tberghuis.noteboat.composable.NoteContent
 import androidx.lifecycle.viewmodel.compose.viewModel
 import xyz.tberghuis.noteboat.LocalNavController
+import xyz.tberghuis.noteboat.controller.TranscribingState
 
 @Composable
 fun NewNoteScreen(

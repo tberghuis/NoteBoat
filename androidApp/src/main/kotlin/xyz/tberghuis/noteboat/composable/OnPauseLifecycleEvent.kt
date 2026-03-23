@@ -10,7 +10,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
-import xyz.tberghuis.noteboat.vm.TranscribingState
+import xyz.tberghuis.noteboat.controller.TranscribingState
 
 @Composable
 fun OnPauseLifecycleEvent(

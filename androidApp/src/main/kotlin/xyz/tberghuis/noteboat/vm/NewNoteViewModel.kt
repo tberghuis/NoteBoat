@@ -15,6 +15,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import xyz.tberghuis.noteboat.MainApplication
+import xyz.tberghuis.noteboat.controller.TranscribingState
 import xyz.tberghuis.noteboat.controller.XxxSpeechController
 import xyz.tberghuis.noteboat.data.Note
 import xyz.tberghuis.noteboat.data.appDatabase
@@ -85,6 +86,3 @@ class NewNoteViewModel(
   }
 }
 
-enum class TranscribingState {
-  TRANSCRIBING, NOT_TRANSCRIBING
-}

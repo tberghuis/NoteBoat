@@ -19,7 +19,6 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import xyz.tberghuis.noteboat.utils.logd
-import xyz.tberghuis.noteboat.vm.TranscribingState
 import java.util.*
 
 class XxxSpeechController(

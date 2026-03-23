@@ -23,8 +23,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import kotlinx.coroutines.flow.MutableStateFlow
+import xyz.tberghuis.noteboat.controller.TranscribingState
 import xyz.tberghuis.noteboat.utils.logd
-import xyz.tberghuis.noteboat.vm.TranscribingState
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable

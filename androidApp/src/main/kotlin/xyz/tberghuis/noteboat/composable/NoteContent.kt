@@ -20,7 +20,7 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.text.input.TextFieldValue
 import kotlinx.coroutines.flow.StateFlow
-import xyz.tberghuis.noteboat.vm.TranscribingState
+import xyz.tberghuis.noteboat.controller.TranscribingState
 
 @Composable
 fun NoteContent(
