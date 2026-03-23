@@ -20,11 +20,16 @@ fun TmpScreen(
 
   Column {
     Text("will: ${viewModel.willitblend}")
+
+
+
+
     Text("hello world screen")
 
     Button(onClick = {
+      viewModel.factoryCreate()
     }) {
-      Text("insertCategories")
+      Text("factory create")
     }
 
   }
