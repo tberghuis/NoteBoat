@@ -60,7 +60,13 @@ class XxxSpeechController(
 
   suspend fun run() {
     coroutineScope {
-      setRecognitionListener(speechRecognizer, this@XxxSpeechController, this, audioManager, context)
+      setRecognitionListener(
+        speechRecognizer,
+        this@XxxSpeechController,
+        this,
+        audioManager,
+        context
+      )
       launch {
         transcribingStateFlow.collect {
           when (it) {
@@ -71,6 +77,7 @@ class XxxSpeechController(
 
               startListening()
             }
+
             TranscribingState.NOT_TRANSCRIBING -> {
               logd("not transcribing")
               stopListening()
@@ -82,9 +89,10 @@ class XxxSpeechController(
         recognitionListenerEventSharedFlow.collect {
           when (it) {
             RecognitionListenerEvent.ON_RESULTS, RecognitionListenerEvent.ON_ERROR_CONTINUE
-            -> {
+              -> {
               continueListening()
             }
+
             else -> {
               // todo
             }
@@ -159,120 +167,124 @@ class XxxSpeechController(
       startListening()
     }
   }
-}
 
-fun setRecognitionListener(
-  speechRecognizer: SpeechRecognizer,
-  speechController: XxxSpeechController,
-  scope: CoroutineScope,
-  audioManager: AudioManager,
-  context: Context
-) {
+  private fun setRecognitionListener(
+    speechRecognizer: SpeechRecognizer,
+    speechController: XxxSpeechController,
+    scope: CoroutineScope,
+    audioManager: AudioManager,
+    context: Context
+  ) {
 
-  fun emitRecognitionListenerEvent(e: RecognitionListenerEvent) {
-    scope.launch {
-      speechController.recognitionListenerEventSharedFlow.emit(e)
-    }
-  }
-
-  speechRecognizer.setRecognitionListener(object : RecognitionListener {
-    override fun onReadyForSpeech(p0: Bundle?) {
-      logd("onReadyForSpeech")
+    fun emitRecognitionListenerEvent(e: RecognitionListenerEvent) {
+      scope.launch {
+        speechController.recognitionListenerEventSharedFlow.emit(e)
+      }
     }
 
-    override fun onBeginningOfSpeech() {
-      logd("onBeginningOfSpeech")
-      // don't worry about zen mode cause i catch exception
+    speechRecognizer.setRecognitionListener(object : RecognitionListener {
+      override fun onReadyForSpeech(p0: Bundle?) {
+        logd("onReadyForSpeech")
+      }
+
+      override fun onBeginningOfSpeech() {
+        logd("onBeginningOfSpeech")
+        // don't worry about zen mode cause i catch exception
 //      val zenMode: Int = try {
 //        Settings.Global.getInt(context.contentResolver, "zen_mode")
 //      } catch (e: Settings.SettingNotFoundException) {
 //        0
 //      }
 
-      fun muteStream(stream: Int): Boolean {
-        val isMuted = audioManager.isStreamMute(stream)
-        if (isMuted) {
-          return false
+        fun muteStream(stream: Int): Boolean {
+          val isMuted = audioManager.isStreamMute(stream)
+          if (isMuted) {
+            return false
+          }
+          try {
+            speechController.audioManager.adjustStreamVolume(
+              AudioManager.STREAM_NOTIFICATION,
+              ADJUST_MUTE,
+              0
+            )
+          } catch (e: SecurityException) {
+            // Do not Disturb
+          }
+          return true
         }
-        try {
-          speechController.audioManager.adjustStreamVolume(
-            AudioManager.STREAM_NOTIFICATION,
-            ADJUST_MUTE,
-            0
-          )
-        } catch (e: SecurityException) {
-          // Do not Disturb
+        if (!speechController.setNotificationMute) {
+          speechController.setNotificationMute = muteStream(AudioManager.STREAM_NOTIFICATION)
         }
-        return true
+        if (!speechController.setMusicMute) {
+          speechController.setMusicMute = muteStream(AudioManager.STREAM_MUSIC)
+        }
       }
-      if (!speechController.setNotificationMute) {
-        speechController.setNotificationMute = muteStream(AudioManager.STREAM_NOTIFICATION)
-      }
-      if (!speechController.setMusicMute) {
-        speechController.setMusicMute = muteStream(AudioManager.STREAM_MUSIC)
-      }
-    }
 
-    override fun onRmsChanged(p0: Float) {
+      override fun onRmsChanged(p0: Float) {
 //        logd("onRmsChanged")
-    }
-
-    override fun onBufferReceived(p0: ByteArray?) {
-      logd("onBufferReceived")
-    }
-
-    override fun onEndOfSpeech() {
-      logd("onEndOfSpeech ${System.currentTimeMillis()}")
-    }
-
-    override fun onError(p0: Int) {
-      logd("onError $p0 ${System.currentTimeMillis()}")
-
-      when (p0) {
-        ERROR_NO_MATCH, ERROR_SPEECH_TIMEOUT -> {
-          emitRecognitionListenerEvent(RecognitionListenerEvent.ON_ERROR_CONTINUE)
-        }
-        else -> {
-          // TODO snackbar show error
-          emitRecognitionListenerEvent(RecognitionListenerEvent.ON_ERROR_OTHER)
-        }
-        // TODO all other errors, emit not_transcribing to transcribingflow
       }
-    }
 
-    override fun onResults(p0: Bundle?) {
-      logd("onResults ${System.currentTimeMillis()}")
-      p0?.let {
-        val data = p0.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION)
-        logd(data.toString())
+      override fun onBufferReceived(p0: ByteArray?) {
+        logd("onBufferReceived")
+      }
 
-        data?.get(0)?.let {
-          scope.launch {
-            speechController.resultsFlow.emit(it)
+      override fun onEndOfSpeech() {
+        logd("onEndOfSpeech ${System.currentTimeMillis()}")
+      }
+
+      override fun onError(p0: Int) {
+        logd("onError $p0 ${System.currentTimeMillis()}")
+
+        when (p0) {
+          ERROR_NO_MATCH, ERROR_SPEECH_TIMEOUT -> {
+            emitRecognitionListenerEvent(RecognitionListenerEvent.ON_ERROR_CONTINUE)
+          }
+
+          else -> {
+            // TODO snackbar show error
+            emitRecognitionListenerEvent(RecognitionListenerEvent.ON_ERROR_OTHER)
+          }
+          // TODO all other errors, emit not_transcribing to transcribingflow
+        }
+      }
+
+      override fun onResults(p0: Bundle?) {
+        logd("onResults ${System.currentTimeMillis()}")
+        p0?.let {
+          val data = p0.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION)
+          logd(data.toString())
+
+          data?.get(0)?.let {
+            scope.launch {
+              speechController.resultsFlow.emit(it)
+            }
+          }
+        }
+        emitRecognitionListenerEvent(RecognitionListenerEvent.ON_RESULTS)
+      }
+
+      override fun onPartialResults(p0: Bundle?) {
+        logd("onPartialResults")
+        p0?.let {
+          val data = p0.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION)
+          logd(data.toString())
+          data?.get(0)?.let {
+            scope.launch {
+              speechController.partialResultsFlow.emit(it)
+            }
           }
         }
       }
-      emitRecognitionListenerEvent(RecognitionListenerEvent.ON_RESULTS)
-    }
 
-    override fun onPartialResults(p0: Bundle?) {
-      logd("onPartialResults")
-      p0?.let {
-        val data = p0.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION)
-        logd(data.toString())
-        data?.get(0)?.let {
-          scope.launch {
-            speechController.partialResultsFlow.emit(it)
-          }
-        }
+      override fun onEvent(p0: Int, p1: Bundle?) {
+        logd("onEvent")
       }
-    }
+    })
+  }
 
-    override fun onEvent(p0: Int, p1: Bundle?) {
-      logd("onEvent")
-    }
-  })
+
 }
+
 
 fun appendAtCursor(tfv: TextFieldValue, result: String): TextFieldValue {
   if (result.isNotEmpty()) {

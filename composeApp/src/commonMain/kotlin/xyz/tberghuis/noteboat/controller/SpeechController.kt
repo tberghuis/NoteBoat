@@ -1,22 +1,14 @@
-package xyz.tberghuis.noteboat.controller
-
-
+//package xyz.tberghuis.noteboat.controller
+//
+//
 //import androidx.compose.runtime.MutableState
 //import androidx.compose.ui.text.input.TextFieldValue
 //import kotlinx.coroutines.coroutineScope
 //import kotlinx.coroutines.launch
 //import xyz.tberghuis.noteboat.utils.logd
-//import xyz.tberghuis.noteboat.controller.TranscribingState
 //
-//class XxxSpeechController(
-//  private val context: Context,
-//  private val transcribingStateFlow: MutableStateFlow<TranscribingState>,
-//  private val textFieldValueState: MutableState<TextFieldValue>,
-//  private val updateDb: (String) -> Unit
-//) {
+//interface XxxSpeechController {
 //
-//  private val speechRecognizerIntent: Intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
-//  private val speechRecognizer: SpeechRecognizer = SpeechRecognizer.createSpeechRecognizer(context)
 //
 //  val audioManager = context.getSystemService(AUDIO_SERVICE) as AudioManager
 //
