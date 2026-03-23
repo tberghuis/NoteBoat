@@ -10,7 +10,9 @@ import android.util.Log
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
+import org.koin.android.ext.koin.androidContext
 import xyz.tberghuis.noteboat.data.preferencesRepository
+import xyz.tberghuis.noteboat.di.initKoin
 import xyz.tberghuis.noteboat.receiver.ScreenReceiver
 import xyz.tberghuis.noteboat.utils.logd
 
@@ -23,6 +25,14 @@ class MainApplication : Application() {
 
   override fun onCreate() {
     super.onCreate()
+
+    initKoin {
+      androidContext(this@MainApplication)
+    }
+
+
+
+
     channelLockScreen()
     registerScreenReceiver()
   }

@@ -3,6 +3,10 @@ package xyz.tberghuis.noteboat.tmp.tmp03
 import androidx.lifecycle.ViewModel
 
 class TmpKoinVm(): ViewModel() {
+    
+    
+    val willitblend = "will it blend"
+    
     init {
         println("Home TmpKoinVm initializing...")
     }
