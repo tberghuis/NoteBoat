@@ -10,17 +10,16 @@ import androidx.compose.ui.Modifier
 import xyz.tberghuis.noteboat.data.NoteDao
 import xyz.tberghuis.noteboat.data.OptionDao
 import xyz.tberghuis.noteboat.ui.theme.NoteBoatTheme
-import xyz.tberghuis.noteboat.data.appDatabase
 import xyz.tberghuis.noteboat.tmp.tmp02.TmpScreen
 
 class MainActivity : ComponentActivity() {
-  private lateinit var noteDao: NoteDao
-  private lateinit var optionDao: OptionDao
+//  private lateinit var noteDao: NoteDao
+//  private lateinit var optionDao: OptionDao
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    noteDao = appDatabase.noteDao()
-    optionDao = appDatabase.optionDao()
+//    noteDao = appDatabase.noteDao()
+//    optionDao = appDatabase.optionDao()
 
     // only if started by lock screen notification
     if (intent != null && intent.hasExtra(LOCK_SCREEN_EXTRA_START) && intent.getBooleanExtra(

@@ -6,6 +6,7 @@ import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.first
@@ -16,21 +17,22 @@ import xyz.tberghuis.noteboat.MainApplication
 import xyz.tberghuis.noteboat.controller.SpeechControllerAndroid
 import xyz.tberghuis.noteboat.controller.TranscribingState
 import xyz.tberghuis.noteboat.controller.XxxSpeechController
-import xyz.tberghuis.noteboat.data.appDatabase
+import xyz.tberghuis.noteboat.data.NoteDao
+import xyz.tberghuis.noteboat.tmp.tmp03.TmpSpeechControllerFactory
 import xyz.tberghuis.noteboat.utils.logd
 
 class EditNoteViewModel(
-  application: Application,
-  savedStateHandle: SavedStateHandle
-) : AndroidViewModel(application) {
+  savedStateHandle: SavedStateHandle,
+  val noteDao: NoteDao,
+  speechControllerFactory: TmpSpeechControllerFactory
+) : ViewModel() {
   val noteId: Int = savedStateHandle.get<Int>("noteId")!!
-  val noteDao = application.appDatabase.noteDao()
+//  val noteDao = application.appDatabase.noteDao()
   val noteTextFieldValueState = mutableStateOf(TextFieldValue())
 
   val transcribingStateFlow = MutableStateFlow(TranscribingState.NOT_TRANSCRIBING)
   val speechController =
-    SpeechControllerAndroid(
-      application,
+    speechControllerFactory.create(
       transcribingStateFlow,
       noteTextFieldValueState,
       ::updateNote

@@ -13,12 +13,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import org.koin.compose.viewmodel.koinViewModel
 import xyz.tberghuis.noteboat.vm.HomeViewModel
 import xyz.tberghuis.noteboat.data.Note
 
 @Composable
 fun HomeContent() {
-  val viewModel: HomeViewModel = viewModel()
+  val viewModel: HomeViewModel = koinViewModel()
   val allNotes = viewModel.allNotes.collectAsState()
   val offsetNotes = viewModel.offsetNotes.collectAsState()
   LazyColumn(

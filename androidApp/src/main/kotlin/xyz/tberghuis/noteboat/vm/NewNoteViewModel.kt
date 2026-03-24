@@ -6,6 +6,7 @@ import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlin.time.Clock
 import kotlin.time.ExperimentalTime
@@ -19,23 +20,27 @@ import xyz.tberghuis.noteboat.controller.SpeechControllerAndroid
 import xyz.tberghuis.noteboat.controller.TranscribingState
 import xyz.tberghuis.noteboat.controller.XxxSpeechController
 import xyz.tberghuis.noteboat.data.Note
-import xyz.tberghuis.noteboat.data.appDatabase
+import xyz.tberghuis.noteboat.data.NoteDao
+import xyz.tberghuis.noteboat.data.OptionDao
+import xyz.tberghuis.noteboat.tmp.tmp03.TmpSpeechControllerFactory
 import xyz.tberghuis.noteboat.utils.logd
 
 class NewNoteViewModel(
-  application: Application,
-  savedStateHandle: SavedStateHandle
-) : AndroidViewModel(application) {
+//  application: Application,
+  savedStateHandle: SavedStateHandle,
+  val noteDao: NoteDao,
+  val optionDao: OptionDao,
+  speechControllerFactory: TmpSpeechControllerFactory
+) : ViewModel() {
   val navParam: String? = savedStateHandle.get<String>("navParam")
-  val noteDao = application.appDatabase.noteDao()
-  val optionDao = application.appDatabase.optionDao()
+//  val noteDao = application.appDatabase.noteDao()
+//  val optionDao = application.appDatabase.optionDao()
 
   // if i was pedantic i could use null for initial
   val noteTextFieldValueState = mutableStateOf(TextFieldValue())
   val transcribingStateFlow = MutableStateFlow(TranscribingState.NOT_TRANSCRIBING)
   val speechController =
-    SpeechControllerAndroid(
-      application,
+    speechControllerFactory.create(
       transcribingStateFlow,
       noteTextFieldValueState,
       ::updateNewNoteDraft

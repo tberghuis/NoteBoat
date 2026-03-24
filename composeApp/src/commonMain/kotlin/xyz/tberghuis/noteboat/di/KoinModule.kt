@@ -8,20 +8,16 @@ import xyz.tberghuis.noteboat.tmp.tmp03.TmpKoinVm
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.singleOf
 import org.koin.core.module.dsl.viewModel
+import xyz.tberghuis.noteboat.vm.HomeViewModel
 
 expect val platformModule: Module
 
 val sharedModule = module {
-
-//  singleOf(::)
-  
-//  single<FruittieDao>{}
-
-//  viewModelOf(::TmpKoinVm)
-
   viewModel<TmpKoinVm> {
     TmpKoinVm(get(), get())
   }
+  
+  viewModelOf(::HomeViewModel)
 }
 
 

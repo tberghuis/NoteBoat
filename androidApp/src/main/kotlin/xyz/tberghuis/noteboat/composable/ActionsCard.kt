@@ -13,13 +13,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
+import org.koin.compose.viewmodel.koinViewModel
 import xyz.tberghuis.noteboat.vm.HomeViewModel
 import xyz.tberghuis.noteboat.data.Note
 
 @Composable
 fun ActionsCard(
   note: Note,
-  viewModel: HomeViewModel = viewModel()
+  viewModel: HomeViewModel = koinViewModel()
 ) {
   Box(
     Modifier
