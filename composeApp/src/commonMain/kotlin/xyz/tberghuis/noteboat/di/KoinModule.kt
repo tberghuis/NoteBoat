@@ -6,11 +6,22 @@ import org.koin.dsl.KoinAppDeclaration
 import org.koin.dsl.module
 import xyz.tberghuis.noteboat.tmp.tmp03.TmpKoinVm
 import org.koin.core.module.Module
+import org.koin.core.module.dsl.singleOf
+import org.koin.core.module.dsl.viewModel
 
 expect val platformModule: Module
 
 val sharedModule = module {
-  viewModelOf(::TmpKoinVm)
+
+//  singleOf(::)
+  
+//  single<FruittieDao>{}
+
+//  viewModelOf(::TmpKoinVm)
+
+  viewModel<TmpKoinVm> {
+    TmpKoinVm(get(), get())
+  }
 }
 
 

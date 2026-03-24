@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.Flow
 import xyz.tberghuis.noteboat.data.Fruittie
 
 @Dao
-interface TmpFruittieDao {
+interface FruittieDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(fruittie: Fruittie)
 

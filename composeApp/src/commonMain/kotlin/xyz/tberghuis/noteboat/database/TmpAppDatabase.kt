@@ -10,13 +10,16 @@ import androidx.room.RoomDatabaseConstructor
 @Database(entities = [Fruittie::class], version = 1)
 @ConstructedBy(AppDatabaseConstructor::class)
 abstract class TmpAppDatabase : RoomDatabase() {
-    abstract fun fruittieDao(): TmpFruittieDao
+  abstract fun fruittieDao(): FruittieDao
 }
 
 // The Room compiler generates the `actual` implementations.
+//@Suppress("NO_ACTUAL_FOR_EXPECT")
+//expect object AppDatabaseConstructor : RoomDatabaseConstructor<TmpAppDatabase> {
+//    override fun initialize(): TmpAppDatabase
+//}
+
 @Suppress("NO_ACTUAL_FOR_EXPECT")
-expect object AppDatabaseConstructor : RoomDatabaseConstructor<TmpAppDatabase> {
-    override fun initialize(): TmpAppDatabase
-}
+expect object AppDatabaseConstructor : RoomDatabaseConstructor<TmpAppDatabase>
 
 internal const val DB_FILE_NAME = "fruits.db"

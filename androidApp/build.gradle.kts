@@ -1,7 +1,9 @@
 plugins {
   alias(libs.plugins.androidApplication)
   alias(libs.plugins.composeCompiler)
-  alias(libs.plugins.ksp)
+  
+//  alias(libs.plugins.ksp)
+//  alias(libs.plugins.room)
 }
 
 android {
@@ -15,6 +17,10 @@ android {
     // todo update for release
     versionCode = 30
     versionName = "2.18.0"
+
+
+
+
   }
   packaging {
     resources {
@@ -56,7 +62,7 @@ dependencies {
 
 
   implementation(libs.androidx.room.runtime)
-  ksp(libs.androidx.room.compiler)
+//  ksp(libs.androidx.room.compiler)
   implementation(libs.androidx.room.ktx)
 
 
@@ -76,6 +82,10 @@ dependencies {
 
 }
 
-ksp {
-  arg("room.schemaLocation", "$projectDir/schemas")
-}
+//room {
+//    schemaDirectory("$projectDir/schemas")
+//}
+//
+//ksp {
+//  arg("room.schemaLocation", "$projectDir/schemas")
+//}

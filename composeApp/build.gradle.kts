@@ -34,6 +34,9 @@ kotlin {
 //      implementation(libs.koin.android)
 //      implementation(libs.koin.androidx.compose)
 
+      implementation(libs.koin.android)
+      implementation(libs.koin.androidx.compose)
+
     }
     commonMain.dependencies {
       implementation(libs.compose.runtime)
@@ -57,6 +60,11 @@ kotlin {
 
 
       implementation(libs.androidx.room.runtime)
+
+      implementation(libs.androidx.room.runtime)
+//  ksp(libs.androidx.room.compiler)
+      implementation(libs.androidx.room.ktx)
+
       implementation(libs.sqlite.bundled)
 
     }
@@ -72,7 +80,7 @@ kotlin {
 
 
 dependencies {
-//    debugImplementation(libs.compose.uiTooling)
+    add("kspAndroid", libs.androidx.room.compiler)
 }
 
 compose.desktop {
@@ -90,3 +98,8 @@ compose.desktop {
 room {
   schemaDirectory("$projectDir/schemas")
 }
+
+//ksp {
+//  arg("room.schemaLocation", "$projectDir/schemas")
+//}
+
