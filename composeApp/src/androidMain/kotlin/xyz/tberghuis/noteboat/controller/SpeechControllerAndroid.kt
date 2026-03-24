@@ -22,7 +22,7 @@ import xyz.tberghuis.noteboat.utils.logd
 import java.util.*
 
 class SpeechControllerAndroid(
-  private val context: Context,
+  context: Context,
   private val transcribingStateFlow: MutableStateFlow<TranscribingState>,
   private val textFieldValueState: MutableState<TextFieldValue>,
   private val updateDb: (String) -> Unit

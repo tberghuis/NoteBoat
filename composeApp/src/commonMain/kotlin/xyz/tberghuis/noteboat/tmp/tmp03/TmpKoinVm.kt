@@ -14,7 +14,7 @@ class TmpKoinVm(
   }
 
   fun factoryCreate() {
-    println(factory.create())
+//    println(factory.create())
   }
 
 
