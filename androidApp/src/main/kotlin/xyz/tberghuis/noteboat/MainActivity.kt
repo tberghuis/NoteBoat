@@ -33,10 +33,10 @@ class MainActivity : ComponentActivity() {
     enableEdgeToEdge()
     setContent {
       NoteBoatTheme {
-//        Surface(modifier = Modifier.fillMaxSize()) {
-//          NoteBoatNavGraph()
-//        }
-        TmpScreen()
+        Surface(modifier = Modifier.fillMaxSize()) {
+          NoteBoatNavGraph()
+        }
+//        TmpScreen()
       }
     }
   }
