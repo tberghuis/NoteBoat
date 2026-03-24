@@ -57,6 +57,7 @@ kotlin {
 
 
       implementation(libs.androidx.room.runtime)
+      implementation(libs.sqlite.bundled)
 
     }
     commonTest.dependencies {
