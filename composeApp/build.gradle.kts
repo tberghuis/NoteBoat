@@ -6,6 +6,11 @@ plugins {
   alias(libs.plugins.composeCompiler)
   alias(libs.plugins.composeHotReload)
   alias(libs.plugins.androidKmpLibrary)
+
+  alias(libs.plugins.ksp)
+  alias(libs.plugins.room)
+
+
 }
 
 kotlin {
@@ -50,6 +55,9 @@ kotlin {
       implementation(libs.koin.compose)
       implementation(libs.koin.compose.viewmodel)
 
+
+      implementation(libs.androidx.room.runtime)
+
     }
     commonTest.dependencies {
       implementation(libs.kotlin.test)
@@ -76,4 +84,8 @@ compose.desktop {
       packageVersion = "1.0.0"
     }
   }
+}
+
+room {
+  schemaDirectory("$projectDir/schemas")
 }
