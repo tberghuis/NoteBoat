@@ -62,6 +62,7 @@ kotlin {
       implementation(libs.androidx.room.runtime)
 
 //  ksp(libs.androidx.room.compiler)
+      // ktx has android specific stuff
 //      api(libs.androidx.room.ktx)
 
       implementation(libs.sqlite.bundled)
