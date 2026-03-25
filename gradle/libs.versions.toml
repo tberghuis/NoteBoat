@@ -28,7 +28,7 @@ accompanistPermissions = "0.37.3"
 
 materialIconsExtended= "1.7.8"
 
-koin-bom = "4.1.1"  # Stable version
+koin-bom = "4.2.0"  # Stable version
 
 sqlite = "2.6.2"
 
