@@ -11,7 +11,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
 import org.koin.android.ext.koin.androidContext
-import xyz.tberghuis.noteboat.data.preferencesRepository
 import xyz.tberghuis.noteboat.di.initKoin
 import xyz.tberghuis.noteboat.receiver.ScreenReceiver
 import xyz.tberghuis.noteboat.utils.logd
@@ -38,21 +37,21 @@ class MainApplication : Application() {
   }
 
   private fun registerScreenReceiver() {
-    logd("registerScreenReceiver")
-
-    CoroutineScope(IO).launch {
-      preferencesRepository.showShortcutLockScreenFlow.collect { showShortcut ->
-        if (showShortcut) {
-          registerReceiver(screenReceiver, screenReceiverIntentFilter)
-        } else {
-          try {
-            unregisterReceiver(screenReceiver)
-          } catch (e: IllegalArgumentException) {
-            Log.e("MainApplication", "$e")
-          }
-        }
-      }
-    }
+//    logd("registerScreenReceiver")
+//
+//    CoroutineScope(IO).launch {
+//      preferencesRepository.showShortcutLockScreenFlow.collect { showShortcut ->
+//        if (showShortcut) {
+//          registerReceiver(screenReceiver, screenReceiverIntentFilter)
+//        } else {
+//          try {
+//            unregisterReceiver(screenReceiver)
+//          } catch (e: IllegalArgumentException) {
+//            Log.e("MainApplication", "$e")
+//          }
+//        }
+//      }
+//    }
   }
 
   private fun channelLockScreen() {

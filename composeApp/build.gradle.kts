@@ -67,6 +67,7 @@ kotlin {
 
       implementation(libs.sqlite.bundled)
 
+      implementation(libs.androidx.datastore.preferences)
     }
     commonTest.dependencies {
       implementation(libs.kotlin.test)
@@ -80,7 +81,7 @@ kotlin {
 
 
 dependencies {
-    add("kspAndroid", libs.androidx.room.compiler)
+  add("kspAndroid", libs.androidx.room.compiler)
 }
 
 compose.desktop {

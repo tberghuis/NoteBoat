@@ -18,7 +18,6 @@ import xyz.tberghuis.noteboat.DB_FILENAME
 import xyz.tberghuis.noteboat.IMPORT_DB_FILENAME
 import xyz.tberghuis.noteboat.MainApplication
 import xyz.tberghuis.noteboat.data.AppDatabase
-import xyz.tberghuis.noteboat.data.preferencesRepository
 import xyz.tberghuis.noteboat.utils.logd
 
 class SettingsViewModel(
