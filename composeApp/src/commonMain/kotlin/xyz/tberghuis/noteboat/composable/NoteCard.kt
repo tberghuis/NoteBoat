@@ -1,6 +1,5 @@
 package xyz.tberghuis.noteboat.composable
 
-import android.annotation.SuppressLint
 import androidx.compose.animation.core.MutableTransitionState
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.rememberTransition
@@ -29,7 +28,6 @@ import xyz.tberghuis.noteboat.data.Note
 import kotlin.math.roundToInt
 import xyz.tberghuis.noteboat.LocalNavController
 
-@SuppressLint("UnusedTransitionTargetStateParameter")
 @Composable
 fun NoteCard(
   note: Note,
