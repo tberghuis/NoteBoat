@@ -37,10 +37,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionStatus
 import com.google.accompanist.permissions.rememberPermissionState
+import org.koin.compose.viewmodel.koinViewModel
 import xyz.tberghuis.noteboat.DEFAULT_BACKUP_DB_FILENAME
 import xyz.tberghuis.noteboat.LOCK_SCREEN_CHANNEL_ID
 import xyz.tberghuis.noteboat.LocalNavController
@@ -151,7 +151,7 @@ fun SettingsContent(padding: PaddingValues) {
 
 @Composable
 fun DeleteAllNotesButton(
-  vm: SettingsViewModel = viewModel()
+  vm: SettingsViewModel = koinViewModel()
 ) {
   Button(onClick = {
     vm.confirmDeleteAllNotesDialog = true
@@ -186,14 +186,15 @@ fun DeleteAllNotesButton(
 
 @Composable
 fun ImportFromBackupButton(
-  vm: SettingsViewModel = viewModel()
+  vm: SettingsViewModel = koinViewModel()
 ) {
   val launcher =
     rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
       logd("rememberLauncherForActivityResult $result")
       when (result.resultCode) {
         RESULT_OK -> {
-          result.data?.data?.let { vm.importDb(it) }
+          // todo
+//          result.data?.data?.let { vm.importDb(it) }
         }
       }
     }
@@ -210,7 +211,7 @@ fun ImportFromBackupButton(
 }
 
 @Composable
-fun LockscreenShortcutSetting(vm: SettingsViewModel = viewModel()) {
+fun LockscreenShortcutSetting(vm: SettingsViewModel = koinViewModel()) {
   val checked by vm.showShortcutLockScreenFlow.collectAsState(false)
   Text("Shortcut \"New voice note\" on lock screen")
   Switch(
@@ -239,12 +240,13 @@ fun SettingsScreenRow(
 
 @Composable
 fun BackupDatabase(
-  vm: SettingsViewModel = viewModel()
+  vm: SettingsViewModel = koinViewModel()
 ) {
   val launcher =
     rememberLauncherForActivityResult(ActivityResultContracts.CreateDocument("application/x-sqlite3")) { uri ->
       uri?.let {
-        vm.backupDb(uri)
+        // todo
+//        vm.backupDb(uri)
       }
     }
   Button(onClick = {

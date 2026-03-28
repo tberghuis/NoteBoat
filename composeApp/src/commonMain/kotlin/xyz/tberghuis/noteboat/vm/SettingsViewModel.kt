@@ -1,38 +1,29 @@
 package xyz.tberghuis.noteboat.vm
 
-import android.app.Application
-import android.net.Uri
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.room.Room
-import java.io.File
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
-import xyz.tberghuis.noteboat.DB_FILENAME
-import xyz.tberghuis.noteboat.IMPORT_DB_FILENAME
-import xyz.tberghuis.noteboat.MainApplication
-import xyz.tberghuis.noteboat.data.AppDatabase
-import xyz.tberghuis.noteboat.utils.logd
+import xyz.tberghuis.noteboat.data.PreferencesRepository
 
 class SettingsViewModel(
 //  application: Application,
+  private val preferencesRepository: PreferencesRepository
 ) : ViewModel() {
   //  private val mainApp = (application as MainApplication)
 //  private val preferencesRepository = application.preferencesRepository
 //  val db = application.appDatabase
   val showShortcutLockScreenFlow: Flow<Boolean>
-    get() = TODO()
-//  = preferencesRepository.showShortcutLockScreenFlow
+    get() = preferencesRepository.showShortcutLockScreenFlow
 
   var confirmDeleteAllNotesDialog by mutableStateOf(false)
 
-  fun importDb(importDbUri: Uri) {
+  // todo use kmp uri ....
+//  fun importDb(importDbUri: Uri) {
 //    viewModelScope.launch(IO) {
 //      val importDbFile = File(mainApp.filesDir, IMPORT_DB_FILENAME)
 //      val inputStream = mainApp.contentResolver.openInputStream(importDbUri)
@@ -65,7 +56,7 @@ class SettingsViewModel(
 //      // delete import db
 //      importNotesFile.delete()
 //    }
-  }
+//  }
 
   fun deleteAllNotes() {
     viewModelScope.launch(IO) {
@@ -82,7 +73,7 @@ class SettingsViewModel(
 
   // doitwrong, should do this with workmanager to be safe
   // from user canceling job
-  fun backupDb(backupFileUri: Uri) {
+//  fun backupDb(backupFileUri: Uri) {
 //    viewModelScope.launch(IO) {
 //      // checkpoint
 //      val query = "pragma wal_checkpoint(full)"
@@ -101,5 +92,5 @@ class SettingsViewModel(
 //        }
 //      }
 //    }
-  }
+//  }
 }
