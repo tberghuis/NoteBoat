@@ -16,9 +16,12 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
+import noteboat.composeapp.generated.resources.Res
+import noteboat.composeapp.generated.resources.app_name
+import noteboat.composeapp.generated.resources.settings
+import noteboat.composeapp.generated.resources.trash
+import org.jetbrains.compose.resources.stringResource
 import xyz.tberghuis.noteboat.LocalNavController
-import xyz.tberghuis.noteboat.R
 import xyz.tberghuis.noteboat.composable.HomeContent
 
 @Composable
@@ -52,17 +55,17 @@ fun HomeTopBar() {
   val navController = LocalNavController.current
   TopAppBar(
     modifier = Modifier,
-    title = { Text(stringResource(R.string.app_name)) },
+    title = { Text(stringResource(Res.string.app_name)) },
     actions = {
       IconButton(onClick = {
         navController.navigate("trash")
       }) {
-        Icon(Icons.Filled.Delete, stringResource(R.string.trash))
+        Icon(Icons.Filled.Delete, stringResource(Res.string.trash))
       }
       IconButton(onClick = {
         navController.navigate("settings")
       }) {
-        Icon(Icons.Filled.Settings, stringResource(R.string.settings))
+        Icon(Icons.Filled.Settings, stringResource(Res.string.settings))
       }
     }
   )
