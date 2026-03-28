@@ -26,29 +26,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import xyz.tberghuis.noteboat.controller.TranscribingState
 import xyz.tberghuis.noteboat.utils.logd
 
-@OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun NoteBottomAppBar(
-  transcribingStateFlow: MutableStateFlow<TranscribingState>,
-  onComplete: () -> Unit,
-) {
-  BottomAppBar(
-    modifier = Modifier
-      .imePadding(),
-    contentPadding = PaddingValues(20.dp),
-  ) {
-    Spacer(Modifier.weight(1f))
-    PushToTranscribe(transcribingStateFlow)
-    FloatingActionButton(
-      onClick = onComplete
-    ) {
-      Icon(Icons.Filled.Save, contentDescription = "save")
-    }
-  }
-}
-
-@Composable
-fun PushToTranscribe(
+actual fun PushToTranscribe(
   transcribingStateFlow: MutableStateFlow<TranscribingState>,
 ) {
   val launcher = rememberLauncherForActivityResult(
