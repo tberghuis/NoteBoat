@@ -1,6 +1,5 @@
 package xyz.tberghuis.noteboat.screen
 
-import androidx.activity.compose.BackHandler
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Delete
@@ -18,7 +17,9 @@ import xyz.tberghuis.noteboat.composable.NoteBottomAppBar
 import xyz.tberghuis.noteboat.composable.NoteContent
 import xyz.tberghuis.noteboat.composable.OnPauseLifecycleEvent
 import xyz.tberghuis.noteboat.vm.EditNoteViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigationevent.NavigationEventInfo
+import androidx.navigationevent.compose.NavigationBackHandler
+import androidx.navigationevent.compose.rememberNavigationEventState
 import org.koin.compose.viewmodel.koinViewModel
 import xyz.tberghuis.noteboat.LocalNavController
 
@@ -31,7 +32,10 @@ fun EditNoteScreen(
     viewModel.updateNote(viewModel.noteTextFieldValueState.value.text)
     navController.navigateUp()
   }
-  BackHandler {
+  
+  NavigationBackHandler(
+    state = rememberNavigationEventState(NavigationEventInfo.None),
+  ) {
     onComplete()
   }
 

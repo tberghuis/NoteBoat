@@ -73,6 +73,8 @@ kotlin {
 
       // todo migrate to navigation 3
       implementation(libs.androidx.navigation.compose)
+      
+      implementation(libs.compose.navigationevent)
     }
     commonTest.dependencies {
       implementation(libs.kotlin.test)
