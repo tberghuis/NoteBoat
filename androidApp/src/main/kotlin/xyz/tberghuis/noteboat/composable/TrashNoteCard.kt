@@ -20,13 +20,14 @@ import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.first
 import xyz.tberghuis.noteboat.utils.logd
 import androidx.lifecycle.viewmodel.compose.viewModel
+import org.koin.compose.viewmodel.koinViewModel
 import xyz.tberghuis.noteboat.vm.TrashScreenVm
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun TrashNoteCard(
   note: Note,
-  vm: TrashScreenVm = viewModel()
+  vm: TrashScreenVm = koinViewModel()
 ) {
   val dismissState = rememberSwipeToDismissBoxState()
 

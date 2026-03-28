@@ -12,6 +12,7 @@ import xyz.tberghuis.noteboat.vm.EditNoteViewModel
 import xyz.tberghuis.noteboat.vm.HomeViewModel
 import xyz.tberghuis.noteboat.vm.NewNoteViewModel
 import xyz.tberghuis.noteboat.vm.SettingsViewModel
+import xyz.tberghuis.noteboat.vm.TrashScreenVm
 
 expect val platformModule: Module
 
@@ -24,6 +25,7 @@ val sharedModule = module {
   viewModelOf(::SettingsViewModel)
   viewModelOf(::NewNoteViewModel)
   viewModelOf(::EditNoteViewModel)
+  viewModelOf(::TrashScreenVm)
 
 }
 

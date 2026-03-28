@@ -7,11 +7,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import org.koin.compose.viewmodel.koinViewModel
 import xyz.tberghuis.noteboat.vm.TrashScreenVm
 
 @Composable
 fun TrashNotesList(
-    viewModel: TrashScreenVm = viewModel()
+    viewModel: TrashScreenVm = koinViewModel()
 ) {
   val trashNotes = viewModel.trashNotes.collectAsState(listOf())
   LazyColumn(
