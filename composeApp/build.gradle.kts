@@ -37,6 +37,8 @@ kotlin {
       implementation(libs.koin.android)
       implementation(libs.koin.androidx.compose)
 
+      implementation(libs.accompanist.permissions)
+
     }
     commonMain.dependencies {
       implementation(libs.compose.runtime)
@@ -73,7 +75,7 @@ kotlin {
 
       // todo migrate to navigation 3
       implementation(libs.androidx.navigation.compose)
-      
+
       implementation(libs.compose.navigationevent)
     }
     commonTest.dependencies {
