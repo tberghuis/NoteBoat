@@ -8,6 +8,7 @@ import xyz.tberghuis.noteboat.tmp.tmp03.TmpKoinVm
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.singleOf
 import org.koin.core.module.dsl.viewModel
+import xyz.tberghuis.noteboat.vm.EditNoteViewModel
 import xyz.tberghuis.noteboat.vm.HomeViewModel
 import xyz.tberghuis.noteboat.vm.NewNoteViewModel
 import xyz.tberghuis.noteboat.vm.SettingsViewModel
@@ -18,11 +19,12 @@ val sharedModule = module {
   viewModel<TmpKoinVm> {
     TmpKoinVm(get(), get())
   }
-  
+
   viewModelOf(::HomeViewModel)
   viewModelOf(::SettingsViewModel)
   viewModelOf(::NewNoteViewModel)
-  
+  viewModelOf(::EditNoteViewModel)
+
 }
 
 

@@ -19,11 +19,12 @@ import xyz.tberghuis.noteboat.composable.NoteContent
 import xyz.tberghuis.noteboat.composable.OnPauseLifecycleEvent
 import xyz.tberghuis.noteboat.vm.EditNoteViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
+import org.koin.compose.viewmodel.koinViewModel
 import xyz.tberghuis.noteboat.LocalNavController
 
 @Composable
 fun EditNoteScreen(
-  viewModel: EditNoteViewModel = viewModel(),
+  viewModel: EditNoteViewModel = koinViewModel(),
 ) {
   val navController = LocalNavController.current
   val onComplete: () -> Unit = {
