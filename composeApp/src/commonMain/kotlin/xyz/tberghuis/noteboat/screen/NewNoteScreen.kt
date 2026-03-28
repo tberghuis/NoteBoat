@@ -1,6 +1,5 @@
 package xyz.tberghuis.noteboat.screen
 
-import androidx.activity.compose.BackHandler
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Cancel
@@ -14,12 +13,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.navigationevent.NavigationEventInfo
+import androidx.navigationevent.compose.NavigationBackHandler
+import androidx.navigationevent.compose.rememberNavigationEventState
 import kotlinx.coroutines.launch
 import xyz.tberghuis.noteboat.composable.OnPauseLifecycleEvent
 import xyz.tberghuis.noteboat.vm.NewNoteViewModel
 import xyz.tberghuis.noteboat.composable.NoteBottomAppBar
 import xyz.tberghuis.noteboat.composable.NoteContent
-import androidx.lifecycle.viewmodel.compose.viewModel
 import org.koin.compose.viewmodel.koinViewModel
 import xyz.tberghuis.noteboat.LocalNavController
 import xyz.tberghuis.noteboat.controller.TranscribingState
@@ -49,7 +50,9 @@ fun NewNoteScreen(
     navController.navigateUp()
   }
 
-  BackHandler {
+  NavigationBackHandler(
+    state = rememberNavigationEventState(NavigationEventInfo.None),
+  ) {
     onComplete()
   }
 
