@@ -1,10 +1,8 @@
 package xyz.tberghuis.noteboat.vm
 
-import android.app.Application
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.TextFieldValue
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -15,10 +13,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import xyz.tberghuis.noteboat.MainApplication
-import xyz.tberghuis.noteboat.controller.SpeechControllerAndroid
 import xyz.tberghuis.noteboat.controller.TranscribingState
-import xyz.tberghuis.noteboat.controller.XxxSpeechController
 import xyz.tberghuis.noteboat.data.Note
 import xyz.tberghuis.noteboat.data.NoteDao
 import xyz.tberghuis.noteboat.data.OptionDao

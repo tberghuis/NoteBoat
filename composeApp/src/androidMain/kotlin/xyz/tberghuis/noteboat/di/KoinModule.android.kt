@@ -9,6 +9,7 @@ import xyz.tberghuis.noteboat.tmp.tmp03.TmpSpeechControllerFactory
 import org.koin.android.ext.koin.androidApplication
 import xyz.tberghuis.noteboat.data.AppDatabase
 import xyz.tberghuis.noteboat.data.NoteDao
+import xyz.tberghuis.noteboat.data.OptionDao
 import xyz.tberghuis.noteboat.data.PreferencesRepository
 import xyz.tberghuis.noteboat.data.createDataStoreAndroid
 import xyz.tberghuis.noteboat.database.FruittieDao
@@ -29,6 +30,8 @@ actual val platformModule = module {
 
   single<AppDatabase> { get<RoomFactory>().createAppDatabase() }
   single<NoteDao> { get<AppDatabase>().noteDao() }
+
+  single<OptionDao> { get<AppDatabase>().optionDao() }
 
 
   single<DataStore<Preferences>> {

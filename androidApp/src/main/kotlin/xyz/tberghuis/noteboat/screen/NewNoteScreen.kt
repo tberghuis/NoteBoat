@@ -20,12 +20,13 @@ import xyz.tberghuis.noteboat.vm.NewNoteViewModel
 import xyz.tberghuis.noteboat.composable.NoteBottomAppBar
 import xyz.tberghuis.noteboat.composable.NoteContent
 import androidx.lifecycle.viewmodel.compose.viewModel
+import org.koin.compose.viewmodel.koinViewModel
 import xyz.tberghuis.noteboat.LocalNavController
 import xyz.tberghuis.noteboat.controller.TranscribingState
 
 @Composable
 fun NewNoteScreen(
-  viewModel: NewNoteViewModel = viewModel(),
+  viewModel: NewNoteViewModel = koinViewModel(),
 ) {
   val navController = LocalNavController.current
   val scope = rememberCoroutineScope()

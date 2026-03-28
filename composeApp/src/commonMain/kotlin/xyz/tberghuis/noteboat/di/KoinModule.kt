@@ -9,6 +9,7 @@ import org.koin.core.module.Module
 import org.koin.core.module.dsl.singleOf
 import org.koin.core.module.dsl.viewModel
 import xyz.tberghuis.noteboat.vm.HomeViewModel
+import xyz.tberghuis.noteboat.vm.NewNoteViewModel
 import xyz.tberghuis.noteboat.vm.SettingsViewModel
 
 expect val platformModule: Module
@@ -20,6 +21,7 @@ val sharedModule = module {
   
   viewModelOf(::HomeViewModel)
   viewModelOf(::SettingsViewModel)
+  viewModelOf(::NewNoteViewModel)
   
 }
 
