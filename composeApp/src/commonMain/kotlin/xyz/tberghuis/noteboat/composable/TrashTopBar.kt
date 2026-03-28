@@ -9,9 +9,10 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
+import noteboat.composeapp.generated.resources.Res
+import noteboat.composeapp.generated.resources.back
+import org.jetbrains.compose.resources.stringResource
 import xyz.tberghuis.noteboat.LocalNavController
-import xyz.tberghuis.noteboat.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -24,7 +25,7 @@ fun TrashTopBar() {
       IconButton(onClick = { navController.navigateUp() }) {
         Icon(
           imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-          contentDescription = stringResource(R.string.back)
+          contentDescription = stringResource(Res.string.back)
         )
       }
     },
