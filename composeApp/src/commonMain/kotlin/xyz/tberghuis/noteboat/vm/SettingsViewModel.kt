@@ -8,11 +8,13 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
+import xyz.tberghuis.noteboat.data.NoteDao
 import xyz.tberghuis.noteboat.data.PreferencesRepository
 
 class SettingsViewModel(
 //  application: Application,
-  private val preferencesRepository: PreferencesRepository
+  private val preferencesRepository: PreferencesRepository,
+  private val noteDao: NoteDao
 ) : ViewModel() {
   //  private val mainApp = (application as MainApplication)
 //  private val preferencesRepository = application.preferencesRepository
@@ -60,7 +62,7 @@ class SettingsViewModel(
 
   fun deleteAllNotes() {
     viewModelScope.launch(IO) {
-//      mainApp.appDatabase.noteDao().deleteAll()
+      noteDao.deleteAll()
     }
   }
 
