@@ -66,7 +66,7 @@ dependencies {
   implementation(libs.androidx.room.ktx)
 
 
-  implementation(platform(libs.androidx.compose.bom))
+//  implementation(platform(libs.androidx.compose.bom))
 
   implementation(libs.androidx.material.icons.extended)
 
