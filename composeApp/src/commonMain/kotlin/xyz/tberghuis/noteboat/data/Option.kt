@@ -21,7 +21,7 @@ interface OptionDao {
   fun getOptionFlow(optionKey: String): Flow<Option>
 
   @Query("SELECT option_value FROM option WHERE option_key = :optionKey")
-  fun getOption(optionKey: String): String
+  suspend fun getOption(optionKey: String): String
 
   @Query("update option set option_value = :optionValue where option_key = :optionKey")
   suspend fun updateOption(optionKey: String, optionValue: String)

@@ -85,6 +85,7 @@ kotlin {
       implementation(compose.desktop.currentOs)
       implementation(libs.kotlinx.coroutinesSwing)
       
+        implementation(libs.compose.ui)
       
 //           implementation("org.jetbrains.compose.material:material-icons-extended-desktop:1.7.3")
       
@@ -95,6 +96,7 @@ kotlin {
 
 dependencies {
   add("kspAndroid", libs.androidx.room.compiler)
+    add("kspJvm", libs.androidx.room.compiler)
 }
 
 compose.desktop {
