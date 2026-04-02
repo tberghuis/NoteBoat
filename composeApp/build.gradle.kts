@@ -29,11 +29,6 @@ kotlin {
       implementation(libs.compose.uiToolingPreview)
       implementation(libs.androidx.activity.compose)
 
-//      implementation(project.dependencies.platform(libs.koin.bom))
-//      implementation(libs.koin.core)
-//      implementation(libs.koin.android)
-//      implementation(libs.koin.androidx.compose)
-
       implementation(libs.koin.android)
       implementation(libs.koin.androidx.compose)
 
@@ -50,32 +45,18 @@ kotlin {
       implementation(libs.androidx.lifecycle.viewmodelCompose)
       implementation(libs.androidx.lifecycle.runtimeCompose)
 
-//      implementation(platform(libs.koin.bom))
-      // https://github.com/InsertKoinIO/koin/issues/1721
-//      api(project.dependencies.platform(libs.koin.bom))
-//      api(libs.koin.core)
-
       api(project.dependencies.platform(libs.koin.bom))
       implementation(libs.koin.core)
       implementation(libs.koin.compose)
       implementation(libs.koin.compose.viewmodel)
 
-
       implementation(libs.androidx.room.runtime)
-
-//  ksp(libs.androidx.room.compiler)
-      // ktx has android specific stuff
-//      api(libs.androidx.room.ktx)
-
       implementation(libs.sqlite.bundled)
-
       implementation(libs.androidx.datastore.preferences)
-
       implementation("org.jetbrains.compose.material:material-icons-extended:1.7.3")
 
       // todo migrate to navigation 3
       implementation(libs.androidx.navigation.compose)
-
       implementation(libs.compose.navigationevent)
     }
     commonTest.dependencies {
@@ -84,11 +65,6 @@ kotlin {
     jvmMain.dependencies {
       implementation(compose.desktop.currentOs)
       implementation(libs.kotlinx.coroutinesSwing)
-      
-        implementation(libs.compose.ui)
-      
-//           implementation("org.jetbrains.compose.material:material-icons-extended-desktop:1.7.3")
-      
     }
   }
 }
