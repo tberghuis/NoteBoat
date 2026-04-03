@@ -19,3 +19,5 @@ captures
 node_modules/
 
 androidApp/release/
+
+.idea/inspectionProfiles/Project_Default.xml
