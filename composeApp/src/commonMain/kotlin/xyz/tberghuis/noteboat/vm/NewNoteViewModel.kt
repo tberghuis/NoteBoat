@@ -21,13 +21,11 @@ import xyz.tberghuis.noteboat.tmp.tmp03.TmpSpeechControllerFactory
 import xyz.tberghuis.noteboat.utils.logd
 
 class NewNoteViewModel(
-//  application: Application,
-  savedStateHandle: SavedStateHandle,
+  val voice: Boolean,
   val noteDao: NoteDao,
   val optionDao: OptionDao,
   speechControllerFactory: TmpSpeechControllerFactory
 ) : ViewModel() {
-  val navParam: String? = savedStateHandle.get<String>("navParam")
 //  val noteDao = application.appDatabase.noteDao()
 //  val optionDao = application.appDatabase.optionDao()
 
@@ -42,9 +40,6 @@ class NewNoteViewModel(
     )
 
   init {
-
-    logd("navParam $navParam")
-
     viewModelScope.launch {
       val newNoteDraft = withContext(Dispatchers.IO) {
         optionDao.getOption("new_note_draft")
@@ -53,15 +48,13 @@ class NewNoteViewModel(
       speechController.run()
     }
     viewModelScope.launch {
-      logd("NewNoteViewModel navParam $navParam")
-      when (navParam) {
-        "new_voice_note" -> {
-          logd("new voice note")
-          delay(3000L)
-          logd("after delay 3000")
-          // doitwrong don't bother checkSelfPermission for now
-          transcribingStateFlow.value = TranscribingState.TRANSCRIBING
-        }
+      logd("NewNoteViewModel voice $voice")
+      if (voice) {
+        logd("new voice note")
+        delay(3000L)
+        logd("after delay 3000")
+        // doitwrong don't bother checkSelfPermission for now
+        transcribingStateFlow.value = TranscribingState.TRANSCRIBING
       }
     }
   }

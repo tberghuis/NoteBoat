@@ -12,11 +12,14 @@ import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
 import androidx.savedstate.serialization.SavedStateConfiguration
+import org.koin.compose.viewmodel.koinViewModel
+import org.koin.core.parameter.parametersOf
 import xyz.tberghuis.noteboat.screen.EditNoteScreen
 import xyz.tberghuis.noteboat.screen.HomeScreen
 import xyz.tberghuis.noteboat.screen.NewNoteScreen
 import xyz.tberghuis.noteboat.screen.SettingsScreen
 import xyz.tberghuis.noteboat.screen.TrashScreen
+import xyz.tberghuis.noteboat.vm.NewNoteViewModel
 
 @Composable
 fun NoteBoatNavDisplay(
@@ -40,7 +43,12 @@ fun NoteBoatNavDisplay(
           HomeScreen()
         }
         entry<RouteNewNote> { key ->
-          NewNoteScreen(key.voice)
+          val vm: NewNoteViewModel = koinViewModel(
+            parameters = {
+              parametersOf(key.voice)
+            }
+          )
+          NewNoteScreen(vm)
         }
         entry<RouteEditNote> { key ->
           EditNoteScreen(key.noteId)

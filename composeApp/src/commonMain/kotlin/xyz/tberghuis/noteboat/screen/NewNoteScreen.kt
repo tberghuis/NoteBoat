@@ -24,13 +24,14 @@ import xyz.tberghuis.noteboat.composable.NoteContent
 import org.koin.compose.viewmodel.koinViewModel
 import xyz.tberghuis.noteboat.LocalNavController
 import xyz.tberghuis.noteboat.controller.TranscribingState
+import xyz.tberghuis.noteboat.nav.LocalBackStackState
 
 @Composable
 fun NewNoteScreen(
-  viewModel: NewNoteViewModel = koinViewModel(),
+  viewModel: NewNoteViewModel,
 ) {
-  val navController = LocalNavController.current
   val scope = rememberCoroutineScope()
+  val backStack = LocalBackStackState.current
   val onComplete: () -> Unit = {
     if (viewModel.noteTextFieldValueState.value.text.trim().isEmpty()) {
       viewModel.updateNewNoteDraft("")
@@ -38,7 +39,7 @@ fun NewNoteScreen(
       // theoretically possible to overwrite db if press back before data loads
       viewModel.saveNewNote(viewModel.noteTextFieldValueState.value.text)
     }
-    navController.navigateUp()
+    backStack.removeLastOrNull()
   }
 
   val onCancel: () -> Unit = {
@@ -47,7 +48,7 @@ fun NewNoteScreen(
     }
     viewModel.noteTextFieldValueState.value = TextFieldValue()
     viewModel.updateNewNoteDraft("")
-    navController.navigateUp()
+    backStack.removeLastOrNull()
   }
 
   NavigationBackHandler(
