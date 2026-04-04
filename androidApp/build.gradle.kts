@@ -1,7 +1,7 @@
 plugins {
   alias(libs.plugins.androidApplication)
   alias(libs.plugins.composeCompiler)
-  
+
 //  alias(libs.plugins.ksp)
 //  alias(libs.plugins.room)
 }
@@ -17,8 +17,6 @@ android {
     // todo update for release
     versionCode = 30
     versionName = "2.18.0"
-
-
 
 
   }
@@ -80,6 +78,7 @@ dependencies {
   implementation(libs.koin.android)
   implementation(libs.koin.androidx.compose)
 
+  implementation(libs.androidx.navigation3.runtime)
 }
 
 //room {

@@ -6,21 +6,18 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Surface
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.ui.Modifier
-import xyz.tberghuis.noteboat.data.NoteDao
-import xyz.tberghuis.noteboat.data.OptionDao
+import androidx.navigation3.runtime.NavKey
 import xyz.tberghuis.noteboat.nav.NoteBoatNavDisplay
+import xyz.tberghuis.noteboat.nav.RouteHome
+import xyz.tberghuis.noteboat.nav.RouteNewNote
 import xyz.tberghuis.noteboat.ui.theme.NoteBoatTheme
-import xyz.tberghuis.noteboat.tmp.tmp02.TmpScreen
 
 class MainActivity : ComponentActivity() {
-//  private lateinit var noteDao: NoteDao
-//  private lateinit var optionDao: OptionDao
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-//    noteDao = appDatabase.noteDao()
-//    optionDao = appDatabase.optionDao()
 
     // only if started by lock screen notification
     if (intent != null && intent.hasExtra(LOCK_SCREEN_EXTRA_START) && intent.getBooleanExtra(
@@ -31,10 +28,17 @@ class MainActivity : ComponentActivity() {
       setShowWhenLocked(true)
     }
     enableEdgeToEdge()
+
+    val initialBackStack = mutableStateListOf<NavKey>(RouteHome)
+    println("MainActivity intent data ${intent.data}")
+    if (intent.data.toString() == "noteboat://noteboat/new-note/new_voice_note") {
+      initialBackStack.add(RouteNewNote(true))
+    }
+
     setContent {
       NoteBoatTheme {
         Surface(modifier = Modifier.fillMaxSize()) {
-          NoteBoatNavDisplay()
+          NoteBoatNavDisplay(initialBackStack)
         }
 //        TmpScreen()
       }
