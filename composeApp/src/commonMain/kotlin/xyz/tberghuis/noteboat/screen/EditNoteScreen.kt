@@ -21,6 +21,7 @@ import androidx.navigationevent.NavigationEventInfo
 import androidx.navigationevent.compose.NavigationBackHandler
 import androidx.navigationevent.compose.rememberNavigationEventState
 import xyz.tberghuis.noteboat.nav.LocalBackStackState
+import xyz.tberghuis.noteboat.nav.navigateUp
 
 @Composable
 fun EditNoteScreen(
@@ -29,7 +30,7 @@ fun EditNoteScreen(
   val backStack = LocalBackStackState.current
   val onComplete: () -> Unit = {
     viewModel.updateNote(viewModel.noteTextFieldValueState.value.text)
-    backStack.removeLastOrNull()
+    backStack.navigateUp()
   }
   
   NavigationBackHandler(

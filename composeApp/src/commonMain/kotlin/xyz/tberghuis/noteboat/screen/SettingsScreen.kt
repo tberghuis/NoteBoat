@@ -35,6 +35,7 @@ import noteboat.composeapp.generated.resources.settings
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 import xyz.tberghuis.noteboat.nav.LocalBackStackState
+import xyz.tberghuis.noteboat.nav.navigateUp
 import xyz.tberghuis.noteboat.vm.SettingsViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -47,7 +48,7 @@ fun SettingsScreen() {
         modifier = Modifier,
         title = { Text(stringResource(Res.string.settings)) },
         navigationIcon = {
-          IconButton(onClick = { backStack.removeLastOrNull() }) {
+          IconButton(onClick = { backStack.navigateUp() }) {
             Icon(
               imageVector = Icons.AutoMirrored.Filled.ArrowBack,
               contentDescription = stringResource(Res.string.back)

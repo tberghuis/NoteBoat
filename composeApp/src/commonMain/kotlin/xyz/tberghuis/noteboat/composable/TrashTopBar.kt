@@ -13,6 +13,7 @@ import noteboat.composeapp.generated.resources.Res
 import noteboat.composeapp.generated.resources.back
 import org.jetbrains.compose.resources.stringResource
 import xyz.tberghuis.noteboat.nav.LocalBackStackState
+import xyz.tberghuis.noteboat.nav.navigateUp
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -22,7 +23,7 @@ fun TrashTopBar() {
     modifier = Modifier,
     title = { Text("Trash") },
     navigationIcon = {
-      IconButton(onClick = { backStack.removeLastOrNull() }) {
+      IconButton(onClick = { backStack.navigateUp() }) {
         Icon(
           imageVector = Icons.AutoMirrored.Filled.ArrowBack,
           contentDescription = stringResource(Res.string.back)

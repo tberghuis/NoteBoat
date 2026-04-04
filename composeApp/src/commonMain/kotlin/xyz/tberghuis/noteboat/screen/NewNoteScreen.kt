@@ -23,6 +23,7 @@ import xyz.tberghuis.noteboat.composable.NoteBottomAppBar
 import xyz.tberghuis.noteboat.composable.NoteContent
 import xyz.tberghuis.noteboat.controller.TranscribingState
 import xyz.tberghuis.noteboat.nav.LocalBackStackState
+import xyz.tberghuis.noteboat.nav.navigateUp
 
 @Composable
 fun NewNoteScreen(
@@ -37,7 +38,7 @@ fun NewNoteScreen(
       // theoretically possible to overwrite db if press back before data loads
       viewModel.saveNewNote(viewModel.noteTextFieldValueState.value.text)
     }
-    backStack.removeLastOrNull()
+    backStack.navigateUp()
   }
 
   val onCancel: () -> Unit = {
@@ -46,7 +47,7 @@ fun NewNoteScreen(
     }
     viewModel.noteTextFieldValueState.value = TextFieldValue()
     viewModel.updateNewNoteDraft("")
-    backStack.removeLastOrNull()
+    backStack.navigateUp()
   }
 
   NavigationBackHandler(
