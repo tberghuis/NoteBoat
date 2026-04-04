@@ -22,7 +22,8 @@ ksp = "2.3.6"
 
 # todo remove bom ??? not supported in KMP???
 #composeBom = "2026.03.00"
-navigationCompose = "2.9.7"
+
+#navigationCompose = "2.9.7"
 datastorePreferences = "1.2.1"
 accompanistPermissions = "0.37.3"
 
@@ -31,6 +32,12 @@ koin-bom = "4.2.0"  # Stable version
 sqlite = "2.6.2"
 
 composeNavigationEvent = "1.0.1"
+
+nav3Core = "1.0.1"
+lifecycleViewmodelNav3 = "2.11.0-alpha03"
+kotlinSerialization = "2.3.20"
+kotlinxSerializationCore = "1.10.0"
+material3AdaptiveNav3 = "1.3.0-alpha09"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -56,7 +63,7 @@ androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref =
 androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomVersion" }
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomVersion" }
 
-androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
+#androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
 androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastorePreferences" }
 accompanist-permissions = { module = "com.google.accompanist:accompanist-permissions", version.ref = "accompanistPermissions" }
 
@@ -73,6 +80,12 @@ sqlite-bundled = { module = "androidx.sqlite:sqlite-bundled", version.ref = "sql
 
 compose-navigationevent = { module = "org.jetbrains.androidx.navigationevent:navigationevent-compose", version.ref = "composeNavigationEvent" }
 
+androidx-navigation3-runtime = { module = "androidx.navigation3:navigation3-runtime", version.ref = "nav3Core" }
+androidx-navigation3-ui = { module = "androidx.navigation3:navigation3-ui", version.ref = "nav3Core" }
+androidx-lifecycle-viewmodel-navigation3 = { module = "androidx.lifecycle:lifecycle-viewmodel-navigation3", version.ref = "lifecycleViewmodelNav3" }
+kotlinx-serialization-core = { module = "org.jetbrains.kotlinx:kotlinx-serialization-core", version.ref = "kotlinxSerializationCore" }
+androidx-material3-adaptive-navigation3 = { group = "androidx.compose.material3.adaptive", name = "adaptive-navigation3", version.ref = "material3AdaptiveNav3" }
+
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 androidLibrary = { id = "com.android.library", version.ref = "agp" }
@@ -85,3 +98,4 @@ androidKmpLibrary = { id = "com.android.kotlin.multiplatform.library", version.r
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 
 room = { id = "androidx.room", version.ref = "roomVersion" }
+jetbrains-kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlinSerialization" }

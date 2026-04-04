@@ -10,7 +10,7 @@ plugins {
   alias(libs.plugins.ksp)
   alias(libs.plugins.room)
 
-
+  alias(libs.plugins.jetbrains.kotlin.serialization)
 }
 
 kotlin {
@@ -56,8 +56,14 @@ kotlin {
       implementation("org.jetbrains.compose.material:material-icons-extended:1.7.3")
 
       // todo migrate to navigation 3
-      implementation(libs.androidx.navigation.compose)
+//      implementation(libs.androidx.navigation.compose)
       implementation(libs.compose.navigationevent)
+
+      implementation(libs.androidx.navigation3.ui)
+      implementation(libs.androidx.navigation3.runtime)
+      implementation(libs.androidx.lifecycle.viewmodel.navigation3)
+      implementation(libs.androidx.material3.adaptive.navigation3)
+      implementation(libs.kotlinx.serialization.core)
     }
     commonTest.dependencies {
       implementation(libs.kotlin.test)
@@ -72,7 +78,7 @@ kotlin {
 
 dependencies {
   add("kspAndroid", libs.androidx.room.compiler)
-    add("kspJvm", libs.androidx.room.compiler)
+  add("kspJvm", libs.androidx.room.compiler)
 }
 
 compose.desktop {
