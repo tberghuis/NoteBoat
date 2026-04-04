@@ -21,8 +21,6 @@ import xyz.tberghuis.noteboat.composable.OnPauseLifecycleEvent
 import xyz.tberghuis.noteboat.vm.NewNoteViewModel
 import xyz.tberghuis.noteboat.composable.NoteBottomAppBar
 import xyz.tberghuis.noteboat.composable.NoteContent
-import org.koin.compose.viewmodel.koinViewModel
-import xyz.tberghuis.noteboat.LocalNavController
 import xyz.tberghuis.noteboat.controller.TranscribingState
 import xyz.tberghuis.noteboat.nav.LocalBackStackState
 

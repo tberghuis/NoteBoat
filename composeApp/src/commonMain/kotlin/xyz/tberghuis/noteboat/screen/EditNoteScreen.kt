@@ -20,8 +20,6 @@ import xyz.tberghuis.noteboat.vm.EditNoteViewModel
 import androidx.navigationevent.NavigationEventInfo
 import androidx.navigationevent.compose.NavigationBackHandler
 import androidx.navigationevent.compose.rememberNavigationEventState
-import org.koin.compose.viewmodel.koinViewModel
-import xyz.tberghuis.noteboat.LocalNavController
 import xyz.tberghuis.noteboat.nav.LocalBackStackState
 
 @Composable

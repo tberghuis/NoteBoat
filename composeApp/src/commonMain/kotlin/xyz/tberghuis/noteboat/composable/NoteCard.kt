@@ -26,7 +26,8 @@ import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import xyz.tberghuis.noteboat.data.Note
 import kotlin.math.roundToInt
-import xyz.tberghuis.noteboat.LocalNavController
+import xyz.tberghuis.noteboat.nav.LocalBackStackState
+import xyz.tberghuis.noteboat.nav.RouteEditNote
 
 @Composable
 fun NoteCard(
@@ -36,7 +37,7 @@ fun NoteCard(
   onRevealActions: (note: Note) -> Unit,
   onHideActions: (note: Note) -> Unit,
 ) {
-  val navController = LocalNavController.current
+  val backStack = LocalBackStackState.current
   val transitionState = remember {
     MutableTransitionState(isOffset).apply {
       targetState = !isOffset
@@ -65,7 +66,7 @@ fun NoteCard(
         }
       }
       .clickable {
-        navController.navigate("edit-note/${note.noteId}")
+        backStack.add(RouteEditNote(note.noteId))
       },
 //    elevation = 10.dp
   ) {

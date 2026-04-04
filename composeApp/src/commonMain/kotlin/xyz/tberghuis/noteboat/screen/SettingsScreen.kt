@@ -34,21 +34,20 @@ import noteboat.composeapp.generated.resources.back
 import noteboat.composeapp.generated.resources.settings
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
-import xyz.tberghuis.noteboat.LocalNavController
-import xyz.tberghuis.noteboat.utils.logd
+import xyz.tberghuis.noteboat.nav.LocalBackStackState
 import xyz.tberghuis.noteboat.vm.SettingsViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SettingsScreen() {
-  val navController = LocalNavController.current
+  val backStack = LocalBackStackState.current
   Scaffold(
     topBar = {
       TopAppBar(
         modifier = Modifier,
         title = { Text(stringResource(Res.string.settings)) },
         navigationIcon = {
-          IconButton(onClick = { navController.navigateUp() }) {
+          IconButton(onClick = { backStack.removeLastOrNull() }) {
             Icon(
               imageVector = Icons.AutoMirrored.Filled.ArrowBack,
               contentDescription = stringResource(Res.string.back)

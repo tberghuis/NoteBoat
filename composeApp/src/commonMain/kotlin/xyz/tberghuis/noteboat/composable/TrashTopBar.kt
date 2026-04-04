@@ -12,17 +12,17 @@ import androidx.compose.ui.Modifier
 import noteboat.composeapp.generated.resources.Res
 import noteboat.composeapp.generated.resources.back
 import org.jetbrains.compose.resources.stringResource
-import xyz.tberghuis.noteboat.LocalNavController
+import xyz.tberghuis.noteboat.nav.LocalBackStackState
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TrashTopBar() {
-  val navController = LocalNavController.current
+  val backStack = LocalBackStackState.current
   TopAppBar(
     modifier = Modifier,
     title = { Text("Trash") },
     navigationIcon = {
-      IconButton(onClick = { navController.navigateUp() }) {
+      IconButton(onClick = { backStack.removeLastOrNull() }) {
         Icon(
           imageVector = Icons.AutoMirrored.Filled.ArrowBack,
           contentDescription = stringResource(Res.string.back)

@@ -21,19 +21,22 @@ import noteboat.composeapp.generated.resources.app_name
 import noteboat.composeapp.generated.resources.settings
 import noteboat.composeapp.generated.resources.trash
 import org.jetbrains.compose.resources.stringResource
-import xyz.tberghuis.noteboat.LocalNavController
 import xyz.tberghuis.noteboat.composable.HomeContent
+import xyz.tberghuis.noteboat.nav.LocalBackStackState
+import xyz.tberghuis.noteboat.nav.RouteNewNote
+import xyz.tberghuis.noteboat.nav.RouteSettings
+import xyz.tberghuis.noteboat.nav.RouteTrash
 
 @Composable
 fun HomeScreen() {
-  val navController = LocalNavController.current
+  val backStack = LocalBackStackState.current
   Scaffold(
     topBar = { HomeTopBar() },
     floatingActionButtonPosition = FabPosition.End,
     floatingActionButton = {
       FloatingActionButton(
         onClick = {
-          navController.navigate("new-note")
+          backStack.add(RouteNewNote(false))
         }) {
         Icon(Icons.Filled.Add, "new note")
       }
@@ -52,18 +55,18 @@ fun HomeScreen() {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeTopBar() {
-  val navController = LocalNavController.current
+  val backStack = LocalBackStackState.current
   TopAppBar(
     modifier = Modifier,
     title = { Text(stringResource(Res.string.app_name)) },
     actions = {
       IconButton(onClick = {
-        navController.navigate("trash")
+        backStack.add(RouteTrash)
       }) {
         Icon(Icons.Filled.Delete, stringResource(Res.string.trash))
       }
       IconButton(onClick = {
-        navController.navigate("settings")
+        backStack.add(RouteSettings)
       }) {
         Icon(Icons.Filled.Settings, stringResource(Res.string.settings))
       }

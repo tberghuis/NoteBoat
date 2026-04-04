@@ -9,6 +9,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import xyz.tberghuis.noteboat.data.NoteDao
 import xyz.tberghuis.noteboat.data.OptionDao
+import xyz.tberghuis.noteboat.nav.NoteBoatNavDisplay
 import xyz.tberghuis.noteboat.ui.theme.NoteBoatTheme
 import xyz.tberghuis.noteboat.tmp.tmp02.TmpScreen
 
@@ -33,7 +34,7 @@ class MainActivity : ComponentActivity() {
     setContent {
       NoteBoatTheme {
         Surface(modifier = Modifier.fillMaxSize()) {
-          NoteBoatNavGraph()
+          NoteBoatNavDisplay()
         }
 //        TmpScreen()
       }
