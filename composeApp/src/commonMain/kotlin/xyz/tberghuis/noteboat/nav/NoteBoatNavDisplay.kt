@@ -19,6 +19,7 @@ import xyz.tberghuis.noteboat.screen.HomeScreen
 import xyz.tberghuis.noteboat.screen.NewNoteScreen
 import xyz.tberghuis.noteboat.screen.SettingsScreen
 import xyz.tberghuis.noteboat.screen.TrashScreen
+import xyz.tberghuis.noteboat.vm.EditNoteViewModel
 import xyz.tberghuis.noteboat.vm.NewNoteViewModel
 
 @Composable
@@ -51,7 +52,12 @@ fun NoteBoatNavDisplay(
           NewNoteScreen(vm)
         }
         entry<RouteEditNote> { key ->
-          EditNoteScreen(key.noteId)
+          val vm: EditNoteViewModel = koinViewModel(
+            parameters = {
+              parametersOf(key.noteId)
+            }
+          )
+          EditNoteScreen(vm)
         }
         entry<RouteSettings> { key ->
           SettingsScreen()

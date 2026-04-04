@@ -16,11 +16,10 @@ import xyz.tberghuis.noteboat.tmp.tmp03.TmpSpeechControllerFactory
 import xyz.tberghuis.noteboat.utils.logd
 
 class EditNoteViewModel(
-  savedStateHandle: SavedStateHandle,
+  val noteId: Int,
   val noteDao: NoteDao,
   speechControllerFactory: TmpSpeechControllerFactory
 ) : ViewModel() {
-  val noteId: Int = savedStateHandle.get<Int>("noteId")!!
 //  val noteDao = application.appDatabase.noteDao()
   val noteTextFieldValueState = mutableStateOf(TextFieldValue())
 

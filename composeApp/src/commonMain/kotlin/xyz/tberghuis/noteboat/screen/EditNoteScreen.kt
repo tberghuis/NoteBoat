@@ -22,15 +22,16 @@ import androidx.navigationevent.compose.NavigationBackHandler
 import androidx.navigationevent.compose.rememberNavigationEventState
 import org.koin.compose.viewmodel.koinViewModel
 import xyz.tberghuis.noteboat.LocalNavController
+import xyz.tberghuis.noteboat.nav.LocalBackStackState
 
 @Composable
 fun EditNoteScreen(
-  viewModel: EditNoteViewModel = koinViewModel(),
+  viewModel: EditNoteViewModel,
 ) {
-  val navController = LocalNavController.current
+  val backStack = LocalBackStackState.current
   val onComplete: () -> Unit = {
     viewModel.updateNote(viewModel.noteTextFieldValueState.value.text)
-    navController.navigateUp()
+    backStack.removeLastOrNull()
   }
   
   NavigationBackHandler(
