@@ -10,6 +10,9 @@ androidx-espresso = "3.7.0"
 androidx-lifecycle = "2.10.0"
 androidx-testExt = "1.3.0"
 composeHotReload = "1.0.0"
+
+# check for compatible versions
+# https://github.com/JetBrains/compose-multiplatform/releases/tag/v1.10.3
 composeMultiplatform = "1.10.3"
 junit = "4.13.2"
 kotlin = "2.3.20"
