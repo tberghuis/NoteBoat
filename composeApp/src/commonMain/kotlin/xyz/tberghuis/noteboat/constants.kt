@@ -9,3 +9,6 @@ const val DEFAULT_BACKUP_DB_FILENAME = "noteboat-backup.db"
 const val DB_FILENAME = "noteboatv2.db"
 
 const val IMPORT_DB_FILENAME = "import-notes.db"
+
+// todo use same filename as last version
+const val DATASTORE_FILENAME = "tmp.preferences_pb"
