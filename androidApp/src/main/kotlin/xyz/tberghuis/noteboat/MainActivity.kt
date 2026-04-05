@@ -36,6 +36,8 @@ class MainActivity : ComponentActivity() {
     }
 
     setContent {
+      // todo replace with App()
+      
       NoteBoatTheme {
         Surface(modifier = Modifier.fillMaxSize()) {
           NoteBoatNavDisplay(initialBackStack)
