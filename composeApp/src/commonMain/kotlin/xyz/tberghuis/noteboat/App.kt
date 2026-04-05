@@ -21,16 +21,7 @@ fun App() {
 
   val initialBackStack = remember { mutableStateListOf<NavKey>(RouteHome) }
 
-  LaunchedEffect(Unit) {
-    println("App LaunchedEffect")
-  }
-
   NoteBoatTheme {
-    LaunchedEffect(Unit) {
-      println("NoteBoatTheme LaunchedEffect")
-    }
-
-
     Surface(modifier = Modifier.fillMaxSize()) {
       NoteBoatNavDisplay(initialBackStack)
     }
