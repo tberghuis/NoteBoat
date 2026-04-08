@@ -7,7 +7,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import xyz.tberghuis.noteboat.DEFAULT_BACKUP_DB_FILENAME
 import xyz.tberghuis.noteboat.utils.logd
-import xyz.tberghuis.noteboat.vm.SettingsViewModel
 import android.app.Activity.RESULT_OK
 import android.content.Context
 import android.content.Intent
@@ -28,12 +27,16 @@ import com.google.accompanist.permissions.PermissionStatus
 import com.google.accompanist.permissions.rememberPermissionState
 import xyz.tberghuis.noteboat.LOCK_SCREEN_CHANNEL_ID
 import android.provider.Settings
+import androidx.compose.material3.AlertDialog
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import org.koin.androidx.compose.koinViewModel
+import xyz.tberghuis.noteboat.vm.TmpSettingsViewModel
 
 
 @Composable
-actual fun BackupDatabase(
-  vm: SettingsViewModel
-) {
+fun BackupDatabase() {
+  val vm: TmpSettingsViewModel = koinViewModel()
   val launcher =
     rememberLauncherForActivityResult(ActivityResultContracts.CreateDocument("application/x-sqlite3")) { uri ->
       uri?.let {
@@ -49,16 +52,14 @@ actual fun BackupDatabase(
 }
 
 @Composable
-actual fun ImportFromBackupButton(
-  vm: SettingsViewModel
-) {
+fun ImportFromBackupButton() {
+  val vm: TmpSettingsViewModel = koinViewModel()
   val launcher =
     rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
       logd("rememberLauncherForActivityResult $result")
       when (result.resultCode) {
         RESULT_OK -> {
-          // todo
-//          result.data?.data?.let { vm.importDb(it) }
+          result.data?.data?.let { vm.importDb(it) }
         }
       }
     }
@@ -150,3 +151,52 @@ actual fun SettingsContent(padding: PaddingValues) {
     }
   }
 }
+
+@Composable
+fun DeleteAllNotesButton(
+  vm: TmpSettingsViewModel = koinViewModel()
+) {
+  Button(onClick = {
+    vm.confirmDeleteAllNotesDialog = true
+  }) {
+    Text("Delete All Notes")
+  }
+  if (vm.confirmDeleteAllNotesDialog) {
+    AlertDialog(
+      onDismissRequest = { vm.confirmDeleteAllNotesDialog = false },
+      confirmButton = {
+        Button(onClick = {
+          vm.confirmDeleteAllNotesDialog = false
+          vm.deleteAllNotes()
+        }) {
+          Text("OK")
+        }
+      },
+      modifier = Modifier,
+      dismissButton = {
+        Button(onClick = {
+          vm.confirmDeleteAllNotesDialog = false
+        }) {
+          Text("Cancel")
+        }
+      },
+      text = {
+        Text("Confirm delete all notes?")
+      },
+    )
+  }
+}
+
+@Composable
+fun LockscreenShortcutSetting(vm: TmpSettingsViewModel = koinViewModel()) {
+  val checked by vm.showShortcutLockScreenFlow.collectAsState(false)
+  Text("Shortcut \"New voice note\" on lock screen")
+  Switch(
+    checked = checked,
+    onCheckedChange = {
+      vm.showShortcutClick()
+    },
+  )
+}
+
+

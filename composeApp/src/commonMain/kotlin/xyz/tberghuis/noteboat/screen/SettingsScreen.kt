@@ -36,7 +36,6 @@ import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 import xyz.tberghuis.noteboat.nav.LocalBackStackState
 import xyz.tberghuis.noteboat.nav.navigateUp
-import xyz.tberghuis.noteboat.vm.SettingsViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -66,57 +65,6 @@ fun SettingsScreen() {
 @Composable
 expect fun SettingsContent(padding: PaddingValues)
 
-@Composable
-fun DeleteAllNotesButton(
-  vm: SettingsViewModel = koinViewModel()
-) {
-  Button(onClick = {
-    vm.confirmDeleteAllNotesDialog = true
-  }) {
-    Text("Delete All Notes")
-  }
-  if (vm.confirmDeleteAllNotesDialog) {
-    AlertDialog(
-      onDismissRequest = { vm.confirmDeleteAllNotesDialog = false },
-      confirmButton = {
-        Button(onClick = {
-          vm.confirmDeleteAllNotesDialog = false
-          vm.deleteAllNotes()
-        }) {
-          Text("OK")
-        }
-      },
-      modifier = Modifier,
-      dismissButton = {
-        Button(onClick = {
-          vm.confirmDeleteAllNotesDialog = false
-        }) {
-          Text("Cancel")
-        }
-      },
-      text = {
-        Text("Confirm delete all notes?")
-      },
-    )
-  }
-}
-
-@Composable
-expect fun ImportFromBackupButton(
-  vm: SettingsViewModel = koinViewModel()
-)
-
-@Composable
-fun LockscreenShortcutSetting(vm: SettingsViewModel = koinViewModel()) {
-  val checked by vm.showShortcutLockScreenFlow.collectAsState(false)
-  Text("Shortcut \"New voice note\" on lock screen")
-  Switch(
-    checked = checked,
-    onCheckedChange = {
-      vm.showShortcutClick()
-    },
-  )
-}
 
 @Composable
 fun SettingsScreenRow(
@@ -133,8 +81,3 @@ fun SettingsScreenRow(
     content()
   }
 }
-
-@Composable
-expect fun BackupDatabase(
-  vm: SettingsViewModel = koinViewModel()
-)
