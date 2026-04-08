@@ -7,15 +7,11 @@ import org.koin.android.ext.koin.androidApplication
 import xyz.tberghuis.noteboat.data.AppDatabaseFactory
 import xyz.tberghuis.noteboat.data.DataStorePreferencesFactory
 import xyz.tberghuis.noteboat.data.PreferencesRepository
-import xyz.tberghuis.noteboat.database.FruittieDao
-import xyz.tberghuis.noteboat.database.TmpAppDatabase
 
 actual val platformModule = module {
   singleOf(::TmpSpeechControllerFactory)
 
   single<AppDatabaseFactory> { AppDatabaseFactory(androidApplication()) }
-
-  single<FruittieDao> { get<TmpAppDatabase>().fruittieDao() }
 
 //  single<DataStore<Preferences>> {
 //    createDataStoreAndroid(get())
