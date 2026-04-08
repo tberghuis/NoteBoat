@@ -12,13 +12,7 @@ actual val platformModule = module {
   singleOf(::TmpSpeechControllerFactory)
 
   single<AppDatabaseFactory> { AppDatabaseFactory(androidApplication()) }
-
-//  single<DataStore<Preferences>> {
-//    createDataStoreAndroid(get())
-//  }
-
-  
    single<DataStorePreferencesFactory> { DataStorePreferencesFactory(androidApplication()) }
   
-  singleOf(::PreferencesRepository)
+
 }

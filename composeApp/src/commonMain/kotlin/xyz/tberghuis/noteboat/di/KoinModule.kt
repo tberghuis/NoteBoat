@@ -8,12 +8,14 @@ import org.koin.dsl.KoinAppDeclaration
 import org.koin.dsl.module
 import xyz.tberghuis.noteboat.tmp.tmp03.TmpKoinVm
 import org.koin.core.module.Module
+import org.koin.core.module.dsl.singleOf
 import org.koin.core.module.dsl.viewModel
 import xyz.tberghuis.noteboat.data.AppDatabase
 import xyz.tberghuis.noteboat.data.AppDatabaseFactory
 import xyz.tberghuis.noteboat.data.DataStorePreferencesFactory
 import xyz.tberghuis.noteboat.data.NoteDao
 import xyz.tberghuis.noteboat.data.OptionDao
+import xyz.tberghuis.noteboat.data.PreferencesRepository
 import xyz.tberghuis.noteboat.vm.EditNoteViewModel
 import xyz.tberghuis.noteboat.vm.HomeViewModel
 import xyz.tberghuis.noteboat.vm.NewNoteViewModel
@@ -30,6 +32,7 @@ val sharedModule = module {
   single<DataStore<Preferences>> {
     get<DataStorePreferencesFactory>().create()
   }
+  singleOf(::PreferencesRepository)
 
   viewModel<TmpKoinVm> {
     TmpKoinVm(get(), get())
