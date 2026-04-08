@@ -9,7 +9,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation3.runtime.NavKey
 import xyz.tberghuis.noteboat.nav.NoteBoatNavDisplay
 import xyz.tberghuis.noteboat.nav.RouteHome
-import xyz.tberghuis.noteboat.tmp.tmp02.TmpScreen
 import xyz.tberghuis.noteboat.ui.theme.NoteBoatTheme
 
 @Composable
