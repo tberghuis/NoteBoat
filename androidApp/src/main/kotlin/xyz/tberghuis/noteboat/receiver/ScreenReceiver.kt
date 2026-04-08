@@ -61,6 +61,7 @@ private fun postNotification(context: Context) {
     )
 
   val builder = NotificationCompat.Builder(context, LOCK_SCREEN_CHANNEL_ID)
+    // future fix AS `Unresolved reference 'ic_launcher_foreground'.`
     .setSmallIcon(R.drawable.ic_launcher_foreground)
     .setContentTitle("New voice note")
 //    .setContentText("content text")
@@ -74,6 +75,3 @@ private fun postNotification(context: Context) {
     notify(LOCK_SCREEN_NOTIFICATION_ID, builder.build())
   }
 }
-
-
-
