@@ -6,10 +6,8 @@ plugins {
   alias(libs.plugins.composeCompiler)
   alias(libs.plugins.composeHotReload)
   alias(libs.plugins.androidKmpLibrary)
-
   alias(libs.plugins.ksp)
   alias(libs.plugins.room)
-
   alias(libs.plugins.jetbrains.kotlin.serialization)
 }
 
@@ -28,12 +26,9 @@ kotlin {
     androidMain.dependencies {
       implementation(libs.compose.uiToolingPreview)
       implementation(libs.androidx.activity.compose)
-
       implementation(libs.koin.android)
       implementation(libs.koin.androidx.compose)
-
       implementation(libs.accompanist.permissions)
-
     }
     commonMain.dependencies {
       implementation(libs.compose.runtime)
@@ -55,8 +50,6 @@ kotlin {
       implementation(libs.androidx.datastore.preferences)
       implementation("org.jetbrains.compose.material:material-icons-extended:1.7.3")
 
-      // todo migrate to navigation 3
-//      implementation(libs.androidx.navigation.compose)
       implementation(libs.compose.navigationevent)
 
 //      implementation(libs.androidx.navigation3.ui)
@@ -64,9 +57,9 @@ kotlin {
 //      implementation(libs.androidx.lifecycle.viewmodel.navigation3)
 //      implementation(libs.androidx.material3.adaptive.navigation3)
 //      implementation(libs.kotlinx.serialization.core)
-      
-            api(libs.androidx.nav3.ui)
-        implementation(libs.androidx.lifecycle.viewmodel.nav3)
+
+      api(libs.androidx.nav3.ui)
+      implementation(libs.androidx.lifecycle.viewmodel.nav3)
     }
     commonTest.dependencies {
       implementation(libs.kotlin.test)
@@ -77,7 +70,6 @@ kotlin {
     }
   }
 }
-
 
 dependencies {
   add("kspAndroid", libs.androidx.room.compiler)
@@ -99,8 +91,3 @@ compose.desktop {
 room {
   schemaDirectory("$projectDir/schemas")
 }
-
-//ksp {
-//  arg("room.schemaLocation", "$projectDir/schemas")
-//}
-
