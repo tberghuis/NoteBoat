@@ -13,6 +13,7 @@ import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import xyz.tberghuis.noteboat.DB_FILENAME
 import xyz.tberghuis.noteboat.IMPORT_DB_FILENAME
 import xyz.tberghuis.noteboat.data.AppDatabase
 import xyz.tberghuis.noteboat.data.NoteDao
@@ -21,6 +22,7 @@ import xyz.tberghuis.noteboat.utils.logd
 
 class TmpSettingsViewModel(
   private val application: Application,
+  private val db: AppDatabase,
   private val preferencesRepository: PreferencesRepository,
   private val noteDao: NoteDao
 ) : ViewModel() {
@@ -80,24 +82,24 @@ class TmpSettingsViewModel(
 
   // doitwrong, should do this with workmanager to be safe
   // from user canceling job
-//  fun backupDb(backupFileUri: Uri) {
-//    viewModelScope.launch(IO) {
-//      // checkpoint
-//      val query = "pragma wal_checkpoint(full)"
-//      db.query(query, null).use { cursor ->
-//        if (cursor.moveToFirst()) {
-//          val busy = cursor.getInt(0)
-//          val log = cursor.getInt(1)
-//          val checkpointed = cursor.getInt(2)
-//        }
-//      }
-//
-//      val dbFile = mainApp.getDatabasePath(DB_FILENAME)
-//      mainApp.contentResolver.openOutputStream(backupFileUri)?.use { os ->
-//        dbFile.inputStream().use { fis ->
-//          fis.copyTo(os)
-//        }
-//      }
-//    }
-//  }
+  fun backupDb(backupFileUri: Uri) {
+    viewModelScope.launch(IO) {
+      // checkpoint
+      val query = "pragma wal_checkpoint(full)"
+      db.query(query, null).use { cursor ->
+        if (cursor.moveToFirst()) {
+          val busy = cursor.getInt(0)
+          val log = cursor.getInt(1)
+          val checkpointed = cursor.getInt(2)
+        }
+      }
+
+      val dbFile = application.getDatabasePath(DB_FILENAME)
+      application.contentResolver.openOutputStream(backupFileUri)?.use { os ->
+        dbFile.inputStream().use { fis ->
+          fis.copyTo(os)
+        }
+      }
+    }
+  }
 }
