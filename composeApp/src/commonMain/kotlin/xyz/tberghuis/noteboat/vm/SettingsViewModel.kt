@@ -12,13 +12,9 @@ import xyz.tberghuis.noteboat.data.NoteDao
 import xyz.tberghuis.noteboat.data.PreferencesRepository
 
 class SettingsViewModel(
-//  application: Application,
   private val preferencesRepository: PreferencesRepository,
   private val noteDao: NoteDao
 ) : ViewModel() {
-  //  private val mainApp = (application as MainApplication)
-//  private val preferencesRepository = application.preferencesRepository
-//  val db = application.appDatabase
   val showShortcutLockScreenFlow: Flow<Boolean>
     get() = preferencesRepository.showShortcutLockScreenFlow
 
@@ -68,7 +64,7 @@ class SettingsViewModel(
 
   fun showShortcutClick() {
     viewModelScope.launch {
-//      preferencesRepository.toggleShowShortcutLockScreen()
+      preferencesRepository.toggleShowShortcutLockScreen()
     }
   }
 

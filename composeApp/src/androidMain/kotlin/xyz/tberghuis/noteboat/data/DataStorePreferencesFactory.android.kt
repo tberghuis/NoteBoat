@@ -12,7 +12,7 @@ actual class DataStorePreferencesFactory(
 ) {
   actual fun create(): DataStore<Preferences> {
     return PreferenceDataStoreFactory.createWithPath(
-      produceFile = { app.filesDir.resolve(DATASTORE_FILENAME).absolutePath.toPath() }
+      produceFile = { app.filesDir.resolve("datastore/$DATASTORE_FILENAME").absolutePath.toPath() }
     )
   }
 }
