@@ -7,11 +7,11 @@ import org.koin.core.module.dsl.viewModelOf
 import xyz.tberghuis.noteboat.controller.SpeechControllerFactory
 import xyz.tberghuis.noteboat.data.AppDatabaseFactory
 import xyz.tberghuis.noteboat.data.DataStorePreferencesFactory
-import xyz.tberghuis.noteboat.vm.TmpSettingsViewModel
+import xyz.tberghuis.noteboat.vm.SettingsViewModel
 
 actual val platformModule = module {
   singleOf(::SpeechControllerFactory)
   single<AppDatabaseFactory> { AppDatabaseFactory(androidApplication()) }
   single<DataStorePreferencesFactory> { DataStorePreferencesFactory(androidApplication()) }
-  viewModelOf(::TmpSettingsViewModel)
+  viewModelOf(::SettingsViewModel)
 }

@@ -31,12 +31,12 @@ import androidx.compose.material3.AlertDialog
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import org.koin.androidx.compose.koinViewModel
-import xyz.tberghuis.noteboat.vm.TmpSettingsViewModel
+import xyz.tberghuis.noteboat.vm.SettingsViewModel
 
 
 @Composable
 fun BackupDatabase() {
-  val vm: TmpSettingsViewModel = koinViewModel()
+  val vm: SettingsViewModel = koinViewModel()
   val launcher =
     rememberLauncherForActivityResult(ActivityResultContracts.CreateDocument("application/x-sqlite3")) { uri ->
       uri?.let {
@@ -52,7 +52,7 @@ fun BackupDatabase() {
 
 @Composable
 fun ImportFromBackupButton() {
-  val vm: TmpSettingsViewModel = koinViewModel()
+  val vm: SettingsViewModel = koinViewModel()
   val launcher =
     rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
       logd("rememberLauncherForActivityResult $result")
@@ -153,7 +153,7 @@ actual fun SettingsContent(padding: PaddingValues) {
 
 @Composable
 fun DeleteAllNotesButton(
-  vm: TmpSettingsViewModel = koinViewModel()
+  vm: SettingsViewModel = koinViewModel()
 ) {
   Button(onClick = {
     vm.confirmDeleteAllNotesDialog = true
@@ -187,7 +187,7 @@ fun DeleteAllNotesButton(
 }
 
 @Composable
-fun LockscreenShortcutSetting(vm: TmpSettingsViewModel = koinViewModel()) {
+fun LockscreenShortcutSetting(vm: SettingsViewModel = koinViewModel()) {
   val checked by vm.showShortcutLockScreenFlow.collectAsState(false)
   Text("Shortcut \"New voice note\" on lock screen")
   Switch(

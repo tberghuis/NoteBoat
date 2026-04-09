@@ -20,7 +20,7 @@ import xyz.tberghuis.noteboat.data.NoteDao
 import xyz.tberghuis.noteboat.data.PreferencesRepository
 import xyz.tberghuis.noteboat.utils.logd
 
-class TmpSettingsViewModel(
+class SettingsViewModel(
   private val application: Application,
   private val db: AppDatabase,
   private val preferencesRepository: PreferencesRepository,
