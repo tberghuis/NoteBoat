@@ -8,7 +8,7 @@ import xyz.tberghuis.noteboat.controller.RecognitionListenerEvent
 import xyz.tberghuis.noteboat.controller.SpeechController
 import xyz.tberghuis.noteboat.controller.TranscribingState
 
-actual class TmpSpeechControllerFactory {
+actual class SpeechControllerFactory {
   actual fun create(
 
     transcribingStateFlow: MutableStateFlow<TranscribingState>,

@@ -7,7 +7,7 @@ import xyz.tberghuis.noteboat.controller.SpeechController
 import xyz.tberghuis.noteboat.controller.TranscribingState
 
 @Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
-expect class TmpSpeechControllerFactory {
+expect class SpeechControllerFactory {
   fun create(
     transcribingStateFlow: MutableStateFlow<TranscribingState>,
     textFieldValueState: MutableState<TextFieldValue>,

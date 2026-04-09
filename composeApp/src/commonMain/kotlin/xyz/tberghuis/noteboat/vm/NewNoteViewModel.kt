@@ -3,7 +3,6 @@ package xyz.tberghuis.noteboat.vm
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.TextFieldValue
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlin.time.Clock
@@ -17,14 +16,14 @@ import xyz.tberghuis.noteboat.controller.TranscribingState
 import xyz.tberghuis.noteboat.data.Note
 import xyz.tberghuis.noteboat.data.NoteDao
 import xyz.tberghuis.noteboat.data.OptionDao
-import xyz.tberghuis.noteboat.tmp.tmp03.TmpSpeechControllerFactory
+import xyz.tberghuis.noteboat.tmp.tmp03.SpeechControllerFactory
 import xyz.tberghuis.noteboat.utils.logd
 
 class NewNoteViewModel(
   val voice: Boolean,
   val noteDao: NoteDao,
   val optionDao: OptionDao,
-  speechControllerFactory: TmpSpeechControllerFactory
+  speechControllerFactory: SpeechControllerFactory
 ) : ViewModel() {
 //  val noteDao = application.appDatabase.noteDao()
 //  val optionDao = application.appDatabase.optionDao()

@@ -9,7 +9,7 @@ import xyz.tberghuis.noteboat.controller.SpeechControllerAndroid
 import xyz.tberghuis.noteboat.controller.TranscribingState
 
 @Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
-actual class TmpSpeechControllerFactory
+actual class SpeechControllerFactory
   (private val context: Context) {
   actual fun create(
 

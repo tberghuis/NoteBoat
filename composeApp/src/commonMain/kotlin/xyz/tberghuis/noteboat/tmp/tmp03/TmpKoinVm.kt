@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import xyz.tberghuis.noteboat.database.FruittieDao
 
 class TmpKoinVm(
-  val factory: TmpSpeechControllerFactory,
+  val factory: SpeechControllerFactory,
   val dao: FruittieDao
 ) : ViewModel() {
 
