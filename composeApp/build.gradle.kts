@@ -69,6 +69,7 @@ kotlin {
       implementation(libs.kotlinx.coroutinesSwing)
     }
   }
+  compilerOptions.freeCompilerArgs.add("-Xexpect-actual-classes")
 }
 
 dependencies {
