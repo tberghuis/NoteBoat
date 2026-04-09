@@ -12,8 +12,8 @@ android {
     minSdk = libs.versions.android.minSdk.get().toInt()
     targetSdk = libs.versions.android.targetSdk.get().toInt()
     // todo update for release
-    versionCode = 30
-    versionName = "2.18.0"
+    versionCode = 31
+    versionName = "2.19.0"
   }
   packaging {
     resources {
