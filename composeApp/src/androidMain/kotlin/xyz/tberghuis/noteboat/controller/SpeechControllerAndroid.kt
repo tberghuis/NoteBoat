@@ -167,9 +167,7 @@ class SpeechControllerAndroid(
 
   private fun setRecognitionListener(
     speechRecognizer: SpeechRecognizer,
-//    speechController: XxxSpeechController,
     scope: CoroutineScope,
-//    audioManager: AudioManager,
   ) {
 
     fun emitRecognitionListenerEvent(e: RecognitionListenerEvent) {
