@@ -1,12 +1,9 @@
-package xyz.tberghuis.noteboat.tmp.tmp03
+package xyz.tberghuis.noteboat.controller
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.text.input.TextFieldValue
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import xyz.tberghuis.noteboat.controller.RecognitionListenerEvent
-import xyz.tberghuis.noteboat.controller.SpeechController
-import xyz.tberghuis.noteboat.controller.TranscribingState
 
 actual class SpeechControllerFactory {
   actual fun create(

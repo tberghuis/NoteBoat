@@ -12,11 +12,11 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import xyz.tberghuis.noteboat.controller.SpeechControllerFactory
 import xyz.tberghuis.noteboat.controller.TranscribingState
 import xyz.tberghuis.noteboat.data.Note
 import xyz.tberghuis.noteboat.data.NoteDao
 import xyz.tberghuis.noteboat.data.OptionDao
-import xyz.tberghuis.noteboat.tmp.tmp03.SpeechControllerFactory
 import xyz.tberghuis.noteboat.utils.logd
 
 class NewNoteViewModel(

@@ -1,6 +1,7 @@
 package xyz.tberghuis.noteboat.tmp.tmp03
 
 import androidx.lifecycle.ViewModel
+import xyz.tberghuis.noteboat.controller.SpeechControllerFactory
 import xyz.tberghuis.noteboat.database.FruittieDao
 
 class TmpKoinVm(

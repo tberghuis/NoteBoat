@@ -9,9 +9,9 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import kotlin.time.Clock
 import kotlin.time.ExperimentalTime
+import xyz.tberghuis.noteboat.controller.SpeechControllerFactory
 import xyz.tberghuis.noteboat.controller.TranscribingState
 import xyz.tberghuis.noteboat.data.NoteDao
-import xyz.tberghuis.noteboat.tmp.tmp03.SpeechControllerFactory
 import xyz.tberghuis.noteboat.utils.logd
 
 class EditNoteViewModel(
