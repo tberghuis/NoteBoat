@@ -6,7 +6,6 @@ import org.koin.core.context.startKoin
 import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.KoinAppDeclaration
 import org.koin.dsl.module
-import xyz.tberghuis.noteboat.tmp.tmp03.TmpKoinVm
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.singleOf
 import org.koin.core.module.dsl.viewModel
@@ -32,10 +31,6 @@ val sharedModule = module {
     get<DataStorePreferencesFactory>().create()
   }
   singleOf(::PreferencesRepository)
-
-  viewModel<TmpKoinVm> {
-    TmpKoinVm(get(), get())
-  }
 
   viewModelOf(::HomeViewModel)
   viewModelOf(::NewNoteViewModel)
