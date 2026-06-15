@@ -38,13 +38,11 @@ class MainActivity : ComponentActivity() {
 
     setContent {
       // todo replace with App()
-      TmpApp()
-      
-//      NoteBoatTheme {
-//        Surface(modifier = Modifier.fillMaxSize()) {
-//          NoteBoatNavDisplay(initialBackStack)
-//        }
-//      }
+      NoteBoatTheme {
+        Surface(modifier = Modifier.fillMaxSize()) {
+          NoteBoatNavDisplay(initialBackStack)
+        }
+      }
     }
   }
 
