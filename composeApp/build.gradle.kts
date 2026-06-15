@@ -49,7 +49,7 @@ kotlin {
       implementation(libs.androidx.room.runtime)
       implementation(libs.sqlite.bundled)
       implementation(libs.androidx.datastore.preferences)
-      implementation("org.jetbrains.compose.material:material-icons-extended:1.7.3")
+      implementation(libs.material.icons.extended)
 
       implementation(libs.compose.navigationevent)
 
