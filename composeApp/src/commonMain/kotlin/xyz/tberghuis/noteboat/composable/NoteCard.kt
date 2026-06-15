@@ -22,10 +22,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import xyz.tberghuis.noteboat.data.Note
 import kotlin.math.roundToInt
+import sh.calvin.autolinktext.rememberAutoLinkText
 import xyz.tberghuis.noteboat.nav.LocalBackStackState
 import xyz.tberghuis.noteboat.nav.RouteEditNote
 
@@ -84,7 +86,11 @@ fun NoteCard(
             modifier = Modifier.offset(x = (-8).dp, y = (-5).dp),
           )
         }
-        Text(note.noteText)
+        Text(
+
+          AnnotatedString.rememberAutoLinkText(note.noteText)
+
+        )
       }
       if (noteNumber != null) {
         Text(
