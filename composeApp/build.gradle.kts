@@ -18,6 +18,7 @@ kotlin {
     minSdk = libs.versions.android.minSdk.get().toInt()
     namespace = "xyz.tberghuis.noteboat"
     experimentalProperties["android.experimental.kmp.enableAndroidResources"] = true
+    withHostTest {}
   }
 
   jvm()
