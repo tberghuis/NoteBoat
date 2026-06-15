@@ -11,7 +11,7 @@ fun main() = application {
     onCloseRequest = ::exitApplication,
     title = "NoteBoat",
   ) {
-//    App()
-    TmpApp()
+    App()
+//    TmpApp()
   }
 }
