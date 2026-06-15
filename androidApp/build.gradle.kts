@@ -11,9 +11,8 @@ android {
     applicationId = "site.thomasberghuis.noteboat"
     minSdk = libs.versions.android.minSdk.get().toInt()
     targetSdk = libs.versions.android.targetSdk.get().toInt()
-    // todo update for release
-    versionCode = 31
-    versionName = "2.19.0"
+    versionCode = 32
+    versionName = "2.20.0"
   }
   packaging {
     resources {

@@ -1,3 +1,6 @@
+v2.20.0    2026-06-15  008-hyperlink
+  make links clickable
+
 v2.19.0    2026-04-09  006-kmp-desktop
   get Note Boat to run on JVM Desktop
   migrate to Nav3, add koin for dependency injection
