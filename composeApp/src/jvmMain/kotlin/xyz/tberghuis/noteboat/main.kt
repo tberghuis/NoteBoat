@@ -3,6 +3,7 @@ package xyz.tberghuis.noteboat
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import xyz.tberghuis.noteboat.di.initKoin
+import xyz.tberghuis.noteboat.tmp.TmpApp
 
 fun main() = application {
   initKoin()
@@ -10,6 +11,7 @@ fun main() = application {
     onCloseRequest = ::exitApplication,
     title = "NoteBoat",
   ) {
-    App()
+//    App()
+    TmpApp()
   }
 }

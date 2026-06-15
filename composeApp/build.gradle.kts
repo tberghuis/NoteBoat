@@ -60,6 +60,9 @@ kotlin {
 
       api(libs.androidx.nav3.ui)
       implementation(libs.androidx.lifecycle.viewmodel.nav3)
+
+      implementation(libs.autolinktext)
+      
     }
     commonTest.dependencies {
       implementation(libs.kotlin.test)

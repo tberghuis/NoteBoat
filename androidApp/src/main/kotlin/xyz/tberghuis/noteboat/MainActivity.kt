@@ -12,6 +12,7 @@ import androidx.navigation3.runtime.NavKey
 import xyz.tberghuis.noteboat.nav.NoteBoatNavDisplay
 import xyz.tberghuis.noteboat.nav.RouteHome
 import xyz.tberghuis.noteboat.nav.RouteNewNote
+import xyz.tberghuis.noteboat.tmp.TmpApp
 import xyz.tberghuis.noteboat.ui.theme.NoteBoatTheme
 
 class MainActivity : ComponentActivity() {
@@ -37,11 +38,13 @@ class MainActivity : ComponentActivity() {
 
     setContent {
       // todo replace with App()
-      NoteBoatTheme {
-        Surface(modifier = Modifier.fillMaxSize()) {
-          NoteBoatNavDisplay(initialBackStack)
-        }
-      }
+      TmpApp()
+      
+//      NoteBoatTheme {
+//        Surface(modifier = Modifier.fillMaxSize()) {
+//          NoteBoatNavDisplay(initialBackStack)
+//        }
+//      }
     }
   }
 
