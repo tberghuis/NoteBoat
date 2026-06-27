@@ -5,9 +5,11 @@ import android.net.Uri
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.core.net.toUri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.room.Room
+import androidx.room3.Room
+import androidx.room3.useWriterConnection
 import java.io.File
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.flow.Flow
@@ -79,23 +81,24 @@ class SettingsViewModel(
     }
   }
 
-
   // doitwrong, should do this with workmanager to be safe
   // from user canceling job
-  fun backupDb(backupFileUri: Uri) {
+  fun backupDb(backupFileUri: String) {
     viewModelScope.launch(IO) {
       // checkpoint
-      val query = "pragma wal_checkpoint(full)"
-      db.query(query, null).use { cursor ->
-        if (cursor.moveToFirst()) {
-          val busy = cursor.getInt(0)
-          val log = cursor.getInt(1)
-          val checkpointed = cursor.getInt(2)
+      db.useWriterConnection { transactor ->
+        transactor.usePrepared("pragma wal_checkpoint(full)") { stmt ->
+          if (stmt.step()) {
+            val busy = stmt.getLong(0)
+            val log = stmt.getLong(1)
+            val checkpointed = stmt.getLong(2)
+            println("backupDb busy $busy log $log checkpointed $checkpointed")
+          }
         }
       }
 
       val dbFile = application.getDatabasePath(DB_FILENAME)
-      application.contentResolver.openOutputStream(backupFileUri)?.use { os ->
+      application.contentResolver.openOutputStream(backupFileUri.toUri())?.use { os ->
         dbFile.inputStream().use { fis ->
           fis.copyTo(os)
         }

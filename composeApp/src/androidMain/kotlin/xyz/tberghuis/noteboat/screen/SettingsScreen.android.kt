@@ -40,7 +40,7 @@ fun BackupDatabase() {
   val launcher =
     rememberLauncherForActivityResult(ActivityResultContracts.CreateDocument("application/x-sqlite3")) { uri ->
       uri?.let {
-        vm.backupDb(uri)
+        vm.backupDb(uri.toString())
       }
     }
   Button(onClick = {
