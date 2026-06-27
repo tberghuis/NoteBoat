@@ -31,24 +31,8 @@ import androidx.compose.material3.AlertDialog
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import org.koin.androidx.compose.koinViewModel
+import xyz.tberghuis.noteboat.composable.BackupDatabaseButton
 import xyz.tberghuis.noteboat.vm.SettingsViewModel
-
-
-@Composable
-fun BackupDatabase() {
-  val vm: SettingsViewModel = koinViewModel()
-  val launcher =
-    rememberLauncherForActivityResult(ActivityResultContracts.CreateDocument("application/x-sqlite3")) { uri ->
-      uri?.let {
-        vm.backupDb(uri.toString())
-      }
-    }
-  Button(onClick = {
-    launcher.launch(DEFAULT_BACKUP_DB_FILENAME)
-  }) {
-    Text("Backup Database")
-  }
-}
 
 @Composable
 fun ImportFromBackupButton() {
@@ -136,7 +120,7 @@ actual fun SettingsContent(padding: PaddingValues) {
     SettingsScreenRow(
       horizontalArrangement = Arrangement.Center,
     ) {
-      BackupDatabase()
+      BackupDatabaseButton()
     }
     SettingsScreenRow(
       horizontalArrangement = Arrangement.Center,
