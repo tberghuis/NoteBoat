@@ -18,15 +18,16 @@ import kotlinx.coroutines.launch
 import xyz.tberghuis.noteboat.DB_FILENAME
 import xyz.tberghuis.noteboat.IMPORT_DB_FILENAME
 import xyz.tberghuis.noteboat.data.AppDatabase
+import xyz.tberghuis.noteboat.data.BackupDbFunFactory
 import xyz.tberghuis.noteboat.data.NoteDao
 import xyz.tberghuis.noteboat.data.PreferencesRepository
 import xyz.tberghuis.noteboat.utils.logd
 
 class SettingsViewModel(
   private val application: Application,
-  private val db: AppDatabase,
   private val preferencesRepository: PreferencesRepository,
-  private val noteDao: NoteDao
+  private val noteDao: NoteDao,
+  private val _backupDb: suspend (backupFileUri: String) -> Unit
 ) : ViewModel() {
   val showShortcutLockScreenFlow: Flow<Boolean>
     get() = preferencesRepository.showShortcutLockScreenFlow
@@ -85,24 +86,7 @@ class SettingsViewModel(
   // from user canceling job
   fun backupDb(backupFileUri: String) {
     viewModelScope.launch(IO) {
-      // checkpoint
-      db.useWriterConnection { transactor ->
-        transactor.usePrepared("pragma wal_checkpoint(full)") { stmt ->
-          if (stmt.step()) {
-            val busy = stmt.getLong(0)
-            val log = stmt.getLong(1)
-            val checkpointed = stmt.getLong(2)
-            println("backupDb busy $busy log $log checkpointed $checkpointed")
-          }
-        }
-      }
-
-      val dbFile = application.getDatabasePath(DB_FILENAME)
-      application.contentResolver.openOutputStream(backupFileUri.toUri())?.use { os ->
-        dbFile.inputStream().use { fis ->
-          fis.copyTo(os)
-        }
-      }
+      _backupDb(backupFileUri)
     }
   }
 }
