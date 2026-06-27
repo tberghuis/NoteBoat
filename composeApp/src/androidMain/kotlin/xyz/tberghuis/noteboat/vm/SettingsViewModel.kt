@@ -24,10 +24,10 @@ import xyz.tberghuis.noteboat.data.PreferencesRepository
 import xyz.tberghuis.noteboat.utils.logd
 
 class SettingsViewModel(
-  private val application: Application,
   private val preferencesRepository: PreferencesRepository,
   private val noteDao: NoteDao,
-  private val _backupDb: suspend (backupFileUri: String) -> Unit
+  private val _backupDb: suspend (backupFileUri: String) -> Unit,
+  private val _importDb: suspend (importDbUri: String) -> Unit
 ) : ViewModel() {
   val showShortcutLockScreenFlow: Flow<Boolean>
     get() = preferencesRepository.showShortcutLockScreenFlow
@@ -35,38 +35,9 @@ class SettingsViewModel(
   var confirmDeleteAllNotesDialog by mutableStateOf(false)
 
   // use kmp uri ....
-  fun importDb(importDbUri: Uri) {
+  fun importDb(importDbUri: String) {
     viewModelScope.launch(IO) {
-      val importDbFile = File(application.filesDir, IMPORT_DB_FILENAME)
-      val inputStream = application.contentResolver.openInputStream(importDbUri)
-      // https://www.baeldung.com/kotlin/inputstream-to-file
-      inputStream?.use { input ->
-        importDbFile.outputStream().use { output ->
-          input.copyTo(output)
-        }
-      }
-
-      // open import-notes.db
-      val importNotesFile = File(application.filesDir, IMPORT_DB_FILENAME)
-      logd("importNotesFile ${importNotesFile.path}")
-      // create room instance
-      val roomImport = Room.databaseBuilder(
-        application,
-        AppDatabase::class.java,
-        importNotesFile.path
-      )
-        .build()
-      // read all notes
-      // if invalid file, room will log error and give me empty notes list
-      val importNotesList = roomImport.noteDao().getAll().first().map {
-        it.copy(noteId = 0)
-      }
-      // write to appDatabase
-      noteDao.insertAll(importNotesList)
-      // close import db
-      roomImport.close()
-      // delete import db
-      importNotesFile.delete()
+      _importDb(importDbUri)
     }
   }
 

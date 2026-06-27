@@ -58,7 +58,7 @@ fun ImportFromBackupButton() {
       logd("rememberLauncherForActivityResult $result")
       when (result.resultCode) {
         RESULT_OK -> {
-          result.data?.data?.let { vm.importDb(it) }
+          result.data?.data?.let { vm.importDb(it.toString()) }
         }
       }
     }
