@@ -19,6 +19,10 @@ actual class AppDatabaseFactory {
       .addCallback(
         object : RoomDatabase.Callback() {
           override suspend fun onCreate(connection: SQLiteConnection) {
+            val query =
+              "INSERT INTO option (option_key, option_value) VALUES( 'new_note_draft',	'');"
+            
+            
             
           }
         }
