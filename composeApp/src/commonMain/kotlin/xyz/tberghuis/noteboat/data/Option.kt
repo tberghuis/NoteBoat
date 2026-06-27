@@ -1,7 +1,11 @@
 package xyz.tberghuis.noteboat.data
 
 import androidx.annotation.NonNull
-import androidx.room.*
+import androidx.room3.ColumnInfo
+import androidx.room3.Dao
+import androidx.room3.Entity
+import androidx.room3.PrimaryKey
+import androidx.room3.Query
 import kotlinx.coroutines.flow.Flow
 
 // better name than option???

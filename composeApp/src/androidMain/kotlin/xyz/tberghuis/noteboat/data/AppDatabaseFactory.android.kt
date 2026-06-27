@@ -1,8 +1,7 @@
 package xyz.tberghuis.noteboat.data
 
 import android.app.Application
-import androidx.room.Room
-import androidx.sqlite.driver.bundled.BundledSQLiteDriver
+import androidx.room3.Room
 import kotlinx.coroutines.Dispatchers
 import xyz.tberghuis.noteboat.DB_FILENAME
 

@@ -1,10 +1,10 @@
 package xyz.tberghuis.noteboat.data
 
-import androidx.room.AutoMigration
-import androidx.room.ConstructedBy
-import androidx.room.Database
-import androidx.room.RoomDatabase
-import androidx.room.RoomDatabaseConstructor
+import androidx.room3.AutoMigration
+import androidx.room3.ConstructedBy
+import androidx.room3.Database
+import androidx.room3.RoomDatabase
+import androidx.room3.RoomDatabaseConstructor
 
 @Database(
   entities = [Note::class, Option::class], version = 3, exportSchema = true,
