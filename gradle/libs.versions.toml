@@ -50,6 +50,7 @@ androidx-nav3 = "1.1.1"
 
 
 autolinktext = "2.0.2"
+filekit = "0.14.2"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -106,6 +107,8 @@ autolinktext = { module = "sh.calvin.autolinktext:autolinktext", version.ref = "
 
 room-runtime = { group = "androidx.room3", name = "room3-runtime", version.ref = "room3" }
 room-compiler = { group = "androidx.room3", name = "room3-compiler", version.ref = "room3" }
+filekit-dialogs = { module = "io.github.vinceglb:filekit-dialogs", version.ref = "filekit" }
+filekit-dialogs-compose = { module = "io.github.vinceglb:filekit-dialogs-compose", version.ref = "filekit" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

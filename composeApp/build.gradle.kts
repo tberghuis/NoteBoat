@@ -65,6 +65,9 @@ kotlin {
       implementation(libs.autolinktext)
 
       implementation(libs.room.runtime)
+
+      implementation(libs.filekit.dialogs)
+      implementation(libs.filekit.dialogs.compose)
     }
     commonTest.dependencies {
       implementation(libs.kotlin.test)
