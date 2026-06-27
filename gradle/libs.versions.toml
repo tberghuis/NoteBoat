@@ -20,7 +20,10 @@ kotlinx-coroutines = "1.11.0"
 material3 = "1.10.0-alpha05"
 
 materialIconsExtended = "1.7.3"
-roomVersion = "2.8.4"
+
+#roomVersion = "2.8.4"
+room3 = "3.0.0-rc01"
+
 # https://github.com/google/ksp/releases
 ksp = "2.3.6"
 
@@ -68,9 +71,9 @@ compose-components-resources = { module = "org.jetbrains.compose.components:comp
 compose-uiToolingPreview = { module = "org.jetbrains.compose.ui:ui-tooling-preview", version.ref = "composeMultiplatform" }
 kotlinx-coroutinesSwing = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-swing", version.ref = "kotlinx-coroutines" }
 
-androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomVersion" }
-androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomVersion" }
-androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomVersion" }
+#androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomVersion" }
+#androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomVersion" }
+#androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomVersion" }
 
 #androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
 androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastorePreferences" }
@@ -101,6 +104,9 @@ androidx-lifecycle-viewmodel-nav3 = { module = "org.jetbrains.androidx.lifecycle
 
 autolinktext = { module = "sh.calvin.autolinktext:autolinktext", version.ref = "autolinktext" }
 
+room-runtime = { group = "androidx.room3", name = "room3-runtime", version.ref = "room3" }
+room-compiler = { group = "androidx.room3", name = "room3-compiler", version.ref = "room3" }
+
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 androidLibrary = { id = "com.android.library", version.ref = "agp" }
@@ -112,5 +118,7 @@ kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref =
 androidKmpLibrary = { id = "com.android.kotlin.multiplatform.library", version.ref = "agp" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 
-room = { id = "androidx.room", version.ref = "roomVersion" }
+#room = { id = "androidx.room", version.ref = "roomVersion" }
 jetbrains-kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlinSerialization" }
+
+room = { id = "androidx.room3", version.ref = "room3" }

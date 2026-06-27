@@ -46,7 +46,7 @@ kotlin {
       implementation(libs.koin.compose)
       implementation(libs.koin.compose.viewmodel)
 
-      implementation(libs.androidx.room.runtime)
+//      implementation(libs.androidx.room.runtime)
       implementation(libs.sqlite.bundled)
       implementation(libs.androidx.datastore.preferences)
       implementation(libs.material.icons.extended)
@@ -63,7 +63,8 @@ kotlin {
       implementation(libs.androidx.lifecycle.viewmodel.nav3)
 
       implementation(libs.autolinktext)
-      
+
+      implementation(libs.room.runtime)
     }
     commonTest.dependencies {
       implementation(libs.kotlin.test)
@@ -77,8 +78,12 @@ kotlin {
 }
 
 dependencies {
-  add("kspAndroid", libs.androidx.room.compiler)
-  add("kspJvm", libs.androidx.room.compiler)
+//  add("kspAndroid", libs.androidx.room.compiler)
+//  add("kspJvm", libs.androidx.room.compiler)
+
+
+  add("kspAndroid", libs.room.compiler)
+  add("kspJvm", libs.room.compiler)
 }
 
 compose.desktop {
@@ -93,6 +98,6 @@ compose.desktop {
   }
 }
 
-room {
+room3 {
   schemaDirectory("$projectDir/schemas")
 }
