@@ -11,13 +11,16 @@ import org.koin.core.module.dsl.singleOf
 import org.koin.core.module.dsl.viewModel
 import xyz.tberghuis.noteboat.data.AppDatabase
 import xyz.tberghuis.noteboat.data.AppDatabaseFactory
+import xyz.tberghuis.noteboat.data.BackupDbFunFactory
 import xyz.tberghuis.noteboat.data.DataStorePreferencesFactory
+import xyz.tberghuis.noteboat.data.ImportDbFunFactory
 import xyz.tberghuis.noteboat.data.NoteDao
 import xyz.tberghuis.noteboat.data.OptionDao
 import xyz.tberghuis.noteboat.data.PreferencesRepository
 import xyz.tberghuis.noteboat.vm.EditNoteViewModel
 import xyz.tberghuis.noteboat.vm.HomeViewModel
 import xyz.tberghuis.noteboat.vm.NewNoteViewModel
+import xyz.tberghuis.noteboat.vm.SettingsViewModel
 import xyz.tberghuis.noteboat.vm.TrashScreenVm
 
 expect val platformModule: Module
@@ -36,6 +39,15 @@ val sharedModule = module {
   viewModelOf(::NewNoteViewModel)
   viewModelOf(::EditNoteViewModel)
   viewModelOf(::TrashScreenVm)
+
+  viewModel<SettingsViewModel> {
+    SettingsViewModel(
+      preferencesRepository = get(),
+      noteDao = get(),
+      _backupDb = get<BackupDbFunFactory>().create(),
+      _importDb = get<ImportDbFunFactory>().create(),
+    )
+  }
 }
 
 fun initKoin(config: KoinAppDeclaration? = null) {
