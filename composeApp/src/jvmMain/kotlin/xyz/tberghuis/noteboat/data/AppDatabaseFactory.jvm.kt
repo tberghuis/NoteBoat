@@ -1,6 +1,8 @@
 package xyz.tberghuis.noteboat.data
 
 import androidx.room3.Room
+import androidx.room3.RoomDatabase
+import androidx.sqlite.SQLiteConnection
 import androidx.sqlite.driver.bundled.BundledSQLiteDriver
 import java.io.File
 import xyz.tberghuis.noteboat.DB_FILENAME
@@ -13,6 +15,14 @@ actual class AppDatabaseFactory {
 
     return Room.databaseBuilder<AppDatabase>(
       name = dbFile.absolutePath,
-    ).setDriver(BundledSQLiteDriver()).build()
+    ).setDriver(BundledSQLiteDriver())
+      .addCallback(
+        object : RoomDatabase.Callback() {
+          override suspend fun onCreate(connection: SQLiteConnection) {
+            
+          }
+        }
+      )
+      .build()
   }
 }
