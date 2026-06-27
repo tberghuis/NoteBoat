@@ -3,6 +3,7 @@ package xyz.tberghuis.noteboat.data
 import androidx.room3.Room
 import androidx.room3.RoomDatabase
 import androidx.sqlite.SQLiteConnection
+import androidx.sqlite.execSQL
 import androidx.sqlite.driver.bundled.BundledSQLiteDriver
 import java.io.File
 import xyz.tberghuis.noteboat.DB_FILENAME
@@ -21,9 +22,8 @@ actual class AppDatabaseFactory {
           override suspend fun onCreate(connection: SQLiteConnection) {
             val query =
               "INSERT INTO option (option_key, option_value) VALUES( 'new_note_draft',	'');"
-            
-            
-            
+
+            connection.execSQL(query)
           }
         }
       )
