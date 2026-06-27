@@ -1,9 +1,8 @@
 package xyz.tberghuis.noteboat.data
 
-import androidx.room.Room
+import androidx.room3.Room
 import androidx.sqlite.driver.bundled.BundledSQLiteDriver
 import java.io.File
-import xyz.tberghuis.noteboat.DATASTORE_FILENAME
 import xyz.tberghuis.noteboat.DB_FILENAME
 
 actual class AppDatabaseFactory {
