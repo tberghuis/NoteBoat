@@ -33,31 +33,9 @@ import androidx.compose.runtime.getValue
 import org.koin.androidx.compose.koinViewModel
 import xyz.tberghuis.noteboat.composable.BackupDatabaseButton
 import xyz.tberghuis.noteboat.composable.DeleteAllNotesButton
+import xyz.tberghuis.noteboat.composable.ImportFromBackupButton
 import xyz.tberghuis.noteboat.vm.SettingsViewModel
 
-@Composable
-fun ImportFromBackupButton() {
-  val vm: SettingsViewModel = koinViewModel()
-  val launcher =
-    rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-      logd("rememberLauncherForActivityResult $result")
-      when (result.resultCode) {
-        RESULT_OK -> {
-          result.data?.data?.let { vm.importDb(it.toString()) }
-        }
-      }
-    }
-
-  Button(onClick = {
-    val intent = Intent(Intent.ACTION_GET_CONTENT).apply {
-      type = "*/*"
-      addCategory(Intent.CATEGORY_OPENABLE)
-    }
-    launcher.launch(intent)
-  }) {
-    Text("Import Notes from Backup")
-  }
-}
 
 fun openAppNotificationSettings(context: Context) {
   val intent: Intent = Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS)
