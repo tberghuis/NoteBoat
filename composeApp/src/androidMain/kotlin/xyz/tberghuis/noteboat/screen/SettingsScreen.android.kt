@@ -32,6 +32,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import org.koin.androidx.compose.koinViewModel
 import xyz.tberghuis.noteboat.composable.BackupDatabaseButton
+import xyz.tberghuis.noteboat.composable.DeleteAllNotesButton
 import xyz.tberghuis.noteboat.vm.SettingsViewModel
 
 @Composable
@@ -135,40 +136,6 @@ actual fun SettingsContent(padding: PaddingValues) {
   }
 }
 
-@Composable
-fun DeleteAllNotesButton(
-  vm: SettingsViewModel = koinViewModel()
-) {
-  Button(onClick = {
-    vm.confirmDeleteAllNotesDialog = true
-  }) {
-    Text("Delete All Notes")
-  }
-  if (vm.confirmDeleteAllNotesDialog) {
-    AlertDialog(
-      onDismissRequest = { vm.confirmDeleteAllNotesDialog = false },
-      confirmButton = {
-        Button(onClick = {
-          vm.confirmDeleteAllNotesDialog = false
-          vm.deleteAllNotes()
-        }) {
-          Text("OK")
-        }
-      },
-      modifier = Modifier,
-      dismissButton = {
-        Button(onClick = {
-          vm.confirmDeleteAllNotesDialog = false
-        }) {
-          Text("Cancel")
-        }
-      },
-      text = {
-        Text("Confirm delete all notes?")
-      },
-    )
-  }
-}
 
 @Composable
 fun LockscreenShortcutSetting(vm: SettingsViewModel = koinViewModel()) {
