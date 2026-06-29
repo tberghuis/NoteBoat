@@ -10,6 +10,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import xyz.tberghuis.noteboat.composable.BackupDatabaseButton
+import xyz.tberghuis.noteboat.composable.DeleteAllNotesButton
 
 @Composable
 actual fun SettingsContent(padding: PaddingValues) {
@@ -30,7 +31,7 @@ actual fun SettingsContent(padding: PaddingValues) {
     SettingsScreenRow(
       horizontalArrangement = Arrangement.Center,
     ) {
-//      DeleteAllNotesButton()
+      DeleteAllNotesButton()
     }
     SettingsScreenRow(
       horizontalArrangement = Arrangement.Center,
