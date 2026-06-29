@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import xyz.tberghuis.noteboat.composable.BackupDatabaseButton
 import xyz.tberghuis.noteboat.composable.DeleteAllNotesButton
+import xyz.tberghuis.noteboat.composable.ImportFromBackupButton
 
 @Composable
 actual fun SettingsContent(padding: PaddingValues) {
@@ -36,9 +37,7 @@ actual fun SettingsContent(padding: PaddingValues) {
     SettingsScreenRow(
       horizontalArrangement = Arrangement.Center,
     ) {
-//      ImportFromBackupButton()
+      ImportFromBackupButton()
     }
   }
-
-
 }
