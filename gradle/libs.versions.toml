@@ -26,7 +26,7 @@ materialIconsExtended = "1.7.3"
 room3 = "3.0.0-rc01"
 
 # https://github.com/google/ksp/releases
-ksp = "2.3.6"
+ksp = "2.3.7"
 
 # todo remove bom ??? not supported in KMP???
 #composeBom = "2026.03.00"
@@ -35,7 +35,7 @@ ksp = "2.3.6"
 datastorePreferences = "1.2.1"
 accompanistPermissions = "0.37.3"
 
-koin-bom = "4.2.1"  # Stable version
+koin-bom = "4.2.2"  # Stable version
 
 sqlite = "2.6.2"
 
@@ -87,8 +87,8 @@ koin-android = { module = "io.insert-koin:koin-android" }
 koin-androidx-compose = { module = "io.insert-koin:koin-androidx-compose" }
 koin-compose = { module = "io.insert-koin:koin-compose" }
 koin-compose-viewmodel = { module = "io.insert-koin:koin-compose-viewmodel" }
-koin-ktor = { module = "io.insert-koin:koin-ktor" }
-koin-test = { module = "io.insert-koin:koin-test" }
+#koin-ktor = { module = "io.insert-koin:koin-ktor" }
+#koin-test = { module = "io.insert-koin:koin-test" }
 
 kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinxDatetime" }
 material-icons-extended = { module = "org.jetbrains.compose.material:material-icons-extended", version.ref = "materialIconsExtended" }
