@@ -7,12 +7,13 @@ import androidx.sqlite.execSQL
 import androidx.sqlite.driver.bundled.BundledSQLiteDriver
 import java.io.File
 import xyz.tberghuis.noteboat.DB_FILENAME
+import xyz.tberghuis.noteboat.utils.logd
 
 actual class AppDatabaseFactory {
   actual fun create(): AppDatabase {
     val dbFile = File(System.getProperty("java.io.tmpdir"), DB_FILENAME)
 
-    println("db path ${dbFile.absolutePath}")
+    logd("db path ${dbFile.absolutePath}")
 
     return Room.databaseBuilder<AppDatabase>(
       name = dbFile.absolutePath,

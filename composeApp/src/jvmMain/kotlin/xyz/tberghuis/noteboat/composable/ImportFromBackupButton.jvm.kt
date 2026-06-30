@@ -5,13 +5,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import io.github.vinceglb.filekit.dialogs.compose.rememberFilePickerLauncher
 import org.koin.compose.viewmodel.koinViewModel
+import xyz.tberghuis.noteboat.utils.logd
 import xyz.tberghuis.noteboat.vm.SettingsViewModel
 
 @Composable
 actual fun ImportFromBackupButton() {
   val vm: SettingsViewModel = koinViewModel()
   val launcher = rememberFilePickerLauncher { file ->
-    println("rememberFilePickerLauncher file $file")
+    logd("rememberFilePickerLauncher file $file")
     vm.importDb(file.toString())
   }
   Button(onClick = {

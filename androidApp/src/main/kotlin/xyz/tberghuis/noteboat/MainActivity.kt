@@ -14,6 +14,7 @@ import xyz.tberghuis.noteboat.nav.RouteHome
 import xyz.tberghuis.noteboat.nav.RouteNewNote
 import xyz.tberghuis.noteboat.tmp.TmpApp
 import xyz.tberghuis.noteboat.ui.theme.NoteBoatTheme
+import xyz.tberghuis.noteboat.utils.logd
 
 class MainActivity : ComponentActivity() {
 
@@ -31,7 +32,7 @@ class MainActivity : ComponentActivity() {
     enableEdgeToEdge()
 
     val initialBackStack = mutableStateListOf<NavKey>(RouteHome)
-    println("MainActivity intent data ${intent.data}")
+    logd("MainActivity intent data ${intent.data}")
     if (intent.data.toString() == "noteboat://noteboat/new-note/new_voice_note") {
       initialBackStack.add(RouteNewNote(true))
     }

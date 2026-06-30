@@ -146,7 +146,6 @@ class SpeechControllerAndroid(
         }
       } catch (e: SecurityException) {
         // will get SecurityException when in Do Not Disturb state
-        // println(e)
       }
     }
 

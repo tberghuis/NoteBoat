@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.AnnotatedString
 import sh.calvin.autolinktext.rememberAutoLinkText
+import xyz.tberghuis.noteboat.utils.logd
 
 @Composable
 fun LinkDisplay() {
@@ -16,11 +17,11 @@ fun LinkDisplay() {
   Card(
     modifier = Modifier.fillMaxWidth()
 //      .combinedClickable()
-      
-      .clickable {
-      println("card clicked")
 
-    },
+      .clickable {
+        logd("card clicked")
+
+      },
   ) {
     Text(
       AnnotatedString.rememberAutoLinkText(
