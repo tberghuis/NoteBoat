@@ -1,3 +1,5 @@
+# gemini agent created these rules to fix errors for release DMG macos
+
 -keep class * extends androidx.room3.RoomDatabase { <init>(); }
 
 -keep class androidx.room3.** { *; }
