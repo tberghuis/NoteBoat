@@ -1,13 +1,8 @@
 package xyz.tberghuis.noteboat.screen
 
-import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import xyz.tberghuis.noteboat.DEFAULT_BACKUP_DB_FILENAME
 import xyz.tberghuis.noteboat.utils.logd
-import android.app.Activity.RESULT_OK
 import android.content.Context
 import android.content.Intent
 import androidx.compose.foundation.layout.PaddingValues
@@ -27,7 +22,6 @@ import com.google.accompanist.permissions.PermissionStatus
 import com.google.accompanist.permissions.rememberPermissionState
 import xyz.tberghuis.noteboat.LOCK_SCREEN_CHANNEL_ID
 import android.provider.Settings
-import androidx.compose.material3.AlertDialog
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import org.koin.androidx.compose.koinViewModel

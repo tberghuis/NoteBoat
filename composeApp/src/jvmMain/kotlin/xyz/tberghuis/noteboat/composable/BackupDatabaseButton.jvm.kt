@@ -19,13 +19,11 @@ actual fun BackupDatabaseButton() {
   }
   Button(onClick = {
     launcher.launch(
-      suggestedName = "noteboat-backup",
+      suggestedName = "noteboat_${timestampNowString()}",
       defaultExtension = "db",
       allowedExtensions = setOf("db"),
     )
   }) {
     Text("Backup Database")
   }
-
-
 }

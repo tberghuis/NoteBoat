@@ -68,6 +68,9 @@ kotlin {
 
       implementation(libs.filekit.dialogs)
       implementation(libs.filekit.dialogs.compose)
+
+
+      implementation(libs.kotlinx.datetime)
     }
     commonTest.dependencies {
       implementation(libs.kotlin.test)
