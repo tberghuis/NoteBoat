@@ -101,6 +101,15 @@ compose.desktop {
       targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
       packageName = "xyz.tberghuis.noteboat"
       packageVersion = "1.0.0"
+
+
+      buildTypes.release.proguard {
+        configurationFiles.from(project.file("proguard-rules.pro"))
+        // Optional: set to false to disable ProGuard during debugging/testing
+         isEnabled.set(true) 
+      }
+
+
     }
   }
 }
