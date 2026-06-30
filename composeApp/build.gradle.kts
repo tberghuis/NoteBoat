@@ -95,6 +95,7 @@ dependencies {
 compose.desktop {
   application {
     mainClass = "xyz.tberghuis.noteboat.MainKt"
+    javaHome = System.getenv("JAVA_HOME") ?: System.getProperty("java.home")
 
     nativeDistributions {
       targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
